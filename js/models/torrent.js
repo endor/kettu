@@ -1,6 +1,10 @@
 Torrent = function(attributes) {
   var torrent = {};
-  
+
+  torrent['fields'] = [
+    'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
+    'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload'
+  ];
   torrent['name'] = attributes['name'];
   torrent['created_at'] = attributes.created_at || Date();
   torrent['status'] = attributes['status'];

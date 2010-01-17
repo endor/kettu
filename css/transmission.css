@@ -15,7 +15,13 @@ body{
   background-color: #cccccc;
   width: 100%;
   margin: 0px;
-  padding: 0px;
+  padding: 3px;
+}
+#ratiobar #numberOfTorrents {
+  float: left;
+}
+#ratiobar #globalUpAndDownload {
+  float: right;
 }
 #torrents {
   height: auto;
