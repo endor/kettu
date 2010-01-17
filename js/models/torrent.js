@@ -48,7 +48,9 @@ Torrent = function(attributes) {
     return uploadingProgress + " (Ratio: " + this['uploadRatio'] + ")";
   };
   torrent.progressBar = function() {
-    return $("<div></div>").progressbar({value: this.percentDone()}).html();
+    var progressBar = $("<div></div>").progressbar({value: this.percentDone()}).html()
+    var status = this.isActive() ? 'active' : 'paused';
+    return progressBar.replace(/ui-widget-header/, 'ui-widget-header-' + status);
   };
   torrent.etaString = function() {
     if(this['eta'] < 0) {

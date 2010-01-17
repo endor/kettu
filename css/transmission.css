@@ -42,3 +42,16 @@ body{
   padding: 0px;
   background-color: #442244;
 }
+.ui-widget-header-active {
+  border: 1px solid #aaaaaa; 
+  color: #222222;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x;
+}
+
+.ui-widget-header-paused {
+  border: 1px solid #aaaaaa; 
+  color: #222222;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x;
+}
