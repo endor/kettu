@@ -1,0 +1,38 @@
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
+#header {
+  height: 40px;
+  width: 100%;
+  background-color: #442244;
+  margin: 0px;
+  padding: 0px;
+}
+#ratiobar {
+  height: 20px;
+  background-color: #cccccc;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+#torrents {
+  height: auto;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+#torrents li {
+  display: block;
+  padding: 5px;
+  border: solid 1px #dddddd;
+}
+#footer {
+  height: 40px;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  background-color: #442244;
+}
