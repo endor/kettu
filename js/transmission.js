@@ -5,6 +5,8 @@ var sammy = new Sammy.Application(function() { with(this) {
   rpc = new RPC();
   use(Sammy.Mustache);
 
+  helpers(TorrentHelpers);
+  
   Torrents(this);
   
   before(function() {
