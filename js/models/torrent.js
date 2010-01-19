@@ -5,6 +5,7 @@ Torrent = function(attributes) {
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload'
   ];
+  torrent['id'] = attributes['id'];
   torrent['name'] = attributes['name'];
   torrent['created_at'] = attributes.created_at || Date();
   torrent['status'] = attributes['status'];
@@ -18,9 +19,6 @@ Torrent = function(attributes) {
   torrent['rateDownload'] = attributes['rateDownload'];
   torrent['rateUpload'] = attributes['rateUpload'];
 
-  torrent.id = function() {
-    return this['name'].toLowerCase().replace(/\W+/g, '_');
-  };
   torrent.percentDone = function() {
     if(!this['sizeWhenDone']) { return 0; }
     if(!this['leftUntilDone'] && this['leftUntilDone'] != 0) { return 0; }
@@ -85,6 +83,12 @@ Torrent = function(attributes) {
   };
   torrent.downAndUpLoadRateString = function(downloadRate, uploadRate) {
     return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
+  };
+  torrent.pauseAndActivateButton = function() {
+    var method = this.isActive() ? ['torrent-stop', 'Pause'] : ['torrent-start', 'Activate'];
+    return '<form action="#/torrents/' + this.id + '" method="PUT">' +
+           '<input type="hidden" name="method" value="' + method[0] + '"/>' +
+           '<input type="submit" value="' + method[1] + '"/></form>';
   };
   torrent['stati'] = {
     'waiting_to_check': 1,

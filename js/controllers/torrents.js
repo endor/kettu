@@ -6,6 +6,32 @@ Torrents = function(sammy) { with(sammy) {
     getAndRenderTorrents();
     setInterval('getAndRenderTorrents()', reload_interval);
   });
+  
+  put('#/torrents/:id', function() {
+    context = this;
+    var id = parseInt(this.params['id']);
+    var request = {
+      'method': this.params['method'],
+      'arguments': {'ids': id}
+    };
+    rpc.query(request, function(response) {
+      getAndRenderTorrent(id);
+    });
+  });
+  
+  getAndRenderTorrent = function(id) {
+    var request = {
+      'method': 'torrent-get',
+      'arguments': {'ids': id, 'fields':Torrent({})['fields']}
+    };
+    rpc.query(request, function(response) {
+      var torrent = response['torrents'].map( function(row) {return Torrent(row)} )[0];
+
+      context.partial('./templates/torrents/show.mustache', torrent, function(rendered_view) {
+        $(element_selector).find('#' + this.params['id']).replaceWith(rendered_view);
+      });
+    });
+  };
     
   getAndRenderTorrents = function() {
     var request = {
@@ -15,7 +41,7 @@ Torrents = function(sammy) { with(sammy) {
     rpc.query(request, function(response) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
       var view = { 'torrents': torrents };
-      
+                
       context.partial('./templates/torrents/index.mustache', view, function(rendered_view) {
         sammy.swap(rendered_view);
         $('#globalUpAndDownload').html(context.globalUpAndDownload(torrents));

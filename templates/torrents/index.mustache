@@ -1,10 +1,15 @@
 {{#torrents}}
-  <li>
+  <li id="{{id}}">
     <strong>{{name}}</strong><br />
     {{progressDetails}}<br />
-    <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
-      {{{progressBar}}}
+    
+    <div class="progress">
+      <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+        {{{progressBar}}} 
+      </div>
+      {{{pauseAndActivateButton}}}      
     </div>
+    
     {{statusString}}
   </li>
 {{/torrents}}

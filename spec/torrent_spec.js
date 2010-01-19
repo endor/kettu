@@ -89,9 +89,45 @@ describe 'Torrent'
     end
   end
   
-  describe 'id'
-    it 'should use a machine readable version of the torrent name'
-      Torrent({name: 'This is my Torrent\'s name'}).id().should.eql('this_is_my_torrent_s_name');
+  describe 'statusString'
+    it 'should contain a human readable status'
+      Torrent({status: Torrent({}).stati['checking']}).statusString().should.match(/Verifying local data/);
+    end
+    
+    it 'should contain the up and download speed'
+      var torrent = Torrent({status: Torrent({}).stati['downloading'], rateUpload: 10000, rateDownload: 10000});
+      torrent.statusString().should.match(/DL: 10.0 KB\/s, UL: 10.0 KB\/s/);
+    end
+    
+    it 'should not contain up and download speed when torrent is not active'
+      var torrent = Torrent({status: Torrent({}).stati['paused'], rateUpload: 10000, rateDownload: 10000});
+      torrent.statusString().should_not.match(/DL: 10.0 KB\/s, UL: 10.0 KB\/s/);
+    end
+  end
+  
+  describe 'pauseAndActivateButton'
+    it 'should return a form to pause the torrent if the torrent is active'
+      var form_start = '<form action="#/torrents/567" method="PUT">';
+      var status = '<input type="hidden" name="method" value="torrent-stop"/>';
+      var form_end = '<input type="submit" value="Pause"/></form>';
+      var torrent = Torrent({id: '567', status: Torrent({}).stati['downloading']});
+      torrent.pauseAndActivateButton().should.match(new RegExp(form_start + status + form_end));
+    end
+
+    it 'should return a form to start the torrent if the torrent is paused and not done downloading'
+      var form_start = '<form action="#/torrents/567" method="PUT">';
+      var status = '<input type="hidden" name="method" value="torrent-start"/>';
+      var form_end = '<input type="submit" value="Activate"/></form>';
+      var torrent = Torrent({id: '567', status: Torrent({}).stati['paused']});
+      torrent.pauseAndActivateButton().should.match(new RegExp(form_start + status + form_end));
+    end
+
+    it 'should return a form to start the torrent if the torrent is paused and done downloading'
+      var form_start = '<form action="#/torrents/567" method="PUT">';
+      var status = '<input type="hidden" name="method" value="torrent-start"/>';
+      var form_end = '<input type="submit" value="Activate"/></form>';
+      var torrent = Torrent({id: '567', status: Torrent({}).stati['paused'], leftUntilDone: 0});
+      torrent.pauseAndActivateButton().should.match(new RegExp(form_start + status + form_end));
     end
   end
 end

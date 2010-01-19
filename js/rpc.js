@@ -16,7 +16,9 @@ RPC.prototype = {
         xhr.setRequestHeader('X-Transmission-Session-Id', context.session_id);
       },
       success: function(response) {
-        callback(response['arguments']);
+        if(callback) {
+          callback(response['arguments']);
+        }
       },
       error: function(xhr, ajaxOptions, thrownError) {
         context.session_id = xhr.getResponseHeader('X-Transmission-Session-Id');
