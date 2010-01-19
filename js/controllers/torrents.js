@@ -27,7 +27,7 @@ Torrents = function(sammy) { with(sammy) {
     rpc.query(request, function(response) {
       var torrent = response['torrents'].map( function(row) {return Torrent(row)} )[0];
 
-      context.partial('./templates/torrents/show.mustache', torrent, function(rendered_view) {
+      context.partial('./templates/torrents/show.mustache', TorrentView(torrent), function(rendered_view) {
         $(element_selector).find('#' + this.params['id']).replaceWith(rendered_view);
       });
     });
@@ -40,13 +40,15 @@ Torrents = function(sammy) { with(sammy) {
     };
     rpc.query(request, function(response) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
-      var view = { 'torrents': torrents };
                 
-      context.partial('./templates/torrents/index.mustache', view, function(rendered_view) {
-        sammy.swap(rendered_view);
-        $('#globalUpAndDownload').html(context.globalUpAndDownload(torrents));
-        $('#numberOfTorrents').html(context.numberOfTorrents(torrents));
-      });
+      context.partial('./templates/torrents/index.mustache', TorrentsView(torrents));
+      trigger('torrents-refreshed', torrents);
     });    
-  };  
+  };
+  
+  bind('torrents-refreshed', function(e, torrents) { with(this) {
+    $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
+    $('#numberOfTorrents').html(this.numberOfTorrents(torrents));  
+  }});
+    
 }};

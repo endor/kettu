@@ -84,12 +84,6 @@ Torrent = function(attributes) {
   torrent.downAndUpLoadRateString = function(downloadRate, uploadRate) {
     return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
   };
-  torrent.pauseAndActivateButton = function() {
-    var method = this.isActive() ? ['torrent-stop', 'Pause'] : ['torrent-start', 'Activate'];
-    return '<form action="#/torrents/' + this.id + '" method="PUT">' +
-           '<input type="hidden" name="method" value="' + method[0] + '"/>' +
-           '<input type="submit" value="' + method[1] + '"/></form>';
-  };
   torrent['stati'] = {
     'waiting_to_check': 1,
     'checking': 2,

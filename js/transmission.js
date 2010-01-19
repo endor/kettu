@@ -1,7 +1,7 @@
 var sammy = new Sammy.Application(function() { with(this) {
   element_selector = '#torrents';
   cache_partials = false;
-  reload_interval = 400000;
+  reload_interval = 40000;
   rpc = new RPC();
   use(Sammy.Mustache);
 
@@ -14,7 +14,7 @@ var sammy = new Sammy.Application(function() { with(this) {
   });
   
   get('#/', function() {});
-  
+    
   bind('error', function(e, data) { with(this) {
     $('#error').html(data.message).show();
   }});
