@@ -7,6 +7,7 @@
     <script src="./vendor/jquery/jquery.js"></script>
     <script src="./vendor/jquery/jquery.ui.js"></script>
     <script src="./vendor/sammy/sammy.js"></script>
+    <script src="./vendor/sammy/sammy.cache.js"></script>
     <script src="./vendor/mustache/mustache.js"></script>
     <script src="./vendor/mustache/sammy.mustache.js"></script>
     <script src="./js/rpc.js"></script>
@@ -17,6 +18,7 @@
     <script src="./js/views/torrent.js"></script>
     <script src="./js/helpers/math_helpers.js"></script>
     <script src="./js/helpers/torrent_helpers.js"></script>
+    <script src="./js/helpers/view_helpers.js"></script>
     <script src="./js/transmission.js"></script>
   </head>
 
@@ -30,10 +32,10 @@
       <div id="globalUpAndDownload"></div>
     </div>
     <div id="filterbar">
-      <a href="#/filtered_torrents/all">All</a>
-      <a href="#/filtered_torrents/downloading">Downloading</a>
-      <a href="#/filtered_torrents/seeding">Seeding</a>
-      <a href="#/filtered_torrents/paused">Paused</a>
+      <a href="#/filtered_torrents/all" class="all">All</a>
+      <a href="#/filtered_torrents/downloading" class="downloading">Downloading</a>
+      <a href="#/filtered_torrents/seeding" class="seeding">Seeding</a>
+      <a href="#/filtered_torrents/paused" class="paused">Paused</a>
     </div>
     <ul id="torrents"></ul>
     <div id="footer"></div>

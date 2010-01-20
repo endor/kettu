@@ -4,8 +4,10 @@ var sammy = new Sammy.Application(function() { with(this) {
   reload_interval = 40000;
   rpc = new RPC();
   use(Sammy.Mustache);
-
+  use(Sammy.Cache);
+  
   helpers(TorrentHelpers);
+  helpers(ViewHelpers);
   
   Torrents(this);
   FilteredTorrents(this);

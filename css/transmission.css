@@ -93,3 +93,7 @@ body{
   text-decoration: none;
   margin-right: 4px;
 }
+
+#filterbar a.active {
+  color: #222222;
+}
