@@ -1,6 +1,6 @@
-<li id="{{id}}">
+<li id="{{id}}" class="torrent">
   <strong>{{name}}</strong><br />
-  {{progressDetails}}<br />
+  <small>{{progressDetails}}</small><br />
   
   <div class="progress">
     <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
@@ -9,5 +9,5 @@
     {{{pauseAndActivateButton}}}      
   </div>
   
-  {{statusString}}
+  <div class="status">{{statusString}}</div>
 </li>
