@@ -1,21 +1,12 @@
 FilteredTorrents = function(sammy) { with(sammy) {
-  get('#/filtered_torrents/:filter', function() {
-    var filter = getFilter(this.params['filter']);
-    $('.torrent').css('background-color', '#FFFFFF');
-    $('.torrent' + filter).css('background-color', '#FFF8DC');
-  });
+  valid_filters = ['seeding', 'downloading', 'paused', 'seeding'];
   
-  getFilter = function(filter_status) {
-    var stati, status, filter = '';
-    
-    stati = Torrent({}).stati;
-    for(var i in stati) {
-      if(i == filter_status) { status = i; }
+  get('#/filtered_torrents/:filter', function() {
+    var filter = '';
+    if($.inArray(this.params['filter'], valid_filters) >= 0) {
+      filter = '.' + this.params['filter'];
     }
-    if(status != undefined) {
-      filter = '.' + status;
-    }
-    
-    return filter;
-  };
+    $('.torrent').hide();
+    $('.torrent' + filter).show();
+  });
 }};
