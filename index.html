@@ -11,6 +11,7 @@
     <script src="./vendor/mustache/sammy.mustache.js"></script>
     <script src="./js/rpc.js"></script>
     <script src="./js/controllers/torrents.js"></script>
+    <script src="./js/controllers/filtered_torrents.js"></script>
     <script src="./js/models/torrent.js"></script>
     <script src="./js/views/torrents.js"></script>
     <script src="./js/views/torrent.js"></script>
@@ -27,6 +28,12 @@
     <div id="ratiobar">
       <div id="numberOfTorrents"></div>
       <div id="globalUpAndDownload"></div>
+    </div>
+    <div id="filterbar">
+      <a href="#/filtered_torrents/all">All</a>
+      <a href="#/filtered_torrents/downloading">Downloading</a>
+      <a href="#/filtered_torrents/seeding">Seeding</a>
+      <a href="#/filtered_torrents/paused">Paused</a>
     </div>
     <ul id="torrents"></ul>
     <div id="footer"></div>

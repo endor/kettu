@@ -8,6 +8,7 @@ var sammy = new Sammy.Application(function() { with(this) {
   helpers(TorrentHelpers);
   
   Torrents(this);
+  FilteredTorrents(this);
   
   before(function() {
     // before block

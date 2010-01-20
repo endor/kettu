@@ -16,5 +16,19 @@ var TorrentHelpers = {
       numberOfTorrents = "No torrents";
     }      
     return numberOfTorrents;
+  },
+  
+  highlightTorrent: function() {
+    $('.torrent').css('background-color', '#FFFFFF');
+    $(this).css('background-color', '#FFF8DC');
+  },
+  
+  updateViewElements: function(torrents) {
+    $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
+    $('#numberOfTorrents').html(this.numberOfTorrents(torrents));
+    $('.torrent').click(this.highlightTorrent);
+    if(torrents.length > 0) {
+      $('#filterbar').show();
+    }
   }
 };

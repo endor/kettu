@@ -81,3 +81,15 @@ body{
   clear: both;
   font-size: 12px;
 }
+
+#filterbar {
+  display: none;
+  padding: 2px;
+  padding-left: 8px;
+}
+
+#filterbar a {
+  color: #555555;
+  text-decoration: none;
+  margin-right: 4px;
+}

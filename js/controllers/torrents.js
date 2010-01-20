@@ -41,14 +41,15 @@ Torrents = function(sammy) { with(sammy) {
     rpc.query(request, function(response) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
                 
-      context.partial('./templates/torrents/index.mustache', TorrentsView(torrents));
-      trigger('torrents-refreshed', torrents);
+      context.partial('./templates/torrents/index.mustache', TorrentsView(torrents), function(rendered_view) {
+        context.app.swap(rendered_view);
+        trigger('torrents-refreshed', torrents);
+      });
     });    
   };
   
   bind('torrents-refreshed', function(e, torrents) { with(this) {
-    $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
-    $('#numberOfTorrents').html(this.numberOfTorrents(torrents));  
+    this.updateViewElements(torrents);    
   }});
     
 }};

@@ -81,6 +81,13 @@ Torrent = function(attributes) {
     }
     return currentStatus;
   };
+  torrent.statusWord = function() {
+    for(var i in this.stati) {
+      if(this.stati[i] == this.status) {
+        return i;
+      }
+    }
+  }
   torrent.downAndUpLoadRateString = function(downloadRate, uploadRate) {
     return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
   };
