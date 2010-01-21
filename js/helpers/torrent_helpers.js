@@ -17,11 +17,17 @@ var TorrentHelpers = {
     }      
     return numberOfTorrents;
   },
-    
+  
+  cycleTorrents: function() {
+    $('.torrent').removeClass('even');
+    $('.torrent:even').addClass('even');
+  },
+  
   updateViewElements: function(torrents) {
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
     $('#numberOfTorrents').html(this.numberOfTorrents(torrents));
     this.updateTorrentInfoElements();
+    this.cycleTorrents();
     
     if(torrents.length > 0) {
       $('#filterbar').show();

@@ -75,6 +75,10 @@ body{
   background-color: #FFF8DC;
 }
 
+.torrent.even {
+  background-color: #F8F8F8;
+}
+
 #filterbar {
   display: none;
   padding: 2px;
