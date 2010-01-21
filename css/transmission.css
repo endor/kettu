@@ -23,19 +23,8 @@ body{
 #ratiobar #globalUpAndDownload {
   float: right;
 }
-#torrents {
-  height: auto;
-  width: 100%;
-  margin: 0px;
-  padding: 0px;
-  list-style-type: none;
-}
-#torrents li {
-  display: block;
-  padding: 5px;
-  border: solid 1px #dddddd;
-}
 #footer {
+  clear: both;
   height: 40px;
   width: 100%;
   margin: 0px;
@@ -82,6 +71,10 @@ body{
   font-size: 12px;
 }
 
+.torrent.active {
+  background-color: #FFF8DC;
+}
+
 #filterbar {
   display: none;
   padding: 2px;
@@ -96,4 +89,26 @@ body{
 
 #filterbar a.active {
   color: #222222;
+}
+
+#torrent_info {
+  display: none;
+  float: right;
+  width: 29%;
+  background-color: white;
+  border: solid 1px #dddddd;
+  height: 100%;
+}
+#torrents {
+  height: auto;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  float: left;
+}
+#torrents li {
+  display: block;
+  padding: 5px;
+  border: solid 1px #dddddd;
 }

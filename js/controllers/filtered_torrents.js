@@ -8,6 +8,8 @@ FilteredTorrents = function(sammy) { with(sammy) {
     }
     $('.torrent').hide();
     $('.torrent' + filter).show();
+    
     this.highlightLink('#filterbar', '.' + this.params['filter']);
+    this.closeTorrentInfo();
   });
 }};
