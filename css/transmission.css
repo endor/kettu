@@ -66,13 +66,26 @@ body{
   height: 15px; 
 }
 
-.torrent .status {
+.torrent .statusString {
   clear: both;
-  font-size: 12px;
+  font-size: 13px;
+  color: #555555;
+}
+
+.torrent .name {
+  margin: 0px;
+  padding: 0px;
+}
+
+.torrent .progressDetails {
+  margin: 0px;
+  padding: 0px;  
+  font-size: 13px;
+  color: #555555;
 }
 
 .torrent.active {
-  background-color: #FFF8DC;
+  background-color: #FFF8DC !important;
 }
 
 .torrent.even {
@@ -80,7 +93,6 @@ body{
 }
 
 #filterbar {
-  display: none;
   padding: 2px;
   padding-left: 8px;
 }

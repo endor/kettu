@@ -4,11 +4,10 @@ var TorrentInfoHelpers = {
     var info = $('#torrent_info');
     info.html('');
     info.hide();
-    window.location.hash = '/torrents';
   },
 
   openAndUpdateTorrentInfo: function() {
-    var active_torrent = $('.torrent.active:first');
+    var active_torrent = $('.torrent.active');
     if(active_torrent.get(0)) {
       window.location.hash = '/torrents/' + active_torrent.attr('id');
     }
@@ -22,16 +21,29 @@ var TorrentInfoHelpers = {
     $('#torrent_info').is(':visible') ? _close() : _open();
   },
   
-  updateTorrentInfoElements: function() {
+  rebindForms: function() {
     var context = this;
-    $('.torrent').click(function() {
+    var forms = context.$element().find('form:not(.' + context.app.eventNamespace() + ')')
+    forms.bind('submit', function() {
+      return context.app._checkFormSubmission(this);
+    }).addClass(context.app.eventNamespace());
+  },
+  
+  updateTorrentInfo: function(torrent) {
+    var context = this;
+
+    context.rebindForms();
+    
+    $('#' + torrent.id).click(function(event) {
       context.highlightLi('#torrents', this);
       if(context.torrentInfoOpen()) {
         context.openAndUpdateTorrentInfo();
       }
     });
-    $('.torrent').dblclick(function() {
+    // TODO: triple double clicking doesnt work
+    $('#' + torrent.id).dblclick(function() {
       context.toggleTorrentInfo(context.openAndUpdateTorrentInfo, context.closeTorrentInfo);
+      return false;
     });
   }
 };

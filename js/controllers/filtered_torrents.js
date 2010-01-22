@@ -1,9 +1,7 @@
-FilteredTorrents = function(sammy) { with(sammy) {
-  valid_filters = ['seeding', 'downloading', 'paused', 'seeding'];
-  
+FilteredTorrents = function(sammy) { with(sammy) {  
   get('#/filtered_torrents/:filter', function() {
     var filter = '';
-    if($.inArray(this.params['filter'], valid_filters) >= 0) {
+    if($.inArray(this.params['filter'], this.valid_filters()) >= 0) {
       filter = '.' + this.params['filter'];
     }
     $('.torrent').hide();

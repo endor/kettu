@@ -8,8 +8,8 @@ Torrents = function(sammy) { with(sammy) {
   });
   
   get('#/torrents/:id', function() {
-    var id = parseInt(this.params['id']);
-    var context = this;
+    context = this;
+    var id = parseInt(context.params['id']);
     
     getTorrent(id, function(torrent) {
       var info = $('#torrent_info');
@@ -22,9 +22,10 @@ Torrents = function(sammy) { with(sammy) {
   });
   
   put('#/torrents/:id', function() {
-    var id = parseInt(this.params['id']);
+    context = this;
+    var id = parseInt(context.params['id']);
     var request = {
-      'method': this.params['method'],
+      'method': context.params['method'],
       'arguments': {'ids': id}
     };
     rpc.query(request, function(response) {
@@ -43,8 +44,9 @@ Torrents = function(sammy) { with(sammy) {
   }
     
   renderTorrent = function(torrent) {
-    this.partial('./templates/torrents/show.mustache', TorrentView(torrent), function(rendered_view) {
+    context.partial('./templates/torrents/show.mustache', TorrentView(torrent, context), function(rendered_view) {
       $(element_selector).find('#' + torrent.id).replaceWith(rendered_view);
+      trigger('torrent-refreshed', torrent);
     });    
   };
   
@@ -55,16 +57,17 @@ Torrents = function(sammy) { with(sammy) {
     };
     rpc.query(request, function(response) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
-                
-      context.partial('./templates/torrents/index.mustache', TorrentsView(torrents), function(rendered_view) {
-        context.app.swap(rendered_view);
-        trigger('torrents-refreshed', torrents);
-      });
+      trigger('torrents-refreshed', torrents);
     });    
   };
   
+  // TODO: find a way to put this into the appropriate helper files
   bind('torrents-refreshed', function(e, torrents) { with(this) {
-    this.updateViewElements(torrents);    
+    this.updateViewElements(torrents);
   }});
-    
+  
+  bind('torrent-refreshed', function(e, torrent) { with(this) {
+    this.updateTorrentInfo(torrent);
+    this.cycleTorrents();    
+  }});
 }};

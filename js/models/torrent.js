@@ -19,71 +19,71 @@ Torrent = function(attributes) {
   torrent['rateDownload'] = attributes['rateDownload'];
   torrent['rateUpload'] = attributes['rateUpload'];
 
+  torrent.isActive = function() {
+    return (torrent.status & (torrent.stati['downloading'] | torrent.stati['seeding'])) > 0;
+  };
+  torrent.isDoneDownloading = function() {
+    return torrent.status === torrent.stati['seeding'] || torrent.leftUntilDone === 0;
+  };
   torrent.percentDone = function() {
-    if(!this['sizeWhenDone']) { return 0; }
-    if(!this['leftUntilDone'] && this['leftUntilDone'] != 0) { return 0; }
+    if(!torrent.sizeWhenDone) { return 0; }
+    if(!torrent.leftUntilDone && torrent.leftUntilDone != 0) { return 0; }
     
     return Math.floor( ((this['sizeWhenDone'] - this['leftUntilDone']) / this['sizeWhenDone']) * 10000 ) / 100;
   };
   torrent.progressDetails = function() {
-    var progressDetails = (!this.isDoneDownloading()) ? this.downloadingProgress() : this.uploadingProgress();
-    if(!this.isDoneDownloading() && this.isActive()) {
-      progressDetails += ' - ' + this.etaString();
+    var progressDetails = (!torrent.isDoneDownloading()) ? torrent.downloadingProgress() : torrent.uploadingProgress();
+    if(!torrent.isDoneDownloading() && torrent.isActive()) {
+      progressDetails += ' - ' + torrent.etaString();
     }
     return progressDetails;
   };
   torrent.downloadingProgress = function() {
-    var formattedSizeDownloaded = Math.formatBytes(this['sizeWhenDone'] - this['leftUntilDone']);
-    var formattedSizeWhenDone = Math.formatBytes(this['sizeWhenDone']);
+    var formattedSizeDownloaded = Math.formatBytes(torrent.sizeWhenDone - torrent.leftUntilDone);
+    var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone);
 
-    return (formattedSizeDownloaded + " of " + formattedSizeWhenDone + " (" + this.percentDone() + "%)");
+    return (formattedSizeDownloaded + " of " + formattedSizeWhenDone + " (" + torrent.percentDone() + "%)");
   };
   torrent.uploadingProgress = function() {
-    var formattedSizeWhenDone = Math.formatBytes(this['sizeWhenDone']);
-    var formattedUploadedEver = Math.formatBytes(this['uploadedEver']);
+    var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone);
+    var formattedUploadedEver = Math.formatBytes(torrent.uploadedEver);
 
     var uploadingProgress = formattedSizeWhenDone + " selected, uploaded " + formattedUploadedEver;
-    return uploadingProgress + " (Ratio: " + this['uploadRatio'] + ")";
+    return uploadingProgress + " (Ratio: " + torrent.uploadRatio + ")";
   };
   torrent.progressBar = function() {
-    var progressBar = $("<div></div>").progressbar({value: this.percentDone()}).html()
-    var status = this.isActive() ? 'active' : 'paused';
+    var progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html()
+    var status = torrent.isActive() ? 'active' : 'paused';
     return progressBar.replace(/ui-widget-header/, 'ui-widget-header-' + status);
   };
   torrent.etaString = function() {
-    if(this['eta'] < 0) {
+    if(torrent.eta < 0) {
       return "remaining time unknown";
     } else {
-      return Math.formatSeconds(this['eta']) + ' ' + 'remaining';
+      return Math.formatSeconds(torrent.eta) + ' ' + 'remaining';
     }
-  };
-  torrent.isActive = function() {
-    return (this['status'] & (this.stati['downloading'] | this.stati['seeding'])) > 0;
-  };
-  torrent.isDoneDownloading = function() {
-    return this['status'] === this.stati['seeding'] || this['leftUntilDone'] === 0;
   };
   torrent.statusStringLocalized = function(status) {
     var localized_stati = {};
     
-    localized_stati[this.stati['waiting_to_check']] = 'Waiting to verify';
-    localized_stati[this.stati['checking']] = 'Verifying local data';
-    localized_stati[this.stati['downloading']] = 'Downloading';
-    localized_stati[this.stati['seeding']] = 'Seeding';
-    localized_stati[this.stati['paused']] = 'Paused';
+    localized_stati[torrent.stati['waiting_to_check']] = 'Waiting to verify';
+    localized_stati[torrent.stati['checking']] = 'Verifying local data';
+    localized_stati[torrent.stati['downloading']] = 'Downloading';
+    localized_stati[torrent.stati['seeding']] = 'Seeding';
+    localized_stati[torrent.stati['paused']] = 'Paused';
 
     return localized_stati[this['status']] ? localized_stati[this['status']] : 'error';
   };
   torrent.statusString = function() {
-    var currentStatus = this.statusStringLocalized(this['status']);
-    if(this.isActive()) {
-      currentStatus += ' - ' + this.downAndUpLoadRateString(this['rateDownload'], this['rateUpload']);
+    var currentStatus = torrent.statusStringLocalized(torrent.status);
+    if(torrent.isActive()) {
+      currentStatus += ' - ' + torrent.downAndUpLoadRateString(torrent.rateDownload, torrent.rateUpload);
     }
     return currentStatus;
   };
   torrent.statusWord = function() {
-    for(var i in this.stati) {
-      if(this.stati[i] == this.status) {
+    for(var i in torrent.stati) {
+      if(torrent.stati[i] == torrent.status) {
         return i;
       }
     }
