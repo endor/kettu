@@ -45,14 +45,14 @@ var TorrentHelpers = {
   },
   
   updateTorrents: function(torrents) {
-    // TODO: need to test this.. don't know how to stub jquery responses yet
     var context = this;
     var updatableFields = ['progressDetails', 'name', 'progressBar', 'pauseAndActivateButton', 'statusString'];
-    
+
     this.removeOldTorrents(torrents, $('.torrent'));
     
     $.each(torrents, function() {
       var old_torrent = $('#' + this.id);
+
       if(!old_torrent.get(0)) {
         context.makeNewTorrent(this);
       } else {

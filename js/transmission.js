@@ -1,6 +1,6 @@
 var sammy = new Sammy.Application(function() { with(this) {
   element_selector = '#torrents';
-  cache_partials = false;
+  cache_partials = true;
   reload_interval = 2000;
   rpc = new RPC();
   use(Sammy.Mustache);
