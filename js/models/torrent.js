@@ -17,6 +17,13 @@ Torrent = function(attributes) {
     torrent[this] = attributes[this];
   });
   
+  $.each(['totalSize', 'downloadedEver', 'uploadedEver', 'pieceSize'], function() {
+    var attr = this;
+    torrent[attr + 'String'] = function() {
+      return Math.formatBytes(torrent[attr]);
+    }
+  });
+  
   torrent.secure = function() {
     return (torrent.isPrivate) ? 'Private Torrent' : 'Public Torrent';
   };
@@ -98,9 +105,6 @@ Torrent = function(attributes) {
     'downloading': 4,
     'seeding': 8,
     'paused': 16
-  };
-  torrent.sizeString = function() {
-    return (torrent.totalSize / 1024 / 1024).toFixed(1) + ' MB'
   };
   
   return torrent;
