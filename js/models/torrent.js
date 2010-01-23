@@ -5,20 +5,22 @@ Torrent = function(attributes) {
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload'
   ];
-  torrent['id'] = attributes['id'];
-  torrent['name'] = attributes['name'];
-  torrent['created_at'] = attributes.created_at || Date();
-  torrent['status'] = attributes['status'];
-  torrent['totalSize'] = attributes['totalSize'];
-  torrent['sizeWhenDone'] = attributes['sizeWhenDone'];
-  torrent['haveValid'] = attributes['haveValid'];
-  torrent['leftUntilDone'] = attributes['leftUntilDone'];
-  torrent['eta'] = attributes['eta'];
-  torrent['uploadedEver'] = attributes['uploadedEver'];
-  torrent['uploadRatio'] = attributes['uploadRatio'];
-  torrent['rateDownload'] = attributes['rateDownload'];
-  torrent['rateUpload'] = attributes['rateUpload'];
-
+  torrent['info_fields'] = [
+    'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
+    'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
+    'pieceCount', 'pieceSize'
+  ];
+  $.each(torrent.fields, function() {
+    torrent[this] = attributes[this];
+  });
+  $.each(torrent.info_fields, function() {
+    torrent[this] = attributes[this];
+  });
+  
+  torrent.secure = function() {
+    return (torrent.isPrivate) ? 'Private Torrent' : 'Public Torrent';
+  };
+	
   torrent.isActive = function() {
     return (torrent.status & (torrent.stati['downloading'] | torrent.stati['seeding'])) > 0;
   };
@@ -29,7 +31,7 @@ Torrent = function(attributes) {
     if(!torrent.sizeWhenDone) { return 0; }
     if(!torrent.leftUntilDone && torrent.leftUntilDone != 0) { return 0; }
     
-    return Math.floor( ((this['sizeWhenDone'] - this['leftUntilDone']) / this['sizeWhenDone']) * 10000 ) / 100;
+    return Math.floor( ((torrent.sizeWhenDone - torrent.leftUntilDone) / torrent.sizeWhenDone) * 10000 ) / 100;
   };
   torrent.progressDetails = function() {
     var progressDetails = (!torrent.isDoneDownloading()) ? torrent.downloadingProgress() : torrent.uploadingProgress();
@@ -97,6 +99,9 @@ Torrent = function(attributes) {
     'downloading': 4,
     'seeding': 8,
     'paused': 16
+  };
+  torrent.sizeString = function() {
+    return (torrent.totalSize / 1024 / 1024).toFixed(1) + ' MB'
   };
   
   return torrent;

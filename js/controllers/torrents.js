@@ -17,6 +17,11 @@ Torrents = function(sammy) { with(sammy) {
         info.html(rendered_view);
         info.show();
         $('#torrents').css('width', '70%');
+        $('#torrent_info .header').click(function() {
+          $(this).parent().next().toggle('slow');
+          $(this).toggleClass('active');
+      		return false;
+        }).parent().next().hide();
       });
     });
   });
@@ -36,10 +41,10 @@ Torrents = function(sammy) { with(sammy) {
   getTorrent = function(id, callback) {
     var request = {
       'method': 'torrent-get',
-      'arguments': {'ids': id, 'fields':Torrent({})['fields']}
+      'arguments': {'ids': id, 'fields': Torrent({})['fields'].concat(Torrent({})['info_fields'])}
     };
     rpc.query(request, function(response) {
-      callback(response['torrents'].map( function(row) {return Torrent(row)} )[0]);
+      callback(response['torrents'].map( function(row) {return Torrent(row);} )[0]);
     });
   }
     

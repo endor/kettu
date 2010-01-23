@@ -106,15 +106,6 @@ body{
 #filterbar a.active {
   color: #222222;
 }
-
-#torrent_info {
-  display: none;
-  float: right;
-  width: 29%;
-  background-color: white;
-  border: solid 1px #dddddd;
-  height: 100%;
-}
 #torrents {
   height: auto;
   width: 100%;
@@ -127,4 +118,44 @@ body{
   display: block;
   padding: 5px;
   border: solid 1px #dddddd;
+}
+#torrent_info {
+  display: none;
+  float: right;
+  width: 25%;
+  background-color: white;
+  border: solid 1px #dddddd;
+  height: 100%;
+  padding: 10px;
+}
+#torrent_info h2 {
+  font-size: 18px;
+  margin: 0px;
+  padding: 0px;
+}
+#torrent_info h3 {
+  font-size: 15px;
+  margin: 0px;
+  padding: 0px;
+}
+#torrent_info h4 {
+  font-size: 13px;
+}
+#torrent_info .header {
+  color: #555555;
+  text-decoration: none;
+  background-image: url(images/bullet_toggle_plus.png);
+  background-repeat: no-repeat;
+  margin: 10px;
+  padding-left: 15px;
+}
+#torrent_info .header.active{
+  background-image: url(images/bullet_toggle_minus.png);
+  background-repeat: no-repeat;
+  margin: 10px;
+  padding-left: 15px;
+}
+#torrent_info .content {
+  margin-left: 15px;
+  font-size: 12px;
 }

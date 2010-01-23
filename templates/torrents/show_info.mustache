@@ -1,90 +1,94 @@
 <h2>{{name}}</h2>
 
-<p>{{totalSize}}</p>
+<p>Size: {{sizeString}}</p>
 
-<h3>Information</h3>
-<p>
-  <span class="label">Pieces:</span>
-  <span class="value"></span>
-</p>
-<p>
-  <span class="label">Hash:</span>
-  <span class="value"></span>
-</p>
-<p>
-  <span class="label">Secure:</span>
-  <span class="value"></span>
-</p>
-<p>  
-  <span class="label">Comment:</span>
-  <span class="value"></span>
-</p>
-
-<h3>Created By</h3>
-<p>
-  <span class="label">Creator:</span>
-  <span class="value"></span>
-</p>
-<p>
-  <span class="label">Date:</span>
-  <span class="value">{{created_at}}</span>
-</p>
-
-<h3>Where</h3>
-<p>
-  <span class="label">Download Directory:</span>
-  <span class="value"></span>
-</p>
+<h3><a href="#" class="header">Information</a></h3>
+<div class="content">
+  <p>
+    <span class="label">Pieces:</span>
+    <span class="value">{{pieceCount}}, {{pieceSize}}</span>
+  </p>
+  <p>
+    <span class="label">Hash:</span>
+    <span class="value">{{hashString}}</span>
+  </p>
+  <p>
+    <span class="label">Secure:</span>
+    <span class="value">{{secure}}</span>
+  </p>
+  <p>  
+    <span class="label">Comment:</span>
+    <span class="value">{{comment}}</span>
+  </p>
+  <p>
+    <span class="label">Creator:</span>
+    <span class="value">{{creator}}</span>
+  </p>
+  <p>
+    <span class="label">Date:</span>
+    <span class="value">{{created_at}}</span>
+  </p>
+  <p>
+    <span class="label">Download Directory:</span>
+    <span class="value">{{downloadDir}}</span>
+  </p>  
+</div>
   
 
-<h3>Activity</h3>
-<p>
-  <span class="label">State:</span>
-  <span class="value">{{statusWord}}</span>
-</p>
-<p>
-  <span class="label">Progress:</span>
-  <span class="value"></span>
-</p>
-<p>
-  <span class="label">Have:</span>
-  <span class="value"></span>
-</p>
-<p>
-  <span class="label">Downloaded:</span>
-  <span class="value"></span>
-</p>
-<p>
-  <span class="label">Uploaded:</span>
-  <span class="value">{{uploadedEver}}</span>
-</p>
-<p>
-  <span class="label">Ratio:</span>
-  <span class="value">{{uploadRatio}}</span>
-</p>
-<p>
-  <span class="label">Error:</span>
-  <span class="value"></span>
-</p>
-<p>
-  <span class="label">Download speed:</span>
-  <span class="value">{{rateDownload}}</span>
-</p>
-<p>
-  <span class="label">Upload speed:</span>
-  <span class="value">{{rateUpload}}</span>
-</p>
+<h3><a href="#" class="header">Activity</a></h3>
+<div class="content">
+  <p>
+    <span class="label">State:</span>
+    <span class="value">{{statusWord}}</span>
+  </p>
+  <p>
+    <span class="label">Progress:</span>
+    <span class="value">{{percentDone}}%</span>
+  </p>
+  <p>
+    <span class="label">Have:</span>
+    <span class="value">{{haveString}}</span>
+  </p>
+  <p>
+    <span class="label">Downloaded:</span>
+    <span class="value">{{downloadedEver}}</span>
+  </p>
+  <p>
+    <span class="label">Uploaded:</span>
+    <span class="value">{{uploadedEver}}</span>
+  </p>
+  <p>
+    <span class="label">Ratio:</span>
+    <span class="value">{{uploadRatio}}</span>
+  </p>
+  <p>
+    <span class="label">Error:</span>
+    <span class="value">{{errorString}}</span>
+  </p>
+  <p>
+    <span class="label">Download speed:</span>
+    <span class="value">{{rateDownload}}</span>
+  </p>
+  <p>
+    <span class="label">Upload speed:</span>
+    <span class="value">{{rateUpload}}</span>
+  </p>
+  <p>
+    <span class="label">Peers - Upload to:</span>
+    <span class="value">{{peersGettingFromUs}}</span>
+  </p>
+  <p>
+    <span class="label">Peers - Download from:</span>
+    <span class="value">{{peersSendingToUs}}</span>
+  </p>  
+</div>
 
 
-<h3>Peers</h3>
-<p>
-  <span class="label">Upload to:</span>
-  <span class="value"></span>
-</p>
-<p>
-  <span class="label">Download from:</span>
-  <span class="value"></span>
-</p>
-
-
-<h3>Files</h3>
+<h3><a href="#" class="header">Files</a></h3>
+<div class="content">
+  <ul class="files">
+    {{#files}}
+      <li>{{name}}</li>
+    {{/files}}    
+  </ul>
+</div>
