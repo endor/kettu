@@ -24,12 +24,19 @@ body{
   float: right;
 }
 #footer {
-  clear: both;
-  height: 40px;
   width: 100%;
-  margin: 0px;
-  padding: 0px;
-  background-color: #442244;
+	height: 22px;
+	margin: 0px;
+	padding: 0px;
+	border-top: 1px solid #555;
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	bottom: 0;
+	z-index: 3;
+	color: #000;
+	text-shadow: 0 1px 0 #ccc;
+	background-color: #442244;
 }
 .torrent .ui-widget-header-active {
   border: 1px solid #aaaaaa; 
@@ -107,26 +114,38 @@ body{
   color: #222222;
 }
 #torrents {
-  height: auto;
+  position: fixed;
+	top: 88px;
+	bottom: 22px;
+	right: 0px;
+	left: 0px;
+	padding: 0px;
+	margin: 0px;
+	overflow-y: scroll;
+	z-index: 1;
+/*  height: 400px;
   width: 100%;
   margin: 0px;
   padding: 0px;
   list-style-type: none;
   float: left;
-}
+*/}
 #torrents li {
   display: block;
   padding: 5px;
   border: solid 1px #dddddd;
 }
 #torrent_info {
+  position: fixed;
+	top: 88px;
+	bottom: 22px;
+	right: 0px;
+	width: 350px;
+	background-color: white;
+	z-index: 2;
+	overflow: auto;
   display: none;
   float: right;
-  width: 25%;
-  background-color: white;
-  border: solid 1px #dddddd;
-  height: 100%;
-  padding: 10px;
 }
 #torrent_info h2 {
   font-size: 18px;

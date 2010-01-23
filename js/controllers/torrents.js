@@ -12,16 +12,8 @@ Torrents = function(sammy) { with(sammy) {
     var id = parseInt(context.params['id']);
     
     getTorrent(id, function(torrent) {
-      var info = $('#torrent_info');
       context.partial('./templates/torrents/show_info.mustache', torrent, function(rendered_view) {
-        info.html(rendered_view);
-        info.show();
-        $('#torrents').css('width', '70%');
-        $('#torrent_info .header').click(function() {
-          $(this).parent().next().toggle('slow');
-          $(this).toggleClass('active');
-      		return false;
-        }).parent().next().hide();
+        context.showTorrentInfo(rendered_view);
       });
     });
   });
