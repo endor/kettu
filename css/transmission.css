@@ -28,14 +28,10 @@ body{
 	height: 22px;
 	margin: 0px;
 	padding: 0px;
-	border-top: 1px solid #555;
 	position: fixed;
 	left: 0px;
 	right: 0px;
 	bottom: 0;
-	z-index: 3;
-	color: #000;
-	text-shadow: 0 1px 0 #ccc;
 	background-color: #442244;
 }
 .torrent .ui-widget-header-active {
@@ -102,6 +98,7 @@ body{
 #filterbar {
   padding: 2px;
   padding-left: 8px;
+  border-bottom: 1px solid #CCCCCC;
 }
 
 #filterbar a {
@@ -115,21 +112,14 @@ body{
 }
 #torrents {
   position: fixed;
-	top: 88px;
+	top: 89px;
 	bottom: 22px;
 	right: 0px;
 	left: 0px;
 	padding: 0px;
 	margin: 0px;
 	overflow-y: scroll;
-	z-index: 1;
-/*  height: 400px;
-  width: 100%;
-  margin: 0px;
-  padding: 0px;
-  list-style-type: none;
-  float: left;
-*/}
+}
 #torrents li {
   display: block;
   padding: 5px;
@@ -137,28 +127,29 @@ body{
 }
 #torrent_info {
   position: fixed;
-	top: 88px;
+	top: 89px;
 	bottom: 22px;
 	right: 0px;
 	width: 350px;
+	padding-top: 10px;
+	padding-left: 10px;
 	background-color: white;
-	z-index: 2;
-	overflow: auto;
   display: none;
-  float: right;
+  border-left: 1px solid #dddddd;
+  overflow: auto;
 }
 #torrent_info h2 {
+  color: #442244;
   font-size: 18px;
   margin: 0px;
   padding: 0px;
 }
 #torrent_info h3 {
-  font-size: 15px;
+  font-size: 16px;
   margin: 0px;
   padding: 0px;
-}
-#torrent_info h4 {
-  font-size: 13px;
+  text-decoration: none;
+  font-weight: normal;
 }
 #torrent_info .header {
   color: #555555;
@@ -176,5 +167,23 @@ body{
 }
 #torrent_info .content {
   margin-left: 15px;
-  font-size: 12px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border-left: solid 3px #dddddd;
+}
+#torrent_info .content th {
+  padding: 7px;
+  margin-right: 10px;
+  text-align: left;
+  color: #442244;
+  font-weight: normal;
+}
+#torrent_info ul {
+  list-style-type: none;
+  padding-left: 15px;
+}
+#torrent_info li {
+  padding-bottom: 6px;
+  padding-left: 0px;
+  margin-left: 0px;
 }

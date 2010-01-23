@@ -17,8 +17,6 @@ var TorrentInfoHelpers = {
     var info = $('#torrent_info');
     info.html(view);
     info.show();
-    new_width = parseInt(info.css('width').replace(/px/, '')) + 20;
-    $('#torrents').css('right', new_width + 'px');
     $('#torrent_info .header').click(function() {
       $(this).parent().next().toggle('slow');
       $(this).toggleClass('active');

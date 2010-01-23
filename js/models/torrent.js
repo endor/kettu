@@ -20,7 +20,6 @@ Torrent = function(attributes) {
   torrent.secure = function() {
     return (torrent.isPrivate) ? 'Private Torrent' : 'Public Torrent';
   };
-	
   torrent.isActive = function() {
     return (torrent.status & (torrent.stati['downloading'] | torrent.stati['seeding'])) > 0;
   };
