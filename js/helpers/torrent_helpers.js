@@ -41,7 +41,7 @@ var TorrentHelpers = {
     this.cache_partial('./templates/torrents/show.mustache', 'torrent_show', this);
     var rendered_view = Mustache.to_html(this.cache('torrent_show'), TorrentView(torrent, this));
     $('#torrents').append(rendered_view);
-    this.updateTorrentInfo(torrent);
+    this.updateInfo(torrent);
   },
   
   updateTorrents: function(torrents) {

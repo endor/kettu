@@ -29,7 +29,7 @@ describe 'TorrentHelpers'
       template = fixture('../templates/torrents/show.mustache')
       // stub functions from other parts of the code
       torrent_helpers.cache = function() { return template; };
-      torrent_helpers.updateTorrentInfo = function() {};
+      torrent_helpers.updateInfo = function() {};
       statusWord = function() {return 'seeding';};
     end
     

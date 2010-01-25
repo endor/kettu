@@ -13,7 +13,7 @@ Torrents = function(sammy) { with(sammy) {
     
     getTorrent(id, function(torrent) {
       context.partial('./templates/torrents/show_info.mustache', torrent, function(rendered_view) {
-        context.showTorrentInfo(rendered_view);
+        context.openInfo(rendered_view);
       });
     });
   });
@@ -64,7 +64,7 @@ Torrents = function(sammy) { with(sammy) {
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {
-    this.updateTorrentInfo(torrent);
+    this.updateInfo(torrent);
     this.cycleTorrents();    
   }});
 }};

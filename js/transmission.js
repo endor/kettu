@@ -7,15 +7,20 @@ var sammy = new Sammy.Application(function() { with(this) {
   use(Sammy.Cache);
   
   helpers(TorrentHelpers);
-  helpers(TorrentInfoHelpers);
+  helpers(InfoHelpers);
   helpers(ViewHelpers);
+  helpers(SettingHelpers);
   
   Torrents(this);
   FilteredTorrents(this);
+  Settings(this);
   
-  get('#/', function() {});
+  bind('init', function() { with(this) {
+    this.updateSettings();
+  }});
 }});
  
 $(function() {
   sammy.run('#/torrents');
+  sammy.trigger('init');
 });
