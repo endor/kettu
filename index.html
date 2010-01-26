@@ -26,30 +26,35 @@
   </head>
 
   <body>
-    <div id="top">
-      <div id="eror"></div>
-      <div id="notice"></div>
+    <div id="container">
+      <div id="top">
+        <div id="eror"></div>
+        <div id="notice"></div>
 
-      <div id="header"></div>
-      <div id="ratiobar">
-        <div id="numberOfTorrents"></div>
-        <div id="globalUpAndDownload"></div>
-      </div>      
-    </div>
-    
-    <div id="middle">
-      <div id="filterbar">
-        <a href="#/filtered_torrents/all" class="all">All</a>
-        <a href="#/filtered_torrents/downloading" class="downloading">Downloading</a>
-        <a href="#/filtered_torrents/seeding" class="seeding">Seeding</a>
-        <a href="#/filtered_torrents/paused" class="paused">Paused</a>
+        <div id="header"></div>
+        <div id="ratiobar">
+          <div id="numberOfTorrents"></div>
+          <div id="globalUpAndDownload"></div>
+        </div>      
       </div>
-      <ul id="torrents"></ul>
-      <div id="info"></div>      
-    </div>
-    
-    <div id="footer">
-      <a href="#" id="settings">Preferences</a>
+
+      <div id="middle">
+        <div id="filterbar">
+          <div id="filter_links">
+            <a href="#/filtered_torrents/all" class="all">All</a>
+            <a href="#/filtered_torrents/downloading" class="downloading">Downloading</a>
+            <a href="#/filtered_torrents/seeding" class="seeding">Seeding</a>
+            <a href="#/filtered_torrents/paused" class="paused">Paused</a>            
+          </div>
+          <div id="flash"></div>
+        </div>
+        <ul id="torrents"></ul>
+        <div id="info"></div>      
+      </div>
+
+      <div id="footer">
+        <a href="#" id="settings">Preferences</a>
+      </div>      
     </div>
   </body>  
 </html>

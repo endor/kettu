@@ -1,5 +1,5 @@
 var sammy = new Sammy.Application(function() { with(this) {
-  element_selector = '#torrents';
+  element_selector = '#container';
   cache_partials = true;
   reload_interval = 2000;
   rpc = new RPC();
@@ -14,6 +14,10 @@ var sammy = new Sammy.Application(function() { with(this) {
   Torrents(this);
   FilteredTorrents(this);
   Settings(this);
+  
+  bind('flash', function(e, message) { with(this) {
+    this.showAndHideFlash(message);
+  }});
   
   bind('init', function() { with(this) {
     this.updateSettings();

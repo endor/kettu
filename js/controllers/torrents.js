@@ -36,7 +36,9 @@ Torrents = function(sammy) { with(sammy) {
       'arguments': {'ids': id, 'fields': Torrent({})['fields'].concat(Torrent({})['info_fields'])}
     };
     rpc.query(request, function(response) {
-      callback(response['torrents'].map( function(row) {return Torrent(row);} )[0]);
+      if(callback) {
+        callback(response['torrents'].map( function(row) {return Torrent(row);} )[0]);
+      }
     });
   }
     

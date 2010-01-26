@@ -27,17 +27,9 @@ var InfoHelpers = {
     return $('#info').is(':visible');
   },
 
-  rebindForms: function() {
-    var context = this;
-    var forms = context.$element().find('form:not(.' + context.app.eventNamespace() + ')')
-    forms.bind('submit', function() {
-      return context.app._checkFormSubmission(this);
-    }).addClass(context.app.eventNamespace());
-  },
-  
   updateInfo: function(torrent) {
     var context = this;
-    context.rebindForms();
+    context.trigger('changed');
     
     $('#' + torrent.id).click(function(event) {
       context.highlightLi('#torrents', this);
@@ -45,7 +37,6 @@ var InfoHelpers = {
         window.location.hash = '/torrents/' + $(this).attr('id');
       }
     });
-    // TODO: triple double clicking doesnt work
     $('#' + torrent.id).dblclick(function() {
       if(context.infoIsOpen()) {
         context.closeInfo();

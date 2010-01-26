@@ -103,9 +103,9 @@ body{
 }
 
 #filterbar {
-  padding: 2px;
+/*  padding: 2px;
   padding-left: 8px;
-  border-bottom: 1px solid #CCCCCC;
+*/  border-bottom: 1px solid #CCCCCC;
 }
 
 #filterbar a {
@@ -116,6 +116,21 @@ body{
 
 #filterbar a.active {
   color: #222222;
+}
+
+#filterbar #filter_links {
+  padding: 2px;
+  padding-left: 8px;
+  float: left;
+  margin-top: 2px;
+}
+#filterbar #flash {
+  padding: 2px;
+  padding-left: 8px;
+  margin-top: 2px;
+  float: right;
+  color: #442244;
+  font-weight: bold;
 }
 #torrents {
   position: fixed;

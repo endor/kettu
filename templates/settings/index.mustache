@@ -2,33 +2,35 @@
 
 <p>Version: {{version}}</p>
 
-<table class="content">
-  <tr>
-    <th>Download Directory:</th>
-    <td>{{download-dir}}</td>
-  </tr>
-  <tr>
-    <th>Incoming TCP Port:</th>
-    <td>{{peer-port}}</td>
-  </tr>
-  <tr>
-    <th>Speed Limit Download:</th>
-    <td><input type="checkbox" name="speed-limit-down-enabled"> {{speed-limit-down}} KB/s</td>
-  </tr>
-  <tr>
-    <th>Speed Limit Upload:</th>
-    <td><input type="checkbox" name="speed-limit-up-enabled"> {{speed-limit-up}} KB/s</td>
-  </tr>
-  <tr>
-    <th>Refresh Web Client every:</th>
-    <td>{{reload_interval}} seconds</td>
-  </tr>
-  <tr>
-    <th>DHT enabled:</th>
-    <td><input type="checkbox" name="dht-enabled"></td>
-  </tr>
-  <tr>
-    <th>PEX enabled:</th>
-    <td><input type="checkbox" name="pex-enabled"></td>
-  </tr>
-</table>
+<form action="#/settings" method="PUT">
+  <table class="content">
+    <tr>
+      <th>Download Directory:</th>
+      <td>{{download-dir}}</td>
+    </tr>
+    <tr>
+      <th>Incoming TCP Port:</th>
+      <td>{{peer-port}}</td>
+    </tr>
+    <tr>
+      <th>Speed Limit Download:</th>
+      <td><input type="checkbox" name="speed-limit-down-enabled"> {{speed-limit-down}} KB/s</td>
+    </tr>
+    <tr>
+      <th>Speed Limit Upload:</th>
+      <td><input type="checkbox" name="speed-limit-up-enabled"> {{speed-limit-up}} KB/s</td>
+    </tr>
+    <tr>
+      <th>Refresh Web Client every:</th>
+      <td>{{reload_interval}} seconds</td>
+    </tr>
+    <tr>
+      <th>DHT enabled:</th>
+      <td><input type="checkbox" name="dht-enabled"></td>
+    </tr>
+    <tr>
+      <th>PEX enabled:</th>
+      <td><input type="checkbox" name="pex-enabled"></td>
+    </tr>
+  </table>
+</form>

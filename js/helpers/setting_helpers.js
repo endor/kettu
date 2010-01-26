@@ -18,5 +18,8 @@ var SettingHelpers = {
         $(this).attr('checked', 'checked');
       }
     });
+    $('#info input').change(function() {
+      $(this).parents('form').trigger('submit');
+    });
   }
 }
