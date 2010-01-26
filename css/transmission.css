@@ -218,3 +218,10 @@ body{
 #info input.short {
   width: 25px;
 }
+
+#info #version {
+  color: #555555;
+  font-size: 12px;
+  position: absolute;
+  bottom: 20px;
+}
