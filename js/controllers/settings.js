@@ -21,25 +21,15 @@ Settings = function(sammy) { with(sammy) {
   });
   
   put('#/settings', function() {
-    var context = this;
-    var arguments_hash = {}
-    $.each(updatable_settings, function() {
-      var setting = this;
-      if(context.params[setting]) {
-        arguments_hash[setting] = (context.params[setting] == "on") ? true : context.params[setting];
-      } else {
-        arguments_hash[setting] = false;
-      }
-    });
     var request = {
       'method': 'session-set',
-      'arguments': arguments_hash
+      'arguments': this.arguments_hash(updatable_settings, this.params)
     };
     rpc.query(request, function(response) {
       trigger('flash', 'Settings updated successfully');
     });
   });
-  
+    
   bind('settings-refreshed', function(e, settings){ with(this) {
     this.trigger('changed');
     this.updateSettingsCheckboxes(settings);

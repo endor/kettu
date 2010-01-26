@@ -6,19 +6,25 @@
   <table class="content">
     <tr>
       <th>Download Directory:</th>
-      <td>{{download-dir}}</td>
+      <td><input type="text" name="download-dir" value="{{download-dir}}" /></td>
     </tr>
     <tr>
       <th>Incoming TCP Port:</th>
-      <td>{{peer-port}}</td>
+      <td><input type="text" name="peer-port" value="{{peer-port}}" /></td>
     </tr>
     <tr>
       <th>Speed Limit Download:</th>
-      <td><input type="checkbox" name="speed-limit-down-enabled"> {{speed-limit-down}} KB/s</td>
+      <td>
+        <input type="checkbox" name="speed-limit-down-enabled"> 
+        <input type="text" name="speed-limit-down" value="{{speed-limit-down}}" class="short" /> KB/s
+      </td>
     </tr>
     <tr>
       <th>Speed Limit Upload:</th>
-      <td><input type="checkbox" name="speed-limit-up-enabled"> {{speed-limit-up}} KB/s</td>
+      <td>
+        <input type="checkbox" name="speed-limit-up-enabled"> 
+        <input type="text" name="speed-limit-up" value="{{speed-limit-up}}" class="short" /> KB/s
+      </td>
     </tr>
     <tr>
       <th>Refresh Web Client every:</th>

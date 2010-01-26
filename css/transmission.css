@@ -209,3 +209,12 @@ body{
   padding-left: 0px;
   margin-left: 0px;
 }
+
+#info input {
+  border: solid 2px #dddddd;
+  padding: 1px;
+}
+
+#info input.short {
+  width: 25px;
+}

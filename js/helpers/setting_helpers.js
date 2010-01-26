@@ -21,5 +21,22 @@ var SettingHelpers = {
     $('#info input').change(function() {
       $(this).parents('form').trigger('submit');
     });
+  },
+  
+  arguments_hash: function(updatable_settings, params) {
+    var hash = {};
+
+    $.each(updatable_settings, function() {
+      var setting = this;
+      hash[setting] = (params[setting]) ? true : false;
+      if(params[setting] && params[setting].match(/^\d+$/)) {
+        hash[setting] = parseInt(params[setting]);
+      } else if(params[setting] && params[setting] != "on") {
+        hash[setting] = params[setting];
+      }
+    });
+    
+    return hash;
   }
+  
 }
