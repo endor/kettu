@@ -12,17 +12,9 @@ var InfoHelpers = {
     var info = $('#info');
     info.html(view);
     info.show();
-    this.menuize($('#info .header'));
+    this.menuizeInfo();
   },
 
-  menuize: function(menu_elements) {
-    menu_elements.click(function() {
-      $(this).parent().next().toggle('slow');
-      $(this).toggleClass('active');
-  		return false;
-    }).parent().next().hide();    
-  },
-  
   infoIsOpen: function() {
     return $('#info').is(':visible');
   },

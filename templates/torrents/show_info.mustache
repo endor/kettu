@@ -1,90 +1,103 @@
+<ul class="menu">
+  <li><a href="#" class="menu-item" data-item="information">Information</a></li>
+  <li><a href="#" class="menu-item" data-item="activity">Activity</a></li>
+  <li><a href="#" class="menu-item" data-item="files">Files</a></li>
+</ul>
+
 <h2>{{name}}</h2>
 
-<p>Size: {{totalSizeString}}</p>
+<br />
 
-<h3><a href="#" class="header">Information</a></h3>
-<table class="content">
-  <tr>
-    <th>Pieces:</th>
-    <td>{{pieceCount}}, {{pieceSizeString}}</td>
-  </tr>
-  <tr>
-    <th>Hash:</th>
-    <td>{{hashString}}</td>
-  </tr>
-  <tr>
-    <th>Secure:</th>
-    <td>{{secure}}</td>
-  </tr>
-  <tr>
-    <th>Comment:</th>
-    <td>{{comment}}</td>
-  </tr>
-  <tr>
-    <th>Creator:</th>
-    <td>{{creator}}</td>
-  </tr>
-  <tr>
-    <th>Date:</th>
-    <td>{{created_at}}</td>
-  </tr>
-  <tr>
-    <th>Download Directory:</th>
-    <td>{{downloadDir}}</td>
-  </tr>    
-</table>
+<div class="item information">
+  <table class="content">
+    <tr>
+      <th>Size:</th>
+      <td>{{totalSizeString}}</td>
+    </tr>
+    <tr>
+      <th>Pieces:</th>
+      <td>{{pieceCount}}, {{pieceSizeString}}</td>
+    </tr>
+    <tr>
+      <th>Hash:</th>
+      <td>{{hashString}}</td>
+    </tr>
+    <tr>
+      <th>Secure:</th>
+      <td>{{secure}}</td>
+    </tr>
+    <tr>
+      <th>Comment:</th>
+      <td>{{comment}}</td>
+    </tr>
+    <tr>
+      <th>Creator:</th>
+      <td>{{creator}}</td>
+    </tr>
+    <tr>
+      <th>Date:</th>
+      <td>{{created_at}}</td>
+    </tr>
+    <tr>
+      <th>Download Directory:</th>
+      <td>{{downloadDir}}</td>
+    </tr>    
+  </table>  
+</div>
 
-<h3><a href="#" class="header">Activity</a></h3>
-<table class="content">
-  <tr>
-    <th>State:</th>
-    <td>{{statusWord}}</td>
-  </tr>
-  <tr>
-    <th>Progress:</th>
-    <td>{{percentDone}}%</td>
-  </tr>
-  <tr>
-    <th>Have:</th>
-    <td>{{haveString}}</td>
-  </tr>
-  <tr>
-    <th>Downloaded:</th>
-    <td>{{downloadedEverString}}</td>
-  </tr>
-  <tr>
-    <th>Uploaded:</th>
-    <td>{{uploadedEverString}}</td>
-  </tr>
-  <tr>
-    <th>Ratio:</th>
-    <td>{{uploadRatio}}</td>
-  </tr>
-  <tr>
-    <th>Error:</th>
-    <td>{{errorString}}</td>
-  </tr>
-  <tr>
-    <th>Download speed:</th>
-    <td>{{rateDownload}}</td>
-  </tr>
-  <tr>
-    <th>Upload speed:</th>
-    <td>{{rateUpload}}</td>
-  </tr>
-  <tr>
-    <th>Peers - Upload to:</th>
-    <td>{{peersGettingFromUs}}</td>
-  </tr>
-  <tr>
-    <th>Peers - Download from:</th>
-    <td>{{peersSendingToUs}}</td>
-  </tr>
-</table>
+<div class="item activity">
+  <table class="content">
+    <tr>
+      <th>State:</th>
+      <td>{{statusWord}}</td>
+    </tr>
+    <tr>
+      <th>Progress:</th>
+      <td>{{percentDone}}%</td>
+    </tr>
+    <tr>
+      <th>Have:</th>
+      <td>{{haveString}}</td>
+    </tr>
+    <tr>
+      <th>Downloaded:</th>
+      <td>{{downloadedEverString}}</td>
+    </tr>
+    <tr>
+      <th>Uploaded:</th>
+      <td>{{uploadedEverString}}</td>
+    </tr>
+    <tr>
+      <th>Ratio:</th>
+      <td>{{uploadRatio}}</td>
+    </tr>
+    <tr>
+      <th>Error:</th>
+      <td>{{errorString}}</td>
+    </tr>
+    <tr>
+      <th>Download speed:</th>
+      <td>{{rateDownload}}</td>
+    </tr>
+    <tr>
+      <th>Upload speed:</th>
+      <td>{{rateUpload}}</td>
+    </tr>
+    <tr>
+      <th>Peers - Upload to:</th>
+      <td>{{peersGettingFromUs}}</td>
+    </tr>
+    <tr>
+      <th>Peers - Download from:</th>
+      <td>{{peersSendingToUs}}</td>
+    </tr>
+  </table>
+</div>
 
-<h3><a href="#" class="header">Files</a></h3>
-<ul class="content files">
-  {{#files}}
-    <li>{{name}}</li>
-  {{/files}}    
-</ul>
+<div class="item files">
+  <ul class="content files">
+    {{#files}}
+      <li>{{name}}</li>
+    {{/files}}    
+  </ul>
+</div>

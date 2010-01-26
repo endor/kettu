@@ -225,3 +225,12 @@ body{
   position: absolute;
   bottom: 20px;
 }
+
+#info .menu {
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+#info .menu li {
+  display: inline;
+  margin-right: 20px;
+}

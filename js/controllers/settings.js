@@ -33,5 +33,6 @@ Settings = function(sammy) { with(sammy) {
   bind('settings-refreshed', function(e, settings){ with(this) {
     this.trigger('changed');
     this.updateSettingsCheckboxes(settings);
+    this.menuizeInfo();
   }});
 }};

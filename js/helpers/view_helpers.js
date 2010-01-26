@@ -13,5 +13,18 @@ var ViewHelpers = {
     $('#flash').html(message);
     $('#flash').show();
     setTimeout("$('#flash').fadeOut('slow')", 3000);    
+  },
+
+  menuizeInfo: function() {
+    $('#info .menu-item').click(function() {
+      $('#info .menu-item').removeClass('active');
+      $(this).addClass('active');
+      var item = $(this).attr('data-item');
+      $('#info .item').hide();
+      $('#info .' + item).show();
+    });
+    $('#info .item').hide();
+    $('#info .item:first').show();
+    $('#info .menu-item:first').addClass('active');    
   }
 };
