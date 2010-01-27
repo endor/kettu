@@ -4,12 +4,40 @@
       PATH_NAME_MATCHER = /:([\w\d]+)/g,
       QUERY_STRING_MATCHER = /\?([^#]*)$/,
       _decode = decodeURIComponent,
+      _routeWrapper = function(verb) {
+        return function(path, callback) { return this.route.apply(this, [verb, path, callback]); }
+      },
       loggers = [];
   
-  Sammy = {};
   
-  Sammy.VERSION = '0.4.1';
+  // Sammy('#main') // returns the app at #main or a new app
+  // Sammy() / Sammy(function()) // equivilent to new Sammy.Application, except appends to apps
+  // Sammy('#main', function()) // extends the app at '#main' with function.
+  Sammy = function() {
+    var args = $.makeArray(arguments), 
+        app, selector;
+    Sammy.apps = Sammy.apps || {};
+    if (args.length == 0 || args[0] && $.isFunction(args[0])) { // Sammy()
+      return Sammy.apply(Sammy, ['body'].concat(args));
+    } else if (typeof (selector = args.shift()) == 'string') { // Sammy('#main')
+      app = Sammy.apps[selector] || new Sammy.Application();
+      app.element_selector = selector;
+      if (args.length > 0) {
+        $.each(args, function(i, plugin) {
+          app.use(plugin);
+        })
+      }
+      // if the selector changes make sure the refrence in Sammy.apps changes
+      if (app.element_selector != selector) {
+        delete Sammy.apps[selector];
+      }
+      Sammy.apps[app.element_selector] = app;
+      return app;
+    }
+  };
   
+  Sammy.VERSION = '0.5.0pre';
+    
   // Add to the global logger pool. Takes a function that accepts an 
   // unknown number of arguments and should print them or send them somewhere
   // The first argument is always a timestamp.
@@ -27,7 +55,7 @@
       logger.apply(Sammy, args);
     });
 	};
-	
+ 
 	if (typeof window.console != 'undefined') {
 	  if ($.isFunction(console.log.apply)) {
       Sammy.addLogger(function() {
@@ -47,27 +75,15 @@
   // Sammy.Object is the base for all other Sammy classes. It provides some useful 
   // functionality, including cloning, iterating, etc.
   Sammy.Object = function(obj) { // constructor
-    this.extend(obj);
+    return $.extend(this, obj || {});
   };
         
   $.extend(Sammy.Object.prototype, {    
-    
-    // Extend this object with the passed object
-    extend: function(obj) {
-      $.extend(this, obj);
-    },
-    
-    // If passed an obj, clone the attributes and methods of that object
-    // If called without arguments, clones the callee.
-    clone: function(obj) {
-      if (typeof obj == 'undefined') obj = this;
-      return $.extend({}, obj);
-    },
-        
+            
     // Returns a copy of the object with Functions removed.
     toHash: function() {
       var json = {}; 
-      this.each(function(k,v) {
+      $.each(this, function(k,v) {
         if (!$.isFunction(v)) {
           json[k] = v
         }
@@ -84,7 +100,7 @@
     //
     toHTML: function() {
       var display = "";
-      this.each(function(k, v) {
+      $.each(function(k, v) {
         if (!$.isFunction(v)) {
           display += "<strong>" + k + "</strong> " + v + "<br />";
         }
@@ -98,26 +114,6 @@
         this._uuid = (new Date()).getTime() + '-' + parseInt(Math.random() * 1000);
       }
       return this._uuid;
-    },
-    
-    // If passed an object and a callback, will iterate over the object
-    // with (k, v) in the context of this object.
-    // If passed just an argument - will itterate over 
-    // the properties of this Sammy.Object
-    each: function() {
-      var context, object, callback, bound_callback;
-      context = this;
-      if (typeof arguments[0] != 'function') {
-        object = arguments[0];
-        callback = arguments[1];
-      } else {
-        object = this;
-        callback = arguments[0];
-      }
-      bound_callback = function() {
-        return callback.apply(context, arguments);
-      }
-      $.each(object, bound_callback);
     },
     
     // Returns an array of keys for this object. If <tt>attributes_only</tt> 
@@ -150,7 +146,7 @@
     // methods of this object. By default only prints the attributes.
     toString: function(include_functions) {
       var s = []
-      this.each(function(k, v) {
+      $.each(function(k, v) {
 		    if (!$.isFunction(v) || include_functions) {
           s.push('"' + k + '": ' + v.toString());
 		    }
@@ -281,10 +277,7 @@
     this.namespace         = this.uuid();
     this.context_prototype = function() { Sammy.EventContext.apply(this, arguments) };
     this.context_prototype.prototype = new Sammy.EventContext();
-
-    this.each(this.ROUTE_VERBS, function(i, verb) {
-      this._defineRouteShortcut(verb);
-    });
+ 
     if ($.isFunction(app_function)) {
       app_function.apply(this, [this]);
     }
@@ -334,6 +327,15 @@
     // the location_proxy inside you're app function to give youre app a custom
     // location mechanism
     location_proxy: null,
+    
+    // The default template engine to use when using <tt>partial()</tt> in an 
+    // <tt>EventContext</tt>. <tt>template_engine</tt> can either be a string that 
+    // corresponds to the name of a method/helper on EventContext or it can be a function
+    // that takes two arguments, the content of the unrendered partial and an optional
+    // JS object that contains interpolation data. Template engine is only called/refered
+    // to if the extension of the partial is null or unknown. See <tt>partial()</tt>
+    // for more information
+    template_engine: null,
         
     // //=> Sammy.Application: body
     toString: function() {
@@ -394,6 +396,7 @@
           throw(e);
         }
       }
+      return this;
     },
     
     // <tt>route()</tt> is the main method for defining routes within an application.
@@ -408,11 +411,18 @@
     // +callback+:: A Function that is called/evaluated whent the route is run see: <tt>runRoute()</tt>
     //
     route: function(verb, path, callback) {
-      // turn path into regex
-      // create a simple object and add the route to it
-      var app = this, 
-          param_names = [],
-          r;
+      var app = this, param_names = [], add_route;
+      
+      // if the method signature is just (path, callback)
+      // assume the verb is 'any'
+      if (!callback && $.isFunction(path)) {
+        path = verb;
+        callback = path;
+        verb = 'any';
+      }
+      
+      verb = verb.toLowerCase(); // ensure verb is lower case
+      
       // if path is a string turn it into a regex
       if (path.constructor == String) {
         
@@ -426,19 +436,52 @@
           param_names.push(path_match[1]);
         }
         // replace with the path replacement
-        path = new RegExp(path.replace(PATH_NAME_MATCHER, PATH_REPLACER) + "$");
+        path = new RegExp("^" + path.replace(PATH_NAME_MATCHER, PATH_REPLACER) + "$");
       }
-      r = {verb: verb, path: path, callback: callback, param_names: param_names};
-      // add route to routes array
-      if (typeof this.routes[verb] == 'undefined' || this.routes[verb].length == 0)  {
-        // add to the front of an empty array
-        this.routes[verb] = [r];
-      } else {
+      // lookup callback
+      if (typeof callback == 'string') {
+        callback = app[callback];
+      }
+      
+      add_route = function(with_verb) {
+        var r = {verb: with_verb, path: path, callback: callback, param_names: param_names};
+        // add route to routes array
+        app.routes[with_verb] = app.routes[with_verb] || [];
         // place routes in order of definition
-        this.routes[verb].push(r);
+        app.routes[with_verb].push(r);
       }
-      // return the route
-      return r;
+      
+      if (verb === 'any') {
+        $.each(this.ROUTE_VERBS, function(i, v) { add_route(v) });
+      } else {
+        add_route(verb)
+      }
+      
+      // return the app
+      return this;
+    },
+    
+    // Alias for route('get', ...)
+    get: _routeWrapper('get'),
+    
+    // Alias for route('post', ...)
+    post: _routeWrapper('post'),
+ 
+    // Alias for route('put', ...)
+    put: _routeWrapper('put'),
+    
+    // Alias for route('delete', ...)
+    del: _routeWrapper('delete'),
+    
+    // Alias for route('any', ...)
+    any: _routeWrapper('any'),
+                
+    mapRoutes: function(route_array) {
+      var app = this;
+      $.each(route_array, function(i, route_args) {
+        app.route.apply(app, route_args);
+      });
+      return this;
     },
     
     // A unique event namespace defined per application.
@@ -484,8 +527,9 @@
       if (this.isRunning()) {
         // if the app is running
         // *actually* bind the event to the app element
-        return this._listen(name, listener_callback);
+        this._listen(name, listener_callback);
       }
+      return this;
     },
     
     // Triggers custom events defined with <tt>bind()</tt>
@@ -498,12 +542,15 @@
     //              If no context is supplied a the context is a new <tt>Sammy.EventContext</tt>
     //
     trigger: function(name, data) {
-      return this.$element().trigger([name, this.eventNamespace()].join('.'), [data]);
+      this.$element().trigger([name, this.eventNamespace()].join('.'), [data]);
+      return this;
     },
     
     // Reruns the current route
     refresh: function() {
       this.last_location = null;
+      this.trigger('location-changed');
+      return this;
     },
     
     // Takes a single callback that is pushed on to a stack.
@@ -513,7 +560,8 @@
     // If any of the callbacks explicitly return false, execution of any 
     // further callbacks and the route itself is halted.
     before: function(callback) {
-      return this.befores.push(callback);
+      this.befores.push(callback);
+      return this;
     },
     
     // A shortcut for binding a callback to be run after a route is executed.
@@ -555,6 +603,7 @@
     //  
     helpers: function(extensions) {
       $.extend(this.context_prototype.prototype, extensions);
+      return this;
     },
     
     // Helper extends the event context just like <tt>helpers()</tt> but does it
@@ -584,6 +633,7 @@
     //
     helper: function(name, method) {
       this.context_prototype.prototype[name] = method;
+      return this;
     },
     
     // Actually starts the application's lifecycle. <tt>run()</tt> should be invoked
@@ -605,9 +655,9 @@
       var app = this;
       
       // actually bind all the listeners
-      this.each(this.listeners.toHash(), function(name, callbacks) {
-        this.each(callbacks, function(i, listener_callback) {
-          this._listen(name, listener_callback);
+      $.each(this.listeners.toHash(), function(name, callbacks) {
+        $.each(callbacks, function(i, listener_callback) {
+          app._listen(name, listener_callback);
         });
       });
       
@@ -627,23 +677,19 @@
         app._checkLocation();
       });
       
-      // bind re-binding to after route
-      this.bind('changed', function() {
-        // bind form submission 
-        app.$element()
-          .find('form:not(.' + app.eventNamespace() + ')')
-            .bind('submit', function() {
-              return app._checkFormSubmission(this);
-            })
-            .addClass(app.eventNamespace());
+      // bind to submit to capture post/put/delete routes
+      this.bind('submit', function(e) {
+        var returned = app._checkFormSubmission(e.target);
+        return (returned === false) ? e.preventDefault() : false;
       });
+ 
       // bind unload to body unload
       $('body').bind('onunload', function() {
         app.unload();
       });
       
       // trigger html changed
-      this.trigger('changed');
+      return this.trigger('changed');
     },
     
     // The opposite of <tt>run()</tt>, un-binds all event listeners and intervals
@@ -656,18 +702,17 @@
       // clear interval
       this.location_proxy.unbind();
       // unbind form submits
-      this.$element().find('form')
-        .unbind('submit')
-        .removeClass(app.eventNamespace());
+      this.$element().unbind('submit').removeClass(app.eventNamespace());
       // clear data
       this.$element().removeData(this.data_store_name);
       // unbind all events
-      this.each(this.listeners.toHash() , function(name, listeners) {
-        this.each(listeners, function(i, listener_callback) {
-          this._unlisten(name, listener_callback);
+      $.each(this.listeners.toHash() , function(name, listeners) {
+        $.each(listeners, function(i, listener_callback) {
+          app._unlisten(name, listener_callback);
         });
       });
       this._running = false;
+      return this;
     },
     
     // Will bind a single callback function to every event that is already 
@@ -676,18 +721,20 @@
     // 
     // Used internally for debug logging.
     bindToAllEvents: function(callback) {
+      var app = this;
       // bind to the APP_EVENTS first
-      this.each(this.APP_EVENTS, function(i, e) {
-        this.bind(e, callback);
+      $.each(this.APP_EVENTS, function(i, e) {
+        app.bind(e, callback);
       });
       // next, bind to listener names (only if they dont exist in APP_EVENTS)
-      this.each(this.listeners.keys(true), function(i, name) {
+      $.each(this.listeners.keys(true), function(i, name) {
         if (this.APP_EVENTS.indexOf(name) == -1) {
-          this.bind(name, callback);
+          app.bind(name, callback);
         }
       });
+      return this;
     },
-
+ 
     // Returns a copy of the given path with any query string after the hash
     // removed.
     routablePath: function(path) {
@@ -697,11 +744,11 @@
     // Given a verb and a String path, will return either a route object or false
     // if a matching route can be found within the current defined set. 
     lookupRoute: function(verb, path) {
-      var routed = false;
+      var app = this, routed = false;
       this.trigger('lookup-route', {verb: verb, path: path});
       if (typeof this.routes[verb] != 'undefined') {
-        this.each(this.routes[verb], function(i, route) {
-          if (this.routablePath(path).match(route.path)) {
+        $.each(this.routes[verb], function(i, route) {
+          if (app.routablePath(path).match(route.path)) {
             routed = route;
             return false;
           }
@@ -709,7 +756,7 @@
       }
       return routed;
     },
-
+ 
     // First, invokes <tt>lookupRoute()</tt> and if a route is found, parses the 
     // possible URL params and then invokes the route's callback within a new
     // <tt>Sammy.EventContext</tt>. If the route can not be found, it calls 
@@ -732,7 +779,7 @@
       this.log('runRoute', [verb, path].join(' '));
       this.trigger('run-route', {verb: verb, path: path, params: params});
       if (typeof params == 'undefined') params = {};
-
+ 
       $.extend(params, this._parseQueryString(path));
       
       var route = this.lookupRoute(verb, path);
@@ -743,7 +790,7 @@
           // first match is the full path
           path_params.shift();
           // for each of the matches
-          this.each(path_params, function(i, param) {
+          $.each(path_params, function(i, param) {
             // if theres a matching param name
             if (route.param_names[i]) {
               // set the name to the match
@@ -819,13 +866,6 @@
       this.trigger('error-404', {verb: verb, path: path});
       throw('404 Not Found ' + verb + ' ' + path);
     },
-        
-    _defineRouteShortcut: function(verb) {
-      var app = this;
-      this[verb] = function(path, callback) {
-        app.route.apply(app, [verb, path, callback]);
-      }
-    },
     
     _checkLocation: function() {
       try { // try, catch 404s
@@ -860,7 +900,6 @@
       verb  = $.trim($form.attr('method').toString().toLowerCase());
       if (!verb || verb == '') { verb = 'get'; }
       params = $.extend({}, this._parseFormParams($form), {'$form': $form});
-            
       try { // catch 404s
         returned = this.runRoute(verb, path, params);
       } catch(e) {
@@ -891,7 +930,7 @@
     
     _parseQueryString: function(path) {
       var query = {}, parts, pairs, pair, i;
-
+ 
       parts = path.match(QUERY_STRING_MATCHER);
       if (parts) {
         pairs = parts[1].split('&');
@@ -900,7 +939,7 @@
           query[pair[0]] = _decode(pair[1]);
         }
       }
-
+ 
       return query;
     },
     
@@ -911,7 +950,7 @@
     _unlisten: function(name, callback) {
       return this.$element().unbind([name, this.eventNamespace()].join('.'), callback);
     }
-
+ 
   });
   
   // <tt>Sammy.EventContext</tt> objects are created every time a route is run or a 
@@ -988,28 +1027,40 @@
       var file_data, 
           wrapped_callback,
           engine,
+          data_array,
           cache_key = 'partial:' + path,
           context = this;
-
+ 
+      // engine setup
       if ((engine = path.match(/\.([^\.]+)$/))) { engine = engine[1]; }
-      if (typeof callback == 'undefined') {
-        if ($.isFunction(data)) {
-          // callback is in the data position
-          callback = data;
-          data = {};
-        } else {
-          // we should use the default callback
-          callback = function(response) {
-            context.app.swap(response);
-          }
-        }
+      // set the engine to the default template engine if no match is found
+      if ((!engine || !$.isFunction(context[engine])) && this.app.template_engine) {
+        engine = this.app.template_engine;
       }
-      data = $.extend({}, data, this);
+      if (engine && !$.isFunction(engine) && $.isFunction(context[engine])) { 
+        engine = context[engine]; 
+      }
+      if (!callback && $.isFunction(data)) {
+        // callback is in the data position
+        callback = data;
+        data = {};
+      }
+      data_array = ($.isArray(data) ? data : [data || {}]),
       wrapped_callback = function(response) {
-        if (engine && $.isFunction(context[engine])) {
-          response = context[engine].apply(context, [response, data]);
-        } 
-        callback.apply(context, [response]);
+        var new_content = response,
+            all_content =  "";
+        $.each(data_array, function(i, idata) {
+          // extend the data object with the context
+          $.extend(idata, context);        
+          if ($.isFunction(engine)) {
+            new_content = engine.apply(context, [response, idata]);
+          } 
+          // collect the content
+          all_content += new_content;
+          // if callback exists call it for each iteration
+          if (callback) { callback.apply(context, [new_content, i]); }
+        });
+        if (!callback) { context.app.swap(all_content); }
         context.trigger('changed');
       };
       if (this.app.cache_partials && this.cache(cache_key)) {
@@ -1075,8 +1126,6 @@
         
   });
   
-  $.sammy = function(app_function) {
-    return new Sammy.Application(app_function);
-  };
-
+  $.sammy = Sammy;
+ 
 })(jQuery);
