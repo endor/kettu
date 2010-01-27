@@ -10,10 +10,12 @@ var sammy = new Sammy.Application(function() { with(this) {
   helpers(InfoHelpers);
   helpers(ViewHelpers);
   helpers(SettingHelpers);
+  helpers(StatisticHelpers);
   
   Torrents(this);
   FilteredTorrents(this);
   Settings(this);
+  Statistics(this);
   
   bind('flash', function(e, message) { with(this) {
     this.showAndHideFlash(message);
@@ -21,6 +23,7 @@ var sammy = new Sammy.Application(function() { with(this) {
   
   bind('init', function() { with(this) {
     this.updateSettings();
+    this.updateStatistics();
   }});
 }});
  

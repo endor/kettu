@@ -12,16 +12,6 @@ var TorrentHelpers = {
     return Torrent({}).downAndUpLoadRateString(downloadRate, uploadRate);
   },
   
-  numberOfTorrents: function(torrents) {
-    var len = torrents.length, numberOfTorrents; 
-    if(len > 0) {
-      numberOfTorrents = len === 1 ? "1 torrent" : len + " torrents";
-    } else {
-      numberOfTorrents = "No torrents";
-    }      
-    return numberOfTorrents;
-  },
-  
   cycleTorrents: function() {
     $('.torrent').removeClass('even');
     $('.torrent:even').addClass('even');
@@ -74,7 +64,6 @@ var TorrentHelpers = {
     this.updateTorrents(torrents);
     this.cycleTorrents();
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
-    $('#numberOfTorrents').html(this.numberOfTorrents(torrents));
   },
   
   cache_partial: function(template, partial, context) {

@@ -15,6 +15,7 @@
     <script src="./js/controllers/torrents.js"></script>
     <script src="./js/controllers/filtered_torrents.js"></script>
     <script src="./js/controllers/settings.js"></script>
+    <script src="./js/controllers/statistics.js"></script>
     <script src="./js/models/torrent.js"></script>
     <script src="./js/views/torrent.js"></script>
     <script src="./js/helpers/math_helpers.js"></script>
@@ -22,6 +23,7 @@
     <script src="./js/helpers/info_helpers.js"></script>
     <script src="./js/helpers/view_helpers.js"></script>
     <script src="./js/helpers/setting_helpers.js"></script>
+    <script src="./js/helpers/statistic_helpers.js"></script>
     <script src="./js/transmission.js"></script>
   </head>
 
@@ -33,7 +35,6 @@
 
         <div id="header"></div>
         <div id="ratiobar">
-          <div id="numberOfTorrents"></div>
           <div id="globalUpAndDownload"></div>
         </div>      
       </div>
@@ -53,6 +54,7 @@
       </div>
 
       <div id="footer">
+        <a href="#" id="statistics">Statistics</a>
         <a href="#" id="settings">Preferences</a>
       </div>      
     </div>
