@@ -7,15 +7,7 @@ Statistics = function(sammy) { with(sammy) {
     }
     
     rpc.query(request, function(response) {
-
-      var view = {
-        'number_of_torrents': response['torrentCount'],
-        'uploaded': Math.formatBytes(response['current-stats']['uploadedBytes']),
-        'downloaded': Math.formatBytes(response['current-stats']['downloadedBytes']),
-        'time_active': Math.formatSeconds(response['current-stats']['secondsActive'])
-      }
-
-      context.partial('./templates/statistics/index.mustache', view, function(rendered_view) {
+      context.partial('./templates/statistics/index.mustache', StatisticsView(response), function(rendered_view) {
         context.openInfo(rendered_view);
         context.drawPie('torrents_by_status', {
           'Downloading': ($('.downloading').length - 1),

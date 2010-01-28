@@ -5,7 +5,7 @@ var StatisticHelpers = {
       if(context.infoIsOpen()) {
         context.closeInfo();
       } else {
-        window.location.hash = '/statistics';
+        context.redirect('#/statistics');
       }
       return false;
     });

@@ -5,7 +5,7 @@ var SettingHelpers = {
       if(context.infoIsOpen()) {
         context.closeInfo();
       } else {
-        window.location.hash = '/settings';
+        context.redirect('#/settings');
       }
       return false;
     });
@@ -39,5 +39,4 @@ var SettingHelpers = {
     
     return hash;
   }
-  
 }

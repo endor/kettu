@@ -1,13 +1,13 @@
 # kettu
 
-Port of http://github.com/kjg/derailleur and the original Transmission Web Client
+Port of http://github.com/kjg/derailleur and the original Transmission Web Client  
 using [jquery](http://jquery.com), [sammy](http://github.com/quirkey/sammy), [jspec](http://github.com/visionmedia/jspec) and [mustache.js](http://github.com/janl/mustache.js).
 
 By Frank Prößdorf <fp@notjusthosting.com>.
 
 ## Thanks 
-kjg for all the work on the transmission web client.
-lenalena for introducing proper jspec testing to this project.
+* kjg for all the work on the transmission web client.
+* lenalena for introducing proper jspec testing to this project.
 
 ## Where to use?
 You can use kettu instead of the original web client to remotely administrate your transmission application.
