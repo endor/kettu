@@ -72,5 +72,17 @@ var TorrentHelpers = {
         context.cache(partial, response);
       }});
     };    
+  },
+  
+  activateAddTorrentLink: function() {
+    var context = this;
+    $('#add_a_torrent').click(function() {
+      if(context.infoIsOpen()) {
+        context.closeInfo();
+      } else {
+        window.location.hash = '/torrents/new';
+      }
+      return false;
+    });
   }
 };

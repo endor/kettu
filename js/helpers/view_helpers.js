@@ -40,5 +40,11 @@ var ViewHelpers = {
       bluffGraph.data(label, data[label]);      
     }
     bluffGraph.draw();    
+  },
+  
+  activateLinks: function() {
+    this.activateAddTorrentLink();
+    this.activateSettingsLink();
+    this.activateStatisticsLink();
   }
 };

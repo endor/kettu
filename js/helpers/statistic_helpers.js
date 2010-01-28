@@ -1,5 +1,5 @@
 var StatisticHelpers = {
-  updateStatistics: function() {
+  activateStatisticsLink: function() {
     var context = this;
     $('#statistics').click(function() {
       if(context.infoIsOpen()) {

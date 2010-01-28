@@ -1,5 +1,5 @@
 var SettingHelpers = {
-  updateSettings: function() {
+  activateSettingsLink: function() {
     var context = this;
     $('#settings').click(function() {
       if(context.infoIsOpen()) {

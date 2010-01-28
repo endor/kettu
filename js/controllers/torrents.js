@@ -7,6 +7,24 @@ Torrents = function(sammy) { with(sammy) {
     setInterval('getAndRenderTorrents()', reload_interval);
   });
   
+  get('#/torrents/new', function() {
+    this.partial('./templates/torrents/new.mustache', {}, function(rendered_view) {
+      context.openInfo(rendered_view);
+    });
+  });
+  
+  post('#/torrents', function() {
+    var request = {
+      'method': 'torrent-add',
+      'arguments': {'filename': this.params['url'], 'paused': true}
+    };
+    rpc.query(request, function(response) {
+      var message = (response['torrent-added']) ? 'Torrent added successfully.' : 'Torrent could not be added.';
+      context.trigger('flash', message);
+      context.closeInfo();
+    });
+  });
+  
   get('#/torrents/:id', function() {
     context = this;
     var id = parseInt(context.params['id']);

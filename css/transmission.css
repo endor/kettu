@@ -219,6 +219,15 @@ body{
   width: 25px;
 }
 
+#info input.submit {
+  background-color: white;
+  padding: 4px;
+}
+
+#info input.long {
+  width: 250px;
+}
+
 #info #version {
   color: #555555;
   font-size: 12px;
