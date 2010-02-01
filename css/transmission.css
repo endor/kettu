@@ -228,6 +228,10 @@ body{
   width: 250px;
 }
 
+#info input.file {
+  border: 0px;
+}
+
 #info #version {
   color: #555555;
   font-size: 12px;
