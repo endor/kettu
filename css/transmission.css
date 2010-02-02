@@ -46,6 +46,13 @@ body{
   background: url(jquery/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x;
 }
 
+.torrent .ui-widget-header-meta {
+  border: 1px solid #aaaaaa; 
+  color: #222222;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_highlight-hard_75_f5f5b5_1x100.png) repeat-x;
+}
+
 .torrent .ui-widget-header-paused {
   border: 1px solid #aaaaaa; 
   color: #222222;
@@ -168,20 +175,6 @@ body{
   padding: 0px;
   text-decoration: none;
   font-weight: normal;
-}
-#info .header {
-  color: #555555;
-  text-decoration: none;
-  background-image: url(images/bullet_toggle_plus.png);
-  background-repeat: no-repeat;
-  margin: 10px;
-  padding-left: 15px;
-}
-#info .header.active{
-  background-image: url(images/bullet_toggle_minus.png);
-  background-repeat: no-repeat;
-  margin: 10px;
-  padding-left: 15px;
 }
 #info .content {
   margin-left: 15px;

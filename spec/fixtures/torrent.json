@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "name": "My Torrent",
+  "status": 8,
+  "totalSize": 8192,
+  "sizeWhenDone": 8192,
+  "haveValid": 1024,
+  "leftUntilDone": 2048, 
+  "eta": 16,
+  "uploadedEver": 512,
+  "uploadRatio": 0.23,
+  "rateDownload": 256,
+  "rateUpload": 128
+}
