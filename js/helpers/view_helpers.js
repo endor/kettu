@@ -46,5 +46,6 @@ var ViewHelpers = {
     this.activateAddTorrentLink();
     this.activateSettingsLink();
     this.activateStatisticsLink();
+    this.activateTurtleModeLink();
   }
 };

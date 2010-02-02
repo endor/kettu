@@ -38,7 +38,6 @@
         <div id="eror"></div>
         <div id="notice"></div>
 
-        <div id="header"></div>
         <div id="ratiobar">
           <div id="globalUpAndDownload"></div>
         </div>      
@@ -58,7 +57,12 @@
         <div id="info"></div>      
       </div>
 
+      <form action="#/settings" method="PUT" id="turtle_mode_form">
+        <input type="hidden" name="alt-speed-enabled" value="true" />
+      </form>
+      
       <nav id="footer">
+        <a href="#" id="turtle_mode">Enable Turtle Mode</a>
         <a href="#" id="add_a_torrent">Add a Torrent</a>
         <a href="#" id="statistics">Statistics</a>
         <a href="#" id="settings">Preferences</a>

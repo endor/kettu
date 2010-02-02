@@ -56,7 +56,7 @@ Torrent = function(attributes) {
     var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone);
     var formattedUploadedEver = Math.formatBytes(torrent.uploadedEver);
 
-    var uploadingProgress = formattedSizeWhenDone + " selected, uploaded " + formattedUploadedEver;
+    var uploadingProgress = formattedSizeWhenDone + ", uploaded " + formattedUploadedEver;
     return uploadingProgress + " (Ratio: " + torrent.uploadRatio + ")";
   };
   torrent.progressBar = function() {

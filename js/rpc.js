@@ -1,5 +1,6 @@
 RPC = function() {
-  this.url = 'http://localhost:9091/transmission/rpc';
+  this.base_url = 'http://localhost:9091';
+  this.url = this.base_url + '/transmission/rpc';
   this.session_id = '';
 };
 

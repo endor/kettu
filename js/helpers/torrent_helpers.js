@@ -84,5 +84,23 @@ var TorrentHelpers = {
       }
       return false;
     });
+  },
+  
+  activateTurtleModeLink: function() {
+    var context = this;
+    $('#turtle_mode').click(function() {
+      var form = $('#turtle_mode_form');
+      form.submit();
+      if($(this).hasClass('active')) {
+        $(this).removeClass('active');
+        $(this).text('Enable Turtle Mode');
+        form.find('input:first').attr('value', 'true');
+      } else {
+        $(this).addClass('active');
+        $(this).text('Disable Turtle Mode');
+        form.find('input:first').attr('value', 'false');
+      }
+      return false;
+    });    
   }
 };

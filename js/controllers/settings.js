@@ -21,9 +21,11 @@ Settings = function(sammy) { with(sammy) {
   });
   
   put('#/settings', function() {
-    var request = {
-      'method': 'session-set',
-      'arguments': this.arguments_hash(updatable_settings, this.params)
+    var request = { 'method': 'session-set' };
+    if(this.params['alt-speed-enabled']) {
+      request['arguments'] = this.turtle_mode_hash(this.params['alt-speed-enabled']);
+    } else {
+      request['arguments'] = this.arguments_hash(updatable_settings, this.params);
     };
     rpc.query(request, function(response) {
       trigger('flash', 'Settings updated successfully');
@@ -31,7 +33,6 @@ Settings = function(sammy) { with(sammy) {
   });
     
   bind('settings-refreshed', function(e, settings){ with(this) {
-    // this.trigger('changed');
     this.updateSettingsCheckboxes(settings);
     this.menuizeInfo();
   }});

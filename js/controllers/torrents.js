@@ -27,7 +27,7 @@ Torrents = function(sammy) { with(sammy) {
       });      
     } else {
       $('#add_torrent_form').ajaxSubmit({
-    		'url': 'http://localhost:9091/transmission/upload?paused=' + paused,
+    		'url': rpc.base_url + '/transmission/upload?paused=' + paused,
     		'type': 'POST',
     		'data': { 'X-Transmission-Session-Id' : rpc.session_id },
     		'dataType': 'xml',

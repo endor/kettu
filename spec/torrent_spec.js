@@ -85,7 +85,7 @@ describe 'Torrent'
   describe 'uploadingProgress'
     it 'should create a human readable string from sizeWhenDone, uploadRatio and uploadedEver'
       var torrent = Torrent({sizeWhenDone: 100000, uploadedEver: 50666, uploadRatio: 0.52});
-      torrent.uploadingProgress().should.eql('97.7 KB selected, uploaded 49.5 KB (Ratio: 0.52)');
+      torrent.uploadingProgress().should.eql('97.7 KB, uploaded 49.5 KB (Ratio: 0.52)');
     end
   end
   

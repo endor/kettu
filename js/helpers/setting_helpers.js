@@ -24,6 +24,10 @@ var SettingHelpers = {
     });
   },
   
+  turtle_mode_hash: function(turtle_mode) {
+    return {'alt-speed-enabled': (turtle_mode == "true") ? true : false};
+  },
+  
   arguments_hash: function(updatable_settings, params) {
     var hash = {};
 
