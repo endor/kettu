@@ -47,15 +47,15 @@ describe 'Torrent'
     it 'should return 0 when sizeWhenDone is null'
       Torrent({sizeWhenDone: null}).percentDone().should.eql('0');
     end
-
+  
     it 'should return 0 when leftUntilDone is null'
       Torrent({leftUntilDone: null}).percentDone().should.eql('0');
     end
-
+  
     it 'should truncate to 2 decimals'
       Torrent({sizeWhenDone: 100000, leftUntilDone: 50666}).percentDone().should.eql('49.33');
     end
-
+  
     it 'should always round done so that 100% isn\'t premature'
       Torrent({sizeWhenDone: 100000, leftUntilDone: 1}).percentDone().should.eql('99.99');
     end
@@ -69,7 +69,7 @@ describe 'Torrent'
     it 'should be unknown when less than 0'
       Torrent({eta: -1}).etaString().should.eql('remaining time unknown');
     end
-
+  
     it 'should format the time correctly'
       Torrent({eta: 3660}).etaString().should.eql('1 hr 1 min remaining');
     end
@@ -102,6 +102,28 @@ describe 'Torrent'
     it 'should not contain up and download speed when torrent is not active'
       var torrent = Torrent({status: Torrent({}).stati['paused'], rateUpload: 10000, rateDownload: 10000});
       torrent.statusString().should_not.match(/DL: 10.0 KB\/s, UL: 10.0 KB\/s/);
+    end
+  end
+  
+  describe 'progressBar'
+    it 'should add class active if it\'s an active torrent'
+      var torrent = Torrent({status: Torrent({}).stati['downloading'], metadataPercentComplete: 1});
+      torrent.progressBar().should.match(/active/);
+    end
+    
+    it 'should add class paused if it\'s a paused torrent'
+      var torrent = Torrent({status: Torrent({}).stati['paused'], metadataPercentComplete: 1});
+      torrent.progressBar().should.match(/paused/);
+    end
+    
+    it 'should add class meta if it\'s a torrent retrieving meta data'
+      var torrent = Torrent({status: Torrent({}).stati['downloading'], metadataPercentComplete: 0});
+      torrent.progressBar().should.match(/meta/);
+    end
+    
+    it 'should fill the whole progressbar if it\'s retrieving meta data'
+      var torrent = Torrent({status: Torrent({}).stati['downloading'], metadataPercentComplete: 0});
+      torrent.progressBar().should.match(/100%/);
     end
   end
 end

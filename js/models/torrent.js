@@ -44,7 +44,6 @@ Torrent = function(attributes) {
   };
   torrent.progressDetails = function() {
     var progressDetails;
-    
     if(torrent.needsMetaData()) {
       progressDetails = torrent.metaDataProgress();
     } else if(!torrent.isDoneDownloading()) {

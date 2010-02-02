@@ -14,6 +14,17 @@ Torrents = function(sammy) { with(sammy) {
     });
   });
   
+  route('delete', '#/torrents/:id', function() {
+    context = this;
+    var request = {
+      'method': 'torrent-remove',
+      'arguments': {'ids': parseInt(this.params['id'])}
+    };
+    rpc.query(request, function(response) {
+      context.trigger('flash', 'Torrent removed successfully.');
+    });
+  });
+  
   post('#/torrents', function() {
     context = this;
     var paused = (this.params['start_when_added'] != "on");
