@@ -22,7 +22,10 @@
     <table class="content">
       <tr>
         <th>Incoming TCP Port:</th>
-        <td><input type="text" name="peer-port" value="{{peer-port}}" /></td>
+        <td class="long">
+          <input type="text" name="peer-port" value="{{peer-port}}" class="short" />
+          <div id="port-open"></div>
+        </td>
       </tr>
       <tr>
         <th>Refresh Web Client every:</th>

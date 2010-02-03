@@ -217,7 +217,7 @@ body{
 }
 
 #info input.short {
-  width: 25px;
+  width: 35px;
 }
 
 #info input.submit {
@@ -231,6 +231,22 @@ body{
 
 #info input.file {
   border: 0px;
+}
+
+#info td.long {
+  width: 62px;
+}
+
+#info #port-open {
+  margin-top: 3px;
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  float: right;
+}
+
+#info #port-open.active {
+  background-color: green !important;
 }
 
 #info #version {
