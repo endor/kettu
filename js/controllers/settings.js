@@ -12,7 +12,7 @@ Settings = function(sammy) { with(sammy) {
     };
     rpc.query(request, function(response) {
       view = response;
-      view['reload_interval'] = reload_interval / 1000;
+      view['reload-interval'] = reload_interval / 1000;
       context.partial('./templates/settings/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         trigger('settings-refreshed', view);
@@ -23,17 +23,32 @@ Settings = function(sammy) { with(sammy) {
   
   put('#/settings', function() {
     var context = this;
-    var request = { 'method': 'session-set' };
-    if(this.params['alt-speed-enabled']) {
-      request['arguments'] = this.turtle_mode_hash(this.params['alt-speed-enabled']);
-    } else {
-      request['arguments'] = this.arguments_hash(updatable_settings, this.params);
-    };
+    var request = { 'method': 'session-set', 'arguments': prepareArguments(context, this.params) };
+    delete(request['arguments']['reload-interval']);
+
     rpc.query(request, function(response) {
       trigger('flash', 'Settings updated successfully');
       if(context.params['peer-port']) { updatePeerPortDiv(); }
+      if(context.params['reload-interval']) { updateReloadInterval(context, context.params['reload-interval']); }
     });
   });
+  
+  function prepareArguments(context, params) {
+    if(params['alt-speed-enabled']) {
+      return context.turtle_mode_hash(params['alt-speed-enabled']);
+    } else {
+      return context.arguments_hash(updatable_settings, params);
+    };
+  };
+  
+  function updateReloadInterval(context, new_reload_interval) {
+    new_reload_interval = parseInt(new_reload_interval);
+    if(new_reload_interval != (sammy.reload_interval/1000)) {
+      sammy.reload_interval = new_reload_interval * 1000;
+      clearInterval(sammy.interval_id);
+      context.closeInfo();
+    }
+  };
     
   function updatePeerPortDiv() {
     var request = { 'method': 'port-test', 'arguments': {} };

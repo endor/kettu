@@ -4,7 +4,7 @@ Torrents = function(sammy) { with(sammy) {
   get('#/torrents', function() {
     context = this;
     getAndRenderTorrents();
-    setInterval('getAndRenderTorrents()', reload_interval);
+    sammy.interval_id = setInterval('getAndRenderTorrents()', reload_interval);
   });
   
   get('#/torrents/new', function() {
