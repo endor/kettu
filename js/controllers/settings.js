@@ -12,11 +12,10 @@ Settings = function(sammy) { with(sammy) {
     };
     rpc.query(request, function(response) {
       view = response;
-      view['reload-interval'] = reload_interval / 1000;
+      view['reload-interval'] = sammy.reload_interval/1000;
       context.partial('./templates/settings/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         trigger('settings-refreshed', view);
-        updatePeerPortDiv();
       });
     });
   });
@@ -51,8 +50,12 @@ Settings = function(sammy) { with(sammy) {
   };
     
   function updatePeerPortDiv() {
+    $('#port-open').addClass('waiting');
+    $('#port-open').show();
+    
     var request = { 'method': 'port-test', 'arguments': {} };
     rpc.query(request, function(response) {
+      $('#port-open').removeClass('waiting');
       if(response['port-is-open']) {
         $('#port-open').addClass('active');
       } else {

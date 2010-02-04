@@ -243,10 +243,16 @@ body{
   height: 15px;
   background-color: red;
   float: right;
+  display: none;
 }
 
 #info #port-open.active {
-  background-color: green !important;
+  background-color: green;
+}
+
+#info #port-open.waiting {
+  background-image: url(images/spinner.gif);
+  background-color: transparent !important;
 }
 
 #info #version {
