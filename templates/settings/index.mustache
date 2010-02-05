@@ -36,6 +36,7 @@
     </table>
   </div>
   <div class="item bandwidth">
+    <h3>Normal mode</h3>
     <table class="content">
       <tr>
         <th>Speed Limit Download:</th>
@@ -49,6 +50,21 @@
         <td>
           <input type="checkbox" name="speed-limit-up-enabled"> 
           <input type="text" name="speed-limit-up" value="{{speed-limit-up}}" class="short" /> KB/s
+        </td>
+      </tr>
+    </table>
+    <h3>Turtle mode</h3>
+    <table class="content">
+      <tr>
+        <th>Speed Limit Download:</th>
+        <td>
+          <input type="text" name="alt-speed-down" value="{{alt-speed-down}}" class="short" /> KB/s
+        </td>
+      </tr>
+      <tr>
+        <th>Speed Limit Upload:</th>
+        <td>
+          <input type="text" name="alt-speed-up" value="{{alt-speed-up}}" class="short" /> KB/s
         </td>
       </tr>
     </table>

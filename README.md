@@ -17,9 +17,7 @@ It's recommended to replace the old web interface with this one, so the server a
 
 ## Todo
 * sort torrents
-* show spinner while checking the peer port
 * ignore unencrypted clients
-* set how slow turtle mode actually is
 * show some tracker information
 * show more information about files
 * show more information about peers

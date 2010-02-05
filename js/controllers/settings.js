@@ -1,7 +1,7 @@
 Settings = function(sammy) { with(sammy) {
   updatable_settings = [
     'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
-    'speed-limit-down-enabled', 'peer-port', 'download-dir'
+    'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up'
   ];
   
   get('#/settings', function() {
