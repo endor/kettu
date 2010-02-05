@@ -3,7 +3,8 @@ Torrent = function(attributes) {
 
   torrent['fields'] = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
-    'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete'
+    'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
+    'addedDate'
   ];
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
@@ -124,6 +125,9 @@ Torrent = function(attributes) {
   };
   torrent.downAndUpLoadRateString = function(downloadRate, uploadRate) {
     return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
+  };
+  torrent.activity = function() {
+    return torrent.rateDownload + torrent.rateUpload;
   };
   torrent['stati'] = {
     'waiting_to_check': 1,

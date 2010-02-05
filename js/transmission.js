@@ -6,6 +6,7 @@ var sammy = new Sammy.Application(function() { with(this) {
   use(Sammy.Cache);
   
   helpers(TorrentHelpers);
+  helpers(SortTorrentsHelpers);
   helpers(InfoHelpers);
   helpers(ViewHelpers);
   helpers(SettingHelpers);

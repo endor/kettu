@@ -133,11 +133,15 @@ body{
   color: #222222;
 }
 
-#filterbar #filter_links {
+#filterbar #filter_sort_links {
   padding: 2px;
   padding-left: 8px;
   float: left;
   margin-top: 2px;
+  width: 400px;
+}
+#filterbar #filter_sort_links #sorts {
+  display: none;
 }
 #filterbar #flash {
   padding: 2px;

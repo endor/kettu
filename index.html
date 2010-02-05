@@ -23,6 +23,7 @@
     <script src="./js/views/statistics.js"></script>
     <script src="./js/helpers/math_helpers.js"></script>
     <script src="./js/helpers/torrent_helpers.js"></script>
+    <script src="./js/helpers/sort_torrents_helpers.js"></script>
     <script src="./js/helpers/info_helpers.js"></script>
     <script src="./js/helpers/view_helpers.js"></script>
     <script src="./js/helpers/setting_helpers.js"></script>
@@ -46,11 +47,23 @@
 
       <div id="middle">
         <div id="filterbar">
-          <div id="filter_links">
-            <a href="#/filtered_torrents/all" class="all">All</a>
-            <a href="#/filtered_torrents/downloading" class="downloading">Downloading</a>
-            <a href="#/filtered_torrents/seeding" class="seeding">Seeding</a>
-            <a href="#/filtered_torrents/paused" class="paused">Paused</a>            
+          <div id="filter_sort_links">
+            <a href="#" id="activate_filters">Filter</a> |&nbsp;
+            <a href="#" id="activate_sorts">Sort</a> -&nbsp;
+            <span id="filters">
+              <a href="#/filtered_torrents/all" class="all">All</a>
+              <a href="#/filtered_torrents/downloading" class="downloading">Downloading</a>
+              <a href="#/filtered_torrents/seeding" class="seeding">Seeding</a>
+              <a href="#/filtered_torrents/paused" class="paused">Paused</a>              
+            </span>
+            <span id="sorts">
+              <a href="#/torrents?sort=activity" class="activity">Activity</a>
+              <a href="#/torrents?sort=age" class="age">Age</a>
+              <a href="#/torrents?sort=name" class="name">Name</a>
+              <a href="#/torrents?sort=progress" class="progress">Progress</a>
+              <a href="#/torrents?sort=queue" class="queue">Queue</a>
+              <a href="#/torrents?sort=state" class="state">State</a>
+            </span>
           </div>
           <div id="flash"></div>
         </div>

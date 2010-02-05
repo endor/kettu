@@ -47,5 +47,6 @@ var ViewHelpers = {
     this.activateSettingsLink();
     this.activateStatisticsLink();
     this.activateTurtleModeLink();
+    this.activateFilterAndSortLink();
   }
 };

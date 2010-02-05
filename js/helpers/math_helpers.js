@@ -109,3 +109,21 @@ Math.formatSeconds = function(seconds)
 Math.roundWithPrecision = function(floatnum, precision) {
     return Math.round ( floatnum * Math.pow ( 10, precision ) ) / Math.pow ( 10, precision );
 };
+
+
+/*
+ *   Given a numerator and denominator
+ *
+ *   @param float
+ *   @param float
+ *   @returns string
+ */
+Math.ratio = function(numerator, denominator) {
+	var result = Math.floor(100 * numerator / denominator) / 100;
+
+	if(isNaN(result)) { result = 0; }
+	if(result=="Infinity") { result = "&infin;"; }
+	if((result % 1) == 0) { result += '.00'; }
+
+	return result;
+};

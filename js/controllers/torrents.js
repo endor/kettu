@@ -2,9 +2,10 @@ Torrents = function(sammy) { with(sammy) {
   var context;
   
   get('#/torrents', function() {
-    context = this;
+    sammy.sort_mode = this.params['sort'] || sammy.sort_mode || 'name';
     getAndRenderTorrents();
-    sammy.reload_interval = 2000;
+    if(sammy.interval_id) { clearInterval(sammy.interval_id); }
+    sammy.reload_interval = 400000;
     sammy.interval_id = setInterval('getAndRenderTorrents()', sammy.reload_interval);
   });
   
@@ -111,9 +112,8 @@ Torrents = function(sammy) { with(sammy) {
     getAndRenderTorrents();
   };
   
-  // TODO: find a way to put this into the appropriate helper files
   bind('torrents-refreshed', function(e, torrents) { with(this) {
-    this.updateViewElements(torrents);
+    this.updateViewElements(this.sortTorrents(sammy.sort_mode, torrents));
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {

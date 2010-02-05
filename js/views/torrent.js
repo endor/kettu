@@ -2,7 +2,7 @@ TorrentView = function(torrent, context) {
   var view = torrent;
   
   view.pauseAndActivateButton = function() {
-    var torrent = Torrent(this);
+    var torrent = Torrent(view);
     var options = torrent.isActive() ? ['torrent-stop', 'Pause', 'pause'] : ['torrent-start', 'Activate', 'activate'];
     this.cache_partial('./templates/torrents/pause_and_activate_button.mustache', 'pause_and_activate_button', context);
     return Mustache.to_html(context.cache('pause_and_activate_button'), {
