@@ -1,9 +1,10 @@
 Settings = function(sammy) { with(sammy) {
   updatable_settings = [
     'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
-    'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up'
+    'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
+    'encryption'
   ];
-  
+
   get('#/settings', function() {
     var context = this;
     var request = {
@@ -22,33 +23,16 @@ Settings = function(sammy) { with(sammy) {
   
   put('#/settings', function() {
     var context = this;
-    var request = { 'method': 'session-set', 'arguments': prepareArguments(context, this.params) };
+    var request = { 'method': 'session-set', 'arguments': this.prepare_arguments(context, this.params) };
     delete(request['arguments']['reload-interval']);
 
     rpc.query(request, function(response) {
       trigger('flash', 'Settings updated successfully');
       if(context.params['peer-port']) { updatePeerPortDiv(); }
-      if(context.params['reload-interval']) { updateReloadInterval(context, context.params['reload-interval']); }
+      if(context.params['reload-interval']) { this.update_reload_interval(context, context.params['reload-interval']); }
     });
   });
-  
-  function prepareArguments(context, params) {
-    if(params['alt-speed-enabled']) {
-      return context.turtle_mode_hash(params['alt-speed-enabled']);
-    } else {
-      return context.arguments_hash(updatable_settings, params);
-    };
-  };
-  
-  function updateReloadInterval(context, new_reload_interval) {
-    new_reload_interval = parseInt(new_reload_interval);
-    if(new_reload_interval != (sammy.reload_interval/1000)) {
-      sammy.reload_interval = new_reload_interval * 1000;
-      clearInterval(sammy.interval_id);
-      context.closeInfo();
-    }
-  };
-    
+
   function updatePeerPortDiv() {
     $('#port-open').addClass('waiting');
     $('#port-open').show();
@@ -63,9 +47,10 @@ Settings = function(sammy) { with(sammy) {
       }
     });
   };
-  
+
   bind('settings-refreshed', function(e, settings){ with(this) {
     this.updateSettingsCheckboxes(settings);
+    this.updateSettingsSelects(settings);
     this.menuizeInfo();
   }});
 }};
