@@ -26,8 +26,10 @@ RPC.prototype = {
         if(xhr.status === 409 && context.session_id.length > 0) {
           context.query(params, callback);
         } else {
-          console.log('RPC Connection Failure');
-          console.log(xhr.responseText);
+          if(window.console) {
+            console.log('RPC Connection Failure');
+            console.log(xhr.responseText);            
+          }
         }
       }
     });
