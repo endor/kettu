@@ -168,13 +168,13 @@ body{
 }
 #info {
   position: fixed;
-	top: 53px;
-	bottom: 22px;
-	right: 0px;
-	width: 350px;
-	padding-top: 10px;
-	padding-left: 10px;
-	background-color: white;
+  top: 53px;
+  bottom: 22px;
+  right: 0px;
+  width: 350px;
+  padding-top: 10px;
+  padding-left: 10px;
+  background-color: white;
   display: none;
   border-left: 1px solid #dddddd;
   overflow: auto;

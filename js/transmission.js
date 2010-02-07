@@ -23,6 +23,7 @@ var sammy = new Sammy.Application(function() { with(this) {
   
   bind('init', function() { with(this) {
     this.activateLinks();
+    this.closeInfo();
   }});
 }});
  
