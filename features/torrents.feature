@@ -14,5 +14,3 @@ Feature: view list of torrents
       And I click on the torrent
     Then the torrent should be highlighted
   
-  
-  
