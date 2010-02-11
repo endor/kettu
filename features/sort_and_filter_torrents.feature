@@ -27,42 +27,36 @@ Feature: sort and filter torrents
   Scenario: sort torrents by name
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 8, 16"
     When I go to the name sorted torrents page
-      And I wait for the AJAX call to finish
     Then I should see "Donald Duck" before "Mutant Ninja Turtles"
       And I should see "Mutant Ninja Turtles" before "Saber Riders"
 
   Scenario: sort torrents by status
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "8, 16, 4"
     When I go to the state sorted torrents page
-      And I wait for the AJAX call to finish
     Then I should see "Saber Riders" before "Mutant Ninja Turtles"
       And I should see "Mutant Ninja Turtles" before "Donald Duck"
 
   Scenario: sort torrents by activity
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the download rates "16000, 8000, 4000"
     When I go to the activity sorted torrents page
-      And I wait for the AJAX call to finish
     Then I should see "Mutant Ninja Turtles" before "Donald Duck"
       And I should see "Donald Duck" before "Saber Riders"
   
   Scenario: sort torrents by age
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the date added "87742, 84253, 81181"
     When I go to the age sorted torrents page
-      And I wait for the AJAX call to finish
     Then I should see "Mutant Ninja Turtles" before "Donald Duck"
       And I should see "Donald Duck" before "Saber Riders"
 
   Scenario: sort torrents by progress
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the left until done "8, 4, 16"
     When I go to the progress sorted torrents page
-      And I wait for the AJAX call to finish
     Then I should see "Saber Riders" before "Mutant Ninja Turtles"
       And I should see "Mutant Ninja Turtles" before "Donald Duck"
 
   Scenario: sort torrents by queue
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the ids "1, 2, 3"
     When I go to the queue sorted torrents page
-      And I wait for the AJAX call to finish
     Then I should see "Mutant Ninja Turtles" before "Donald Duck"
       And I should see "Donald Duck" before "Saber Riders"
   

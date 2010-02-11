@@ -57,7 +57,7 @@ Torrents = function(sammy) { with(sammy) {
     var id = parseInt(context.params['id']);
     
     getTorrent(id, function(torrent) {
-      context.partial('./templates/torrents/show_info.mustache', torrent, function(rendered_view) {
+      context.partial('./templates/torrents/show_info.mustache', TorrentView(torrent, context), function(rendered_view) {
         context.openInfo(rendered_view);
       });
     });

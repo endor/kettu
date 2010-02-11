@@ -64,7 +64,20 @@ When /I go to the (.+)/ do |path|
 end
 
 When /^I wait for the AJAX call to finish$/ do
-  sleep 0.4
+  # puts 'waiting for the AJAX call ...'
+  $browser.wait_while do
+    begin
+      count = $browser.execute_script("window.running_ajax_calls").to_i
+      count.to_i > 0
+    rescue => e
+      if e.message.include?('HtmlunitCorejsJavascript::Undefined')
+        raise "For 'I wait for the AJAX call to finish' to work please include culerity.js after including jQuery. If you don't use jQuery please rewrite culerity.js accordingly."
+      else
+        raise(e)
+      end
+    end
+  end
+  sleep 0.5
 end
 
 When /^I visit "([^\"]+)"$/ do |url|

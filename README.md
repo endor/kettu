@@ -28,6 +28,8 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* show some tracker information
+* countdown till next scrape in tracker info
 * show more information about files
 * show more information about peers
+* feature test that the right rpc queries are sent when updating settings, adding torrents, etc.
+* display errors, also tracker errors in tracker info
