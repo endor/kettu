@@ -2,12 +2,14 @@
   <head>
     <link rel="stylesheet" href="jspec/jspec.css" type="text/css"/>
     <script src="../vendor/jquery/jquery.js"></script>
+    <script src="../vendor/jquery/jquery.ui.js"></script>
     <script src="../vendor/mustache/mustache.js"></script>
     <script src="./jspec/jspec.js"></script>
     <script src="./jspec/jspec.jquery.js"></script>
     <script src="../js/models/torrent.js"></script>
     <script src="../js/views/torrent.js"></script>
     <script src="../js/helpers/torrent_helpers.js"></script>
+    <script src="../js/helpers/sort_torrents_helpers.js"></script>
     <script src="../js/helpers/setting_helpers.js"></script>
     <script src="../js/helpers/math_helpers.js"></script>
     <script>
@@ -15,8 +17,9 @@
         JSpec
         .exec('torrent_spec.js')
         .exec('torrent_helpers_spec.js')
+        .exec('sort_torrents_helpers_spec.js')
         .exec('setting_helpers_spec.js')
-        .exec('torrents_view_spec.js')
+        .exec('torrent_view_spec.js')
         .run({failuresOnly : true})
         .report();
       }

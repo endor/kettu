@@ -1,12 +1,20 @@
 Statistics = function(sammy) { with(sammy) {
   get('#/statistics', function() {
     var context = this;    
-    var view = {
-      'numberOfTorrents': $('.torrent').length
+    var request = {
+      'method': 'session-stats',
+      'arguments': {'fields': ['current-stats', 'torrentCount']}
     }
     
-    context.partial('./templates/statistics/index.mustache', view, function(rendered_view) {
-      context.openInfo(rendered_view);
+    rpc.query(request, function(response) {
+      context.partial('./templates/statistics/index.mustache', StatisticsView(response), function(rendered_view) {
+        context.openInfo(rendered_view);
+        context.drawPie('torrents_by_status', {
+          'Downloading': ($('.downloading').length - 1),
+          'Seeding': ($('.seeding').length - 1),
+          'Paused': ($('.paused').length - 1)
+        });
+      });      
     });
   });
 }};

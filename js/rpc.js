@@ -1,5 +1,6 @@
 RPC = function() {
-  this.url = 'http://localhost:9091/transmission/rpc';
+  this.base_url = 'http://localhost:9091';
+  this.url = this.base_url + '/transmission/rpc';
   this.session_id = '';
 };
 
@@ -25,8 +26,10 @@ RPC.prototype = {
         if(xhr.status === 409 && context.session_id.length > 0) {
           context.query(params, callback);
         } else {
-          alert('RPC Connection Failure');
-          console.log(xhr.responseText);
+          if(window.console) {
+            console.log('RPC Connection Failure');
+            console.log(xhr.responseText);            
+          }
         }
       }
     });

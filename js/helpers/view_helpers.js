@@ -26,5 +26,27 @@ var ViewHelpers = {
     $('#info .item').hide();
     $('#info .item:first').show();
     $('#info .menu-item:first').addClass('active');    
+  },
+  
+  drawPie: function(id, data) {
+    var bluffGraph = new Bluff.Pie(id, 300);
+    bluffGraph.set_theme({
+      colors: ['#B2DFEE', '#FFEC8B', '#BCEE68'],
+      marker_color: '#aea9a9',
+      font_color: '#555555',
+      background_colors: ['#F8F8F8', '#FFFFFF']
+    });
+    for(label in data) {
+      bluffGraph.data(label, data[label]);      
+    }
+    bluffGraph.draw();    
+  },
+  
+  activateLinks: function() {
+    this.activateAddTorrentLink();
+    this.activateSettingsLink();
+    this.activateStatisticsLink();
+    this.activateTurtleModeLink();
+    this.activateFilterAndSortLink();
   }
 };

@@ -2,9 +2,54 @@ Torrents = function(sammy) { with(sammy) {
   var context;
   
   get('#/torrents', function() {
-    context = this;
+    sammy.sort_mode = this.params['sort'] || sammy.sort_mode || 'name';
     getAndRenderTorrents();
-    setInterval('getAndRenderTorrents()', reload_interval);
+    if(sammy.interval_id) { clearInterval(sammy.interval_id); }
+    sammy.reload_interval = 400000;
+    sammy.interval_id = setInterval('getAndRenderTorrents()', sammy.reload_interval);
+  });
+  
+  get('#/torrents/new', function() {
+    context = this;
+    this.partial('./templates/torrents/new.mustache', {}, function(rendered_view) {
+      context.openInfo(rendered_view);
+    });
+  });
+  
+  route('delete', '#/torrents/:id', function() {
+    context = this;
+    var request = {
+      'method': 'torrent-remove',
+      'arguments': {'ids': parseInt(this.params['id'])}
+    };
+    rpc.query(request, function(response) {
+      context.trigger('flash', 'Torrent removed successfully.');
+    });
+  });
+  
+  post('#/torrents', function() {
+    context = this;
+    var paused = (this.params['start_when_added'] != "on");
+    if(this.params['url'].length > 0) {
+      var request = {
+        'method': 'torrent-add',
+        'arguments': {'filename': this.params['url'], 'paused': paused}
+      };
+      rpc.query(request, function(response) {
+        torrentUploaded(response['torrent-added']);
+      });      
+    } else {
+      $('#add_torrent_form').ajaxSubmit({
+    		'url': rpc.base_url + '/transmission/upload?paused=' + paused,
+    		'type': 'POST',
+    		'data': { 'X-Transmission-Session-Id' : rpc.session_id },
+    		'dataType': 'xml',
+        'iframe': true,
+    		'success': function(response) {
+    		  torrentUploaded($(response).children(':first').text().match(/200/));
+    		}
+  		});
+    }    
   });
   
   get('#/torrents/:id', function() {
@@ -12,7 +57,7 @@ Torrents = function(sammy) { with(sammy) {
     var id = parseInt(context.params['id']);
     
     getTorrent(id, function(torrent) {
-      context.partial('./templates/torrents/show_info.mustache', torrent, function(rendered_view) {
+      context.partial('./templates/torrents/show_info.mustache', TorrentView(torrent, context), function(rendered_view) {
         context.openInfo(rendered_view);
       });
     });
@@ -51,8 +96,8 @@ Torrents = function(sammy) { with(sammy) {
   
   getAndRenderTorrents = function() {
     var request = {
-      'method': 'torrent-get',
-      'arguments': {'fields':Torrent({})['fields']}
+      method: 'torrent-get',
+      arguments: {fields:Torrent({})['fields']}
     };
     rpc.query(request, function(response) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
@@ -60,9 +105,15 @@ Torrents = function(sammy) { with(sammy) {
     });    
   };
   
-  // TODO: find a way to put this into the appropriate helper files
+  torrentUploaded = function(torrent_added) {
+    var message = (torrent_added) ? 'Torrent added successfully.' : 'Torrent could not be added.';
+    context.trigger('flash', message);
+    context.closeInfo();
+    getAndRenderTorrents();
+  };
+  
   bind('torrents-refreshed', function(e, torrents) { with(this) {
-    this.updateViewElements(torrents);
+    this.updateViewElements(this.sortTorrents(sammy.sort_mode, torrents));
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {

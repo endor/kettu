@@ -16,21 +16,37 @@
         <th>Download Directory:</th>
         <td><input type="text" name="download-dir" value="{{download-dir}}" /></td>
       </tr>
+      <tr>
+        <th>Encryption:</th>
+        <td>
+          <select name="encryption">
+            <option value="required">Required</option>
+            <option value="preferred">Preferred</option>
+            <option value="tolerated">Tolerated</option>
+          </select>
+        </td>
+      </tr>
     </table>
   </div>
   <div class="item network">
     <table class="content">
       <tr>
         <th>Incoming TCP Port:</th>
-        <td><input type="text" name="peer-port" value="{{peer-port}}" /></td>
+        <td class="long">
+          <input type="text" name="peer-port" value="{{peer-port}}" class="short" />
+          <div id="port-open"></div>
+        </td>
       </tr>
       <tr>
         <th>Refresh Web Client every:</th>
-        <td>{{reload_interval}} seconds</td>
+        <td>
+          <input type="text" name="reload-interval" value="{{reload-interval}}" class="short" /> seconds
+        </td>
       </tr>
     </table>
   </div>
   <div class="item bandwidth">
+    <h3>Normal mode</h3>
     <table class="content">
       <tr>
         <th>Speed Limit Download:</th>
@@ -44,6 +60,21 @@
         <td>
           <input type="checkbox" name="speed-limit-up-enabled"> 
           <input type="text" name="speed-limit-up" value="{{speed-limit-up}}" class="short" /> KB/s
+        </td>
+      </tr>
+    </table>
+    <h3>Turtle mode</h3>
+    <table class="content">
+      <tr>
+        <th>Speed Limit Download:</th>
+        <td>
+          <input type="text" name="alt-speed-down" value="{{alt-speed-down}}" class="short" /> KB/s
+        </td>
+      </tr>
+      <tr>
+        <th>Speed Limit Upload:</th>
+        <td>
+          <input type="text" name="alt-speed-up" value="{{alt-speed-up}}" class="short" /> KB/s
         </td>
       </tr>
     </table>

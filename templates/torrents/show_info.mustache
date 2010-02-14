@@ -1,6 +1,7 @@
 <ul class="menu">
   <li><a href="#" class="menu-item" data-item="information">Information</a></li>
   <li><a href="#" class="menu-item" data-item="activity">Activity</a></li>
+  <li><a href="#" class="menu-item" data-item="trackers">Trackers</a></li>
   <li><a href="#" class="menu-item" data-item="files">Files</a></li>
 </ul>
 
@@ -92,6 +93,38 @@
       <td>{{peersSendingToUs}}</td>
     </tr>
   </table>
+</div>
+
+<div class="item trackers">
+  {{#trackerStats}}
+    <h3>{{host}}</h3><br />
+    <table class="content">
+      <tr>
+        <th>Last Announce:</th>
+        <td>{{lastAnnounceTimeFormatted}}</td>
+      </tr>
+      <tr>
+        <th>Next Announce:</th>
+        <td>{{nextAnnounceTimeFormatted}}</td>
+      </tr>
+      <tr>
+        <th>Last Scrape:</th>
+        <td>{{lastScrapeTimeFormatted}}</td>
+      </tr>
+      <tr>
+        <th>Seeders:</th>
+        <td>{{seederCount}}</td>
+      </tr>
+      <tr>
+        <th>Leechers:</th>
+        <td>{{leecherCount}}</td>
+      </tr>
+      <tr>
+        <th>Downloaded:</th>
+        <td>{{downloadCount}}</td>
+      </tr>
+    </table>
+  {{/trackerStats}}
 </div>
 
 <div class="item files">

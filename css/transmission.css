@@ -12,16 +12,14 @@ body{
 }
 #ratiobar {
   height: 20px;
-  background-color: #cccccc;
-  width: 100%;
+  background-color: #442244;
+  color: white;
   margin: 0px;
   padding: 3px;
 }
-#ratiobar #numberOfTorrents {
-  float: left;
-}
 #ratiobar #globalUpAndDownload {
   float: right;
+  margin-right: 5px;
 }
 #footer {
   width: 100%;
@@ -48,6 +46,13 @@ body{
   background: url(jquery/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x;
 }
 
+.torrent .ui-widget-header-meta {
+  border: 1px solid #aaaaaa; 
+  color: #222222;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_highlight-hard_75_f5f5b5_1x100.png) repeat-x;
+}
+
 .torrent .ui-widget-header-paused {
   border: 1px solid #aaaaaa; 
   color: #222222;
@@ -72,6 +77,18 @@ body{
 
 .torrent .pauseAndActivateButton.pause {
   background-image: url(images/control_pause.png);
+  width: 15px;
+  height: 15px; 
+}
+
+.deleteButton {
+  display: block;
+  color: transparent;
+  background-color: transparent;
+  border: 0px;
+  float: right;
+  margin-right: 20px;
+  background-image: url(images/control_eject.png);
   width: 15px;
   height: 15px; 
 }
@@ -103,9 +120,7 @@ body{
 }
 
 #filterbar {
-/*  padding: 2px;
-  padding-left: 8px;
-*/  border-bottom: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
 }
 
 #filterbar a {
@@ -118,11 +133,15 @@ body{
   color: #222222;
 }
 
-#filterbar #filter_links {
+#filterbar #filter_sort_links {
   padding: 2px;
   padding-left: 8px;
   float: left;
   margin-top: 2px;
+  width: 400px;
+}
+#filterbar #filter_sort_links #sorts {
+  display: none;
 }
 #filterbar #flash {
   padding: 2px;
@@ -134,7 +153,7 @@ body{
 }
 #torrents {
   position: fixed;
-	top: 89px;
+	top: 53px;
 	bottom: 32px;
 	right: 0px;
 	left: 0px;
@@ -149,13 +168,13 @@ body{
 }
 #info {
   position: fixed;
-	top: 89px;
-	bottom: 22px;
-	right: 0px;
-	width: 350px;
-	padding-top: 10px;
-	padding-left: 10px;
-	background-color: white;
+  top: 53px;
+  bottom: 22px;
+  right: 0px;
+  width: 350px;
+  padding-top: 10px;
+  padding-left: 10px;
+  background-color: white;
   display: none;
   border-left: 1px solid #dddddd;
   overflow: auto;
@@ -172,20 +191,6 @@ body{
   padding: 0px;
   text-decoration: none;
   font-weight: normal;
-}
-#info .header {
-  color: #555555;
-  text-decoration: none;
-  background-image: url(images/bullet_toggle_plus.png);
-  background-repeat: no-repeat;
-  margin: 10px;
-  padding-left: 15px;
-}
-#info .header.active{
-  background-image: url(images/bullet_toggle_minus.png);
-  background-repeat: no-repeat;
-  margin: 10px;
-  padding-left: 15px;
 }
 #info .content {
   margin-left: 15px;
@@ -216,7 +221,42 @@ body{
 }
 
 #info input.short {
-  width: 25px;
+  width: 35px;
+}
+
+#info input.submit {
+  background-color: white;
+  padding: 4px;
+}
+
+#info input.long {
+  width: 250px;
+}
+
+#info input.file {
+  border: 0px;
+}
+
+#info td.long {
+  width: 62px;
+}
+
+#info #port-open {
+  margin-top: 3px;
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  float: right;
+  display: none;
+}
+
+#info #port-open.active {
+  background-color: green;
+}
+
+#info #port-open.waiting {
+  background-image: url(images/spinner.gif);
+  background-color: transparent !important;
 }
 
 #info #version {
@@ -233,4 +273,9 @@ body{
 #info .menu li {
   display: inline;
   margin-right: 20px;
+}
+
+#pie_chart {
+  margin-left: 30px;
+  margin-top: 30px;
 }

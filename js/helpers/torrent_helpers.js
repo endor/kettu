@@ -17,16 +17,6 @@ var TorrentHelpers = {
     $('.torrent:even').addClass('even');
   },
   
-  removeOldTorrents: function(new_torrents, old_torrents) {
-    var old_ids = $.map(old_torrents, function(torrent) {return $(torrent).attr('id');});
-    var new_ids = $.map(new_torrents, function(torrent) {return torrent.id});
-    $.each(old_ids, function() {
-      if(new_ids.indexOf(parseInt(this)) < 0) {
-        $('#' + this).remove();
-      }
-    });
-  },
-  
   makeNewTorrent: function(torrent) {
     this.cache_partial('./templates/torrents/show.mustache', 'torrent_show', this);
     var rendered_view = Mustache.to_html(this.cache('torrent_show'), TorrentView(torrent, this));
@@ -36,28 +26,20 @@ var TorrentHelpers = {
   
   updateTorrents: function(torrents) {
     var context = this;
-    var updatableFields = ['progressDetails', 'name', 'progressBar', 'pauseAndActivateButton', 'statusString'];
+    var active_torrent_id = $('.torrent.active').attr('id');
 
-    this.removeOldTorrents(torrents, $('.torrent'));
-    
+    $('.torrent').remove();
     $.each(torrents, function() {
-      var old_torrent = $('#' + this.id);
-
-      if(!old_torrent.get(0)) {
-        context.makeNewTorrent(this);
-      } else {
-        var new_torrent = this;
-        $.each(updatableFields, function() {
-          old_torrent.find('.' + this).html(new_torrent[this]);
-        });
-        $.each(context.valid_filters(), function() {
-          if(old_torrent.hasClass(this)) {
-            old_torrent.removeClass(this);
-          };
-        });
-        old_torrent.addClass(new_torrent.statusWord());        
-      };
+      context.makeNewTorrent(this);
     });
+    
+    var active_torrent = $('#' + active_torrent_id);
+    if(active_torrent.length > 0) {
+      context.highlightLi('#torrents', active_torrent);
+      if(context.infoIsOpen()) {
+        window.location.hash = '/torrents/' + active_torrent_id;
+      }      
+    }
   },
   
   updateViewElements: function(torrents) {
@@ -72,5 +54,47 @@ var TorrentHelpers = {
         context.cache(partial, response);
       }});
     };    
+  },
+  
+  activateAddTorrentLink: function() {
+    var context = this;
+    $('#add_a_torrent').click(function() {
+      if(context.infoIsOpen()) {
+        context.closeInfo();
+      } else {
+        window.location.hash = '/torrents/new';
+      }
+      return false;
+    });
+  },
+  
+  activateFilterAndSortLink: function() {
+    var context = this;
+    $('#activate_filters').click(function() {
+      $('#filters').show();
+      $('#sorts').hide();
+    });
+    $('#activate_sorts').click(function() {
+      $('#filters').hide();
+      $('#sorts').show();      
+    });
+  },
+  
+  activateTurtleModeLink: function() {
+    var context = this;
+    $('#turtle_mode').click(function() {
+      var form = $('#turtle_mode_form');
+      form.submit();
+      if($(this).hasClass('active')) {
+        $(this).removeClass('active');
+        $(this).text('Enable Turtle Mode');
+        form.find('input:first').attr('value', 'true');
+      } else {
+        $(this).addClass('active');
+        $(this).text('Disable Turtle Mode');
+        form.find('input:first').attr('value', 'false');
+      }
+      return false;
+    });    
   }
 };

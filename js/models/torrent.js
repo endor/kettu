@@ -3,12 +3,13 @@ Torrent = function(attributes) {
 
   torrent['fields'] = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
-    'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload'
+    'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
+    'addedDate'
   ];
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
-    'pieceCount', 'pieceSize'
+    'pieceCount', 'pieceSize', 'trackerStats'
   ];
   $.each(torrent.fields, function() {
     torrent[this] = attributes[this];
@@ -33,6 +34,9 @@ Torrent = function(attributes) {
   torrent.isDoneDownloading = function() {
     return torrent.status === torrent.stati['seeding'] || torrent.leftUntilDone === 0;
   };
+  torrent.needsMetaData = function() { 
+    return torrent.metadataPercentComplete < 1 
+  };
   torrent.percentDone = function() {
     if(!torrent.sizeWhenDone) { return 0; }
     if(!torrent.leftUntilDone && torrent.leftUntilDone != 0) { return 0; }
@@ -40,10 +44,18 @@ Torrent = function(attributes) {
     return Math.floor( ((torrent.sizeWhenDone - torrent.leftUntilDone) / torrent.sizeWhenDone) * 10000 ) / 100;
   };
   torrent.progressDetails = function() {
-    var progressDetails = (!torrent.isDoneDownloading()) ? torrent.downloadingProgress() : torrent.uploadingProgress();
-    if(!torrent.isDoneDownloading() && torrent.isActive()) {
-      progressDetails += ' - ' + torrent.etaString();
+    var progressDetails;
+    if(torrent.needsMetaData()) {
+      progressDetails = torrent.metaDataProgress();
+    } else if(!torrent.isDoneDownloading()) {
+      progressDetails = torrent.downloadingProgress();
+      if(torrent.isActive()) {
+        progressDetails += ' - ' + torrent.etaString();
+      }
+    } else {
+      progressDetails = torrent.uploadingProgress();
     }
+
     return progressDetails;
   };
   torrent.downloadingProgress = function() {
@@ -56,12 +68,27 @@ Torrent = function(attributes) {
     var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone);
     var formattedUploadedEver = Math.formatBytes(torrent.uploadedEver);
 
-    var uploadingProgress = formattedSizeWhenDone + " selected, uploaded " + formattedUploadedEver;
+    var uploadingProgress = formattedSizeWhenDone + ", uploaded " + formattedUploadedEver;
     return uploadingProgress + " (Ratio: " + torrent.uploadRatio + ")";
   };
+  torrent.metaDataProgress = function() {
+    var percentRetrieved = (Math.floor(torrent.metadataPercentComplete * 10000) / 100).toFixed(1);
+    return "Magnetized transfer - retrieving metadata (" + percentRetrieved + "%)";
+  };
   torrent.progressBar = function() {
-    var progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html()
-    var status = torrent.isActive() ? 'active' : 'paused';
+    var status, progressBar;
+    
+    if(torrent.isActive() && torrent.needsMetaData()) {
+      status = 'meta';
+      progressBar = $("<div></div>").progressbar({value: 100}).html();
+    } else if(torrent.isActive()) {
+      status = 'active';
+      progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();
+    } else {
+      status = 'paused';
+      progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();
+    }
+    
     return progressBar.replace(/ui-widget-header/, 'ui-widget-header-' + status);
   };
   torrent.etaString = function() {
@@ -95,9 +122,12 @@ Torrent = function(attributes) {
         return i;
       }
     }
-  }
+  };
   torrent.downAndUpLoadRateString = function(downloadRate, uploadRate) {
     return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
+  };
+  torrent.activity = function() {
+    return torrent.rateDownload + torrent.rateUpload;
   };
   torrent['stati'] = {
     'waiting_to_check': 1,
@@ -106,6 +136,6 @@ Torrent = function(attributes) {
     'seeding': 8,
     'paused': 16
   };
-  
+	
   return torrent;
 };

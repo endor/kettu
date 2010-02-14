@@ -9,6 +9,5 @@ FilteredTorrents = function(sammy) { with(sammy) {
     
     this.cycleTorrents();
     this.highlightLink('#filterbar', '.' + this.params['filter']);
-    this.closeInfo();
   });
 }};

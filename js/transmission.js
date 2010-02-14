@@ -1,12 +1,12 @@
 var sammy = new Sammy.Application(function() { with(this) {
   element_selector = '#container';
   cache_partials = true;
-  reload_interval = 2000;
   rpc = new RPC();
   use(Sammy.Mustache);
   use(Sammy.Cache);
   
   helpers(TorrentHelpers);
+  helpers(SortTorrentsHelpers);
   helpers(InfoHelpers);
   helpers(ViewHelpers);
   helpers(SettingHelpers);
@@ -22,8 +22,8 @@ var sammy = new Sammy.Application(function() { with(this) {
   }});
   
   bind('init', function() { with(this) {
-    this.updateSettings();
-    this.updateStatistics();
+    this.activateLinks();
+    this.closeInfo();
   }});
 }});
  

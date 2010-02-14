@@ -1,10 +1,35 @@
-<h2>Settings</h2>
+<ul class="menu">
+  <li><a href="#/statistics" class="menu-item" data-item="data">Data</a></li>
+  <li><a href="#/statistics" class="menu-item" data-item="graphs">Graphs</a></li>
+</ul>
+
+
+<h2>Current Statistics</h2>
 
 <br />
 
-<table class="content">
-  <tr>
-    <th>Number of Torrents:</th>
-    <td>{{numberOfTorrents}}</td>
-  </tr>
-</table>
+<div class="item data">
+  <table class="content">
+    <tr>
+      <th>Number of Torrents:</th>
+      <td>{{number_of_torrents}}</td>
+    </tr>
+    <tr>
+      <th>Uploaded:</th>
+      <td>{{uploaded}}</td>
+    </tr>
+    <tr>
+      <th>Downloaded:</th>
+      <td>{{downloaded}}</td>
+    </tr>
+    <tr>
+      <th>Time active:</th>
+      <td>{{time_active}}</td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="item graphs">
+  <canvas id="torrents_by_status"></canvas>
+</div>
