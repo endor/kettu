@@ -66,9 +66,9 @@ var SettingHelpers = {
   
   update_reload_interval: function(context, new_reload_interval) {
     new_reload_interval = parseInt(new_reload_interval);
-    if(new_reload_interval != (sammy.reload_interval/1000)) {
-      sammy.reload_interval = new_reload_interval * 1000;
-      clearInterval(sammy.interval_id);
+    if(new_reload_interval != (transmission.reload_interval/1000)) {
+      transmission.reload_interval = new_reload_interval * 1000;
+      clearInterval(transmission.interval_id);
       context.closeInfo();
     }
   }

@@ -1,12 +1,12 @@
-Torrents = function(sammy) { with(sammy) {
+Torrents = function(transmission) { with(transmission) {
   var context;
   
   get('#/torrents', function() {
-    sammy.sort_mode = this.params['sort'] || sammy.sort_mode || 'name';
+    transmission.sort_mode = this.params['sort'] || transmission.sort_mode || 'name';
     getAndRenderTorrents();
-    if(sammy.interval_id) { clearInterval(sammy.interval_id); }
-    sammy.reload_interval = 400000;
-    sammy.interval_id = setInterval('getAndRenderTorrents()', sammy.reload_interval);
+    if(transmission.interval_id) { clearInterval(transmission.interval_id); }
+    transmission.reload_interval = 400000;
+    transmission.interval_id = setInterval('getAndRenderTorrents()', transmission.reload_interval);
   });
   
   get('#/torrents/new', function() {
@@ -114,7 +114,7 @@ Torrents = function(sammy) { with(sammy) {
   };
   
   bind('torrents-refreshed', function(e, torrents) { with(this) {
-    this.updateViewElements(this.sortTorrents(sammy.sort_mode, torrents));
+    this.updateViewElements(this.sortTorrents(transmission.sort_mode, torrents));
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {

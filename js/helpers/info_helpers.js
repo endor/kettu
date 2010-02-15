@@ -1,5 +1,5 @@
 var InfoHelpers = {
-  closeInfo: function() {
+  closeInfo: function() {    
     $('#torrents').css('width', '100%');
     var info = $('#info');
     info.html('');
@@ -39,7 +39,9 @@ var InfoHelpers = {
     $('#' + torrent.id).click(function() {
       context.highlightLi('#torrents', this);
       if(context.infoIsOpen()) {
-        window.location.hash = '/torrents/' + $(this).attr('id');
+        context.saveLastMenuItem($('.menu-item.active').attr('id'));
+        window.location = '#/torrents/' + $(this).attr('id');
+        // NOTE: a redirect seems to interfere with our double click handling here
       }
     });    
   },
@@ -59,6 +61,7 @@ var InfoHelpers = {
       
       if(formatted.match(/59 min/)) {
         clearInterval(timer);
+        context.saveLastMenuItem($('.menu-item.active').attr('id'));
         context.closeInfo();
         context.openInfo();
       } else {

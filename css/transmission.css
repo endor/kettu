@@ -279,3 +279,11 @@ body{
   margin-left: 30px;
   margin-top: 30px;
 }
+
+.menu-item {
+  text-decoration: none;
+  color: #666666;
+}
+.menu-item.active {
+  color: #222222;
+}

@@ -15,6 +15,10 @@ var ViewHelpers = {
     setTimeout("$('#flash').fadeOut('slow')", 3000);    
   },
 
+  saveLastMenuItem: function(id) {
+    transmission.last_menu_item = id;
+  },
+  
   menuizeInfo: function() {
     $('#info .menu-item').click(function() {
       $('#info .menu-item').removeClass('active');
@@ -24,8 +28,13 @@ var ViewHelpers = {
       $('#info .' + item).show();
     });
     $('#info .item').hide();
-    $('#info .item:first').show();
-    $('#info .menu-item:first').addClass('active');    
+    if(transmission.last_menu_item) {
+      $('#' + transmission.last_menu_item).click();
+      delete transmission.last_menu_item;
+    } else {
+      $('#info .item:first').show();
+      $('#info .menu-item:first').addClass('active');      
+    }
   },
   
   drawPie: function(id, data) {

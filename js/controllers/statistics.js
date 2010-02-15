@@ -1,4 +1,4 @@
-Statistics = function(sammy) { with(sammy) {
+Statistics = function(transmission) { with(transmission) {
   get('#/statistics', function() {
     var context = this;    
     var request = {
