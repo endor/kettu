@@ -16,7 +16,9 @@ describe 'TorrentHelpers'
       templates['pause_and_activate_button'] = fixture('../templates/torrents/pause_and_activate_button.mustache')
       torrent_helpers.cache = function(partial) { return templates[partial]; }
       torrent_helpers.updateInfo = function() {}
+      torrent_helpers.clearCache = function() {}
       statusWord = function() {return 'seeding';}
+      transmission = {'view_mode': 'normal'}
     end
     
     it 'should add a new torrent if it came in with the update and is not on the site yet'

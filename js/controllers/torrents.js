@@ -3,6 +3,8 @@ Torrents = function(transmission) { with(transmission) {
   
   get('#/torrents', function() {
     transmission.sort_mode = this.params['sort'] || transmission.sort_mode || 'name';
+    transmission.view_mode = this.params['view'] || transmission.view_mode || 'normal';
+
     getAndRenderTorrents();
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
     transmission.reload_interval = 400000;

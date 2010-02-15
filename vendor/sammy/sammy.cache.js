@@ -105,6 +105,10 @@
       // a helper shortcut for use in <tt>Sammy.EventContext</tt>
       cache: function(name, value) {
         return this.app.cache(name, value);
+      },
+      
+      clearCache: function(name) {
+        return this.app.clearCache(name);
       }
     });
   };

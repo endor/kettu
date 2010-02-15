@@ -56,6 +56,7 @@ var ViewHelpers = {
     this.activateSettingsLink();
     this.activateStatisticsLink();
     this.activateTurtleModeLink();
+    this.activateCompactViewLink();
     this.activateFilterAndSortLink();
   }
 };

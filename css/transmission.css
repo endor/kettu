@@ -287,3 +287,28 @@ body{
 .menu-item.active {
   color: #222222;
 }
+
+.compact .progressbar {
+  width: 60px;
+  display: inline-block;
+}
+
+.compact .name {
+  display: inline-block;  
+}
+
+.compact .statusString {
+  display: inline-block;
+}
+
+.compact .buttons {
+  display: inline-block;
+}
+
+.compact .buttons .pauseAndActivateButton {
+  display: inline-block;
+}
+
+.compact .buttons form {
+  display: inline-block;
+}
