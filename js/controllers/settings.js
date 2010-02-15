@@ -1,4 +1,4 @@
-Settings = function(sammy) { with(sammy) {
+Settings = function(transmission) { with(transmission) {
   updatable_settings = [
     'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
     'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
@@ -13,7 +13,7 @@ Settings = function(sammy) { with(sammy) {
     };
     rpc.query(request, function(response) {
       view = response;
-      view['reload-interval'] = sammy.reload_interval/1000;
+      view['reload-interval'] = transmission.reload_interval/1000;
       context.partial('./templates/settings/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         trigger('settings-refreshed', view);

@@ -18,7 +18,8 @@ var TorrentHelpers = {
   },
   
   makeNewTorrent: function(torrent) {
-    this.cache_partial('./templates/torrents/show.mustache', 'torrent_show', this);
+    var template = transmission.view_mode == 'compact' ? 'show_compact.mustache' : 'show.mustache';
+    this.cache_partial('./templates/torrents/' + template, 'torrent_show', this);
     var rendered_view = Mustache.to_html(this.cache('torrent_show'), TorrentView(torrent, this));
     $('#torrents').append(rendered_view);
     this.updateInfo(torrent);
@@ -28,6 +29,7 @@ var TorrentHelpers = {
     var context = this;
     var active_torrent_id = $('.torrent.active').attr('id');
 
+    context.clearCache('torrent_show');
     $('.torrent').remove();
     $.each(torrents, function() {
       context.makeNewTorrent(this);
@@ -95,6 +97,33 @@ var TorrentHelpers = {
         form.find('input:first').attr('value', 'false');
       }
       return false;
-    });    
+    });
+  },
+  
+  activateCompactViewLink: function() {
+    var context = this;
+    $('#compact_view').click(function() {
+      if($(this).hasClass('active')) {
+        $(this).removeClass('active');
+        $(this).text('Enable Compact View');
+        context.redirect('#/torrents?view=normal');
+      } else {
+        $(this).addClass('active');
+        $(this).text('Disable Compact View');
+        context.redirect('#/torrents?view=compact');
+      }
+      return false;
+    });
+  },
+  
+  formatNextAnnounceTime: function(timestamp) {
+    var now = new Date().getTime();
+    var current = new Date(parseInt(timestamp) * 1000 - now);
+    if(current) {
+      return current.getMinutes() + ' min, ' + current.getSeconds() + ' sec';
+    } else {
+      return timestamp;
+    }
   }
+  
 };

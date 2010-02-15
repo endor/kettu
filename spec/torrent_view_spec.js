@@ -35,6 +35,7 @@ describe 'TorrentView'
       context               = {}
       context.cache_partial = function() {}
       context.cache         = function() { return fixture('../templates/torrents/pause_and_activate_button.mustache'); }
+      context.formatNextAnnounceTime = function() {}
       torrent_view          = TorrentView({'trackerStats': []}, context)
     end
     
@@ -43,13 +44,6 @@ describe 'TorrentView'
       torrent_view.trackerStats[0]['lastAnnounceTime'] = "1265737984"
       torrent_view.addFormattedTimes()
       torrent_view.trackerStats[0].lastAnnounceTimeFormatted.should.eql("2/9/2010 19:53")
-    end
-    
-    it 'should add a formatted time for nextAnnounceTime'
-      torrent_view.trackerStats[0] = {}
-      torrent_view.trackerStats[0]['nextAnnounceTime'] = "1265737984"
-      torrent_view.addFormattedTimes()
-      torrent_view.trackerStats[0].nextAnnounceTimeFormatted.should.eql("2/9/2010 19:53")
     end
     
     it 'should add a formatted time for lastScrapeTime'

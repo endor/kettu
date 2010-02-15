@@ -1,4 +1,4 @@
-var sammy = new Sammy.Application(function() { with(this) {
+var transmission = new Sammy.Application(function() { with(this) {
   element_selector = '#container';
   cache_partials = true;
   rpc = new RPC();
@@ -28,6 +28,6 @@ var sammy = new Sammy.Application(function() { with(this) {
 }});
  
 $(function() {
-  sammy.run('#/torrents');
-  sammy.trigger('init');
+  transmission.run('#/torrents');
+  transmission.trigger('init');
 });

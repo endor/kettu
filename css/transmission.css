@@ -171,7 +171,7 @@ body{
   top: 53px;
   bottom: 22px;
   right: 0px;
-  width: 350px;
+  width: 50%;
   padding-top: 10px;
   padding-left: 10px;
   background-color: white;
@@ -278,4 +278,37 @@ body{
 #pie_chart {
   margin-left: 30px;
   margin-top: 30px;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: #666666;
+}
+.menu-item.active {
+  color: #222222;
+}
+
+.compact .progressbar {
+  width: 60px;
+  display: inline-block;
+}
+
+.compact .name {
+  display: inline-block;  
+}
+
+.compact .statusString {
+  display: inline-block;
+}
+
+.compact .buttons {
+  display: inline-block;
+}
+
+.compact .buttons .pauseAndActivateButton {
+  display: inline-block;
+}
+
+.compact .buttons form {
+  display: inline-block;
 }

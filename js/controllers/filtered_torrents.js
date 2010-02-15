@@ -1,4 +1,4 @@
-FilteredTorrents = function(sammy) { with(sammy) {  
+FilteredTorrents = function(transmission) { with(transmission) {  
   get('#/filtered_torrents/:filter', function() {
     var filter = '';
     if($.inArray(this.params['filter'], this.valid_filters()) >= 0) {
