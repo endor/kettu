@@ -30,6 +30,11 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 ## Todo
 * show more information about files
 * show more information about peers
-* feature test that the right rpc queries are sent when updating settings, adding torrents, etc.
-* display errors, also tracker errors in tracker info
-* maybe split torrent/torrents view
+* display errors, also tracker errors in tracker info + torrents list
+* split torrent/torrents view
+* when removing user should have option to trash data
+* compact view (http://trac.transmissionbt.com/ticket/2758)
+* when adding new torrent
+  * select download folder (type in/categories/? => http://trac.transmissionbt.com/ticket/1496)
+  * select and prioritize files
+* register content handlers (although this seems to be not fully supported yet) just as in http://trac.transmissionbt.com/ticket/2404
