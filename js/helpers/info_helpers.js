@@ -49,5 +49,21 @@ var InfoHelpers = {
     
     this.handleClickOnTorrent(torrent);
     this.handleDoubleClickOnTorrent(torrent);
+  },
+  
+  startCountDownOnNextAnnounce: function() {
+    var context = this;
+    var timer = setInterval(function() {
+      var timestamp = $('.countdown').attr('data-timestamp');
+      var formatted = context.formatNextAnnounceTime(timestamp);
+      
+      if(formatted.match(/59 min/)) {
+        clearInterval(timer);
+        context.closeInfo();
+        context.openInfo();
+      } else {
+        $('.countdown').text(formatted);
+      }
+    }, 980);
   }
 };

@@ -96,5 +96,16 @@ var TorrentHelpers = {
       }
       return false;
     });    
+  },
+  
+  formatNextAnnounceTime: function(timestamp) {
+    var now = new Date().getTime();
+    var current = new Date(parseInt(timestamp) * 1000 - now);
+    if(current) {
+      return current.getMinutes() + ' min, ' + current.getSeconds() + ' sec';
+    } else {
+      return timestamp;
+    }
   }
+  
 };

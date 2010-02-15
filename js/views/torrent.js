@@ -29,7 +29,7 @@ TorrentView = function(torrent, context) {
       var i = 0;
       $.each(view.trackerStats, function() {
         view.trackerStats[i]['lastAnnounceTimeFormatted'] = view.formatTime(this.lastAnnounceTime);
-        view.trackerStats[i]['nextAnnounceTimeFormatted'] = view.formatTime(this.nextAnnounceTime);
+        view.trackerStats[i]['nextAnnounceTimeFormatted'] = context.formatNextAnnounceTime(this.nextAnnounceTime);
         view.trackerStats[i]['lastScrapeTimeFormatted'] = view.formatTime(this.lastScrapeTime);
         i += 1;
       });      

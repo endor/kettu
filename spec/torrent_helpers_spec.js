@@ -54,4 +54,12 @@ describe 'TorrentHelpers'
       $('#3').find('.progressbar').find('.ui-widget-header-meta').get(0).should.be_undefined
     end
   end
+  
+  describe 'formatNextAnnounceTime'
+    it 'should return a formatted time for the given nextAnnounceTime'
+      in_fifteen_minutes = new Date().getTime() + 900000
+      timestamp = (new Date(in_fifteen_minutes).getTime()/1000).toFixed(0)
+      torrent_helpers.formatNextAnnounceTime(timestamp).should.eql("15 min, 0 sec")
+    end
+  end
 end

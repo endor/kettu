@@ -59,6 +59,7 @@ Torrents = function(sammy) { with(sammy) {
     getTorrent(id, function(torrent) {
       context.partial('./templates/torrents/show_info.mustache', TorrentView(torrent, context), function(rendered_view) {
         context.openInfo(rendered_view);
+        context.startCountDownOnNextAnnounce();
       });
     });
   });

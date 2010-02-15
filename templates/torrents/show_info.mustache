@@ -1,8 +1,8 @@
 <ul class="menu">
-  <li><a href="#" class="menu-item" data-item="information">Information</a></li>
-  <li><a href="#" class="menu-item" data-item="activity">Activity</a></li>
-  <li><a href="#" class="menu-item" data-item="trackers">Trackers</a></li>
-  <li><a href="#" class="menu-item" data-item="files">Files</a></li>
+  <li><a href="#/torrents/{{id}}" class="menu-item" data-item="information">Information</a></li>
+  <li><a href="#/torrents/{{id}}" class="menu-item" data-item="activity">Activity</a></li>
+  <li><a href="#/torrents/{{id}}" class="menu-item" data-item="trackers">Trackers</a></li>
+  <li><a href="#/torrents/{{id}}" class="menu-item" data-item="files">Files</a></li>
 </ul>
 
 <h2>{{name}}</h2>
@@ -105,7 +105,7 @@
       </tr>
       <tr>
         <th>Next Announce:</th>
-        <td>{{nextAnnounceTimeFormatted}}</td>
+        <td data-timestamp="{{nextAnnounceTime}}" class="countdown">{{nextAnnounceTimeFormatted}}</td>
       </tr>
       <tr>
         <th>Last Scrape:</th>
