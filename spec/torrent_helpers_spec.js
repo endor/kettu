@@ -64,4 +64,34 @@ describe 'TorrentHelpers'
       torrent_helpers.formatNextAnnounceTime(timestamp).should.eql("15 min, 0 sec")
     end
   end
+  
+  describe 'addUpAndDownToStore'
+    before_each
+      store = {"set": function() {}, "get": function() {}}
+    end
+    
+    it 'should store the global up and download'
+      stub(store, 'exists').and_return(false)
+      store.should.receive("set").with_args('up_and_download_rate', [{"up": 20, "down": 10}])
+      torrent_helpers.addUpAndDownToStore({"up": 20, "down": 10})
+    end
+    
+    it 'should add to the global up and download if it already exists'
+      stub(store, 'exists').and_return(true)
+      store.get = function() { return [{"up": 20, "down": 10}]; }
+      store.should.receive("set").with_args('up_and_download_rate', [{"up": 20, "down": 10}, {"up": 10, "down": 5}])
+      torrent_helpers.addUpAndDownToStore({"up": 10, "down": 5})
+    end
+    
+    it 'should remove an item if there are more than 30'
+      stub(store, 'exists').and_return(true)
+      items = []
+      for(var i = 0; i < 30; i += 1) {
+        items.push({"up": 10, "down": 20})
+      }
+      store.get = function() { return items; }
+      items.should.receive("shift")
+      torrent_helpers.addUpAndDownToStore({"up": 10, "down": 5})
+    end
+  end
 end

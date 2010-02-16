@@ -2,6 +2,7 @@ var transmission = new Sammy.Application(function() { with(this) {
   element_selector = '#container';
   cache_partials = true;
   rpc = new RPC();
+  store = new Sammy.Store({name: 'data', type: 'local'});
   use(Sammy.Mustache);
   use(Sammy.Cache);
   

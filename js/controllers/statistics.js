@@ -9,11 +9,7 @@ Statistics = function(transmission) { with(transmission) {
     rpc.query(request, function(response) {
       context.partial('./templates/statistics/index.mustache', StatisticsView(response), function(rendered_view) {
         context.openInfo(rendered_view);
-        context.drawPie('torrents_by_status', {
-          'Downloading': ($('.downloading').length - 1),
-          'Seeding': ($('.seeding').length - 1),
-          'Paused': ($('.paused').length - 1)
-        });
+        context.drawGraphs();
       });      
     });
   });

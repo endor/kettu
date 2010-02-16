@@ -9,7 +9,22 @@ var TorrentHelpers = {
       uploadRate += this.rateUpload;
       downloadRate += this.rateDownload;
     });
+    this.addUpAndDownToStore({"up": uploadRate, "down": downloadRate});
     return Torrent({}).downAndUpLoadRateString(downloadRate, uploadRate);
+  },
+  
+  addUpAndDownToStore: function(data) {
+    if(store.exists('up_and_download_rate')) {
+      store_data = store.get('up_and_download_rate');
+      if(store_data.length > 29) {
+        store_data.shift();
+      }
+      store_data.push(data);
+      data = store_data;
+    } else {
+      data = [data];
+    }
+    store.set('up_and_download_rate', data);
   },
   
   cycleTorrents: function() {

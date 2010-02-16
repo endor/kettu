@@ -7,7 +7,7 @@ Torrents = function(transmission) { with(transmission) {
 
     getAndRenderTorrents();
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
-    transmission.reload_interval = 400000;
+    transmission.reload_interval = 4000;
     transmission.interval_id = setInterval('getAndRenderTorrents()', transmission.reload_interval);
   });
   

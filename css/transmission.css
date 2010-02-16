@@ -312,3 +312,11 @@ body{
 .compact .buttons form {
   display: inline-block;
 }
+
+#data {
+  display: none;
+}
+
+.graphs {
+  margin-bottom: 50px;
+}
