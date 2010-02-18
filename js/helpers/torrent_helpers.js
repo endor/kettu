@@ -10,7 +10,7 @@ var TorrentHelpers = {
       downloadRate += this.rateDownload;
     });
     this.addUpAndDownToStore({"up": uploadRate, "down": downloadRate});
-    return Torrent({}).downAndUpLoadRateString(downloadRate, uploadRate);
+    return Torrent({}).downAndUploadRateString(downloadRate, uploadRate);
   },
   
   addUpAndDownToStore: function(data) {
@@ -32,35 +32,54 @@ var TorrentHelpers = {
     $('.torrent:even').addClass('even');
   },
   
-  makeNewTorrent: function(torrent) {
-    var template = transmission.view_mode == 'compact' ? 'show_compact.mustache' : 'show.mustache';
-    this.cache_partial('./templates/torrents/' + template, 'torrent_show', this);
-    var rendered_view = Mustache.to_html(this.cache('torrent_show'), TorrentView(torrent, this));
+  makeNewTorrent: function(torrent, view) {
+    var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
+    this.cache_partial('./templates/torrents/' + template + '.mustache', template, this);
+    var rendered_view = Mustache.to_html(this.cache(template), TorrentView(torrent, this));
     $('#torrents').append(rendered_view);
     this.updateInfo(torrent);
   },
   
-  updateTorrents: function(torrents) {
+  updateTorrent: function(torrent) {
+    var old_torrent = $('#' + torrent.id);
+    old_torrent.find('.progressDetails').html(torrent.progressDetails());
+    old_torrent.find('.progressbar').html(torrent.progressBar());
+    old_torrent.find('.statusString').html(torrent.statusString());
+  },
+  
+  addOrUpdateTorrents: function(torrents) {
     var context = this;
-    var active_torrent_id = $('.torrent.active').attr('id');
-
-    context.clearCache('torrent_show');
-    $('.torrent').remove();
     $.each(torrents, function() {
-      context.makeNewTorrent(this);
+      if(! $('#' + this.id.toString()).get(0)) {
+        context.makeNewTorrent(this);
+      } else {
+        context.updateTorrent(this);
+      }
     });
-    
-    var active_torrent = $('#' + active_torrent_id);
-    if(active_torrent.length > 0) {
-      context.highlightLi('#torrents', active_torrent);
-      if(context.infoIsOpen()) {
-        window.location.hash = '/torrents/' + active_torrent_id;
-      }      
+  },
+  
+  removeOldTorrents: function(torrents) {
+    var old_ids = $.map($('.torrent'), function(torrent) {return $(torrent).attr('id');});
+    var new_ids = $.map(torrents, function(torrent) {return torrent.id});
+    $.each(old_ids, function() {
+      if(new_ids.indexOf(parseInt(this)) < 0) {
+        $('#' + this).remove();
+      }
+    });
+  },
+  
+  updateTorrents: function(torrents, need_change) {
+    if(torrents && need_change) {
+      $('.torrent').remove();
+      this.addOrUpdateTorrents(torrents);
+    } else if(torrents) {
+      this.removeOldTorrents(torrents);
+      this.addOrUpdateTorrents(torrents);
     }
   },
   
-  updateViewElements: function(torrents) {
-    this.updateTorrents(torrents);
+  updateViewElements: function(torrents, view) {
+    this.updateTorrents(torrents, view);
     this.cycleTorrents();
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
   },
@@ -139,6 +158,5 @@ var TorrentHelpers = {
     } else {
       return timestamp;
     }
-  }
-  
+  }  
 };

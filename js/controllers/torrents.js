@@ -5,9 +5,9 @@ Torrents = function(transmission) { with(transmission) {
     transmission.sort_mode = this.params['sort'] || transmission.sort_mode || 'name';
     transmission.view_mode = this.params['view'] || transmission.view_mode || 'normal';
 
-    getAndRenderTorrents();
+    getAndRenderTorrents(this.params['view'] || this.params['sort']);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
-    transmission.reload_interval = 4000;
+    transmission.reload_interval = 2000;
     transmission.interval_id = setInterval('getAndRenderTorrents()', transmission.reload_interval);
   });
   
@@ -97,14 +97,14 @@ Torrents = function(transmission) { with(transmission) {
     });    
   };
   
-  getAndRenderTorrents = function() {
+  getAndRenderTorrents = function(need_change) {
     var request = {
       method: 'torrent-get',
       arguments: {fields:Torrent({})['fields']}
     };
     rpc.query(request, function(response) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
-      trigger('torrents-refreshed', torrents);
+      trigger('torrents-refreshed', {"torrents": torrents, "need_change": need_change});
     });    
   };
   
@@ -115,8 +115,8 @@ Torrents = function(transmission) { with(transmission) {
     getAndRenderTorrents();
   };
   
-  bind('torrents-refreshed', function(e, torrents) { with(this) {
-    this.updateViewElements(this.sortTorrents(transmission.sort_mode, torrents));
+  bind('torrents-refreshed', function(e, params) { with(this) {
+    this.updateViewElements(this.sortTorrents(transmission.sort_mode, params['torrents']), params['need_change']);
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {

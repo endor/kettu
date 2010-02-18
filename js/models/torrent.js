@@ -112,7 +112,7 @@ Torrent = function(attributes) {
   torrent.statusString = function() {
     var currentStatus = torrent.statusStringLocalized(torrent.status);
     if(torrent.isActive()) {
-      currentStatus += ' - ' + torrent.downAndUpLoadRateString(torrent.rateDownload, torrent.rateUpload);
+      currentStatus += ' - ' + torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
     }
     return currentStatus;
   };
@@ -123,7 +123,7 @@ Torrent = function(attributes) {
       }
     }
   };
-  torrent.downAndUpLoadRateString = function(downloadRate, uploadRate) {
+  torrent.downAndUploadRateString = function(downloadRate, uploadRate) {
     return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
   };
   torrent.activity = function() {

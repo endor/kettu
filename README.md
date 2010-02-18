@@ -28,8 +28,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* in firefox:
-  * periodical reload flickers, scrolls to top and seems to trigger some kind of double click on a torrent
 * show more information about files
 * show more information about peers
 * display errors, also tracker errors in tracker info + torrents list
@@ -40,5 +38,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
   * select and prioritize files
 * register content handlers (although this seems to be not fully supported yet) just as in http://trac.transmissionbt.com/ticket/2404
 * graphing up/download:
-  * check if browser can handle html5 storage, otherwise store in div
+  * check if browser can handle html5 storage, otherwise store in div (patch sammy to fall back to another store )
   * aggregate data
+* fix add formatted times spec and tracker info scenario to work in all time zones

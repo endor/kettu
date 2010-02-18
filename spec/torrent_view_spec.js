@@ -43,14 +43,16 @@ describe 'TorrentView'
       torrent_view.trackerStats[0] = {}
       torrent_view.trackerStats[0]['lastAnnounceTime'] = "1265737984"
       torrent_view.addFormattedTimes()
-      torrent_view.trackerStats[0].lastAnnounceTimeFormatted.should.eql("2/9/2010 19:53")
+      hours = 17 - (new Date).getTimezoneOffset()/60
+      torrent_view.trackerStats[0].lastAnnounceTimeFormatted.should.eql("2/9/2010 " + hours + ":53")
     end
     
     it 'should add a formatted time for lastScrapeTime'
       torrent_view.trackerStats[0] = {}
       torrent_view.trackerStats[0]['lastScrapeTime'] = "1265737984"
       torrent_view.addFormattedTimes()
-      torrent_view.trackerStats[0].lastScrapeTimeFormatted.should.eql("2/9/2010 19:53")
+      hours = 17 - (new Date).getTimezoneOffset()/60
+      torrent_view.trackerStats[0].lastScrapeTimeFormatted.should.eql("2/9/2010 " + hours + ":53")
     end
   end
 end
