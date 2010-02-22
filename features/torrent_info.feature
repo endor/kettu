@@ -33,4 +33,14 @@ Feature: Torrent info
     Then I should see "my.tracker.com:1234"
       And I should see a formatted time for the timestamp
       And I should see a countdown time of about 30 minutes
+
+  Scenario: info displays file information
+    Given a torrent with the file "README.md" which has a size of 12 bytes and has already downloaded 6 bytes
+    When I go to the start page
+      And I wait for the AJAX call to finish
+      And I double click on the torrent "1"
+      And I wait for the AJAX call to finish
+      And I follow "Files"
+    Then I should see "12 bytes"
+      And I should see "50%"
   

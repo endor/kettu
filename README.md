@@ -29,7 +29,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* show more information about files
 * show more information about peers
 * display errors, also tracker errors in tracker info + torrents list
 * split torrent/torrents view
@@ -41,3 +40,4 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * graphing up/download:
   * check if browser can handle html5 storage, otherwise store in div (patch sammy to fall back to another store )
   * aggregate data
+* maybe icons for different file types in file list

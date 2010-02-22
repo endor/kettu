@@ -127,3 +127,17 @@ Math.ratio = function(numerator, denominator) {
 
 	return result;
 };
+
+/*
+ *   Converts total and left until done to a percenage value
+ *
+ *   @param float
+ *   @param float
+ *   @returns float
+ */
+Math.formatPercent = function(total, left_until_done) {
+  if(!total) { return 0; }
+  if(!left_until_done && left_until_done != 0) { return 0; }
+  
+  return Math.floor( ((total - left_until_done) / total) * 10000 ) / 100;
+}

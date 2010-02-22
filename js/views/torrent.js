@@ -33,11 +33,23 @@ TorrentView = function(torrent, context) {
         view.trackerStats[i]['lastScrapeTimeFormatted'] = view.formatTime(this.lastScrapeTime);
         i += 1;
       });      
+    };    
+  };
+  
+  view.addFormattedSizes = function() {
+    if(view.files !== undefined) {
+      var i = 0;
+      $.each(view.files, function() {
+        view.files[i]['lengthFormatted'] = Math.formatBytes(this['length']);
+        view.files[i]['percentDone'] = Math.formatPercent(this['length'], this['length'] - this.bytesCompleted);
+        i += 1;
+      });
     }
   };
   
   view.cache_partial = context.cache_partial;
   view.addFormattedTimes();
+  view.addFormattedSizes();
   
   return view;
 };

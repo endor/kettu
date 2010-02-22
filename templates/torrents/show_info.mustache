@@ -130,7 +130,10 @@
 <div class="item files">
   <ul class="content files">
     {{#files}}
-      <li>{{name}}</li>
-    {{/files}}    
+      <li>
+        {{name}}<br />
+        <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
+      </li>
+    {{/files}}
   </ul>
 </div>

@@ -1030,7 +1030,7 @@
           data_array,
           cache_key = 'partial:' + path,
           context = this;
- 
+
       // engine setup
       if ((engine = path.match(/\.([^\.]+)$/))) { engine = engine[1]; }
       // set the engine to the default template engine if no match is found
