@@ -8,6 +8,7 @@
     <script src="./jspec/jspec.jquery.js"></script>
     <script src="../js/models/torrent.js"></script>
     <script src="../js/views/torrent.js"></script>
+    <script src="../js/views/torrents.js"></script>
     <script src="../js/helpers/torrent_helpers.js"></script>
     <script src="../js/helpers/sort_torrents_helpers.js"></script>
     <script src="../js/helpers/setting_helpers.js"></script>
@@ -22,6 +23,7 @@
         .exec('statistic_helpers_spec.js')
         .exec('setting_helpers_spec.js')
         .exec('torrent_view_spec.js')
+        .exec('torrents_view_spec.js')
         .run({failuresOnly : true})
         .report();
       }

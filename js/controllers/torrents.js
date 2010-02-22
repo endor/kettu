@@ -91,7 +91,7 @@ Torrents = function(transmission) { with(transmission) {
   }
     
   renderTorrent = function(torrent) {
-    context.partial('./templates/torrents/show.mustache', TorrentView(torrent, context), function(rendered_view) {
+    context.partial('./templates/torrents/show.mustache', TorrentsView(torrent, context), function(rendered_view) {
       $(element_selector).find('#' + torrent.id).replaceWith(rendered_view);
       trigger('torrent-refreshed', torrent);
     });    
