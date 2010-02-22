@@ -17,6 +17,7 @@ describe 'TorrentHelpers'
       torrent_helpers.cache = function(partial) { return templates[partial]; }
       torrent_helpers.updateInfo = function() {}
       torrent_helpers.clearCache = function() {}
+      torrent_helpers.mustache = function(template, view) {return Mustache.to_html(template, view);}
       statusWord = function() {return 'seeding';}
       transmission = {'view_mode': 'normal'}
     end

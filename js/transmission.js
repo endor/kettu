@@ -1,7 +1,7 @@
 var transmission = new Sammy.Application(function() { with(this) {
   element_selector = '#container';
   cache_partials = true;
-  rpc = new RPC();
+  use(Sammy.TransmissionRPC);
   use(Sammy.Mustache);
   use(Sammy.Cache);
   

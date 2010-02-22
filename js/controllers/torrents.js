@@ -2,6 +2,7 @@ Torrents = function(transmission) { with(transmission) {
   var context;
   
   get('#/torrents', function() {
+    context = this;
     transmission.sort_mode = this.params['sort'] || transmission.sort_mode || 'name';
     transmission.view_mode = this.params['view'] || transmission.view_mode || 'normal';
 
@@ -24,7 +25,7 @@ Torrents = function(transmission) { with(transmission) {
       'method': 'torrent-remove',
       'arguments': {'ids': parseInt(this.params['id'])}
     };
-    rpc.query(request, function(response) {
+    context.remote_query(request, function(response) {
       context.trigger('flash', 'Torrent removed successfully.');
     });
   });
@@ -37,14 +38,14 @@ Torrents = function(transmission) { with(transmission) {
         'method': 'torrent-add',
         'arguments': {'filename': this.params['url'], 'paused': paused}
       };
-      rpc.query(request, function(response) {
+      context.remote_query(request, function(response) {
         torrentUploaded(response['torrent-added']);
       });      
     } else {
       $('#add_torrent_form').ajaxSubmit({
-    		'url': rpc.base_url + '/transmission/upload?paused=' + paused,
+    		'url': remote_url + '/transmission/upload?paused=' + paused,
     		'type': 'POST',
-    		'data': { 'X-Transmission-Session-Id' : rpc.session_id },
+    		'data': { 'X-Transmission-Session-Id' : remote_session_id },
     		'dataType': 'xml',
         'iframe': true,
     		'success': function(response) {
@@ -73,7 +74,7 @@ Torrents = function(transmission) { with(transmission) {
       'method': context.params['method'],
       'arguments': {'ids': id}
     };
-    rpc.query(request, function(response) {
+    context.remote_query(request, function(response) {
       getTorrent(id, renderTorrent);
     });
   });
@@ -83,7 +84,7 @@ Torrents = function(transmission) { with(transmission) {
       'method': 'torrent-get',
       'arguments': {'ids': id, 'fields': Torrent({})['fields'].concat(Torrent({})['info_fields'])}
     };
-    rpc.query(request, function(response) {
+    context.remote_query(request, function(response) {
       if(callback) {
         callback(response['torrents'].map( function(row) {return Torrent(row);} )[0]);
       }
@@ -102,7 +103,7 @@ Torrents = function(transmission) { with(transmission) {
       method: 'torrent-get',
       arguments: {fields:Torrent({})['fields']}
     };
-    rpc.query(request, function(response) {
+    context.remote_query(request, function(response) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
       trigger('torrents-refreshed', {"torrents": torrents, "need_change": need_change});
     });    

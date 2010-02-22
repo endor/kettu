@@ -6,7 +6,7 @@ Statistics = function(transmission) { with(transmission) {
       'arguments': {'fields': ['current-stats', 'torrentCount']}
     }
     
-    rpc.query(request, function(response) {
+    context.remote_query(request, function(response) {
       context.partial('./templates/statistics/index.mustache', StatisticsView(response), function(rendered_view) {
         context.openInfo(rendered_view);
         context.drawGraphs();

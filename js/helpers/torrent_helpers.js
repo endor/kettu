@@ -35,7 +35,7 @@ var TorrentHelpers = {
   makeNewTorrent: function(torrent, view) {
     var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
     this.cache_partial('./templates/torrents/' + template + '.mustache', template, this);
-    var rendered_view = Mustache.to_html(this.cache(template), TorrentsView(torrent, this));
+    var rendered_view = this.mustache(this.cache(template), TorrentsView(torrent, this));
     $('#torrents').append(rendered_view);
     this.updateInfo(torrent);
   },
