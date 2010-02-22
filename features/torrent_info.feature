@@ -24,13 +24,13 @@ Feature: Torrent info
     Then I should see "/my_torrents"  
   
   Scenario: info displays tracker information
-    Given a torrent with the tracker "my.tracker.com:1234" a last announce timestamp of "1265737984" and a next announce in 30 minutes
+    Given a torrent with the tracker "my.tracker.com:1234" a last announce timestamp of "1266830556" and a next announce in 30 minutes
     When I go to the start page
       And I wait for the AJAX call to finish
       And I double click on the torrent "1"
       And I wait for the AJAX call to finish
       And I follow "Trackers"
     Then I should see "my.tracker.com:1234"
-      And I should see "2/9/2010 19:53"
+      And I should see a formatted time for the timestamp
       And I should see a countdown time of about 30 minutes
   

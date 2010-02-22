@@ -37,22 +37,24 @@ describe 'TorrentView'
       context.cache         = function() { return fixture('../templates/torrents/pause_and_activate_button.mustache'); }
       context.formatNextAnnounceTime = function() {}
       torrent_view          = TorrentView({'trackerStats': []}, context)
+      timestamp             = "1265737984"
+      hours                 = 17 - (new Date).getTimezoneOffset()/60
+      if(hours > 23) { hours -= 24; }
+      day                   = (new Date).getTimezoneOffset()/60 < -6 ? 10 : 9
     end
     
     it 'should add a formatted time for lastAnnounceTime'
       torrent_view.trackerStats[0] = {}
-      torrent_view.trackerStats[0]['lastAnnounceTime'] = "1265737984"
+      torrent_view.trackerStats[0]['lastAnnounceTime'] = timestamp
       torrent_view.addFormattedTimes()
-      hours = 17 - (new Date).getTimezoneOffset()/60
-      torrent_view.trackerStats[0].lastAnnounceTimeFormatted.should.eql("2/9/2010 " + hours + ":53")
+      torrent_view.trackerStats[0].lastAnnounceTimeFormatted.should.eql("2/" + day + "/2010 " + hours + ":53")
     end
     
     it 'should add a formatted time for lastScrapeTime'
       torrent_view.trackerStats[0] = {}
-      torrent_view.trackerStats[0]['lastScrapeTime'] = "1265737984"
+      torrent_view.trackerStats[0]['lastScrapeTime'] = timestamp
       torrent_view.addFormattedTimes()
-      hours = 17 - (new Date).getTimezoneOffset()/60
-      torrent_view.trackerStats[0].lastScrapeTimeFormatted.should.eql("2/9/2010 " + hours + ":53")
+      torrent_view.trackerStats[0].lastScrapeTimeFormatted.should.eql("2/" + day + "/2010 " + hours + ":53")
     end
   end
 end
