@@ -37,6 +37,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
   * select and prioritize files
 * register content handlers (although this seems to be not fully supported yet) just as in http://trac.transmissionbt.com/ticket/2404
 * graphing up/download:
-  * check if browser can handle html5 storage, otherwise store in div (patch sammy to fall back to another store )
   * aggregate data
 * maybe icons for different file types in file list

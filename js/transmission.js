@@ -2,7 +2,6 @@ var transmission = new Sammy.Application(function() { with(this) {
   element_selector = '#container';
   cache_partials = true;
   rpc = new RPC();
-  store = new Sammy.Store({name: 'data', type: 'local'});
   use(Sammy.Mustache);
   use(Sammy.Cache);
   
@@ -10,6 +9,7 @@ var transmission = new Sammy.Application(function() { with(this) {
   helpers(SortTorrentsHelpers);
   helpers(InfoHelpers);
   helpers(ViewHelpers);
+  helpers(StoreHelpers);
   helpers(SettingHelpers);
   helpers(StatisticHelpers);
   
@@ -23,6 +23,7 @@ var transmission = new Sammy.Application(function() { with(this) {
   }});
   
   bind('init', function() { with(this) {
+    this.initializeStore();
     this.activateLinks();
     this.closeInfo();
   }});

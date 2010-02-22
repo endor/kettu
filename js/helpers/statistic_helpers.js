@@ -18,8 +18,8 @@ var StatisticHelpers = {
       'Paused': ($('.paused').length - 1)
     });
     this.drawLines('up_and_download_stats', {
-      'Upload': $.map(store.get('up_and_download_rate'), function(item) { return (item.up / 1024); }),
-      'Download': $.map(store.get('up_and_download_rate'), function(item) { return (item.down / 1024); })
+      'Upload': $.map(transmission.store.get('up_and_download_rate'), function(item) { return (item.up / 1024); }),
+      'Download': $.map(transmission.store.get('up_and_download_rate'), function(item) { return (item.down / 1024); })
     });
   },
   
