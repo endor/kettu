@@ -33,6 +33,15 @@ TorrentView = function(torrent, context) {
         i += 1;
       });
     }
+    if(view.peers !== undefined) {
+      var i = 0;
+      $.each(view.peers, function() {
+        view.peers[i]['uploadFormatted'] = this['rateToPeer'] != 0 ? Math.formatBytes(this['rateToPeer']) : '';
+        view.peers[i]['downloadFormatted'] = this['rateToClient'] != 0? Math.formatBytes(this['rateToClient']) : '';
+        view.peers[i]['percentDone'] = Math.formatPercent(100, 100 - (this['progress'] * 100));
+        i += 1;
+      });      
+    }
   };
   
   view.addFormattedTimes();

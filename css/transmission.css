@@ -205,6 +205,21 @@ body{
   color: #442244;
   font-weight: normal;
 }
+#info .peers {
+  margin-left: 15px;
+  margin-bottom: 20px;
+  font-size: 14px;  
+}
+#info .peers th {
+  padding: 7px;
+  margin-right: 10px;
+  text-align: left;
+  color: #442244;
+  font-weight: normal;
+}
+#info .peers th.long {
+  width: 40%;
+}
 #info ul {
   list-style-type: none;
   padding-left: 15px;

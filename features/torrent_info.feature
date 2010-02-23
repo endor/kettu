@@ -43,4 +43,13 @@ Feature: Torrent info
       And I follow "Files"
     Then I should see "12 bytes"
       And I should see "50%"
-  
+
+  Scenario: info displays peer information
+    Given a torrent with a peer with IP "1.2.3.4" and client name "Transmission Rocks"
+    When I go to the start page
+      And I wait for the AJAX call to finish
+      And I double click on the torrent "1"
+      And I wait for the AJAX call to finish
+      And I follow "Peers"
+    Then I should see "1.2.3.4"
+      And I should see "Transmission Rocks"

@@ -9,7 +9,7 @@ Torrent = function(attributes) {
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
-    'pieceCount', 'pieceSize', 'trackerStats'
+    'pieceCount', 'pieceSize', 'trackerStats', 'peers'
   ];
   $.each(torrent.fields, function() {
     torrent[this] = attributes[this];

@@ -17,7 +17,6 @@ Once you allowed remote access in your transmission client, you can simply open 
 
 It's recommended to replace the old web interface with this one, so the server and the web interface run in the same location (e.g. localhost:9091). When uploading torrents there is a cross-site request which leads to a deserved warning. Also Firefox and Chrome will not work because cross-site requests will trigger [preflight requests](http://www.w3.org/TR/access-control/#preflight-request) in those browsers, which the server cannot handle.
 
-For full functionality, this client requires one of the following browsers: IE8, Firefox 3.5b4, Safari 4. 
 
 ## Tests
 
@@ -29,7 +28,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* show more information about peers
 * display errors, also tracker errors in tracker info + torrents list
 * when removing user should have option to trash data
 * when adding new torrent
@@ -39,3 +37,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * graphing up/download:
   * aggregate data
 * maybe icons for different file types in file list
+* how can 'downloaded' in tracker stats be -1?
+* sort peers
+* perdiodically update torrent info, especially peer list
