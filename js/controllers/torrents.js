@@ -8,7 +8,7 @@ Torrents = function(transmission) { with(transmission) {
 
     getAndRenderTorrents(this.params['view'] || this.params['sort']);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
-    transmission.reload_interval = 8000;
+    transmission.reload_interval = 2000;
     transmission.interval_id = setInterval('getAndRenderTorrents()', transmission.reload_interval);
   });
   
@@ -25,8 +25,12 @@ Torrents = function(transmission) { with(transmission) {
       'method': 'torrent-remove',
       'arguments': {'ids': parseInt(this.params['id'])}
     };
+    if(this.params['delete_data']) {
+      request['arguments']['delete-local-data'] = true;
+    }
     context.remote_query(request, function(response) {
       context.trigger('flash', 'Torrent removed successfully.');
+      $('#' + context.params['id']).remove();
     });
   });
   

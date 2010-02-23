@@ -32,12 +32,22 @@ var TorrentHelpers = {
     $('.torrent:even').addClass('even');
   },
   
+  activateDeleteForm: function(torrent) {
+    var context = this;
+    $('#' + torrent.id).find('.torrent_delete_form').submit(function() {
+      if(confirm('Delete data?')) {
+        $(this).prepend(context.mustache(context.cache('delete_data')));
+      }
+      return true;
+    });
+  },
+  
   makeNewTorrent: function(torrent, view) {
     var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
-    this.cache_partial('./templates/torrents/' + template + '.mustache', template, this);
     var rendered_view = this.mustache(this.cache(template), TorrentsView(torrent, this));
     $('#torrents').append(rendered_view);
     this.updateInfo(torrent);
+    this.activateDeleteForm(torrent);
   },
   
   updateTorrent: function(torrent) {
@@ -69,6 +79,7 @@ var TorrentHelpers = {
   },
   
   updateTorrents: function(torrents, need_change) {
+    this.cache_partials();
     if(torrents && need_change) {
       $('.torrent').remove();
       this.addOrUpdateTorrents(torrents);
@@ -82,6 +93,13 @@ var TorrentHelpers = {
     this.updateTorrents(torrents, view);
     this.cycleTorrents();
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
+  },
+  
+  cache_partials: function() {
+    var context = this;
+    $.each(['delete_data', 'show', 'show_compact'], function() {
+      context.cache_partial('./templates/torrents/' + this + '.mustache', this, context);
+    });
   },
   
   cache_partial: function(template, partial, context) {

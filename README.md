@@ -29,7 +29,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 ## Todo
 * display errors, also tracker errors in tracker info + torrents list
-* when removing user should have option to trash data
 * when adding new torrent
   * select download folder (type in/categories/? => http://trac.transmissionbt.com/ticket/1496)
   * select and prioritize files
