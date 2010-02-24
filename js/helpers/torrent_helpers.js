@@ -55,6 +55,7 @@ var TorrentHelpers = {
     old_torrent.find('.progressDetails').html(torrent.progressDetails());
     old_torrent.find('.progressbar').html(torrent.progressBar());
     old_torrent.find('.statusString').html(torrent.statusString());
+    old_torrent.removeClass('downloading').removeClass('seeding').removeClass('paused').addClass(torrent.statusWord);
   },
   
   addOrUpdateTorrents: function(torrents) {

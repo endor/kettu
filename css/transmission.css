@@ -217,6 +217,10 @@ body{
   color: #442244;
   font-weight: normal;
 }
+#info .peers th a {
+  color: #442244;
+  text-decoration: none;
+}
 #info .peers th.long {
   width: 40%;
 }

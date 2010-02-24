@@ -36,6 +36,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * graphing up/download:
   * aggregate data
 * maybe icons for different file types in file list
-* how can 'downloaded' in tracker stats be -1?
-* sort peers
 * perdiodically update torrent info, especially peer list
+* update filtered torrents when they change their status

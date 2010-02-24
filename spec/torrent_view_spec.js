@@ -67,4 +67,56 @@ describe 'TorrentView'
       end
     end
   end
+  
+  describe 'sort peers'
+    before_each
+      torrent_view.peers = [
+        {'ip': '1.2.3.4', 'clientName': 'Transmission', 'percentDone': 10, 'rateToPeer': 10, 'rateToClient': 50},
+        {'ip': '2.2.3.4', 'clientName': 'Beluge', 'percentDone': 30, 'rateToPeer': 50, 'rateToClient': 40},
+        {'ip': '4.2.3.4', 'clientName': 'Vuze', 'percentDone': 20, 'rateToPeer': 40, 'rateToClient': 30},
+        {'ip': '3.2.3.4', 'clientName': 'rtorrent', 'percentDone': 40, 'rateToPeer': 30, 'rateToClient': 20},
+        {'ip': '5.2.3.4', 'clientName': 'BitComet', 'percentDone': 50, 'rateToPeer': 20, 'rateToClient': 10}
+      ]
+    end
+    
+    it 'should sort by client'
+      torrent_view.sort_peers = 'client'
+      torrent_view.sortPeers()
+      torrent_view.peers[0].clientName.should.eql('Beluge')
+      torrent_view.peers[1].clientName.should.eql('BitComet')
+      torrent_view.peers[2].clientName.should.eql('rtorrent')
+      torrent_view.peers[3].clientName.should.eql('Transmission')
+      torrent_view.peers[4].clientName.should.eql('Vuze')
+    end
+    
+    it 'should sort by percent'
+      torrent_view.sort_peers = 'percent'
+      torrent_view.sortPeers()
+      torrent_view.peers[0].clientName.should.eql('BitComet')
+      torrent_view.peers[1].clientName.should.eql('rtorrent')
+      torrent_view.peers[2].clientName.should.eql('Beluge')
+      torrent_view.peers[3].clientName.should.eql('Vuze')
+      torrent_view.peers[4].clientName.should.eql('Transmission')
+    end
+    
+    it 'should sort by upload'
+      torrent_view.sort_peers = 'upload'
+      torrent_view.sortPeers()
+      torrent_view.peers[0].clientName.should.eql('Beluge')
+      torrent_view.peers[1].clientName.should.eql('Vuze')
+      torrent_view.peers[2].clientName.should.eql('rtorrent')
+      torrent_view.peers[3].clientName.should.eql('BitComet')
+      torrent_view.peers[4].clientName.should.eql('Transmission')
+    end
+    
+    it 'should sort by download'
+      torrent_view.sort_peers = 'download'
+      torrent_view.sortPeers()
+      torrent_view.peers[0].clientName.should.eql('Transmission')
+      torrent_view.peers[1].clientName.should.eql('Beluge')
+      torrent_view.peers[2].clientName.should.eql('Vuze')
+      torrent_view.peers[3].clientName.should.eql('rtorrent')
+      torrent_view.peers[4].clientName.should.eql('BitComet')
+    end
+  end
 end

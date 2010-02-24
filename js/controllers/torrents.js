@@ -62,11 +62,15 @@ Torrents = function(transmission) { with(transmission) {
   get('#/torrents/:id', function() {
     context = this;
     var id = parseInt(context.params['id']);
-    
+
     getTorrent(id, function(torrent) {
-      context.partial('./templates/torrents/show_info.mustache', TorrentView(torrent, context), function(rendered_view) {
+      var view = TorrentView(torrent, context, context.params['sort_peers']);
+      context.partial('./templates/torrents/show_info.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         context.startCountDownOnNextAnnounce();
+        if(context.params['sort_peers']) {
+          $('#menu-item-peers').click();
+        }
       });
     });
   });

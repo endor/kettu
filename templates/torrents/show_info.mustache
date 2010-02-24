@@ -132,10 +132,10 @@
   <table class="peers">
     <tr>
       <th>IP Address</th>
-      <th class="long">Client</th>
-      <th>%</th>
-      <th>Upload</th>
-      <th>Download</th>
+      <th class="long"><a href="#/torrents/{{id}}?sort_peers=client">Client</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=percent">%</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=upload">Upload</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=download">Download</a></th>
     </tr>
     {{#peers}}
       <tr>

@@ -13,7 +13,7 @@ def change_port(old_port, new_port)
   file_path = File.dirname(__FILE__) + '/../../js/rpc.js'
   content = File.read(file_path)
   File.open(file_path, 'w') do |f|
-    f << content.sub(old_port.to_s, new_port.to_s)
+    f << content.gsub(old_port.to_s, new_port.to_s)
   end
 end
 

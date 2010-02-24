@@ -6,7 +6,7 @@
 
     app.rpc = {
       'base_url': 'http://localhost:9091',
-      'url': 'http://localhost:4567/transmission/rpc',
+      'url': 'http://localhost:9091/transmission/rpc',
       'session_id': ''
     };
     
