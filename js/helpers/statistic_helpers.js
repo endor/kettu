@@ -1,16 +1,4 @@
 var StatisticHelpers = {
-  activateStatisticsLink: function() {
-    var context = this;
-    $('#statistics').click(function() {
-      if(context.infoIsOpen()) {
-        context.closeInfo();
-      } else {
-        context.redirect('#/statistics');
-      }
-      return false;
-    });
-  },
-  
   drawGraphs: function() {
     this.drawPie('torrents_by_status', {
       'Downloading': ($('.downloading').length - 1),

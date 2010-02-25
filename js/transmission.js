@@ -5,6 +5,8 @@ var transmission = new Sammy.Application(function() { with(this) {
   use(Sammy.Mustache);
   use(Sammy.Cache);
   
+  helpers(ApplicationHelpers);
+  helpers(LinkHelpers);
   helpers(TorrentHelpers);
   helpers(SortTorrentsHelpers);
   helpers(InfoHelpers);

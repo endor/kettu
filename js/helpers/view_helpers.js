@@ -35,14 +35,5 @@ var ViewHelpers = {
       $('#info .item:first').show();
       $('#info .menu-item:first').addClass('active');      
     }
-  },
-  
-  activateLinks: function() {
-    this.activateAddTorrentLink();
-    this.activateSettingsLink();
-    this.activateStatisticsLink();
-    this.activateTurtleModeLink();
-    this.activateCompactViewLink();
-    this.activateFilterAndSortLink();
-  }
+  }  
 };

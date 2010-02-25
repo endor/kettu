@@ -37,4 +37,3 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
   * aggregate data
 * maybe icons for different file types in file list
 * perdiodically update torrent info, especially peer list
-* update filtered torrents when they change their status

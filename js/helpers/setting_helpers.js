@@ -1,16 +1,4 @@
 var SettingHelpers = {
-  activateSettingsLink: function() {
-    var context = this;
-    $('#settings').click(function() {
-      if(context.infoIsOpen()) {
-        context.closeInfo();
-      } else {
-        context.redirect('#/settings');
-      }
-      return false;
-    });
-  },
-  
   updateSettingsCheckboxes: function(settings) {
     $.each($('#info').find('input[type=checkbox]'), function() {
       var name = $(this).attr('name');

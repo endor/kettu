@@ -3,8 +3,7 @@ Torrents = function(transmission) { with(transmission) {
   
   get('#/torrents', function() {
     context = this;
-    transmission.sort_mode = this.params['sort'] || transmission.sort_mode || 'name';
-    transmission.view_mode = this.params['view'] || transmission.view_mode || 'normal';
+    setGlobalModes(this.params);
 
     getAndRenderTorrents(this.params['view'] || this.params['sort']);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
@@ -115,6 +114,13 @@ Torrents = function(transmission) { with(transmission) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
       trigger('torrents-refreshed', {"torrents": torrents, "need_change": need_change});
     });    
+  };
+  
+  setGlobalModes = function(params) {
+    transmission.sort_mode = params['sort'] || transmission.sort_mode || 'name';
+    transmission.view_mode = params['view'] || transmission.view_mode || 'normal';
+    delete(transmission.filter_mode); 
+    $('.torrent').show();
   };
   
   torrentUploaded = function(torrent_added) {
