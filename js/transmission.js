@@ -24,6 +24,10 @@ var transmission = new Sammy.Application(function() { with(this) {
     this.showAndHideFlash(message);
   }});
   
+  bind('errors', function(e, errors) { with(this) {
+    this.showErrors(errors);
+  }});
+  
   bind('init', function() { with(this) {
     this.initializeStore();
     this.activateLinks();

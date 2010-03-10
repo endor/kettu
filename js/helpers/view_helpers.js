@@ -15,6 +15,14 @@ var ViewHelpers = {
     setTimeout("$('#flash').fadeOut('slow')", 3000);    
   },
 
+  showErrors: function(errors) {
+    var error_string = '<p>';
+    $.each(errors, function() {
+      error_string += this['field'] + ': ' + this['message'] + '<br />';
+    });
+    $('#errors').html(error_string + '.</p>');
+  },
+  
   saveLastMenuItem: function(id) {
     transmission.last_menu_item = id;
   },

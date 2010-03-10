@@ -7,6 +7,8 @@
     <script src="./jspec/jspec.js"></script>
     <script src="./jspec/jspec.jquery.js"></script>
     <script src="../js/models/torrent.js"></script>
+    <script src="../js/models/validator.js"></script>
+    <script src="../js/models/settings_validator.js"></script>
     <script src="../js/views/torrent.js"></script>
     <script src="../js/views/torrents.js"></script>
     <script src="../js/helpers/torrent_helpers.js"></script>
@@ -19,6 +21,7 @@
       function runSuites() {
         JSpec
         .exec('torrent_spec.js')
+        .exec('validator_spec.js')
         .exec('torrent_helpers_spec.js')
         .exec('sort_torrents_helpers_spec.js')
         .exec('store_helpers_spec.js')

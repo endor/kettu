@@ -36,4 +36,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * graphing up/download:
   * aggregate data
 * maybe icons for different file types in file list
-* perdiodically update torrent info, especially peer list
+* periodically update torrent info, especially peer list
+* use new sammy functions

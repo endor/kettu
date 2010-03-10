@@ -24,13 +24,18 @@ Settings = function(transmission) { with(transmission) {
   put('#/settings', function() {
     var context = this;
     var request = { 'method': 'session-set', 'arguments': this.prepare_arguments(context, this.params) };
-    delete(request['arguments']['reload-interval']);
-
-    context.remote_query(request, function(response) {
-      trigger('flash', 'Settings updated successfully');
-      if(context.params['peer-port']) { updatePeerPortDiv(context); }
-      if(context.params['reload-interval']) { context.update_reload_interval(context, context.params['reload-interval']); }
-    });
+    
+    if(this.setting_arguments_valid(context, $.extend(request['arguments'], {'reload-interval': this.params['reload-interval']}))) {
+      delete(request['arguments']['reload-interval']);
+      context.remote_query(request, function(response) {
+        trigger('flash', 'Settings updated successfully');
+        if(context.params['peer-port']) { updatePeerPortDiv(context); }
+        if(context.params['reload-interval']) { context.update_reload_interval(context, context.params['reload-interval']); }
+      });      
+    } else {
+      trigger('flash', 'Settings could not be updated.');
+      trigger('errors', this.setting_arguments_errors(context));
+    }
   });
 
   function updatePeerPortDiv(context) {
