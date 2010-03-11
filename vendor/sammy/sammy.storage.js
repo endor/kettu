@@ -85,10 +85,10 @@
     // === Example
     //
     //      var store = new Sammy.Store({name: 'kvo'});
-    //      $('body').bind('set-kvo.foo', function() { 
-    //        alert('foo changed!') 
+    //      $('body').bind('set-kvo.foo', function(e, data) { 
+    //        Sammy.log(data.key + ' changed to ' + data.value);
     //      });
-    //      store.set('foo', 'bar'); // alerted: foo changed!
+    //      store.set('foo', 'bar'); // logged: foo changed to bar
     //
     set: function(key, value) {
       var string_value = (typeof value == 'string') ? value : JSON.stringify(value);
@@ -96,9 +96,10 @@
       this.storage.set(key, string_value);
       if (key != this.meta_key) { 
         this._addKey(key); 
-        this.$element.trigger('set-' + this.name + '.' + key, [key, value]);
+        this.$element.trigger('set-' + this.name + '.' + key, {key: key, value: value});
       };
-      return string_value;
+      // always return the original value
+      return value;
     },
     // Returns the set value at <tt>key</tt>, parsing with <tt>JSON.parse</tt> and 
     // turning into an object if possible
@@ -298,7 +299,9 @@
   };
   $.extend(Sammy.Store.SessionStorage.prototype, {
     isAvailable: function() {
-      return ('sessionStorage' in window);
+      return ('sessionStorage' in window) && 
+      (window.location.protocol != 'file:') && 
+      ($.isFunction(window.sessionStorage.setItem));
     },
     exists: function(key) {
       return (this.get(key) != null);
@@ -307,7 +310,9 @@
       return window.sessionStorage.setItem(this._key(key), value);
     },
     get: function(key) {
-      return window.sessionStorage.getItem(this._key(key));
+      var value = window.sessionStorage.getItem(this._key(key));
+      if (value && typeof value.value != "undefined") { value = value.value }
+      return value;
     },
     clear: function(key) {
       window.sessionStorage.removeItem(this._key(key));;

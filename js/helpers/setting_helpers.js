@@ -35,11 +35,11 @@ var SettingHelpers = {
     return context.validator.errors;
   },
   
-  prepare_arguments: function(context, params) {
+  prepare_arguments: function(context, params) {    
     if(params['alt-speed-enabled']) {
       return context.turtle_mode_hash(params['alt-speed-enabled']);
     } else {
-      return context.arguments_hash(updatable_settings, params);
+      return context.arguments_hash(params);
     }
   },
   
@@ -47,7 +47,12 @@ var SettingHelpers = {
     return {'alt-speed-enabled': (turtle_mode == "true") ? true : false};
   },
   
-  arguments_hash: function(updatable_settings, params) {
+  arguments_hash: function(params, updatable_settings) {
+    updatable_settings = updatable_settings || [
+      'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
+      'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
+      'encryption'
+    ];
     var hash = {};
 
     $.each(updatable_settings, function() {

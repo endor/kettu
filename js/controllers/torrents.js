@@ -1,25 +1,26 @@
 Torrents = function(transmission) { with(transmission) {
   var context;
   
-  get('#/torrents', function() {
+  before(function() {
     context = this;
+  });
+  
+  get('#/torrents', function() {
     setGlobalModes(this.params);
-
     getAndRenderTorrents(this.params['view'] || this.params['sort']);
+    this.highlightLink('#filterbar', '.all');
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
     transmission.reload_interval = 2000;
     transmission.interval_id = setInterval('getAndRenderTorrents()', transmission.reload_interval);
   });
   
   get('#/torrents/new', function() {
-    context = this;
     this.partial('./templates/torrents/new.mustache', {}, function(rendered_view) {
       context.openInfo(rendered_view);
     });
   });
   
   route('delete', '#/torrents/:id', function() {
-    context = this;
     var request = {
       'method': 'torrent-remove',
       'arguments': {'ids': parseInt(this.params['id'])}
@@ -34,7 +35,6 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   post('#/torrents', function() {
-    context = this;
     var paused = (this.params['start_when_added'] != "on");
     if(this.params['url'].length > 0) {
       var request = {
@@ -59,7 +59,6 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   get('#/torrents/:id', function() {
-    context = this;
     var id = parseInt(context.params['id']);
 
     getTorrent(id, function(torrent) {
@@ -75,7 +74,6 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   put('#/torrents/:id', function() {
-    context = this;
     var id = parseInt(context.params['id']);
     var request = {
       'method': context.params['method'],

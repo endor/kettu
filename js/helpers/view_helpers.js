@@ -11,8 +11,7 @@ var ViewHelpers = {
   
   showAndHideFlash: function(message) {
     $('#flash').html(message);
-    $('#flash').show();
-    setTimeout("$('#flash').fadeOut('slow')", 3000);    
+    $('#flash').show().delay(3000).fadeOut('slow');
   },
 
   showErrors: function(errors) {

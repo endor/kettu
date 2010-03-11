@@ -1,18 +1,9 @@
 Settings = function(transmission) { with(transmission) {
-  updatable_settings = [
-    'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
-    'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
-    'encryption'
-  ];
-
   get('#/settings', function() {
     var context = this;
-    var request = {
-      'method': 'session-get',
-      'arguments': {}
-    };
-    context.remote_query(request, function(response) {
-      view = response;
+    var request = { 'method': 'session-get', 'arguments': {} };
+    
+    context.remote_query(request, function(view) {
       view['reload-interval'] = transmission.reload_interval/1000;
       context.partial('./templates/settings/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);

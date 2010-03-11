@@ -1,4 +1,4 @@
-var transmission = new Sammy.Application(function() { with(this) {
+var transmission = new $.sammy(function() { with(this) {
   element_selector = '#container';
   cache_partials = true;
   use(Sammy.TransmissionRPC);
