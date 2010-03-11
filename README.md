@@ -28,6 +28,7 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
+* style it nicely (css) (in progress)
 * display errors, also tracker errors in tracker info + torrents list
 * when adding new torrent
   * select download folder (type in/categories/? => http://trac.transmissionbt.com/ticket/1496)
@@ -37,4 +38,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
   * aggregate data
 * maybe icons for different file types in file list
 * periodically update torrent info, especially peer list
-* use new sammy functions
+* iphone compability
+* maybe sort and filter at the same time
