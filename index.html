@@ -44,15 +44,13 @@
   </head>
 
   <body>
+    
     <header>
       <div id="error"></div>
       <div id="notice"></div>
 
-      <div id="ratiobar">
-        <div id="globalUpAndDownload"></div>
-      </div>      
-    </header>
-    <div id="container" class="container showgri">
+      <div id="globalUpAndDownload"></div>
+      
       <div id="filterbar">
         <div id="filter_sort_links">
           <a href="#" id="activate_filters">Filter</a> |&nbsp;
@@ -72,11 +70,17 @@
             <a href="#/torrents?sort=state" class="state">State</a>
           </span>
         </div>
-
-        <div id="flash"></div>
+      </div>      
+    </header>
+    <div id="container" class="container showgri">
+    
+      <div id="flash"></div>
+      <div class="main info">
+        <div class="torrents_container">
+          <ul id="torrents"></ul>
+        </div>
+        <div id="info"></div>   
       </div>
-      <ul id="torrents"></ul>
-      <div id="info"></div>   
     </div>   
 
     <form action="#/settings" method="PUT" id="turtle_mode_form">
@@ -84,7 +88,7 @@
     </form>
   
     <footer>
-      <nav id="footer">
+      <nav id="footer">        
         <ul>
           <li><a href="#" id="compact_view">Enable Compact View</a></li><li><a href="#" id="turtle_mode">Enable Turtle Mode</a></li><li><a href="#" id="add_a_torrent">Add a Torrent</a></li><li><a href="#" id="statistics">Statistics</a></li><li><a href="#" id="settings">Preferences</a></li>
         </ul>

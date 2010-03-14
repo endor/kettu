@@ -1,16 +1,20 @@
-body{
+body {
   margin: 0px;
   padding: 0px;
-  font-size: 68.75%;
-  color: #222;
+  font-size: 62.5%; /* 10px */
+  color: #444;
   background: url("../images/kettu_bg.png") repeat-y 50% 0;
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #222;
+  color: #444;
 }
 
+#info,
+#info h1, #info h2, #info h3, #info h4, #info h5, #info h6 {
+  color: #FFF;
+}
 
 /* structure */
 
@@ -19,27 +23,30 @@ header, footer {
   height: 2em;
   width: 100%;
   line-height: 2;
+  z-index: 10;
 }
 
 header {
-  height: 8em;
+  height: 120px;
   background: url("../images/kettu_bg_header.png") no-repeat 50% 0;
 }
 
 .container {
-  padding-top: 10em;
-  min-height: 800px;
+  padding-top: 120px;
   overflow: hidden;
 }
 
 footer {
-  background-color: #222;
-  border-top: 1px solid #222;
+  background-color: #444;
+  border-top: 1px solid #444;
   border-bottom: 1px solid #999;
   left: 0;
   right: 0;
   bottom: 0;
   text-align: right;
+  box-shadow: 0 -10px 10px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0 -10px 10px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 -10px 10px rgba(0,0,0,.1);
 }
 
 footer nav {
@@ -69,46 +76,80 @@ nav ul li a {
   padding: 0;
   border-right: 1px solid #555;
   border-left: 1px solid #333;
+  -webkit-transition-property: color, background;
+  -webkit-transition-duration: 0.4s, 0.1s;
+  -webkit-transition-timing-function: linear, ease-in;
+  -moz-transition-property: color, background;
+  -moz-transition-duration: 0.4s, 0.1s;
+  -moz-transition-timing-function: linear, ease-in;
+  -o-transition-property: color, background;
+  -o-transition-duration: 0.4s, 0.1s;
+  -o-transition-timing-function: linear, ease-in;
 }
-
+nav ul li a.active,
+nav ul li a:focus,
 nav ul li a:hover {
   color: #FFF;
   text-shadow: 1px 1px 1px #000;
   background-color: #333;
 }
 
-#ratiobar {
-  width: 1000px;
+
+#globalUpAndDownload {
+  width: 930px;
+  height: 20px;
   margin: 3.5em auto 0 auto;
   padding: 0;
-  color: #DDD;
-  text-shadow: 1px 1px 1px #000;
-}
-#ratiobar #globalUpAndDownload {
-  width: 550px;
   padding-right: 20px;
   text-align: right;
-  float: right;
-  background-color: #222;
+}
+
+.torrent {
+  background-color: #FFF;
+}
+
+.torrent.even {
+  background-color: #F8F8F8;
+}
+
+.torrent {
+  -webkit-transition-property: background;
+  -webkit-transition-duration: 0.4s, 0.1s;
+  -webkit-transition-timing-function: linear, ease-in;
+  -moz-transition-property: background;
+  -moz-transition-duration: 0.4s, 0.1s;
+  -moz-transition-timing-function: linear, ease-in;
+  -o-transition-property: background;
+  -o-transition-duration: 0.4s, 0.1s;
+  -o-transition-timing-function: linear, ease-in;
+}
+
+.torrent.active {
+  background-color: #FFF8DC !important;
+  color: #000;
+}
+.torrent.active h3 {
+  color: #000;
+  text-shadow: 1px 1px 10px #FFF;
 }
 
 .torrent .ui-widget-header-active {
-  border: 1px solid #aaaaaa; 
-  color: #222222;
+  border: 1px solid #AAA; 
+  color: #444;
   font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-meta {
-  border: 1px solid #aaaaaa; 
-  color: #222222;
+  border: 1px solid #AAA; 
+  color: #444;
   font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-hard_75_f5f5b5_1x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-paused {
-  border: 1px solid #aaaaaa; 
-  color: #222222;
+  border: 1px solid #AAA; 
+  color: #444;
   font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x;
 }
@@ -148,8 +189,7 @@ nav ul li a:hover {
 
 .torrent .statusString {
   clear: both;
-  font-size: 13px;
-  color: #555555;
+  color: #999;
 }
 
 .torrent .name {
@@ -160,26 +200,17 @@ nav ul li a:hover {
   margin: 0px;
   padding: 0px;  
   font-size: 13px;
-  color: #555555;
-}
-
-.torrent.active {
-  background-color: #FFF8DC !important;
-}
-
-.torrent.even {
-  background-color: #F8F8F8;
+  color: #555;
 }
 
 /* filterbar */
 #filterbar {
   width: 920px;
+  height: 30px;
+  margin: 34px auto 0 auto;
   border-bottom: 1px solid #CCC;
-  background: #FFF;
   overflow: hidden;
-  position: fixed;
   padding-left: 30px;
-  top: 8em;
 }
 
 #filterbar a {
@@ -193,12 +224,11 @@ nav ul li a:hover {
 }
 
 #filterbar a.active {
-  color: #222;
+  color: #444;
 }
 
 #filterbar #filter_sort_links {
-  padding: 2px;
-  padding-rightt: 6px;
+  padding-right: 6px;
   width: 400px;
 }
 #filterbar #filter_sort_links #sorts {
@@ -209,79 +239,86 @@ nav ul li a:hover {
   padding-left: 8px;
   margin-top: 2px;
   float: right;
-  color: #442244;
+  color: #444;
   font-weight: bold;
 }
 
 /* torrents list */
 #torrents {
+  width: 100% !important;  
   padding: 0px;
   margin: 0px;
 }
+
+.main {
+  position: relative;
+  overflow: hidden;
+}
+
+.main.info {
+  background: transparent url(../images/kettu_bg_info.png) repeat-y 100% 0;
+}
+
+.main.info .torrents_container {
+  display: block;
+  width: 550px !important;
+  min-height: 10px;
+  float: left;
+}
+/* torrents list container */
+
 #torrents li {
   display: block;
   padding: 6px 10px 6px 30px;
   border-bottom: solid 1px #DDD;
 }
 
+/* info */
 #info {
-  background-color: white;
+  width: 379px;
+  float: left;
+  padding: 1em 10px 1.5em 10px;
+  background-color: #444;
   display: none;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #DDD;
   overflow: auto;
-  background-color: #ededed;
 }
 
 #info table { width: auto;}
 
-#info h2 {
-  color: #442244;
-  font-size: 18px;
-  margin: 0px;
-  padding: 0px;
-}
-#info h3 {
-  font-size: 16px;
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-weight: normal;
-}
 #info .content {
-  margin-left: 15px;
-  margin-bottom: 20px;
-  font-size: 14px;
-  border-left: solid 3px #dddddd;
-}
-#info .content th {
-  padding: 7px;
-  margin-right: 10px;
-  text-align: left;
-  color: #442244;
-  font-weight: normal;
+  width: 100%;
+  margin-bottom: 1.5em;
+  padding-top: .5em;
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #555;
 }
 #info .peers {
-  margin-left: 15px;
   margin-bottom: 20px;
-  font-size: 14px;  
 }
 #info .peers th {
   padding: 7px;
   margin-right: 10px;
   text-align: left;
-  color: #442244;
   font-weight: normal;
 }
-#info .peers th a {
-  color: #442244;
-  text-decoration: none;
+
+#info a {
+  color: #FFF;
 }
+
+#info a:hover,
+#info a:active,
+#info a:focus {
+  color: #DDD;
+}
+
 #info .peers th.long {
   width: 40%;
 }
 #info ul {
   list-style-type: none;
-  padding-left: 15px;
+  padding-left: 0;
 }
 #info li {
   padding-bottom: 6px;
@@ -329,25 +366,39 @@ nav ul li a:hover {
 }
 
 #info #port-open.waiting {
-  background-image: url(images/spinner.gif);
+  background-image: url('images/spinner.gif');
   background-color: transparent !important;
 }
 
 #info #version {
-  color: #555555;
-  font-size: 12px;
-  position: absolute;
-  bottom: 20px;
+  color: #555;
 }
 
 #info .menu {
-  margin-top: 0px;
-  margin-bottom: 20px;
+  margin: -1em -10px 1em -10px;
+  padding: 0;
+  overflow: hidden;
+  background-color: #444;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #555;
 }
 #info .menu li {
-  display: inline;
-  margin-right: 20px;
+  float: left;
+  margin-right: 0;
+  padding-bottom: 0;
 }
+
+#info .menu li a {
+  width: 77px;
+  height: 2em;
+  line-height: 2em;
+  display: block;
+  padding: 0;
+  border-right: 1px solid #555;
+  border-left: 1px solid #333;
+}
+
+
 #info .percent_done {
   font-size: 12px;
   color: #666666;
@@ -360,15 +411,14 @@ nav ul li a:hover {
 
 .menu-item {
   text-decoration: none;
-  color: #666666;
+  color: #DDD;
 }
 .menu-item.active {
-  color: #222222;
+  color: #FFF;
 }
 
-
 .progressbar {
-  width: 817px;
+  width: 80%;
 }
 
 /* compact view */
