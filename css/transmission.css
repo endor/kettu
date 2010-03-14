@@ -1,42 +1,95 @@
 body{
   margin: 0px;
   padding: 0px;
+  font-size: 68.75%;
+  color: #222;
+  background: url("../images/kettu_bg.png") repeat-y 50% 0;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
-#header {
-  height: 40px;
-  width: 100%;
-  background-color: #442244;
-  margin: 0px;
-  padding: 0px;
+h1, h2, h3, h4, h5, h6 {
+  color: #222;
 }
+
+
+/* structure */
+
+header, footer {
+  position: fixed;
+  height: 2em;
+  width: 100%;
+  line-height: 2;
+}
+
+header {
+  height: 8em;
+  background: url("../images/kettu_bg_header.png") no-repeat 50% 0;
+}
+
+.container {
+  padding-top: 10em;
+  min-height: 800px;
+  overflow: hidden;
+}
+
+footer {
+  background-color: #222;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #999;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+}
+
+footer nav {
+  width: 950px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+footer nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* bottom navigation */
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a {
+  width: 158px;
+  height: 2em;
+  display: block;
+  color: #DDD;
+  text-shadow: 1px 1px 1px #000;
+  text-decoration: none;
+  text-align: center;
+  padding: 0;
+  border-right: 1px solid #555;
+  border-left: 1px solid #333;
+}
+
+nav ul li a:hover {
+  color: #FFF;
+  text-shadow: 1px 1px 1px #000;
+  background-color: #333;
+}
+
 #ratiobar {
-  height: 20px;
-  background-color: #442244;
-  color: white;
-  margin: 0px;
-  padding: 3px;
+  width: 1000px;
+  margin: 3.5em auto 0 auto;
+  padding: 0;
+  color: #DDD;
+  text-shadow: 1px 1px 1px #000;
 }
 #ratiobar #globalUpAndDownload {
+  width: 550px;
+  padding-right: 20px;
+  text-align: right;
   float: right;
-  margin-right: 5px;
-}
-#footer {
-  width: 100%;
-	height: 22px;
-	margin: 0px;
-	padding: 5px;
-	position: fixed;
-	left: 0px;
-	right: 0px;
-	bottom: 0;
-	background-color: #442244;
-	text-align: right;
-}
-#footer a {
-  margin-right: 20px;
-  color: #dddddd;
-  text-decoration: none;
+  background-color: #222;
 }
 
 .torrent .ui-widget-header-active {
@@ -87,7 +140,7 @@ body{
   background-color: transparent;
   border: 0px;
   float: right;
-  margin-right: 20px;
+  margin-right: 10px;
   background-image: url(images/control_eject.png);
   width: 15px;
   height: 15px; 
@@ -100,8 +153,7 @@ body{
 }
 
 .torrent .name {
-  margin: 0px;
-  padding: 0px;
+
 }
 
 .torrent .progressDetails {
@@ -119,25 +171,34 @@ body{
   background-color: #F8F8F8;
 }
 
+/* filterbar */
 #filterbar {
-  border-bottom: 1px solid #CCCCCC;
+  width: 920px;
+  border-bottom: 1px solid #CCC;
+  background: #FFF;
+  overflow: hidden;
+  position: fixed;
+  padding-left: 30px;
+  top: 8em;
 }
 
 #filterbar a {
-  color: #555555;
+  color: #777;
   text-decoration: none;
   margin-right: 4px;
 }
 
+#filterbar a:hover {
+  color: #000;
+}
+
 #filterbar a.active {
-  color: #222222;
+  color: #222;
 }
 
 #filterbar #filter_sort_links {
   padding: 2px;
-  padding-left: 8px;
-  float: left;
-  margin-top: 2px;
+  padding-rightt: 6px;
   width: 400px;
 }
 #filterbar #filter_sort_links #sorts {
@@ -151,34 +212,28 @@ body{
   color: #442244;
   font-weight: bold;
 }
+
+/* torrents list */
 #torrents {
-  position: fixed;
-	top: 53px;
-	bottom: 32px;
-	right: 0px;
-	left: 0px;
-	padding: 0px;
-	margin: 0px;
-	overflow-y: scroll;
+  padding: 0px;
+  margin: 0px;
 }
 #torrents li {
   display: block;
-  padding: 5px;
-  border: solid 1px #dddddd;
+  padding: 6px 10px 6px 30px;
+  border-bottom: solid 1px #DDD;
 }
+
 #info {
-  position: fixed;
-  top: 53px;
-  bottom: 22px;
-  right: 0px;
-  width: 50%;
-  padding-top: 10px;
-  padding-left: 10px;
   background-color: white;
   display: none;
   border-left: 1px solid #dddddd;
   overflow: auto;
+  background-color: #ededed;
 }
+
+#info table { width: auto;}
+
 #info h2 {
   color: #442244;
   font-size: 18px;
@@ -288,6 +343,12 @@ body{
   color: #222222;
 }
 
+
+.progressbar {
+  width: 817px;
+}
+
+/* compact view */
 .compact .progressbar {
   width: 60px;
   display: inline-block;
