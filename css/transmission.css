@@ -260,6 +260,25 @@ nav ul li a:hover {
   color: #442244;
   font-weight: normal;
 }
+#info .peers {
+  margin-left: 15px;
+  margin-bottom: 20px;
+  font-size: 14px;  
+}
+#info .peers th {
+  padding: 7px;
+  margin-right: 10px;
+  text-align: left;
+  color: #442244;
+  font-weight: normal;
+}
+#info .peers th a {
+  color: #442244;
+  text-decoration: none;
+}
+#info .peers th.long {
+  width: 40%;
+}
 #info ul {
   list-style-type: none;
   padding-left: 15px;
@@ -329,6 +348,10 @@ nav ul li a:hover {
   display: inline;
   margin-right: 20px;
 }
+#info .percent_done {
+  font-size: 12px;
+  color: #666666;
+}
 
 #pie_chart {
   margin-left: 30px;
@@ -372,4 +395,12 @@ nav ul li a:hover {
 
 .compact .buttons form {
   display: inline-block;
+}
+
+#data {
+  display: none;
+}
+
+.graphs {
+  margin-bottom: 50px;
 }

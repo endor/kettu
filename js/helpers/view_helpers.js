@@ -11,10 +11,17 @@ var ViewHelpers = {
   
   showAndHideFlash: function(message) {
     $('#flash').html(message);
-    $('#flash').show();
-    setTimeout("$('#flash').fadeOut('slow')", 3000);    
+    $('#flash').show().delay(3000).fadeOut('slow');
   },
 
+  showErrors: function(errors) {
+    var error_string = '<p>';
+    $.each(errors, function() {
+      error_string += this['field'] + ': ' + this['message'] + '<br />';
+    });
+    $('#errors').html(error_string + '.</p>');
+  },
+  
   saveLastMenuItem: function(id) {
     transmission.last_menu_item = id;
   },
@@ -35,28 +42,5 @@ var ViewHelpers = {
       $('#info .item:first').show();
       $('#info .menu-item:first').addClass('active');      
     }
-  },
-  
-  drawPie: function(id, data) {
-    var bluffGraph = new Bluff.Pie(id, 300);
-    bluffGraph.set_theme({
-      colors: ['#B2DFEE', '#FFEC8B', '#BCEE68'],
-      marker_color: '#aea9a9',
-      font_color: '#555555',
-      background_colors: ['#F8F8F8', '#FFFFFF']
-    });
-    for(label in data) {
-      bluffGraph.data(label, data[label]);      
-    }
-    bluffGraph.draw();    
-  },
-  
-  activateLinks: function() {
-    this.activateAddTorrentLink();
-    this.activateSettingsLink();
-    this.activateStatisticsLink();
-    this.activateTurtleModeLink();
-    this.activateCompactViewLink();
-    this.activateFilterAndSortLink();
-  }
+  }  
 };

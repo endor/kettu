@@ -39,22 +39,22 @@ describe 'SettingHelpers'
     end
     
     it 'should set setting to false if it\'s not in the parameters'
-      hash = setting_helpers.arguments_hash(updatable_settings, params);
+      hash = setting_helpers.arguments_hash(params, updatable_settings);
       hash['pex-enabled'].should.be_false;
     end
     
     it 'should set setting to true if it\'s "on"'
-      hash = setting_helpers.arguments_hash(updatable_settings, params);
+      hash = setting_helpers.arguments_hash(params, updatable_settings);
       hash['dht-enabled'].should.be_true;
     end
     
     it 'should set setting to a number if parameter is a string with only a number in it'
-      hash = setting_helpers.arguments_hash(updatable_settings, params);
+      hash = setting_helpers.arguments_hash(params, updatable_settings);
       hash['peer-port'].should.eql(5327);
     end
     
     it 'should set setting to a string if it is a string'
-      hash = setting_helpers.arguments_hash(updatable_settings, params);
+      hash = setting_helpers.arguments_hash(params, updatable_settings);
       hash['download-dir'].should.eql('/downloads');
     end
   end

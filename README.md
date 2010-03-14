@@ -28,12 +28,15 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* show more information about files
-* show more information about peers
+* style it nicely (css) (in progress)
 * display errors, also tracker errors in tracker info + torrents list
-* split torrent/torrents view
-* when removing user should have option to trash data
 * when adding new torrent
   * select download folder (type in/categories/? => http://trac.transmissionbt.com/ticket/1496)
   * select and prioritize files
 * register content handlers (although this seems to be not fully supported yet) just as in http://trac.transmissionbt.com/ticket/2404
+* graphing up/download:
+  * aggregate data
+* maybe icons for different file types in file list
+* periodically update torrent info, especially peer list
+* iphone compability
+* maybe sort and filter at the same time

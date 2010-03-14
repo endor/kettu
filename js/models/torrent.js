@@ -9,7 +9,7 @@ Torrent = function(attributes) {
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
-    'pieceCount', 'pieceSize', 'trackerStats'
+    'pieceCount', 'pieceSize', 'trackerStats', 'peers'
   ];
   $.each(torrent.fields, function() {
     torrent[this] = attributes[this];
@@ -38,10 +38,7 @@ Torrent = function(attributes) {
     return torrent.metadataPercentComplete < 1 
   };
   torrent.percentDone = function() {
-    if(!torrent.sizeWhenDone) { return 0; }
-    if(!torrent.leftUntilDone && torrent.leftUntilDone != 0) { return 0; }
-    
-    return Math.floor( ((torrent.sizeWhenDone - torrent.leftUntilDone) / torrent.sizeWhenDone) * 10000 ) / 100;
+    return Math.formatPercent(torrent.sizeWhenDone, torrent.leftUntilDone);
   };
   torrent.progressDetails = function() {
     var progressDetails;
@@ -112,7 +109,7 @@ Torrent = function(attributes) {
   torrent.statusString = function() {
     var currentStatus = torrent.statusStringLocalized(torrent.status);
     if(torrent.isActive()) {
-      currentStatus += ' - ' + torrent.downAndUpLoadRateString(torrent.rateDownload, torrent.rateUpload);
+      currentStatus += ' - ' + torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
     }
     return currentStatus;
   };
@@ -123,7 +120,7 @@ Torrent = function(attributes) {
       }
     }
   };
-  torrent.downAndUpLoadRateString = function(downloadRate, uploadRate) {
+  torrent.downAndUploadRateString = function(downloadRate, uploadRate) {
     return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
   };
   torrent.activity = function() {

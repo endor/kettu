@@ -2,6 +2,7 @@
   <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-information" data-item="information">Information</a></li>
   <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-activity" data-item="activity">Activity</a></li>
   <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-trackers" data-item="trackers">Trackers</a></li>
+  <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-peers" data-item="peers">Peers</a></li>
   <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-files" data-item="files">Files</a></li>
 </ul>
 
@@ -125,10 +126,34 @@
   {{/trackerStats}}
 </div>
 
+<div class="item peers">
+  <table class="peers">
+    <tr>
+      <th>IP Address</th>
+      <th class="long"><a href="#/torrents/{{id}}?sort_peers=client">Client</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=percent">%</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=upload">Upload</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=download">Download</a></th>
+    </tr>
+    {{#peers}}
+      <tr>
+        <td>{{address}}</td>
+        <td>{{clientName}}</td>
+        <td>{{percentDone}}</td>
+        <td>{{uploadFormatted}}</td>
+        <td>{{downloadFormatted}}</td>
+      </tr>
+    {{/peers}}
+  </table>
+</div>
+
 <div class="item files">
   <ul class="content files">
     {{#files}}
-      <li>{{name}}</li>
-    {{/files}}    
+      <li>
+        {{name}}<br />
+        <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
+      </li>
+    {{/files}}
   </ul>
 </div>

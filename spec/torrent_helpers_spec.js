@@ -12,36 +12,37 @@ describe 'TorrentHelpers'
   describe 'updateTorrents'
     before_each
       var templates = {}
-      templates['torrent_show'] = fixture('../templates/torrents/show.mustache')
+      templates['show'] = fixture('../templates/torrents/show.mustache')
       templates['pause_and_activate_button'] = fixture('../templates/torrents/pause_and_activate_button.mustache')
       torrent_helpers.cache = function(partial) { return templates[partial]; }
+      torrent_helpers.cache_partial = function() {}
       torrent_helpers.updateInfo = function() {}
       torrent_helpers.clearCache = function() {}
+      torrent_helpers.mustache = function(template, view) {return Mustache.to_html(template, view);}
       statusWord = function() {return 'seeding';}
       transmission = {'view_mode': 'normal'}
     end
     
     it 'should add a new torrent if it came in with the update and is not on the site yet'
       updated_torrents = [
-        {'id': 1, 'statusWord': statusWord},
-        {'id': 2, 'statusWord': statusWord},
-        {'id': 3, 'statusWord': statusWord},
-        {'id': 4, 'statusWord': statusWord}
+        Torrent({'id': 1, 'status': 8}),
+        Torrent({'id': 2, 'status': 8}),
+        Torrent({'id': 3, 'status': 8}),
+        Torrent({'id': 4, 'status': 8})
       ]
       torrent_helpers.updateTorrents(updated_torrents)
       $('#4').get(0).should_not.be_undefined
     end
     
     it 'should remove an old torrent that did not come in with the update but is still on the site'
-      updated_torrents = [{'id': 2, 'statusWord': statusWord}]
+      updated_torrents = [Torrent({'id': 2, 'status': 8})]
       torrent_helpers.updateTorrents(updated_torrents)
       $('#1').get(0).should.be_undefined
     end
     
     it 'should update the torrents\' data'
       updated_torrents = [
-        {'id': 1, 'statusWord': statusWord, 'statusString': 'Seeding - DL: 0.0 KB/s, UL: 20.0 KB/s'},
-        {'id': 2, 'statusWord': statusWord}
+        Torrent({'id': 2, 'status': 8, 'rateUpload': 20000, 'rateDownload': 0})
       ]
       torrent_helpers.updateTorrents(updated_torrents)
       $('.statusString:first').html().should.match(/20\.0 KB\/s/)
@@ -55,6 +56,22 @@ describe 'TorrentHelpers'
       $('#3').find('.progressDetails').html().should_not.match(/metadata/)
       $('#3').find('.progressbar').find('.ui-widget-header-meta').get(0).should.be_undefined
     end
+    
+    it 'should show the torrent if status matches with filter mode'
+      $('#1').hide();
+      transmission.filter_mode = 'seeding'
+      updated_torrents = [Torrent({'id': 1, 'status': 8})]
+      torrent_helpers.updateTorrents(updated_torrents)
+      $('#1').should.be_visible
+    end
+    
+    it 'should hide the torrent if status does not match with filter mode'
+      $('#1').show();
+      transmission.filter_mode = 'downloading'
+      updated_torrents = [Torrent({'id': 1, 'status': 8})]
+      torrent_helpers.updateTorrents(updated_torrents)
+      $('#1').should.be_hidden
+    end
   end
   
   describe 'formatNextAnnounceTime'
@@ -64,4 +81,5 @@ describe 'TorrentHelpers'
       torrent_helpers.formatNextAnnounceTime(timestamp).should.eql("15 min, 0 sec")
     end
   end
+
 end

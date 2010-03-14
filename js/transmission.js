@@ -1,14 +1,17 @@
-var transmission = new Sammy.Application(function() { with(this) {
+var transmission = new $.sammy(function() { with(this) {
   element_selector = '#container';
   cache_partials = true;
-  rpc = new RPC();
+  use(Sammy.TransmissionRPC);
   use(Sammy.Mustache);
   use(Sammy.Cache);
   
+  helpers(ApplicationHelpers);
+  helpers(LinkHelpers);
   helpers(TorrentHelpers);
   helpers(SortTorrentsHelpers);
   helpers(InfoHelpers);
   helpers(ViewHelpers);
+  helpers(StoreHelpers);
   helpers(SettingHelpers);
   helpers(StatisticHelpers);
   
@@ -21,7 +24,12 @@ var transmission = new Sammy.Application(function() { with(this) {
     this.showAndHideFlash(message);
   }});
   
+  bind('errors', function(e, errors) { with(this) {
+    this.showErrors(errors);
+  }});
+  
   bind('init', function() { with(this) {
+    this.initializeStore();
     this.activateLinks();
     this.closeInfo();
   }});

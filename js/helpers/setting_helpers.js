@@ -1,15 +1,5 @@
 var SettingHelpers = {
-  activateSettingsLink: function() {
-    var context = this;
-    $('#settings').click(function() {
-      if(context.infoIsOpen()) {
-        context.closeInfo();
-      } else {
-        context.redirect('#/settings');
-      }
-      return false;
-    });
-  },
+  validator: new SettingsValidator(),
   
   updateSettingsCheckboxes: function(settings) {
     $.each($('#info').find('input[type=checkbox]'), function() {
@@ -35,27 +25,41 @@ var SettingHelpers = {
       });
     });
   },
+
+  setting_arguments_valid: function(context, setting_arguments) {
+    context.validator.validate(setting_arguments);
+    return ! context.validator.has_errors();
+  },
   
-  prepare_arguments: function(context, params) {
+  setting_arguments_errors: function(context) {
+    return context.validator.errors;
+  },
+  
+  prepare_arguments: function(context, params) {    
     if(params['alt-speed-enabled']) {
       return context.turtle_mode_hash(params['alt-speed-enabled']);
     } else {
-      return context.arguments_hash(updatable_settings, params);
-    };
+      return context.arguments_hash(params);
+    }
   },
   
   turtle_mode_hash: function(turtle_mode) {
     return {'alt-speed-enabled': (turtle_mode == "true") ? true : false};
   },
   
-  arguments_hash: function(updatable_settings, params) {
+  arguments_hash: function(params, updatable_settings) {
+    updatable_settings = updatable_settings || [
+      'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
+      'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
+      'encryption'
+    ];
     var hash = {};
 
     $.each(updatable_settings, function() {
       var setting = this;
-      hash[setting] = (params[setting]) ? true : false;
+      hash[setting] = params[setting] ? true : false;
       if(params[setting] && params[setting].match(/^\d+$/)) {
-        hash[setting] = parseInt(params[setting]);
+        hash[setting] = parseInt(params[setting], 10);
       } else if(params[setting] && params[setting] != "on") {
         hash[setting] = params[setting];
       }
@@ -65,12 +69,11 @@ var SettingHelpers = {
   },
   
   update_reload_interval: function(context, new_reload_interval) {
-    new_reload_interval = parseInt(new_reload_interval);
+    new_reload_interval = parseInt(new_reload_interval, 10);
     if(new_reload_interval != (transmission.reload_interval/1000)) {
       transmission.reload_interval = new_reload_interval * 1000;
       clearInterval(transmission.interval_id);
       context.closeInfo();
     }
   }
-  
-}
+};

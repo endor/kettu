@@ -11,7 +11,8 @@
     <script src="./vendor/jquery/jquery.ui.js"></script>
     <script src="./vendor/jquery/jquery.form.js"></script>
     <script src="./vendor/sammy/sammy.js"></script>
-    <script src="./vendor/sammy/sammy.cache.js"></script>
+    <script src="./vendor/sammy/sammy.json.js"></script>
+    <script src="./vendor/sammy/sammy.storage.js"></script>
     <script src="./vendor/mustache/mustache.js"></script>
     <script src="./vendor/mustache/sammy.mustache.js"></script>
     <script src="./vendor/bluff/js-class.js"></script>
@@ -23,15 +24,21 @@
     <script src="./js/controllers/settings.js"></script>
     <script src="./js/controllers/statistics.js"></script>
     <script src="./js/models/torrent.js"></script>
+    <script src="./js/models/validator.js"></script>
+    <script src="./js/models/settings_validator.js"></script>
     <script src="./js/views/torrent.js"></script>
+    <script src="./js/views/torrents.js"></script>
     <script src="./js/views/statistics.js"></script>
     <script src="./js/helpers/math_helpers.js"></script>
+    <script src="./js/helpers/link_helpers.js"></script>
     <script src="./js/helpers/torrent_helpers.js"></script>
     <script src="./js/helpers/sort_torrents_helpers.js"></script>
     <script src="./js/helpers/info_helpers.js"></script>
     <script src="./js/helpers/view_helpers.js"></script>
+    <script src="./js/helpers/store_helpers.js"></script>
     <script src="./js/helpers/setting_helpers.js"></script>
     <script src="./js/helpers/statistic_helpers.js"></script>
+    <script src="./js/helpers/application_helpers.js"></script>
     <script src="./js/transmission.js"></script>
     <script src="./features/support/culerity.js"></script>
   </head>
@@ -51,7 +58,7 @@
           <a href="#" id="activate_filters">Filter</a> |&nbsp;
           <a href="#" id="activate_sorts">Sort</a> -&nbsp;
           <span id="filters">
-            <a href="#/filtered_torrents/all" class="all">All</a>
+            <a href="#/torrents" class="all">All</a>
             <a href="#/filtered_torrents/downloading" class="downloading">Downloading</a>
             <a href="#/filtered_torrents/seeding" class="seeding">Seeding</a>
             <a href="#/filtered_torrents/paused" class="paused">Paused</a>              
@@ -65,6 +72,7 @@
             <a href="#/torrents?sort=state" class="state">State</a>
           </span>
         </div>
+
         <div id="flash"></div>
       </div>
       <ul id="torrents"></ul>
