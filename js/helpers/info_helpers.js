@@ -2,6 +2,7 @@ var InfoHelpers = {
   closeInfo: function() {
     this.clearReloadInterval();
     $('.main').removeClass('info');
+    $('#info').hide();
     var path = transmission.filter_mode ? '#/filtered_torrents/' + transmission.filter_mode : '#/torrents';
     this.redirect(path);
     return false;
