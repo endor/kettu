@@ -1,9 +1,7 @@
 var InfoHelpers = {
   closeInfo: function() {
     this.clearReloadInterval();
-    $('#torrents').css('width', '100%');
-    $('#info').html('');
-    $('#info').hide();
+    $('.main').removeClass('info');
     var path = transmission.filter_mode ? '#/filtered_torrents/' + transmission.filter_mode : '#/torrents';
     this.redirect(path);
     return false;
@@ -13,6 +11,7 @@ var InfoHelpers = {
     var info = $('#info');
     info.html(view);
     info.show();
+    $('.main').addClass('info');
     this.menuizeInfo();
   },
 
@@ -23,7 +22,7 @@ var InfoHelpers = {
   },
   
   infoIsOpen: function() {
-    return $('#info').is(':visible');
+    return $('.main').hasClass('info');
   },
 
   handleDoubleClickOnTorrent: function(torrent) {
