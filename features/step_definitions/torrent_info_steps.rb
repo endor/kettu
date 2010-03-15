@@ -22,6 +22,11 @@ Given /^a torrent$/ do
   File.open(file_path, 'w') {|f| f << '{"arguments": {"torrents": [{"id":  1, "name": "test", "status": 4, "totalSize": 100, "sizeWhenDone": 100,"leftUntilDone": 50, "eta": 0, "uploadedEver": 0, "uploadRatio": 0, "rateDownload": 0,"rateUpload": 0, "metadataPercentComplete": 1, "addedDate": 27762987}]}}' }  
 end
 
+When /there is new data for the torrent with new IP "([^\"]+)" and new client name "([^\"]+)"/ do |ip, client_name|
+  file_path = File.dirname(__FILE__) + '/../support/singular.json'
+  File.open(file_path, 'w') {|f| f << '{"arguments": {"torrents": [{"id":  1, "name": "test", "status": 4, "totalSize": 100, "sizeWhenDone": 100,"leftUntilDone": 50, "eta": 0, "uploadedEver": 0, "uploadRatio": 0, "rateDownload": 0,"rateUpload": 0, "metadataPercentComplete": 1, "addedDate": 27762987, "downloadDir": "/downloads", "creator": "chaot", "hashString": "83ui72GYAYDg27ghg22e22e4235215", "comment": "", "isPrivate": true, "downloadedEver": 50, "haveString": "", "errorString": "", "peersGettingFromUs": 0, "peersSendingToUs": 0, "files": [], "pieceCount": 20, "pieceSize": 5, "peers": [{"address": "' + ip + '", "clientName": "' + client_name + '", "rateToClient": 0, "rateToPeer": 0, "progress": 0}]}]}}' }
+end
+
 Then /I should see a countdown time of about 30 minutes/ do
   $browser.div(:text, /(29|30) min, (\d+) sec/).should be_exist
 end

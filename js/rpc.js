@@ -30,6 +30,10 @@
             xhr.setRequestHeader('X-Transmission-Session-Id', context.session_id);
           },
           success: function(response) {
+            if(!response) {
+              console.log('RPC Connection Failure.');
+              console.log('You need to run this web client within the Transmission web server.');
+            }
             if(callback) {
               callback(response['arguments']);
             }
@@ -40,7 +44,7 @@
               that.remote_query(params, callback);
             } else {
               if(window.console) {
-                console.log('RPC Connection Failure');
+                console.log('RPC Connection Failure.');
                 console.log(xhr.responseText);            
               }
             }

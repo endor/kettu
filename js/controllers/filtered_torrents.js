@@ -1,5 +1,4 @@
 FilteredTorrents = function(transmission) { with(transmission) {
-  
   get('#/filtered_torrents/:filter', function() {
     var filter = '';
     var valid_filters = ['seeding', 'downloading', 'paused', 'seeding'];
