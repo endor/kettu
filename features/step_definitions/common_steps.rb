@@ -4,3 +4,7 @@ Then /^I should see "([^\"]*)" before "([^\"]*)"$/ do |first, second|
     raise("#{first} can't be found before #{second}") 
   end
 end
+
+When /I wait for "(\d)"s/ do |seconds|
+  sleep seconds.to_i
+end

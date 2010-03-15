@@ -36,7 +36,7 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * register content handlers (although this seems to be not fully supported yet) just as in http://trac.transmissionbt.com/ticket/2404
 * graphing up/download:
   * aggregate data
-* maybe icons for different file types in file list
-* periodically update torrent info, especially peer list
 * iphone compability
 * maybe sort and filter at the same time
+* need to return to filtered torrents when closing a torrent info
+* maybe icons for different file types in file list

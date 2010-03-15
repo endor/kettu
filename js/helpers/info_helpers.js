@@ -1,10 +1,11 @@
 var InfoHelpers = {
-  closeInfo: function() {    
+  closeInfo: function() {
+    this.clearReloadInterval();
     $('#torrents').css('width', '100%');
-    var info = $('#info');
-    info.html('');
-    info.hide();
-    this.redirect('#/torrents');
+    $('#info').html('');
+    $('#info').hide();
+    var path = transmission.filter_mode ? '#/filtered_torrents/' + transmission.filter_mode : '#/torrents';
+    this.redirect(path);
     return false;
   },
 
@@ -15,6 +16,12 @@ var InfoHelpers = {
     this.menuizeInfo();
   },
 
+  clearReloadInterval: function() {
+    if(transmission.info_interval_id) {
+      clearInterval(transmission.info_interval_id);
+    }
+  },
+  
   infoIsOpen: function() {
     return $('#info').is(':visible');
   },
