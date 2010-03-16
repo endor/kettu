@@ -6,7 +6,7 @@ By Frank Prößdorf <fp@notjusthosting.com>.
 
 
 ## Thanks
-* kriesse for the elegant design.
+* Kriesse for the elegant design.
 * kjg for all the work on the transmission web client and help.
 * lenalena for introducing proper jspec testing to this project.
 
@@ -40,6 +40,4 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe sort and filter at the same time
 * maybe icons for different file types in file list
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
-* make kjg's url patch work with the tests
 * maybe statistics, preferences not as sidebar
-* when hard reloading a filtered torrents page it should still display the torrents
