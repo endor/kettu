@@ -11,6 +11,7 @@ Torrents = function(transmission) { with(transmission) {
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
     transmission.reload_interval = transmission.reload_interval || 2000;
     transmission.interval_id = setInterval('getAndRenderTorrents()', transmission.reload_interval);
+    if(transmission.redirect) { this.redirect(transmission.redirect); delete(transmission.redirect); }
   });
   
   get('#/torrents/new', function() {

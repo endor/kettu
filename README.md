@@ -5,7 +5,8 @@ using [jquery](http://jquery.com), [sammy](http://github.com/quirkey/sammy) and 
 By Frank Prößdorf <fp@notjusthosting.com>.
 
 
-## Thanks 
+## Thanks
+* kriesse for the elegant design.
 * kjg for all the work on the transmission web client and help.
 * lenalena for introducing proper jspec testing to this project.
 
@@ -28,7 +29,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* style it nicely (css) (in progress)
 * display errors, also tracker errors in tracker info + torrents list
 * when adding new torrent
   * select download folder (type in/categories/? => http://trac.transmissionbt.com/ticket/1496)
@@ -38,5 +38,8 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
   * aggregate data
 * iphone compability
 * maybe sort and filter at the same time
-* need to return to filtered torrents when closing a torrent info
 * maybe icons for different file types in file list
+* debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
+* make kjg's url patch work with the tests
+* maybe statistics, preferences not as sidebar
+* when hard reloading a filtered torrents page it should still display the torrents

@@ -164,7 +164,7 @@ nav ul li a:hover {
 }
 
 .torrent .pauseAndActivateButton.activate {
-  background-image: url(images/control_repeat.png);
+  background-image: url(images/control_play.png);
   width: 15px;
   height: 15px;
 }

@@ -23,6 +23,9 @@ Feature: sort and filter torrents
     Then I should see "Mutant Ninja Turtles"
       And I should see "Donald Duck"
       And I should see "Saber Riders"
+    When I go to the paused filtered torrents page
+    Then I should see "Saber Riders"
+      But I should not see "Mutant Ninja Turtles"
 
   Scenario: sort torrents by name
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 8, 16"
