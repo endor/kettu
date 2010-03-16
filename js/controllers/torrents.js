@@ -45,7 +45,7 @@ Torrents = function(transmission) { with(transmission) {
       });      
     } else {
       $('#add_torrent_form').ajaxSubmit({
-    		'url': remote_url + '/transmission/upload?paused=' + paused,
+    		'url': '/transmission/upload?paused=' + paused,
     		'type': 'POST',
     		'data': { 'X-Transmission-Session-Id' : remote_session_id },
     		'dataType': 'xml',
