@@ -5,15 +5,11 @@
   Sammy.TransmissionRPC = function(app) {
 
     app.rpc = {
-      'base_url': 'http://localhost:9091',
-      'url': 'http://localhost:9091/transmission/rpc',
+      'url': '/transmission/rpc',
       'session_id': ''
     };
     
     app.helpers({
-      remote_url: function() {
-        return this.app.rpc.base_url;
-      },
       remote_session_id: function() {
         return this.app.rpc.session_id;
       },
