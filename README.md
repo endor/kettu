@@ -14,10 +14,7 @@ By Frank Prößdorf <fp@notjusthosting.com>.
 ## Usage
 You can use kettu instead of the original web client to remotely administrate your transmission application.
 
-Once you allowed remote access in your transmission client, you can simply open the `index.html` in the browser. If you run your transmission application on something other than the default host and port, you can adjust these settings in the `rpc` file.
-
-It's recommended to replace the old web interface with this one, so the server and the web interface run in the same location (e.g. localhost:9091). When uploading torrents there is a cross-site request which leads to a deserved warning. Also Firefox and Chrome will not work because cross-site requests will trigger [preflight requests](http://www.w3.org/TR/access-control/#preflight-request) in those browsers, which the server cannot handle.
-
+It is recommended to set the TRANSMISSION_WEB_HOME environment variable to the root path of this web client. Then you just need to open the location to the transmission web server (e.g. localhost:9091) and it will work.
 
 ## Tests
 
@@ -41,3 +38,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe icons for different file types in file list
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * maybe statistics, preferences not as sidebar
+* add transmission name (plus logo)
+* enabling/disabling compact view should stay on same page (set redirect)

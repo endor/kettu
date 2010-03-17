@@ -133,11 +133,18 @@ nav ul li a:hover {
   text-shadow: 1px 1px 10px #FFF;
 }
 
-.torrent .ui-widget-header-active {
+.torrent .ui-widget-header-uploading {
   border: 1px solid #AAA; 
   color: #444;
   font-weight: bold;
-  background: url(jquery/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x;
+  background: url(jquery/images/ui-bg_highlight-soft_60_4ca20b_1x100.png) repeat-x;
+}
+
+.torrent .ui-widget-header-downloading {
+  border: 1px solid #AAA; 
+  color: #444;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) repeat-x;  
 }
 
 .torrent .ui-widget-header-meta {
