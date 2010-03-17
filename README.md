@@ -39,4 +39,4 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * maybe statistics, preferences not as sidebar
 * add transmission name (plus logo)
-* enabling/disabling compact view should stay on same page (set redirect)
+* firefox shows errors loading the fixtures (cross domain?) in the specs. safari and chrome work fine.

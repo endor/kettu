@@ -461,3 +461,8 @@ nav ul li a:hover {
 .graphs {
   margin-bottom: 50px;
 }
+
+.hint {
+  color: #888888;
+  font-size: 80%;
+}

@@ -6,7 +6,8 @@
     <li><a href="#/settings" class="menu-item" data-item="peers">Peers</a></li>
   </ul>
 </nav>
-<h2>Settings</h2>
+
+<h2>Preferences</h2>
 
 <div id="errors"></div>
 
@@ -25,6 +26,22 @@
             <option value="preferred">Preferred</option>
             <option value="tolerated">Tolerated</option>
           </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Enable Protocol Handler (magnet:):</th>
+        <td>
+          <input type="checkbox" name="protocol-handler-enabled" /><br />
+          <span class="hint">This is a feature not all browsers may support yet.
+            Once enabled, you can only disable this in your browser settings.</span>
+        </td>
+      </tr>
+      <tr>
+        <th>Enable Content Handler (.torrent):</th>
+        <td>
+          <input type="checkbox" name="content-handler-enabled" /><br />
+          <span class="hint">This is a feature not all browsers may support yet.
+            Once enabled, you can only disable this in your browser settings.</span>
         </td>
       </tr>
     </table>
@@ -52,14 +69,14 @@
       <tr>
         <th>Speed Limit Download:</th>
         <td>
-          <input type="checkbox" name="speed-limit-down-enabled"> 
+          <input type="checkbox" name="speed-limit-down-enabled" /> 
           <input type="text" name="speed-limit-down" value="{{speed-limit-down}}" class="short" /> KB/s
         </td>
       </tr>
       <tr>
         <th>Speed Limit Upload:</th>
         <td>
-          <input type="checkbox" name="speed-limit-up-enabled"> 
+          <input type="checkbox" name="speed-limit-up-enabled" /> 
           <input type="text" name="speed-limit-up" value="{{speed-limit-up}}" class="short" /> KB/s
         </td>
       </tr>

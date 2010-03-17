@@ -11,10 +11,10 @@ describe 'TorrentHelpers'
 
   describe 'updateTorrents'
     before_each
-      var templates = {}
-      templates['show'] = fixture('../templates/torrents/show.mustache')
-      templates['pause_and_activate_button'] = fixture('../templates/torrents/pause_and_activate_button.mustache')
-      torrent_helpers.cache = function(partial) { return templates[partial]; }
+      torrent_helpers.templates = {}
+      torrent_helpers.templates['show'] = fixture('../templates/torrents/show.mustache')
+      torrent_helpers.templates['pause_and_activate_button'] = fixture('../templates/torrents/pause_and_activate_button.mustache')
+      torrent_helpers.cache = function(partial) { return this.templates[partial]; }
       torrent_helpers.cache_partial = function() {}
       torrent_helpers.updateInfo = function() {}
       torrent_helpers.clearCache = function() {}
@@ -81,5 +81,5 @@ describe 'TorrentHelpers'
       torrent_helpers.formatNextAnnounceTime(timestamp).should.eql("15 min, 0 sec")
     end
   end
-
+  
 end

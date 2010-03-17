@@ -20,6 +20,18 @@ Torrents = function(transmission) { with(transmission) {
     });
   });
   
+  // NOTE: this route is not restful, but how else to handle
+  // registered protocol and content handlers?
+  get('#/torrents/add', function() {
+    var request = {
+      'method': 'torrent-add',
+      'arguments': {'filename': this.params['url'], 'paused': false}
+    };
+    context.remote_query(request, function(response) {
+      torrentUploaded(response['torrent-added']);
+    });
+  });
+  
   route('delete', '#/torrents/:id', function() {
     var request = {
       'method': 'torrent-remove',
