@@ -30,7 +30,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * when adding new torrent
   * select download folder (type in/categories/? => http://trac.transmissionbt.com/ticket/1496)
   * select and prioritize files
-* register content handlers (although this seems to be not fully supported yet) just as in http://trac.transmissionbt.com/ticket/2404
 * graphing up/download:
   * aggregate data
 * iphone compability
@@ -39,4 +38,3 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * maybe statistics, preferences not as sidebar
 * add transmission name (plus logo)
-* firefox shows errors loading the fixtures (cross domain?) in the specs. safari and chrome work fine.
