@@ -106,9 +106,14 @@ describe 'Torrent'
   end
   
   describe 'progressBar'
-    it 'should add class active if it\'s an active torrent'
+    it 'should add class downloading if it\'s a downloading torrent'
       var torrent = Torrent({status: Torrent({}).stati['downloading'], metadataPercentComplete: 1});
-      torrent.progressBar().should.match(/active/);
+      torrent.progressBar().should.match(/downloading/);
+    end
+
+    it 'should add class uploading if it\'s a seeding torrent'
+      var torrent = Torrent({status: Torrent({}).stati['seeding'], metadataPercentComplete: 1});
+      torrent.progressBar().should.match(/uploading/);
     end
     
     it 'should add class paused if it\'s a paused torrent'

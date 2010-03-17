@@ -26,6 +26,9 @@ Feature: sort and filter torrents
     When I go to the paused filtered torrents page
     Then I should see "Saber Riders"
       But I should not see "Mutant Ninja Turtles"
+    When I follow "Enable Compact View"
+    Then I should see "Saber Riders"
+      But I should not see "Mutant Ninja Turtles"    
 
   Scenario: sort torrents by name
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 8, 16"
