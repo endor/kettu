@@ -84,6 +84,7 @@ var TorrentHelpers = {
   },
   
   updateViewElements: function(torrents, view) {
+    this.makeSortLinkReverse();
     this.updateTorrents(torrents, view);
     this.cycleTorrents();
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
@@ -104,5 +105,19 @@ var TorrentHelpers = {
     } else {
       return timestamp;
     }
-  }  
+  },
+  
+  makeSortLinkReverse: function() {
+    var link = $('#sorts .' + transmission.sort_mode);
+    var url = link.attr('href');
+    
+    $('#sorts a').each(function() {
+      $(this).attr('href', $(this).attr('href').match(/([^&]+)(&reverse=true)?/)[1]);
+    });
+    alert(!url.match(/reverse/));
+    if(!url.match(/reverse/)) {
+      link.attr('href', url + '&reverse=true');
+    }
+    alert(link.attr('href'));
+  }
 };

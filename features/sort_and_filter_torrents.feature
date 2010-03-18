@@ -65,4 +65,3 @@ Feature: sort and filter torrents
     When I go to the queue sorted torrents page
     Then I should see "Mutant Ninja Turtles" before "Donald Duck"
       And I should see "Donald Duck" before "Saber Riders"
-  

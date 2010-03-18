@@ -136,6 +136,7 @@ Torrents = function(transmission) { with(transmission) {
   };
   
   setGlobalModes = function(params) {
+    transmission.reverse_sort = params['reverse'] || false;
     transmission.sort_mode = params['sort'] || transmission.sort_mode || 'name';
     transmission.view_mode = params['view'] || transmission.view_mode || 'normal';
     delete(transmission.filter_mode);
@@ -151,7 +152,8 @@ Torrents = function(transmission) { with(transmission) {
   };
   
   bind('torrents-refreshed', function(e, params) { with(this) {
-    this.updateViewElements(this.sortTorrents(transmission.sort_mode, params['torrents']), params['need_change']);
+    var sorted_torrents = this.sortTorrents(transmission.sort_mode, params['torrents'], transmission.reverse_sort);
+    this.updateViewElements(sorted_torrents, params['need_change']);
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {

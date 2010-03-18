@@ -42,7 +42,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * iphone compability
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * add transmission name (plus logo)
-* clicking sort twice should reverse sort order
 * extend stats view
 * maybe sort and filter at the same time
 * maybe icons for different file types in file list

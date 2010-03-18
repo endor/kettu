@@ -76,4 +76,28 @@ describe 'SortTorrentsHelpers'
     sorted_torrents[1].id.should.eql('3')
     sorted_torrents[2].id.should.eql('1')    
   end
+  
+  it 'should sort reverse if reverse is true'
+    var torrents = [
+      Torrent({'id': '1', 'rateDownload': 0, 'rateUpload': 0}),
+      Torrent({'id': '2', 'rateDownload': 512, 'rateUpload': 256}),
+      Torrent({'id': '3', 'rateDownload': 512, 'rateUpload': 5})
+    ]
+    var sorted_torrents = sort_helpers.sortTorrents('activity', torrents, true)
+    sorted_torrents[0].id.should.eql('1')
+    sorted_torrents[1].id.should.eql('3')
+    sorted_torrents[2].id.should.eql('2')
+  end
+  
+  it 'should not sort reverse if reverse if false'
+    var torrents = [
+      Torrent({'id': '1', 'rateDownload': 0, 'rateUpload': 0}),
+      Torrent({'id': '2', 'rateDownload': 512, 'rateUpload': 256}),
+      Torrent({'id': '3', 'rateDownload': 512, 'rateUpload': 5})
+    ]
+    var sorted_torrents = sort_helpers.sortTorrents('activity', torrents, false)
+    sorted_torrents[0].id.should.eql('2')
+    sorted_torrents[1].id.should.eql('3')
+    sorted_torrents[2].id.should.eql('1')
+  end
 end

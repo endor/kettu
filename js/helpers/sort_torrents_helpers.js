@@ -3,7 +3,7 @@
 //
 
 var SortTorrentsHelpers = {
-  sortTorrents: function(sort_mode, torrents) {
+  sortTorrents: function(sort_mode, torrents, reverse) {
     var torrent_sort_function = function() {};
     
     switch(sort_mode) {
@@ -47,6 +47,12 @@ var SortTorrentsHelpers = {
         break;
     }
     
-    return torrents.sort(torrent_sort_function);
+    torrents.sort(torrent_sort_function);
+    
+    if(reverse) {
+      torrents.reverse();
+    }
+    
+    return torrents;
   }
 }
