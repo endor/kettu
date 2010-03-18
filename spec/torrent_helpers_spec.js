@@ -55,23 +55,7 @@ describe 'TorrentHelpers'
       torrent_helpers.updateTorrents(updated_torrents)
       $('#3').find('.progressDetails').html().should_not.match(/metadata/)
       $('#3').find('.progressbar').find('.ui-widget-header-meta').get(0).should.be_undefined
-    end
-    
-    it 'should show the torrent if status matches with filter mode'
-      $('#1').hide();
-      transmission.filter_mode = 'seeding'
-      updated_torrents = [Torrent({'id': 1, 'status': 8})]
-      torrent_helpers.updateTorrents(updated_torrents)
-      $('#1').should.be_visible
-    end
-    
-    it 'should hide the torrent if status does not match with filter mode'
-      $('#1').show();
-      transmission.filter_mode = 'downloading'
-      updated_torrents = [Torrent({'id': 1, 'status': 8})]
-      torrent_helpers.updateTorrents(updated_torrents)
-      $('#1').should.be_hidden
-    end
+    end    
   end
   
   describe 'formatNextAnnounceTime'

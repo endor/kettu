@@ -13,7 +13,7 @@ Before do
   $testapp = IO.popen("/usr/bin/env ruby #{File.dirname(__FILE__) + '/testapp.rb'} 2>/dev/null 1>/dev/null", 'r+')
   $server ||= Culerity::run_server
   $browser = Culerity::RemoteBrowserProxy.new $server, {:browser => :firefox, :javascript_exceptions => true, :resynchronize => false, :status_code_exceptions => true}
-  $browser.log_level = :info
+  $browser.log_level = :warning
 end
 
 def host

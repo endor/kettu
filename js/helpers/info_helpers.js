@@ -3,7 +3,7 @@ var InfoHelpers = {
     this.clearReloadInterval();
     $('.main').removeClass('info');
     $('#info').hide();
-    var path = transmission.filter_mode ? '#/filtered_torrents/' + transmission.filter_mode : '#/torrents';
+    var path = transmission.filter_mode ? '#/torrents?filter=' + transmission.filter_mode : '#/torrents';
     this.redirect(path);
     return false;
   },

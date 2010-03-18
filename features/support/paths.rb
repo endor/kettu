@@ -4,7 +4,7 @@ module NavigationHelpers
     when /start page/
       "/"
     when /paused filtered torrents page/
-      "/index.html#/filtered_torrents/paused"
+      "/index.html#/torrents?filter=paused"
     when /state sorted torrents page/
       "/index.html#/torrents?sort=state"
     when /name sorted torrents page/

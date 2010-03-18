@@ -7,11 +7,10 @@ Torrents = function(transmission) { with(transmission) {
   
   get('#/torrents', function() {
     setGlobalModes(this.params);
-    getAndRenderTorrents(this.params['view'] || this.params['sort']);
+    getAndRenderTorrents(this.params['view'] || this.params['sort'] || this.params['filter']);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
     transmission.reload_interval = transmission.reload_interval || 2000;
     transmission.interval_id = setInterval('getAndRenderTorrents()', transmission.reload_interval);
-    if(transmission.redirect) { this.redirect(transmission.redirect); delete(transmission.redirect); }
   });
   
   get('#/torrents/new', function() {
@@ -139,7 +138,7 @@ Torrents = function(transmission) { with(transmission) {
     transmission.reverse_sort = params['reverse'] || false;
     transmission.sort_mode = params['sort'] || transmission.sort_mode || 'name';
     transmission.view_mode = params['view'] || transmission.view_mode || 'normal';
-    delete(transmission.filter_mode);
+    transmission.filter_mode = params['filter'] || transmission.filter_mode || 'all';
     context.highlightLink('#filterbar', '.all');
     $('.torrent').show();
   };
@@ -153,7 +152,8 @@ Torrents = function(transmission) { with(transmission) {
   
   bind('torrents-refreshed', function(e, params) { with(this) {
     var sorted_torrents = this.sortTorrents(transmission.sort_mode, params['torrents'], transmission.reverse_sort);
-    this.updateViewElements(sorted_torrents, params['need_change']);
+    var filtered_torrents = this.filterTorrents(transmission.filter_mode, sorted_torrents);
+    this.updateViewElements(filtered_torrents, params['need_change']);
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {

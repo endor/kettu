@@ -62,7 +62,6 @@ var LinkHelpers = {
         $(this).text('Disable Compact View');
         redirect_path = '#/torrents?view=compact';
       }
-      transmission.redirect = transmission.getLocation();
       context.redirect(redirect_path);
       return false;
     });

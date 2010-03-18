@@ -9,6 +9,7 @@ var transmission = new $.sammy(function() { with(this) {
   helpers(LinkHelpers);
   helpers(TorrentHelpers);
   helpers(SortTorrentsHelpers);
+  helpers(FilterTorrentsHelpers);
   helpers(InfoHelpers);
   helpers(ViewHelpers);
   helpers(StoreHelpers);
@@ -16,7 +17,6 @@ var transmission = new $.sammy(function() { with(this) {
   helpers(StatisticHelpers);
   
   Torrents(this);
-  FilteredTorrents(this);
   Settings(this);
   Statistics(this);
   

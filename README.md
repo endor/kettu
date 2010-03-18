@@ -43,7 +43,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * add transmission name (plus logo)
 * extend stats view
-* maybe sort and filter at the same time
 * maybe icons for different file types in file list
 * maybe statistics, preferences not as sidebar
 * maybe search torrents (maybe by name, tracker)
