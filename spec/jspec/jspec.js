@@ -1583,7 +1583,7 @@
     
     tryLoading : function(file) {
       try { return JSpec.load(file) }
-      catch (e) {}
+      catch (e) {console.log(e);}
     },
 
     /**

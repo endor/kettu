@@ -20,7 +20,6 @@
     <script src="./vendor/bluff/bluff-min.js"></script>
     <script src="./js/rpc.js"></script>
     <script src="./js/controllers/torrents.js"></script>
-    <script src="./js/controllers/filtered_torrents.js"></script>
     <script src="./js/controllers/settings.js"></script>
     <script src="./js/controllers/statistics.js"></script>
     <script src="./js/models/torrent.js"></script>
@@ -33,6 +32,7 @@
     <script src="./js/helpers/link_helpers.js"></script>
     <script src="./js/helpers/torrent_helpers.js"></script>
     <script src="./js/helpers/sort_torrents_helpers.js"></script>
+    <script src="./js/helpers/filter_torrents_helpers.js"></script>
     <script src="./js/helpers/info_helpers.js"></script>
     <script src="./js/helpers/view_helpers.js"></script>
     <script src="./js/helpers/store_helpers.js"></script>
@@ -57,10 +57,10 @@
           <a href="#" id="activate_filters">Filter</a> |&nbsp;
           <a href="#" id="activate_sorts">Sort</a> -&nbsp;
           <span id="filters">
-            <a href="#/torrents" class="all">All</a>
-            <a href="#/filtered_torrents/downloading" class="downloading">Downloading</a>
-            <a href="#/filtered_torrents/seeding" class="seeding">Seeding</a>
-            <a href="#/filtered_torrents/paused" class="paused">Paused</a>              
+            <a href="#/torrents?filter=all" class="all">All</a>
+            <a href="#/torrents?filter=downloading" class="downloading">Downloading</a>
+            <a href="#/torrents?filter=seeding" class="seeding">Seeding</a>
+            <a href="#/torrents?filter=paused" class="paused">Paused</a>           
           </span>
           <span id="sorts">
             <a href="#/torrents?sort=activity" class="activity">Activity</a>

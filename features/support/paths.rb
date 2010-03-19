@@ -3,6 +3,8 @@ module NavigationHelpers
     case page_name
     when /start page/
       "/"
+    when /paused filtered torrents page/
+      "/index.html#/torrents?filter=paused"
     when /state sorted torrents page/
       "/index.html#/torrents?sort=state"
     when /name sorted torrents page/

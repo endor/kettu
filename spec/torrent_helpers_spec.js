@@ -11,10 +11,10 @@ describe 'TorrentHelpers'
 
   describe 'updateTorrents'
     before_each
-      var templates = {}
-      templates['show'] = fixture('../templates/torrents/show.mustache')
-      templates['pause_and_activate_button'] = fixture('../templates/torrents/pause_and_activate_button.mustache')
-      torrent_helpers.cache = function(partial) { return templates[partial]; }
+      torrent_helpers.templates = {}
+      torrent_helpers.templates['show'] = fixture('show.mustache')
+      torrent_helpers.templates['pause_and_activate_button'] = fixture('pause_and_activate_button.mustache')
+      torrent_helpers.cache = function(partial) { return this.templates[partial]; }
       torrent_helpers.cache_partial = function() {}
       torrent_helpers.updateInfo = function() {}
       torrent_helpers.clearCache = function() {}
@@ -55,23 +55,7 @@ describe 'TorrentHelpers'
       torrent_helpers.updateTorrents(updated_torrents)
       $('#3').find('.progressDetails').html().should_not.match(/metadata/)
       $('#3').find('.progressbar').find('.ui-widget-header-meta').get(0).should.be_undefined
-    end
-    
-    it 'should show the torrent if status matches with filter mode'
-      $('#1').hide();
-      transmission.filter_mode = 'seeding'
-      updated_torrents = [Torrent({'id': 1, 'status': 8})]
-      torrent_helpers.updateTorrents(updated_torrents)
-      $('#1').should.be_visible
-    end
-    
-    it 'should hide the torrent if status does not match with filter mode'
-      $('#1').show();
-      transmission.filter_mode = 'downloading'
-      updated_torrents = [Torrent({'id': 1, 'status': 8})]
-      torrent_helpers.updateTorrents(updated_torrents)
-      $('#1').should.be_hidden
-    end
+    end    
   end
   
   describe 'formatNextAnnounceTime'
@@ -81,5 +65,5 @@ describe 'TorrentHelpers'
       torrent_helpers.formatNextAnnounceTime(timestamp).should.eql("15 min, 0 sec")
     end
   end
-
+  
 end

@@ -51,17 +51,18 @@ var LinkHelpers = {
   },
 
   activateCompactViewLink: function() {
-    var context = this;
+    var context = this, redirect_path = '';
     $('#compact_view').click(function() {
       if($(this).hasClass('active')) {
         $(this).removeClass('active');
         $(this).text('Enable Compact View');
-        context.redirect('#/torrents?view=normal');
+        redirect_path = '#/torrents?view=normal';
       } else {
         $(this).addClass('active');
         $(this).text('Disable Compact View');
-        context.redirect('#/torrents?view=compact');
+        redirect_path = '#/torrents?view=compact';
       }
+      context.redirect(redirect_path);
       return false;
     });
   },

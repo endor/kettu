@@ -15,6 +15,8 @@ Settings = function(transmission) { with(transmission) {
   put('#/settings', function() {
     var context = this;
     var request = { 'method': 'session-set', 'arguments': this.prepare_arguments(context, this.params) };
+
+    this.manage_handlers(context, this.params);
     
     if(this.setting_arguments_valid(context, $.extend(request['arguments'], {'reload-interval': this.params['reload-interval']}))) {
       delete(request['arguments']['reload-interval']);
@@ -29,7 +31,7 @@ Settings = function(transmission) { with(transmission) {
     }
   });
 
-  function updatePeerPortDiv(context) {
+  updatePeerPortDiv = function(context) {
     $('#port-open').addClass('waiting');
     $('#port-open').show();
     var request = { 'method': 'port-test', 'arguments': {} };
@@ -42,7 +44,7 @@ Settings = function(transmission) { with(transmission) {
       }
     });
   };
-
+  
   bind('settings-refreshed', function(e, settings){ with(this) {
     this.updateSettingsCheckboxes(settings);
     this.updateSettingsSelects(settings);

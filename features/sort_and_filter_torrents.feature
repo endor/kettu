@@ -23,6 +23,12 @@ Feature: sort and filter torrents
     Then I should see "Mutant Ninja Turtles"
       And I should see "Donald Duck"
       And I should see "Saber Riders"
+    When I go to the paused filtered torrents page
+    Then I should see "Saber Riders"
+      But I should not see "Mutant Ninja Turtles"
+    When I follow "Enable Compact View"
+    Then I should see "Saber Riders"
+      But I should not see "Mutant Ninja Turtles"    
 
   Scenario: sort torrents by name
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 8, 16"
@@ -59,4 +65,14 @@ Feature: sort and filter torrents
     When I go to the queue sorted torrents page
     Then I should see "Mutant Ninja Turtles" before "Donald Duck"
       And I should see "Donald Duck" before "Saber Riders"
+      
+  Scenario: filter and sort at the same time
+    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 4, 16"
+    When I go to the name sorted torrents page
+      And I follow "Filter"
+      And I follow "Downloading"
+    Then I should see "Donald Duck" before "Mutant Ninja Turtles"
+      And I should not see "Saber Riders"
+    
+  
   

@@ -78,9 +78,12 @@ Torrent = function(attributes) {
     if(torrent.isActive() && torrent.needsMetaData()) {
       status = 'meta';
       progressBar = $("<div></div>").progressbar({value: 100}).html();
-    } else if(torrent.isActive()) {
-      status = 'active';
+    } else if(torrent.isActive()  && !torrent.isDoneDownloading()) {
+      status = 'downloading';
       progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();
+    } else if(torrent.isActive() && torrent.isDoneDownloading()) {
+      status = 'uploading';
+      progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();      
     } else {
       status = 'paused';
       progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();

@@ -6,7 +6,7 @@ describe 'TorrentsView'
       start_form            = $(forms.get(1))
       context               = {}
       context.cache_partial = function() {}
-      context.cache         = function() { return fixture('../templates/torrents/pause_and_activate_button.mustache'); }
+      context.cache         = function() { return fixture('pause_and_activate_button.mustache'); }
       context.mustache      = function(template, view) {return Mustache.to_html(template, view);}
       torrents_view         = TorrentsView({}, context)
     end

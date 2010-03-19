@@ -158,11 +158,18 @@ nav ul li a:hover {
   text-shadow: 1px 1px 10px #FFF;
 }
 
-.torrent .ui-widget-header-active {
+.torrent .ui-widget-header-uploading {
   border: 1px solid #AAA; 
   color: #444;
   font-weight: bold;
-  background: url(jquery/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x;
+  background: url(jquery/images/ui-bg_highlight-soft_60_4ca20b_1x100.png) repeat-x;
+}
+
+.torrent .ui-widget-header-downloading {
+  border: 1px solid #AAA; 
+  color: #444;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) repeat-x;  
 }
 
 .torrent .ui-widget-header-meta {
@@ -189,7 +196,7 @@ nav ul li a:hover {
 }
 
 .torrent .pauseAndActivateButton.activate {
-  background-image: url(images/control_repeat.png);
+  background-image: url(images/control_play.png);
   width: 15px;
   height: 15px;
 }
@@ -482,4 +489,9 @@ padding: 3px 10px 3px 30px;
 
 .graphs {
   margin-bottom: 50px;
+}
+
+.hint {
+  color: #888888;
+  font-size: 80%;
 }

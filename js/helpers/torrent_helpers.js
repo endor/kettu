@@ -34,13 +34,6 @@ var TorrentHelpers = {
   
   updateStatus: function(old_torrent, torrent) {
     old_torrent.removeClass('downloading').removeClass('seeding').removeClass('paused').addClass(torrent.statusWord());
-    if(transmission.filter_mode) {
-      if(torrent.statusWord() != transmission.filter_mode) {
-        old_torrent.hide();
-      } else {
-        old_torrent.show();
-      }
-    }
   },
   
   updateTorrent: function(torrent) {
@@ -83,10 +76,13 @@ var TorrentHelpers = {
     }
   },
   
-  updateViewElements: function(torrents, view) {
-    this.updateTorrents(torrents, view);
+  updateViewElements: function(torrents, need_change) {
+    this.makeSortLinkReverse();
+    this.updateTorrents(torrents, need_change);
     this.cycleTorrents();
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
+    this.highlightLink('#filters', '.' + transmission.filter_mode);
+    this.highlightLink('#sorts', '.' + transmission.sort_mode);
   },
   
   cache_partials: function() {
@@ -104,5 +100,17 @@ var TorrentHelpers = {
     } else {
       return timestamp;
     }
-  }  
+  },
+  
+  makeSortLinkReverse: function() {
+    var link = $('#sorts .' + transmission.sort_mode);
+    var url = link.attr('href');
+    
+    $('#sorts a').each(function() {
+      $(this).attr('href', $(this).attr('href').match(/([^&]+)(&reverse=true)?/)[1]);
+    });
+    if(!url.match(/reverse/)) {
+      link.attr('href', url + '&reverse=true');
+    }
+  }
 };

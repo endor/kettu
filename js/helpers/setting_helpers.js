@@ -3,12 +3,24 @@ var SettingHelpers = {
   
   updateSettingsCheckboxes: function(settings) {
     $.each($('#info').find('input[type=checkbox]'), function() {
-      var name = $(this).attr('name');
+      var checkbox = $(this);
+      var name = checkbox.attr('name');
       if(settings[name]) {
+        checkbox.attr('checked', 'checked');
+      }
+      $.each(['protocol-handler-enabled', 'content-handler-enabled'], function() {
+        if(name == this && transmission.store.exists(this)) {
+          checkbox.attr('disabled', 'disabled');
+          checkbox.attr('checked', 'checked');
+        };
+      });
+    });
+    
+    $('#info input').change(function(event) {
+      if($(this).attr('name') == 'protocol-handler-enabled' || $(this).attr('name') == 'content-handler-enabled') {
+        $(this).attr('disabled', 'disabled');
         $(this).attr('checked', 'checked');
       }
-    });
-    $('#info input').change(function(event) {
       $(this).parents('form').trigger('submit');
       return false;
     });
@@ -75,5 +87,21 @@ var SettingHelpers = {
       clearInterval(transmission.interval_id);
       context.closeInfo();
     }
-  }
+  },
+  
+  manage_handlers: function(context, params) {
+    if(params['protocol-handler-enabled'] && !transmission.store.exists('protocol-handler-enabled')) {
+      transmission.store.set('protocol-handler-enabled', true);
+      window.navigator.registerProtocolHandler('magnet', context.base_url() + '#/torrents/add?url=%s', "Transmission Web");
+    }
+    
+    if(params['content-handler-enabled'] && !transmission.store.exists('content-handler-enabled')) {
+      transmission.store.set('content-handler-enabled', true);
+      window.navigator.registerContentHandler("application/x-bittorrent", context.base_url() + '#/torrents/add?url=%s', "Transmission Web");
+    }
+  },
+  
+  base_url: function() { 
+    return window.location.href.match(/^([^#]+)#.+$/)[1];
+  },
 };
