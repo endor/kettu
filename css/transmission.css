@@ -11,6 +11,13 @@ h1, h2, h3, h4, h5, h6 {
   color: #444;
 }
 
+h3 {
+  font-size: 1.5em;
+  line-height: 1;
+  margin-bottom: .5em;
+}
+
+
 #info,
 #info h1, #info h2, #info h3, #info h4, #info h5, #info h6 {
   color: #FFF;
@@ -60,6 +67,23 @@ footer nav ul {
   padding: 0;
 }
 
+/* flash */
+#flash {
+  display: none;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  padding: 1em;
+  font-weight: bold;
+  color: #FFF;
+  background-color: #444;
+  background-color: rgba(0,0,0,0.7);
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+
 /* bottom navigation */
 nav ul li {
   display: inline-block;
@@ -106,6 +130,7 @@ nav ul li a:hover {
 
 .torrent {
   background-color: #FFF;
+  overflow: hidden;
 }
 
 .torrent.even {
@@ -199,7 +224,6 @@ nav ul li a:hover {
 .torrent .progressDetails {
   margin: 0px;
   padding: 0px;  
-  font-size: 13px;
   color: #555;
 }
 
@@ -234,14 +258,7 @@ nav ul li a:hover {
 #filterbar #filter_sort_links #sorts {
   display: none;
 }
-#filterbar #flash {
-  padding: 2px;
-  padding-left: 8px;
-  margin-top: 2px;
-  float: right;
-  color: #444;
-  font-weight: bold;
-}
+
 
 /* torrents list */
 #torrents {
@@ -271,6 +288,9 @@ nav ul li a:hover {
   display: block;
   padding: 6px 10px 6px 30px;
   border-bottom: solid 1px #DDD;
+}
+#torrents li.compact {
+padding: 3px 10px 3px 30px;
 }
 
 /* info */
@@ -417,8 +437,16 @@ nav ul li a:hover {
   color: #FFF;
 }
 
+.progress {
+  overflow: hidden;
+}
+
 .progressbar {
   width: 80%;
+}
+
+.ui-progressbar {
+  margin: 4px 4px 4px 0;
 }
 
 /* compact view */
@@ -436,7 +464,8 @@ nav ul li a:hover {
 }
 
 .compact .buttons {
-  display: inline-block;
+  display: block;
+  float: right;
 }
 
 .compact .buttons .pauseAndActivateButton {
