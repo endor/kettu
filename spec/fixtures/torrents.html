@@ -1,0 +1,56 @@
+<ul id="torrents">
+  <li id="1" class="torrent seeding even">
+    <div class="name"><strong>CouchDB</strong></div><br />
+    <div class="progressDetails"><small>22.0 MB, uploaded 13.4 MB (Ratio: 0.5942)</small></div><br />
+
+    <div class="progress">
+      <div class="progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-progressbar-value ui-widget-header-active ui-corner-left ui-corner-right" style="width: 100%; "></div>
+      </div>
+      <div class="pauseAndActivateButton">
+        <form action="#/torrents/1" method="PUT" class="pauseAndActivateButtonForm">
+          <input type="hidden" name="method" value="torrent-stop"/>
+          <input type="submit" value="Pause" class="pauseAndActivateButton pause" />
+        </form>
+      </div>
+    </div>
+
+    <div class="status statusString">Seeding - DL: 0.0 KB/s, UL: 0.0 KB/s</div>
+  </li>
+  <li id="2" class="torrent seeding">
+    <div class="name">Apache</div>
+    <div class="progressDetails">82.0 MB, uploaded 13.4 MB (Ratio: 0.1742)</div>
+
+    <div class="progress">
+      <div class="progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-progressbar-value ui-widget-header-active ui-corner-left ui-corner-right" style="width: 100%; "></div>
+      </div>
+      <div class="pauseAndActivateButton">
+        <form action="#/torrents/2" method="PUT" class="pauseAndActivateButtonForm">
+          <input type="hidden" name="method" value="torrent-stop"/>
+          <input type="submit" value="Pause" class="pauseAndActivateButton pause" />
+        </form>
+      </div>
+    </div>
+
+    <div class="status statusString">Seeding - DL: 0.0 KB/s, UL: 0.0 KB/s</div>
+  </li>  
+  <li id="3" class="torrent downloading">
+    <div class="name">CouchApp</div>
+    <div class="progressDetails">Magnetized transfer - retrieving metadata (0%)</div>
+
+    <div class="progress">
+      <div class="progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-progressbar-value ui-widget-header-meta ui-corner-left ui-corner-right" style="width: 100%; "></div>
+      </div>
+      <div class="pauseAndActivateButton">
+        <form action="#/torrents/3" method="PUT" class="pauseAndActivateButtonForm">
+          <input type="hidden" name="method" value="torrent-stop"/>
+          <input type="submit" value="Pause" class="pauseAndActivateButton pause" />
+        </form>
+      </div>
+    </div>
+
+    <div class="status statusString">Downloading from 1 of 1 peers - DL: 0 bytes/s, UL: 0 bytes/s</div>
+  </li>  
+</ul>

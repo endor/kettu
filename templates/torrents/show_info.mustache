@@ -1,0 +1,160 @@
+<nav>
+  <ul class="menu">
+    <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-information" data-item="information">Information</a></li>
+    <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-activity" data-item="activity">Activity</a></li>
+    <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-trackers" data-item="trackers">Trackers</a></li>
+    <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-peers" data-item="peers">Peers</a></li>
+    <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-files" data-item="files">Files</a></li>
+  </ul>
+</nav>
+<h2>{{name}}</h2>
+
+<div class="item information">
+  <table class="content">
+    <tr>
+      <th>Size:</th>
+      <td>{{totalSizeString}}</td>
+    </tr>
+    <tr>
+      <th>Pieces:</th>
+      <td>{{pieceCount}}, {{pieceSizeString}}</td>
+    </tr>
+    <tr>
+      <th>Hash:</th>
+      <td>{{hashString}}</td>
+    </tr>
+    <tr>
+      <th>Secure:</th>
+      <td>{{secure}}</td>
+    </tr>
+    <tr>
+      <th>Comment:</th>
+      <td>{{comment}}</td>
+    </tr>
+    <tr>
+      <th>Creator:</th>
+      <td>{{creator}}</td>
+    </tr>
+    <tr>
+      <th>Date:</th>
+      <td>{{created_at}}</td>
+    </tr>
+    <tr>
+      <th>Download Directory:</th>
+      <td>{{downloadDir}}</td>
+    </tr>    
+  </table>  
+</div>
+
+<div class="item activity">
+  <table class="content">
+    <tr>
+      <th>State:</th>
+      <td>{{statusWord}}</td>
+    </tr>
+    <tr>
+      <th>Progress:</th>
+      <td>{{percentDone}}%</td>
+    </tr>
+    <tr>
+      <th>Have:</th>
+      <td>{{haveString}}</td>
+    </tr>
+    <tr>
+      <th>Downloaded:</th>
+      <td>{{downloadedEverString}}</td>
+    </tr>
+    <tr>
+      <th>Uploaded:</th>
+      <td>{{uploadedEverString}}</td>
+    </tr>
+    <tr>
+      <th>Ratio:</th>
+      <td>{{uploadRatio}}</td>
+    </tr>
+    <tr>
+      <th>Error:</th>
+      <td>{{errorString}}</td>
+    </tr>
+    <tr>
+      <th>Download speed:</th>
+      <td>{{rateDownload}}</td>
+    </tr>
+    <tr>
+      <th>Upload speed:</th>
+      <td>{{rateUpload}}</td>
+    </tr>
+    <tr>
+      <th>Peers - Upload to:</th>
+      <td>{{peersGettingFromUs}}</td>
+    </tr>
+    <tr>
+      <th>Peers - Download from:</th>
+      <td>{{peersSendingToUs}}</td>
+    </tr>
+  </table>
+</div>
+
+<div class="item trackers">
+  {{#trackerStats}}
+    <h3>{{host}}</h3><br />
+    <table class="content">
+      <tr>
+        <th>Last Announce:</th>
+        <td>{{lastAnnounceTimeFormatted}}</td>
+      </tr>
+      <tr>
+        <th>Next Announce:</th>
+        <td data-timestamp="{{nextAnnounceTime}}" class="countdown">{{nextAnnounceTimeFormatted}}</td>
+      </tr>
+      <tr>
+        <th>Last Scrape:</th>
+        <td>{{lastScrapeTimeFormatted}}</td>
+      </tr>
+      <tr>
+        <th>Seeders:</th>
+        <td>{{seederCount}}</td>
+      </tr>
+      <tr>
+        <th>Leechers:</th>
+        <td>{{leecherCount}}</td>
+      </tr>
+      <tr>
+        <th>Downloaded:</th>
+        <td>{{downloadCount}}</td>
+      </tr>
+    </table>
+  {{/trackerStats}}
+</div>
+
+<div class="item peers">
+  <table class="peers">
+    <tr>
+      <th>IP Address</th>
+      <th class="long"><a href="#/torrents/{{id}}?sort_peers=client">Client</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=percent">%</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=upload">Upload</a></th>
+      <th><a href="#/torrents/{{id}}?sort_peers=download">Download</a></th>
+    </tr>
+    {{#peers}}
+      <tr>
+        <td>{{address}}</td>
+        <td>{{clientName}}</td>
+        <td>{{percentDone}}</td>
+        <td>{{uploadFormatted}}</td>
+        <td>{{downloadFormatted}}</td>
+      </tr>
+    {{/peers}}
+  </table>
+</div>
+
+<div class="item files">
+  <ul class="content files">
+    {{#files}}
+      <li>
+        {{name}}<br />
+        <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
+      </li>
+    {{/files}}
+  </ul>
+</div>

@@ -1,0 +1,497 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  font-size: 62.5%; /* 10px */
+  color: #444;
+  background: url("../images/kettu_bg.png") repeat-y 50% 0;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444;
+}
+
+h3 {
+  font-size: 1.5em;
+  line-height: 1;
+  margin-bottom: .5em;
+}
+
+
+#info,
+#info h1, #info h2, #info h3, #info h4, #info h5, #info h6 {
+  color: #FFF;
+}
+
+/* structure */
+
+header, footer {
+  position: fixed;
+  height: 2em;
+  width: 100%;
+  line-height: 2;
+  z-index: 10;
+}
+
+header {
+  height: 120px;
+  background: url("../images/kettu_bg_header.png") no-repeat 50% 0;
+}
+
+.container {
+  padding-top: 120px;
+  overflow: hidden;
+}
+
+footer {
+  background-color: #444;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #999;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+  box-shadow: 0 -10px 10px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0 -10px 10px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 -10px 10px rgba(0,0,0,.1);
+}
+
+footer nav {
+  width: 950px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+footer nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* flash */
+#flash {
+  display: none;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  padding: 1em;
+  font-weight: bold;
+  color: #FFF;
+  background-color: #444;
+  background-color: rgba(0,0,0,0.7);
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+
+/* bottom navigation */
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a {
+  width: 158px;
+  height: 2em;
+  display: block;
+  color: #DDD;
+  text-shadow: 1px 1px 1px #000;
+  text-decoration: none;
+  text-align: center;
+  padding: 0;
+  border-right: 1px solid #555;
+  border-left: 1px solid #333;
+  -webkit-transition-property: color, background;
+  -webkit-transition-duration: 0.4s, 0.1s;
+  -webkit-transition-timing-function: linear, ease-in;
+  -moz-transition-property: color, background;
+  -moz-transition-duration: 0.4s, 0.1s;
+  -moz-transition-timing-function: linear, ease-in;
+  -o-transition-property: color, background;
+  -o-transition-duration: 0.4s, 0.1s;
+  -o-transition-timing-function: linear, ease-in;
+}
+nav ul li a.active,
+nav ul li a:focus,
+nav ul li a:hover {
+  color: #FFF;
+  text-shadow: 1px 1px 1px #000;
+  background-color: #333;
+}
+
+
+#globalUpAndDownload {
+  width: 930px;
+  height: 20px;
+  margin: 3.5em auto 0 auto;
+  padding: 0;
+  padding-right: 20px;
+  text-align: right;
+}
+
+.torrent {
+  background-color: #FFF;
+  overflow: hidden;
+}
+
+.torrent.even {
+  background-color: #F8F8F8;
+}
+
+.torrent {
+  -webkit-transition-property: background;
+  -webkit-transition-duration: 0.4s, 0.1s;
+  -webkit-transition-timing-function: linear, ease-in;
+  -moz-transition-property: background;
+  -moz-transition-duration: 0.4s, 0.1s;
+  -moz-transition-timing-function: linear, ease-in;
+  -o-transition-property: background;
+  -o-transition-duration: 0.4s, 0.1s;
+  -o-transition-timing-function: linear, ease-in;
+}
+
+.torrent.active {
+  background-color: #FFF8DC !important;
+  color: #000;
+}
+.torrent.active h3 {
+  color: #000;
+  text-shadow: 1px 1px 10px #FFF;
+}
+
+.torrent .ui-widget-header-uploading {
+  border: 1px solid #AAA; 
+  color: #444;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_highlight-soft_60_4ca20b_1x100.png) repeat-x;
+}
+
+.torrent .ui-widget-header-downloading {
+  border: 1px solid #AAA; 
+  color: #444;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) repeat-x;  
+}
+
+.torrent .ui-widget-header-meta {
+  border: 1px solid #AAA; 
+  color: #444;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_highlight-hard_75_f5f5b5_1x100.png) repeat-x;
+}
+
+.torrent .ui-widget-header-paused {
+  border: 1px solid #AAA; 
+  color: #444;
+  font-weight: bold;
+  background: url(jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x;
+}
+
+.torrent .pauseAndActivateButton {
+  display: block;
+  color: transparent;
+  background-color: transparent;
+  border: 0px;
+  float: right;
+  margin-right: 10px;
+}
+
+.torrent .pauseAndActivateButton.activate {
+  background-image: url(images/control_play.png);
+  width: 15px;
+  height: 15px;
+}
+
+.torrent .pauseAndActivateButton.pause {
+  background-image: url(images/control_pause.png);
+  width: 15px;
+  height: 15px; 
+}
+
+.deleteButton {
+  display: block;
+  color: transparent;
+  background-color: transparent;
+  border: 0px;
+  float: right;
+  margin-right: 10px;
+  background-image: url(images/control_eject.png);
+  width: 15px;
+  height: 15px; 
+}
+
+.torrent .statusString {
+  clear: both;
+  color: #999;
+}
+
+.torrent .name {
+
+}
+
+.torrent .progressDetails {
+  margin: 0px;
+  padding: 0px;  
+  color: #555;
+}
+
+/* filterbar */
+#filterbar {
+  width: 920px;
+  height: 30px;
+  margin: 34px auto 0 auto;
+  border-bottom: 1px solid #CCC;
+  overflow: hidden;
+  padding-left: 30px;
+}
+
+#filterbar a {
+  color: #777;
+  text-decoration: none;
+  margin-right: 4px;
+}
+
+#filterbar a:hover {
+  color: #000;
+}
+
+#filterbar a.active {
+  color: #444;
+}
+
+#filterbar #filter_sort_links {
+  padding-right: 6px;
+  width: 400px;
+}
+#filterbar #filter_sort_links #sorts {
+  display: none;
+}
+
+
+/* torrents list */
+#torrents {
+  width: 100% !important;  
+  padding: 0px;
+  margin: 0px;
+}
+
+.main {
+  position: relative;
+  overflow: hidden;
+}
+
+.main.info {
+  background: transparent url(../images/kettu_bg_info.png) repeat-y 100% 0;
+}
+
+.main.info .torrents_container {
+  display: block;
+  width: 550px !important;
+  min-height: 10px;
+  float: left;
+}
+/* torrents list container */
+
+#torrents li {
+  display: block;
+  padding: 6px 10px 6px 30px;
+  border-bottom: solid 1px #DDD;
+}
+#torrents li.compact {
+padding: 3px 10px 3px 30px;
+}
+
+/* info */
+#info {
+  width: 379px;
+  float: left;
+  padding: 1em 10px 1.5em 10px;
+  background-color: #444;
+  display: none;
+  border-left: 1px solid #DDD;
+  overflow: auto;
+}
+
+#info table { width: auto;}
+
+#info .content {
+  width: 100%;
+  margin-bottom: 1.5em;
+  padding-top: .5em;
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #555;
+}
+#info .peers {
+  margin-bottom: 20px;
+}
+#info .peers th {
+  padding: 7px;
+  margin-right: 10px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#info a {
+  color: #FFF;
+}
+
+#info a:hover,
+#info a:active,
+#info a:focus {
+  color: #DDD;
+}
+
+#info .peers th.long {
+  width: 40%;
+}
+#info ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+#info li {
+  padding-bottom: 6px;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+#info input {
+  border: solid 2px #dddddd;
+  padding: 1px;
+}
+
+#info input.short {
+  width: 35px;
+}
+
+#info input.submit {
+  background-color: white;
+  padding: 4px;
+}
+
+#info input.long {
+  width: 250px;
+}
+
+#info input.file {
+  border: 0px;
+}
+
+#info td.long {
+  width: 62px;
+}
+
+#info #port-open {
+  margin-top: 3px;
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  float: right;
+  display: none;
+}
+
+#info #port-open.active {
+  background-color: green;
+}
+
+#info #port-open.waiting {
+  background-image: url('images/spinner.gif');
+  background-color: transparent !important;
+}
+
+#info #version {
+  color: #555;
+}
+
+#info .menu {
+  margin: -1em -10px 1em -10px;
+  padding: 0;
+  overflow: hidden;
+  background-color: #444;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #555;
+}
+#info .menu li {
+  float: left;
+  margin-right: 0;
+  padding-bottom: 0;
+}
+
+#info .menu li a {
+  width: 77px;
+  height: 2em;
+  line-height: 2em;
+  display: block;
+  padding: 0;
+  border-right: 1px solid #555;
+  border-left: 1px solid #333;
+}
+
+
+#info .percent_done {
+  font-size: 12px;
+  color: #666666;
+}
+
+#pie_chart {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: #DDD;
+}
+.menu-item.active {
+  color: #FFF;
+}
+
+.progress {
+  overflow: hidden;
+}
+
+.progressbar {
+  width: 80%;
+}
+
+.ui-progressbar {
+  margin: 4px 4px 4px 0;
+}
+
+/* compact view */
+.compact .progressbar {
+  width: 60px;
+  display: inline-block;
+}
+
+.compact .name {
+  display: inline-block;  
+}
+
+.compact .statusString {
+  display: inline-block;
+}
+
+.compact .buttons {
+  display: block;
+  float: right;
+}
+
+.compact .buttons .pauseAndActivateButton {
+  display: inline-block;
+}
+
+.compact .buttons form {
+  display: inline-block;
+}
+
+#data {
+  display: none;
+}
+
+.graphs {
+  margin-bottom: 50px;
+}
+
+.hint {
+  color: #888888;
+  font-size: 80%;
+}
