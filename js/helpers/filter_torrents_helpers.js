@@ -5,6 +5,12 @@ var FilterTorrentsHelpers = {
     
     if(filter_mode == 'all') {
       filtered_torrents = torrents;
+    } else if(filter_mode == 'active') {
+      $.each(torrents, function() {
+        if(this.activity()) {
+          filtered_torrents.push(this)
+        }
+      })
     } else {
       $.each(torrents, function() {
         if(this.status == stati[filter_mode]) {

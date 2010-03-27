@@ -106,6 +106,7 @@ Torrent = function(attributes) {
     localized_stati[torrent.stati['downloading']] = 'Downloading';
     localized_stati[torrent.stati['seeding']] = 'Seeding';
     localized_stati[torrent.stati['paused']] = 'Paused';
+    localized_stati[torrent.stati['active']] = 'Activity';
 
     return localized_stati[this['status']] ? localized_stati[this['status']] : 'error';
   };
@@ -134,7 +135,8 @@ Torrent = function(attributes) {
     'checking': 2,
     'downloading': 4,
     'seeding': 8,
-    'paused': 16
+    'paused': 16,
+    'active': 32
   };
 	
   return torrent;
