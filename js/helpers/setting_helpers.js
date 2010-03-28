@@ -12,7 +12,7 @@ var SettingHelpers = {
         if(name == this && transmission.store.exists(this)) {
           checkbox.attr('disabled', 'disabled');
           checkbox.attr('checked', 'checked');
-        };
+        }
       });
     });
     
@@ -45,6 +45,10 @@ var SettingHelpers = {
   
   setting_arguments_errors: function(context) {
     return context.validator.errors;
+  },
+  
+  is_turtle_mode_update: function(params) {
+    return (params['alt-speed-enabled'] !== undefined);
   },
   
   prepare_arguments: function(context, params) {    
@@ -103,5 +107,5 @@ var SettingHelpers = {
   
   base_url: function() { 
     return window.location.href.match(/^([^#]+)#.+$/)[1];
-  },
+  }
 };

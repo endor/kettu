@@ -1,5 +1,5 @@
 var transmission = new $.sammy(function() { with(this) {
-  element_selector = '#container';
+  element_selector = 'body';
   cache_partials = true;
   use(Sammy.TransmissionRPC);
   use(Sammy.Mustache);

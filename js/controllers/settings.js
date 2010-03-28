@@ -18,7 +18,7 @@ Settings = function(transmission) { with(transmission) {
 
     this.manage_handlers(context, this.params);
     
-    if(this.setting_arguments_valid(context, $.extend(request['arguments'], {'reload-interval': this.params['reload-interval']}))) {
+    if(this.is_turtle_mode_update(request['arguments']) || this.setting_arguments_valid(context, $.extend(request['arguments'], {'reload-interval': this.params['reload-interval']}))) {
       delete(request['arguments']['reload-interval']);
       context.remote_query(request, function(response) {
         trigger('flash', 'Settings updated successfully');

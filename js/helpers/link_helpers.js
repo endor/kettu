@@ -33,10 +33,9 @@ var LinkHelpers = {
   },
 
   activateTurtleModeLink: function() {
-    var context = this;
     $('#turtle_mode').click(function() {
       var form = $('#turtle_mode_form');
-      form.submit();
+      form.trigger('submit');
       if($(this).hasClass('active')) {
         $(this).removeClass('active');
         $(this).text('Enable Turtle Mode');
