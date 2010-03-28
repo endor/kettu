@@ -41,16 +41,15 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
   * aggregate data
 * iphone compability
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
-* add transmission name (plus logo)
+* add transmission logo
 * extend stats view
 * test for console before logging with console.log
 * different way to handle deletes!
-* save sort/filter settings in cookie (store)
 * search torrents (maybe by name, tracker)
-* on start of application, check if turtle mode is enabled and change link accordingly, same for compact view
 * fix times in specs to respect daylight savings time
 * maybe right clicking shows relevant menus
 * maybe icons for different file types in file list
 * maybe statistics, preferences not as sidebar
 * maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
 * maybe be able to select multiple torrents and pause/activate them
+* maybe actually request if turtle mode is enabled to set correct value

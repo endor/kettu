@@ -15,7 +15,7 @@ post '/transmission/rpc' do
   # do not log recurring requests
   File.open(File.dirname(__FILE__) + '/../support/last_request.json', 'w') do |f|
     f << params.to_s
-  end unless params.to_s == '{"method":"torrent-get","arguments":{"fields":"id","name","status","totalSize","sizeWhenDone","haveValid","leftUntilDone","eta","uploadedEver","uploadRatio","rateDownload","rateUpload","metadataPercentComplete","addedDate"}}'
+  end unless params.to_s.match(/torrent-get/)
   
   file_name = params.keys.first.match(/ids/) ? "singular" : "plural"
   File.read(File.dirname(__FILE__) + "/#{file_name}.json")

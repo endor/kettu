@@ -6,7 +6,7 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   get('#/torrents', function() {
-    setGlobalModes(this.params);
+    saveModesToStore(this.params);
     getAndRenderTorrents(this.params['view'] || this.params['sort'] || this.params['filter']);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
     transmission.reload_interval = transmission.reload_interval || 2000;
@@ -134,11 +134,16 @@ Torrents = function(transmission) { with(transmission) {
     });    
   };
   
-  setGlobalModes = function(params) {
+  saveModesToStore = function(params) {
+    transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
+    transmission.view_mode = params['view'] || transmission.store.get('view_mode') || 'normal';
+    transmission.filter_mode = params['filter'] || transmission.store.get('filter_mode') || 'all';
+    
+    transmission.store.set('sort_mode', transmission.sort_mode);
+    transmission.store.set('view_mode', transmission.view_mode);
+    transmission.store.set('filter_mode', transmission.filter_mode);
+    
     transmission.reverse_sort = params['reverse'] || false;
-    transmission.sort_mode = params['sort'] || transmission.sort_mode || 'name';
-    transmission.view_mode = params['view'] || transmission.view_mode || 'normal';
-    transmission.filter_mode = params['filter'] || transmission.filter_mode || 'all';
     context.highlightLink('#filterbar', '.all');
     $('.torrent').show();
   };

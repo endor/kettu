@@ -53,6 +53,7 @@ var SettingHelpers = {
   
   prepare_arguments: function(context, params) {    
     if(params['alt-speed-enabled']) {
+      transmission.store.set('turtle_mode', (params['alt-speed-enabled'] == "true") ? 'enabled' : 'disabled');
       return context.turtle_mode_hash(params['alt-speed-enabled']);
     } else {
       return context.arguments_hash(params);
