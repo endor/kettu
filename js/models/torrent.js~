@@ -136,6 +136,7 @@ Torrent = function(attributes) {
     'downloading': 4,
     'seeding': 8,
     'paused': 16
+   // 'active': 32
   };
 	
   return torrent;

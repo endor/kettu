@@ -41,14 +41,10 @@ var LinkHelpers = {
         $(this).removeClass('active');
         $(this).text('Enable Turtle Mode');
         form.find('input:first').attr('value', 'true');
-        redirect_path = '#/torrents?view=compact';
-      context.redirect(redirect_path)
       } else {
         $(this).addClass('active');
         $(this).text('Disable Turtle Mode');
         form.find('input:first').attr('value', 'false');
-        redirect_path = '#/torrents?view=compact';
-      context.redirect(redirect_path)
        }
       /*if activateComapactViewLink.hasClass('active') {
         redirect_path = '#/torrents?view=compact';
