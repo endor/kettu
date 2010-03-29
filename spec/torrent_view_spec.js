@@ -2,7 +2,7 @@ describe 'TorrentView'
   before_each
     context               = {}
     context.formatNextAnnounceTime = function() {}
-    torrent_view          = TorrentView({'trackerStats': [], 'files': [], 'peers': []}, context)
+    torrent_view          = TorrentView({'trackerStats': [], 'files': [], 'peers': [], 'fileStats': []}, context)
     timestamp             = "1265737984"
     day                   = (new Date).getTimezoneOffset()/60 < -6 ? 10 : 9
   end
@@ -115,6 +115,51 @@ describe 'TorrentView'
       torrent_view.peers[2].clientName.should.eql('Vuze')
       torrent_view.peers[3].clientName.should.eql('rtorrent')
       torrent_view.peers[4].clientName.should.eql('BitComet')
+    end
+  end
+
+  describe 'addIdsToFiles'
+    it 'should add an id to the file'
+      torrent_view.files[0] = {}
+      torrent_view.fileStats[0] = {}
+      torrent_view.addIdsToFiles()
+      torrent_view.files[0].id.should.eql('file_0')
+    end
+    
+    it 'should add wanted if the file is wanted'
+      torrent_view.files[0] = {}
+      torrent_view.fileStats[0] = {'wanted': true}
+      torrent_view.addIdsToFiles()
+      torrent_view.files[0].wanted.should.eql(' checked="checked"')
+    end
+    
+    it 'should not add wanted if the file is not wanted'
+      torrent_view.files[0] = {}
+      torrent_view.fileStats[0] = {'wanted': false}
+      torrent_view.addIdsToFiles()
+      torrent_view.files[0].wanted.should_not.eql(' checked="checked"')      
+    end
+    
+    it 'should add disabled if the file is done downloading'
+      torrent_view.files[0] = {'length': 200, 'bytesCompleted': 200}
+      torrent_view.fileStats[0] = {}
+      torrent_view.addIdsToFiles()
+      torrent_view.files[0].disabled.should.eql(' disabled="disabled"')
+    end
+    
+    it 'should not add disabled if the file is not done downloading'
+      torrent_view.files[0] = {'length': 200, 'bytesCompleted': 100}
+      torrent_view.files[1] = {}
+      torrent_view.fileStats = [{}, {}]
+      torrent_view.addIdsToFiles()
+      torrent_view.files[0].disabled.should_not.eql(' disabled="disabled"')      
+    end
+    
+    it 'should add disabled if there is only one file'
+      torrent_view.files[0] = {'length': 200, 'bytesCompleted': 100}
+      torrent_view.fileStats = [{}]
+      torrent_view.addIdsToFiles()
+      torrent_view.files[0].disabled.should.eql(' disabled="disabled"')
     end
   end
 end

@@ -152,7 +152,7 @@
   <ul class="content files">
     {{#files}}
       <li>
-        {{name}}<br />
+        <input type="checkbox" name="{{id}}" id="{{id}}"{{wanted}}{{disabled}} /> {{name}}<br />
         <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
       </li>
     {{/files}}
