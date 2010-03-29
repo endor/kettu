@@ -4,8 +4,6 @@ describe 'TorrentView'
     context.formatNextAnnounceTime = function() {}
     torrent_view          = TorrentView({'trackerStats': [], 'files': [], 'peers': []}, context)
     timestamp             = "1265737984"
-    hours                 = 17 - (new Date).getTimezoneOffset()/60
-    if(hours > 23) { hours -= 24; }
     day                   = (new Date).getTimezoneOffset()/60 < -6 ? 10 : 9
   end
 
@@ -14,14 +12,14 @@ describe 'TorrentView'
       torrent_view.trackerStats[0] = {}
       torrent_view.trackerStats[0]['lastAnnounceTime'] = timestamp
       torrent_view.addFormattedTimes()
-      torrent_view.trackerStats[0].lastAnnounceTimeFormatted.should.eql("2/" + day + "/2010 " + hours + ":53")
+      torrent_view.trackerStats[0].lastAnnounceTimeFormatted.should.match(new RegExp("2/" + day + "/2010 \\d+:53"))
     end
     
     it 'should add a formatted time for lastScrapeTime'
       torrent_view.trackerStats[0] = {}
       torrent_view.trackerStats[0]['lastScrapeTime'] = timestamp
       torrent_view.addFormattedTimes()
-      torrent_view.trackerStats[0].lastScrapeTimeFormatted.should.eql("2/" + day + "/2010 " + hours + ":53")
+      torrent_view.trackerStats[0].lastScrapeTimeFormatted.should.match(new RegExp("2/" + day + "/2010 \\d+:53"))
     end
   end
   
