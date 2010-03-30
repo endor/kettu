@@ -60,9 +60,15 @@ var InfoHelpers = {
     this.handleDoubleClickOnTorrent(torrent);
   },
   
-  activateFileCheckboxes: function() {
-    var context = this;
-    $('.file').change(function() {
+  activateInfoInputs: function() {
+    $('#info input').change(function() {
+      $(this).parents('form:first').trigger('submit');
+      return false;
+    });
+  },
+
+  activateFileInputs: function() {
+    $('#info .file').change(function() {
       $(this).parents('form:first').trigger('submit');
       return false;
     });

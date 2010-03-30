@@ -130,7 +130,10 @@ var TorrentHelpers = {
       });
       request = {
         'method': 'torrent-set',
-        'arguments': {'ids': id, 'files-wanted': wanted_files, 'files-unwanted': unwanted_files}
+        'arguments': { 'ids': id, 'files-wanted': wanted_files, 'files-unwanted': unwanted_files }
+      }
+      if(params['location']) {
+        request['arguments']['location'] = params['location'];
       }
     }
     return request; 

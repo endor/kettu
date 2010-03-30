@@ -74,7 +74,7 @@ Torrents = function(transmission) { with(transmission) {
     
     getAndRenderTorrentInfo(id);
     context.clearReloadInterval();
-    transmission.info_interval_id = setInterval('getAndRenderTorrentInfo(' + id + ')', transmission.reload_interval);
+    transmission.info_interval_id = setInterval('updateTorrentInfo(' + id + ')', transmission.reload_interval);
   });
   
   put('#/torrents/:id', function() {
@@ -98,9 +98,26 @@ Torrents = function(transmission) { with(transmission) {
         if(context.params['sort_peers']) {
           $('#menu-item-peers').click();
         }
-        context.activateFileCheckboxes();
+        context.activateInfoInputs();
       });
     });
+  };
+  
+  updateTorrentInfo = function(id) {
+    getTorrent(id, function(torrent) {
+      var view = TorrentView(torrent, context, context.params['sort_peers']);
+      context.partial('./templates/torrents/show_info.mustache', view, function(rendered_view) {
+        $.each(['.activity', '.trackers', '.peers', '.files'], function() {
+          $('#info ' + this.toString()).html($('<div>' + rendered_view + '</div>').find(this.toString()).html());
+        })
+        
+        context.startCountDownOnNextAnnounce();
+        if(context.params['sort_peers']) {
+          $('#menu-item-peers').click();
+        }
+        context.activateFileInputs();
+      });
+    });    
   };
   
   getTorrent = function(id, callback) {
