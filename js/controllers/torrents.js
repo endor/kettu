@@ -80,7 +80,9 @@ Torrents = function(transmission) { with(transmission) {
   put('#/torrents/:id', function() {
     var request = context.parseRequestFromPutParams(context.params);
     context.remote_query(request, function(response) {
-      if(request['method'] != 'torrent-set') {
+      if(request['method'].match(/torrent-set/)) {
+        context.trigger('flash', 'Torrent updated successfully.');
+      } else {
         getTorrent(request['arguments']['id'], renderTorrent);
       }
     });

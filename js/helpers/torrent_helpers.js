@@ -120,7 +120,12 @@ var TorrentHelpers = {
       request = {
         'method': params['method'],
         'arguments': {'ids': id}
-      };      
+      };
+    } else if(params['location']) {
+      request = {
+        'method': 'torrent-set-location',
+        'arguments': {'ids': id, 'location': params['location'], 'move': true}
+      }
     } else {
       var wanted_files = $.map($('.file:checked'), function(file) {
         return parseInt($(file).attr('name').split('_')[1], 10);
@@ -131,9 +136,6 @@ var TorrentHelpers = {
       request = {
         'method': 'torrent-set',
         'arguments': { 'ids': id, 'files-wanted': wanted_files, 'files-unwanted': unwanted_files }
-      }
-      if(params['location']) {
-        request['arguments']['location'] = params['location'];
       }
     }
     return request; 
