@@ -33,9 +33,8 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 ## Todo
 * display errors, also tracker errors in tracker info + torrents list (maybe red)
-* when adding new torrent
-  * select download folder (type in/categories/? => http://trac.transmissionbt.com/ticket/1496)
-  * select and prioritize files
+* when adding a torrent, maybe open a dialog (facebox or something) where user can select/prioritize files,
+  download folder etc. (need to get the new torrent's id for that)
 * graphing up/download:
   * aggregate data
 * iphone compability
@@ -43,7 +42,7 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * add transmission logo
 * extend stats view
 * different way to handle deletes!
-* search torrents (maybe by name, tracker)
+* search torrents by tracker
 * maybe right clicking shows relevant menus
 * maybe icons for different file types in file list
 * maybe statistics, preferences not as sidebar

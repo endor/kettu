@@ -19,34 +19,33 @@
     <script src="./vendor/bluff/excanvas.js"></script>
     <script src="./vendor/bluff/bluff-min.js"></script>
     <script src="./js/rpc.js"></script>
-    <script src="./js/controllers/torrents.js"></script>
     <script src="./js/controllers/settings.js"></script>
     <script src="./js/controllers/statistics.js"></script>
+    <script src="./js/controllers/torrents.js"></script>
     <script src="./js/models/torrent.js"></script>
     <script src="./js/models/validator.js"></script>
     <script src="./js/models/settings_validator.js"></script>
+    <script src="./js/views/statistics.js"></script>
     <script src="./js/views/torrent.js"></script>
     <script src="./js/views/torrents.js"></script>
-    <script src="./js/views/statistics.js"></script>
-    <script src="./js/helpers/math_helpers.js"></script>
-    <script src="./js/helpers/link_helpers.js"></script>
-    <script src="./js/helpers/torrent_helpers.js"></script>
-    <script src="./js/helpers/sort_torrents_helpers.js"></script>
+    <script src="./js/helpers/application_helpers.js"></script>
     <script src="./js/helpers/filter_torrents_helpers.js"></script>
     <script src="./js/helpers/info_helpers.js"></script>
-    <script src="./js/helpers/view_helpers.js"></script>
-    <script src="./js/helpers/store_helpers.js"></script>
+    <script src="./js/helpers/link_helpers.js"></script>
+    <script src="./js/helpers/math_helpers.js"></script>
+    <script src="./js/helpers/search_helpers.js"></script>
     <script src="./js/helpers/setting_helpers.js"></script>
+    <script src="./js/helpers/sort_torrents_helpers.js"></script>
     <script src="./js/helpers/statistic_helpers.js"></script>
-    <script src="./js/helpers/application_helpers.js"></script>
+    <script src="./js/helpers/store_helpers.js"></script>
+    <script src="./js/helpers/torrent_helpers.js"></script>
+    <script src="./js/helpers/view_helpers.js"></script>
     <script src="./js/transmission.js"></script>
     <script src="./features/support/culerity.js"></script>
   </head>
 
   <body>
     <header>
-      <div id="error"></div>
-      <div id="notice"></div>
       <div id="flash"></div>
 
       <div id="globalUpAndDownload"></div>
@@ -70,6 +69,10 @@
             <a href="#/torrents?sort=queue" class="queue">Queue</a>
             <a href="#/torrents?sort=state" class="state">State</a>
           </span>
+        </div>
+        
+        <div id="search_filter">
+          Search: <input type="text" id="search" />
         </div>
       </div>      
     </header>
