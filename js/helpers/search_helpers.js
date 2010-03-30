@@ -11,6 +11,7 @@ var SearchHelpers = {
       if(search_term.length > 0) {
         $('.torrent').hide();
         $('.torrent:containsIgnoreCase(' + search_term + ')').show();
+        $(".torrent[data-tracker*='" + search_term + "']").show();
       } else {
         $('.torrent').show();
       }

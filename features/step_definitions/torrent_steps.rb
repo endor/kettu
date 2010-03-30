@@ -12,7 +12,7 @@ Given /the torrent "([^\"]+)" has more info like the download directory which is
   end
 end
 
-Given /three torrents with the names "([^\"]+)" and the (download rates|stati|date added|left until done|ids) "([^\"]+)"/ do |names_string, attribute, attribute_string|
+Given /three torrents with the names "([^\"]+)" and the (download rates|stati|date added|left until done|ids|trackers) "([^\"]+)"/ do |names_string, attribute, attribute_string|
   names = names_string.split(',')
   attributes = attribute_string.split(',')
   torrents = []
@@ -38,6 +38,10 @@ Given /three torrents with the names "([^\"]+)" and the (download rates|stati|da
     names.each_with_index do |name , i|
       torrents.push({"id" =>  attributes[i].to_i, "name" => name.strip, "status" => 4, "totalSize" => 100, "sizeWhenDone" => 100, "leftUntilDone" => 50, "eta" => 0, "uploadedEver" => 0, "uploadRatio" => 0, "rateDownload" => 0, "rateUpload" => 0, "metadataPercentComplete" => 1, "addedDate" => 27762987})
     end
+  when 'trackers'
+    names.each_with_index do |name , i|
+      torrents.push({"id" => i, "name" => name.strip, "status" => 4, "totalSize" => 100, "sizeWhenDone" => 100, "leftUntilDone" => 50, "eta" => 0, "uploadedEver" => 0, "uploadRatio" => 0, "rateDownload" => 0, "rateUpload" => 0, "metadataPercentComplete" => 1, "addedDate" => 27762987, "trackerStats" => ["host" => attributes[i].strip]})
+    end    
   end
   
   file_path = File.dirname(__FILE__) + '/../support/plural.json'

@@ -42,10 +42,8 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * add transmission logo
 * extend stats view
 * different way to handle deletes!
-* search torrents by tracker
 * maybe right clicking shows relevant menus
 * maybe icons for different file types in file list
-* maybe statistics, preferences not as sidebar
 * maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
 * maybe be able to select multiple torrents and pause/activate them
 * maybe actually request if turtle mode is enabled to set correct value
