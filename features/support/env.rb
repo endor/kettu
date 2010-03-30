@@ -14,6 +14,7 @@ Before do
   $server ||= Culerity::run_server
   $browser = Culerity::RemoteBrowserProxy.new $server, {:browser => :firefox, :javascript_exceptions => true, :resynchronize => false, :status_code_exceptions => true}
   $browser.log_level = :warning
+  Dir.glob(File.dirname(__FILE__) + '/*.json').each {|f| File.delete(f)}
 end
 
 def host

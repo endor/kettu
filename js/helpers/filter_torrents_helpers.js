@@ -7,7 +7,7 @@ var FilterTorrentsHelpers = {
       case 'all':
         filtered_torrents = torrents;
         break;
-      case 'active':
+      case 'activity':
         $.each(torrents, function() {
           if(this.activity()) {
             filtered_torrents.push(this)

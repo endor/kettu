@@ -144,7 +144,6 @@ Torrents = function(transmission) { with(transmission) {
     transmission.store.set('filter_mode', transmission.filter_mode);
     
     transmission.reverse_sort = params['reverse'] || false;
-    context.highlightLink('#filterbar', '.all');
     $('.torrent').show();
   };
   
