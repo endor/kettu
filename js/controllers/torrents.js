@@ -78,13 +78,11 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   put('#/torrents/:id', function() {
-    var id = parseInt(context.params['id']);
-    var request = {
-      'method': context.params['method'],
-      'arguments': {'ids': id}
-    };
+    var request = context.parseRequestFromPutParams(context.params);
     context.remote_query(request, function(response) {
-      getTorrent(id, renderTorrent);
+      if(request['method'] != 'torrent-set') {
+        getTorrent(request['arguments']['id'], renderTorrent);
+      }
     });
   });
   
@@ -100,6 +98,7 @@ Torrents = function(transmission) { with(transmission) {
         if(context.params['sort_peers']) {
           $('#menu-item-peers').click();
         }
+        context.activateFileCheckboxes();
       });
     });
   };

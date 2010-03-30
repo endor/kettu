@@ -60,6 +60,14 @@ var InfoHelpers = {
     this.handleDoubleClickOnTorrent(torrent);
   },
   
+  activateFileCheckboxes: function() {
+    var context = this;
+    $('.file').change(function() {
+      $(this).parents('form:first').trigger('submit');
+      return false;
+    });
+  },
+  
   startCountDownOnNextAnnounce: function() {
     var context = this;
     var timer = setInterval(function() {

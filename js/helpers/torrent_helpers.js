@@ -112,5 +112,27 @@ var TorrentHelpers = {
     if(!url.match(/reverse/)) {
       link.attr('href', url + '&reverse=true');
     }
+  },
+  
+  parseRequestFromPutParams: function(params) {
+    var request, id = parseInt(params['id']);
+    if(params['method']) {
+      request = {
+        'method': params['method'],
+        'arguments': {'ids': id}
+      };      
+    } else {
+      var wanted_files = $.map($('.file:checked'), function(file) {
+        return parseInt($(file).attr('name').split('_')[1], 10);
+      });
+      var unwanted_files = $.map($('.file:not(:checked)'), function(file) {
+        return parseInt($(file).attr('name').split('_')[1], 10);
+      });
+      request = {
+        'method': 'torrent-set',
+        'arguments': {'ids': id, 'files-wanted': wanted_files, 'files-unwanted': unwanted_files}
+      }
+    }
+    return request; 
   }
 };
