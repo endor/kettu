@@ -85,11 +85,16 @@ footer nav ul {
 
 
 /* bottom navigation */
+nav ul {
+  list-style: none;
+}
 nav ul li {
-  display: inline-block;
+  display: inline;
+  list-style: none;
 }
 
 nav ul li a {
+  float: left;
   width: 158px;
   height: 2em;
   display: block;
@@ -120,11 +125,11 @@ nav ul li a:hover {
 
 
 #globalUpAndDownload {
-  width: 930px;
+  width: 920px;
   height: 20px;
   margin: 3.5em auto 0 auto;
   padding: 0;
-  padding-right: 20px;
+  padding-right: 30px;
   text-align: right;
 }
 
@@ -236,12 +241,12 @@ nav ul li a:hover {
 
 /* filterbar */
 #filterbar {
-  width: 920px;
+  width: 890px;
   height: 30px;
   margin: 34px auto 0 auto;
   border-bottom: 1px solid #CCC;
   overflow: hidden;
-  padding-left: 30px;
+  padding: 0 30px;
 }
 
 #filterbar a {
@@ -259,8 +264,7 @@ nav ul li a:hover {
 }
 
 #filterbar #filter_sort_links {
-  padding-right: 6px;
-  width: 400px;
+  width: 300px;
   float: left;
 }
 #filterbar #filter_sort_links #sorts {
@@ -270,9 +274,20 @@ nav ul li a:hover {
   width: 200px;
   float: right;
   text-align: right;
-  padding: 0px;
-  padding-right: 6px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
+}
+
+#filterbar input {
+  margin: 0;
+  padding: 3px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#filterbar input:focus {
+  outline: none;
 }
 
 
