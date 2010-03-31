@@ -46,3 +46,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
 * maybe be able to select multiple torrents and pause/activate them
 * maybe actually request if turtle mode is enabled to set correct value
+* update jquery, etc.
+* use search field for search and not input field (html5)
