@@ -10,40 +10,42 @@
 <h2>{{name}}</h2>
 
 <div class="item information">
-  <table class="content">
-    <tr>
-      <th>Size:</th>
-      <td>{{totalSizeString}}</td>
-    </tr>
-    <tr>
-      <th>Pieces:</th>
-      <td>{{pieceCount}}, {{pieceSizeString}}</td>
-    </tr>
-    <tr>
-      <th>Hash:</th>
-      <td>{{hashString}}</td>
-    </tr>
-    <tr>
-      <th>Secure:</th>
-      <td>{{secure}}</td>
-    </tr>
-    <tr>
-      <th>Comment:</th>
-      <td>{{comment}}</td>
-    </tr>
-    <tr>
-      <th>Creator:</th>
-      <td>{{creator}}</td>
-    </tr>
-    <tr>
-      <th>Date:</th>
-      <td>{{created_at}}</td>
-    </tr>
-    <tr>
-      <th>Download Directory:</th>
-      <td>{{downloadDir}}</td>
-    </tr>    
-  </table>  
+  <form action="#/torrents/{{id}}" method="PUT">
+    <table class="content">
+      <tr>
+        <th>Size:</th>
+        <td>{{totalSizeString}}</td>
+      </tr>
+      <tr>
+        <th>Pieces:</th>
+        <td>{{pieceCount}}, {{pieceSizeString}}</td>
+      </tr>
+      <tr>
+        <th>Hash:</th>
+        <td>{{hashString}}</td>
+      </tr>
+      <tr>
+        <th>Secure:</th>
+        <td>{{secure}}</td>
+      </tr>
+      <tr>
+        <th>Comment:</th>
+        <td>{{comment}}</td>
+      </tr>
+      <tr>
+        <th>Creator:</th>
+        <td>{{creator}}</td>
+      </tr>
+      <tr>
+        <th>Date:</th>
+        <td>{{created_at}}</td>
+      </tr>
+      <tr>
+        <th>Download Directory:</th>
+        <td><input type="text" name="location" value="{{downloadDir}}" /></td>
+      </tr>    
+    </table>
+  </form>  
 </div>
 
 <div class="item activity">
@@ -149,12 +151,14 @@
 </div>
 
 <div class="item files">
-  <ul class="content files">
-    {{#files}}
-      <li>
-        {{name}}<br />
-        <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
-      </li>
-    {{/files}}
-  </ul>
+  <form action="#/torrents/{{id}}" method="PUT">
+    <ul class="content files">
+      {{#files}}
+        <li>
+          <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} /> {{name}}<br />
+          <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
+        </li>
+      {{/files}}
+    </ul>
+  </form>
 </div>

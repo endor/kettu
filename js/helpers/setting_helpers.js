@@ -12,7 +12,7 @@ var SettingHelpers = {
         if(name == this && transmission.store.exists(this)) {
           checkbox.attr('disabled', 'disabled');
           checkbox.attr('checked', 'checked');
-        };
+        }
       });
     });
     
@@ -47,8 +47,13 @@ var SettingHelpers = {
     return context.validator.errors;
   },
   
+  is_turtle_mode_update: function(params) {
+    return (params['alt-speed-enabled'] !== undefined);
+  },
+  
   prepare_arguments: function(context, params) {    
     if(params['alt-speed-enabled']) {
+      transmission.store.set('turtle_mode', (params['alt-speed-enabled'] == "true") ? 'enabled' : 'disabled');
       return context.turtle_mode_hash(params['alt-speed-enabled']);
     } else {
       return context.arguments_hash(params);
@@ -103,5 +108,5 @@ var SettingHelpers = {
   
   base_url: function() { 
     return window.location.href.match(/^([^#]+)#.+$/)[1];
-  },
+  }
 };

@@ -13,6 +13,14 @@ TorrentsView = function(torrent, context) {
     });    
   };
 
+  view.firstTracker = function() {
+    if(view.trackerStats && view.trackerStats[0]) {
+      return view.trackerStats[0]['host'];
+    } else {
+      return '';
+    }
+  };
+  
   view.cache_partial = context.cache_partial;
 
   return view;

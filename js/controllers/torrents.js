@@ -6,7 +6,7 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   get('#/torrents', function() {
-    setGlobalModes(this.params);
+    saveModesToStore(this.params);
     getAndRenderTorrents(this.params['view'] || this.params['sort'] || this.params['filter']);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
     transmission.reload_interval = transmission.reload_interval || 2000;
@@ -74,17 +74,17 @@ Torrents = function(transmission) { with(transmission) {
     
     getAndRenderTorrentInfo(id);
     context.clearReloadInterval();
-    transmission.info_interval_id = setInterval('getAndRenderTorrentInfo(' + id + ')', transmission.reload_interval);
+    transmission.info_interval_id = setInterval('updateTorrentInfo(' + id + ')', transmission.reload_interval);
   });
   
   put('#/torrents/:id', function() {
-    var id = parseInt(context.params['id']);
-    var request = {
-      'method': context.params['method'],
-      'arguments': {'ids': id}
-    };
+    var request = context.parseRequestFromPutParams(context.params);
     context.remote_query(request, function(response) {
-      getTorrent(id, renderTorrent);
+      if(request['method'].match(/torrent-set/)) {
+        context.trigger('flash', 'Torrent updated successfully.');
+      } else {
+        getTorrent(request['arguments']['id'], renderTorrent);
+      }
     });
   });
   
@@ -100,8 +100,26 @@ Torrents = function(transmission) { with(transmission) {
         if(context.params['sort_peers']) {
           $('#menu-item-peers').click();
         }
+        context.activateInfoInputs();
       });
     });
+  };
+  
+  updateTorrentInfo = function(id) {
+    getTorrent(id, function(torrent) {
+      var view = TorrentView(torrent, context, context.params['sort_peers']);
+      context.partial('./templates/torrents/show_info.mustache', view, function(rendered_view) {
+        $.each(['.activity', '.trackers', '.peers', '.files'], function() {
+          $('#info ' + this.toString()).html($('<div>' + rendered_view + '</div>').find(this.toString()).html());
+        })
+        
+        context.startCountDownOnNextAnnounce();
+        if(context.params['sort_peers']) {
+          $('#menu-item-peers').click();
+        }
+        context.activateFileInputs();
+      });
+    });    
   };
   
   getTorrent = function(id, callback) {
@@ -134,12 +152,16 @@ Torrents = function(transmission) { with(transmission) {
     });    
   };
   
-  setGlobalModes = function(params) {
+  saveModesToStore = function(params) {
+    transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
+    transmission.view_mode = params['view'] || transmission.store.get('view_mode') || 'normal';
+    transmission.filter_mode = params['filter'] || transmission.store.get('filter_mode') || 'all';
+    
+    transmission.store.set('sort_mode', transmission.sort_mode);
+    transmission.store.set('view_mode', transmission.view_mode);
+    transmission.store.set('filter_mode', transmission.filter_mode);
+    
     transmission.reverse_sort = params['reverse'] || false;
-    transmission.sort_mode = params['sort'] || transmission.sort_mode || 'name';
-    transmission.view_mode = params['view'] || transmission.view_mode || 'normal';
-    transmission.filter_mode = params['filter'] || transmission.filter_mode || 'all';
-    context.highlightLink('#filterbar', '.all');
     $('.torrent').show();
   };
   

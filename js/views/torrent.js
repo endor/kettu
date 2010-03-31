@@ -79,9 +79,22 @@ TorrentView = function(torrent, context, sort_peers) {
     }
   };
   
+  view.addIdsToFiles = function() {
+    $.each(view.files, function() {
+      var id = view.files.indexOf(this)
+      this['id'] = 'file_' + id;
+      this['wanted'] = view.fileStats[id].wanted ? ' checked="checked"' : '';
+      this['disabled'] = (view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0) ? ' disabled="disabled"' : '';
+    });
+    if(view.files.length == 1) {
+      view.files[0]['disabled'] = ' disabled="disabled"';
+    }
+  };
+  
   view.addFormattedTimes();
   view.addFormattedSizes();
   view.sortPeers();
+  view.addIdsToFiles();
   
   return view;
 };

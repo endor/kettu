@@ -35,7 +35,7 @@ Feature: Torrent info
       And I should see a countdown time of about 30 minutes
 
   Scenario: info displays file information
-    Given a torrent with the file "README.md" which has a size of 12 bytes and has already downloaded 6 bytes
+    Given a torrent with the file "README.md" which has a size of 12 bytes and has already downloaded 6 bytes and is not wanted
     When I go to the start page
       And I wait for the AJAX call to finish
       And I double click on the torrent "1"
@@ -43,7 +43,8 @@ Feature: Torrent info
       And I follow "Files"
     Then I should see "12 bytes"
       And I should see "50%"
-
+      And "file_0" should not be checked
+  
   Scenario: info displays peer information
     Given a torrent with a peer with IP "1.2.3.4" and client name "Transmission Rocks"
     When I go to the start page

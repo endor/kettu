@@ -27,8 +27,8 @@
           },
           success: function(response) {
             if(!response) {
-              console.log('RPC Connection Failure.');
-              console.log('You need to run this web client within the Transmission web server.');
+              Sammy.log('RPC Connection Failure.');
+              Sammy.log('You need to run this web client within the Transmission web server.');
             }
             if(callback) {
               callback(response['arguments']);
@@ -39,10 +39,8 @@
             if(xhr.status === 409 && context.session_id.length > 0) {
               that.remote_query(params, callback);
             } else {
-              if(window.console) {
-                console.log('RPC Connection Failure.');
-                console.log(xhr.responseText);            
-              }
+              Sammy.log('RPC Connection Failure.');
+              Sammy.log(xhr.responseText);            
             }
           }
         });        

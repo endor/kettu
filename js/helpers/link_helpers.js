@@ -33,10 +33,15 @@ var LinkHelpers = {
   },
 
   activateTurtleModeLink: function() {
-    var context = this;
+    if(transmission.store.get('turtle_mode') == 'enabled') {
+      $('#turtle_mode').addClass('active');
+      $('#turtle_mode').text('Disable Turtle Mode');
+      $('#turtle_mode_form').find('input:first').attr('value', 'false');
+    }
+    
     $('#turtle_mode').click(function() {
       var form = $('#turtle_mode_form');
-      form.submit();
+      form.trigger('submit');
       if($(this).hasClass('active')) {
         $(this).removeClass('active');
         $(this).text('Enable Turtle Mode');
@@ -52,6 +57,12 @@ var LinkHelpers = {
 
   activateCompactViewLink: function() {
     var context = this, redirect_path = '';
+    
+    if(transmission.store.get('view_mode') == 'compact') {
+      $('#compact_view').addClass('active');
+      $('#compact_view').text('Disable Compact View');      
+    }
+    
     $('#compact_view').click(function() {
       if($(this).hasClass('active')) {
         $(this).removeClass('active');

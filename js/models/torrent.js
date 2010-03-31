@@ -4,12 +4,12 @@ Torrent = function(attributes) {
   torrent['fields'] = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
-    'addedDate'
+    'addedDate', 'trackerStats'
   ];
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
-    'pieceCount', 'pieceSize', 'trackerStats', 'peers'
+    'pieceCount', 'pieceSize', 'peers', 'fileStats'
   ];
   $.each(torrent.fields, function() {
     torrent[this] = attributes[this];
@@ -17,7 +17,6 @@ Torrent = function(attributes) {
   $.each(torrent.info_fields, function() {
     torrent[this] = attributes[this];
   });
-  
   $.each(['totalSize', 'downloadedEver', 'uploadedEver', 'pieceSize'], function() {
     var attr = this;
     torrent[attr + 'String'] = function() {

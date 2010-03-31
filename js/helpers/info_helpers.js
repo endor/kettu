@@ -60,6 +60,20 @@ var InfoHelpers = {
     this.handleDoubleClickOnTorrent(torrent);
   },
   
+  activateInfoInputs: function() {
+    $('#info input').change(function() {
+      $(this).parents('form:first').trigger('submit');
+      return false;
+    });
+  },
+
+  activateFileInputs: function() {
+    $('#info .file').change(function() {
+      $(this).parents('form:first').trigger('submit');
+      return false;
+    });
+  },
+  
   startCountDownOnNextAnnounce: function() {
     var context = this;
     var timer = setInterval(function() {

@@ -261,9 +261,18 @@ nav ul li a:hover {
 #filterbar #filter_sort_links {
   padding-right: 6px;
   width: 400px;
+  float: left;
 }
 #filterbar #filter_sort_links #sorts {
   display: none;
+}
+#filterbar #search_filter {
+  width: 200px;
+  float: right;
+  text-align: right;
+  padding: 0px;
+  padding-right: 6px;
+  margin: 0px;
 }
 
 
