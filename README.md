@@ -47,4 +47,3 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe be able to select multiple torrents and pause/activate them
 * maybe actually request if turtle mode is enabled to set correct value
 * update jquery, etc.
-* use search field for search and not input field (html5)
