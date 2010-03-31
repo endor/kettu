@@ -38,6 +38,7 @@ var transmission = $.sammy(function() { with(this) {
   bind('init', function() { with(this) {
     this.activateLinks();
     this.activateSearch();
+    this.configureFacebox();
     this.closeInfo();
   }});
 }});

@@ -1,0 +1,26 @@
+.facebox_div {
+  display: none;
+}
+
+#facebox .image {
+  float: left;
+  margin-left: 5px;
+}
+
+#facebox .message {
+  float: right;
+  margin-right: 5px;
+  padding-top: 10px;
+}
+
+#facebox .buttons {
+  margin-top: 10px;
+}
+
+#facebox .buttons input {
+  float: left;
+}
+
+#facebox .clear {
+  clear: both;
+}

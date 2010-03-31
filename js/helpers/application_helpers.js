@@ -5,5 +5,14 @@ var ApplicationHelpers = {
         context.cache(partial, response);
       }});
     };
+  },
+  
+  configureFacebox: function() {
+    $(document).bind('reveal.facebox', function() {
+      $('#facebox form').submit(function() {
+        $(document).trigger('close.facebox');
+        return true;
+      });
+    });
   }
 }

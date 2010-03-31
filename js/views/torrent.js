@@ -91,10 +91,31 @@ TorrentView = function(torrent, context, sort_peers) {
     }
   };
   
+  view.addPriorityStringToFiles = function() {
+    $.each(view.fileStats, function() {
+      var id = view.fileStats.indexOf(this);
+      switch(this.priority) {
+        case 0:
+          view.files[id]['priorityString'] = 'normal';
+          break;
+        case 1:
+          view.files[id]['priorityString'] = 'high';
+          break;
+        case -1:
+          view.files[id]['priorityString'] = 'low';
+          break;
+      }
+      if(view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0) {
+        view.files[id]['priorityString'] = 'done';
+      }
+    });
+  };
+  
   view.addFormattedTimes();
   view.addFormattedSizes();
   view.sortPeers();
   view.addIdsToFiles();
+  view.addPriorityStringToFiles();
   
   return view;
 };
