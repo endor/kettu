@@ -37,7 +37,7 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
   download folder etc. (need to get the new torrent's id for that)
 * graphing up/download:
   * aggregate data
-* iphone compability
+* iphone compatibility
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * add transmission logo
 * extend stats view

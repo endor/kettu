@@ -72,6 +72,16 @@ var InfoHelpers = {
       $(this).parents('form:first').trigger('submit');
       return false;
     });
+    $('#info .files .select_all').click(function() {
+      $('#info .file').attr('checked', true);
+      $('#info .files form').submit();
+      return false;
+    });
+    $('#info .files .deselect_all').click(function() {
+      $('#info .file').attr('checked', false);
+      $('#info .files form').submit();
+      return false;
+    });    
   },
   
   startCountDownOnNextAnnounce: function() {
