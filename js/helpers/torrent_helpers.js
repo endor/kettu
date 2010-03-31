@@ -14,22 +14,11 @@ var TorrentHelpers = {
     $('.torrent:even').addClass('even');
   },
   
-  activateDeleteForm: function(torrent) {
-    var context = this;
-    $('#' + torrent.id).find('.torrent_delete_form').submit(function() {
-      if(confirm('Delete data?')) {
-        $(this).prepend(context.mustache(context.cache('delete_data')));
-      }
-      return true;
-    });
-  },
-  
   makeNewTorrent: function(torrent, view) {
     var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
     var rendered_view = this.mustache(this.cache(template), TorrentsView(torrent, this));
     $('#torrents').append(rendered_view);
     this.updateInfo(torrent);
-    this.activateDeleteForm(torrent);
   },
   
   updateStatus: function(old_torrent, torrent) {
@@ -83,6 +72,7 @@ var TorrentHelpers = {
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
     this.highlightLink('#filters', '.' + transmission.filter_mode);
     this.highlightLink('#sorts', '.' + transmission.sort_mode);
+    $('.facebox_link').facebox();
   },
   
   cache_partials: function() {

@@ -7,9 +7,27 @@
       {{{progressBar}}} 
     </div>
     <div class="pauseAndActivateButton">{{{pauseAndActivateButton}}}</div>
-    <form method="DELETE" action="#/torrents/{{id}}" class="torrent_delete_form">
-      <input type="submit" value="Delete" class="deleteButton" />
-    </form>
+    <a href="#delete_form_{{id}}" class="facebox_link">
+      <img src="css/images/control_eject.png" alt="delete" class="deleteButton" />
+    </a>
+    <div id="delete_form_{{id}}" class="facebox_div">
+      <img src="css/images/junk.png" class="image" />
+      <p class="message">
+        Are you sure, you want to delete<br />
+        "{{name}}"?
+      </p>
+      <br class="clear" />
+      <div class="buttons">
+        <form method="DELETE" action="#/torrents/{{id}}" class="torrent_delete_form">
+          <input type="submit" value="Delete" />
+        </form>      
+        <form method="DELETE" action="#/torrents/{{id}}" class="torrent_delete_form">
+          <input type="hidden" value="true" name="delete_data" />
+          <input type="submit" value="Delete with data" />
+        </form>        
+      </div>
+      <br class="clear" />
+    </div>
   </div>
 
   <div class="statusString">{{statusString}}</div>

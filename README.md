@@ -41,7 +41,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * add transmission logo
 * extend stats view
-* different way to handle deletes!
 * maybe right clicking shows relevant menus
 * maybe icons for different file types in file list
 * maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
