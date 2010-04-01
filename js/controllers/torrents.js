@@ -59,7 +59,7 @@ Torrents = function(transmission) { with(transmission) {
       $('#add_torrent_form').ajaxSubmit({
     		'url': '/transmission/upload?paused=' + paused,
     		'type': 'POST',
-    		'data': { 'X-Transmission-Session-Id' : remote_session_id },
+    		'data': { 'X-Transmission-Session-Id' : context.remote_session_id() },
     		'dataType': 'xml',
         'iframe': true,
     		'success': function(response) {
@@ -141,12 +141,15 @@ Torrents = function(transmission) { with(transmission) {
     });    
   };
   
-  getAndRenderTorrents = function(need_change) {
-    var request = {
+  torrentsRequest = function() {
+    return request = {
       method: 'torrent-get',
       arguments: {fields:Torrent({})['fields']}
     };
-    context.remote_query(request, function(response) {
+  };
+  
+  getAndRenderTorrents = function(need_change) {
+    context.remote_query(torrentsRequest(), function(response) {
       var torrents = response['torrents'].map( function(row) {return Torrent(row)} );
       trigger('torrents-refreshed', {"torrents": torrents, "need_change": need_change});
     });    
@@ -166,10 +169,23 @@ Torrents = function(transmission) { with(transmission) {
   };
   
   torrentUploaded = function(torrent_added) {
-    var message = (torrent_added) ? 'Torrent added successfully.' : 'Torrent could not be added.';
-    context.trigger('flash', message);
-    context.closeInfo();
-    getAndRenderTorrents();
+    if(torrent_added) {
+      context.remote_query(torrentsRequest(), function(response) {
+        context.closeInfo();
+        getTorrent(getNewestTorrent(response).id, function(torrent) {
+          context.partial('./templates/torrents/new_with_data.mustache', torrent, function(rendered_view) {
+            $.facebox(rendered_view);
+          });          
+        })
+      });
+    } else {
+      context.trigger('flash', 'Torrent could not be added.');
+    }
+  };
+  
+  getNewestTorrent = function(response) {
+    var torrents = response['torrents'].map( function(row) { return Torrent(row);} );
+    return context.sortTorrents('age', torrents, false)[0];
   };
   
   bind('torrents-refreshed', function(e, params) { with(this) {

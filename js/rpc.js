@@ -11,7 +11,7 @@
     
     app.helpers({
       remote_session_id: function() {
-        return this.app.rpc.session_id;
+        return transmission.rpc.session_id;
       },
       remote_query: function(params, callback) {
         var context = this.app.rpc;
