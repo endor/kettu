@@ -20,7 +20,7 @@ h3 {
 
 #info,
 #info h1, #info h2, #info h3, #info h4, #info h5, #info h6 {
-  color: #FFF;
+  color: #444;
 }
 
 /* structure */
@@ -34,12 +34,12 @@ header, footer {
 }
 
 header {
-  height: 120px;
+  height: 140px;
   background: url("../images/kettu_bg_header.png") no-repeat 50% 0;
 }
 
 .container {
-  padding-top: 120px;
+  padding-top: 140px;
   overflow: hidden;
 }
 
@@ -85,11 +85,16 @@ footer nav ul {
 
 
 /* bottom navigation */
+nav ul {
+  list-style: none;
+}
 nav ul li {
-  display: inline-block;
+  display: inline;
+  list-style: none;
 }
 
 nav ul li a {
+  float: left;
   width: 158px;
   height: 2em;
   display: block;
@@ -98,8 +103,8 @@ nav ul li a {
   text-decoration: none;
   text-align: center;
   padding: 0;
-  border-right: 1px solid #555;
-  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+  border-left: 1px solid #555;
   -webkit-transition-property: color, background;
   -webkit-transition-duration: 0.4s, 0.1s;
   -webkit-transition-timing-function: linear, ease-in;
@@ -120,11 +125,11 @@ nav ul li a:hover {
 
 
 #globalUpAndDownload {
-  width: 930px;
+  width: 920px;
   height: 20px;
   margin: 3.5em auto 0 auto;
   padding: 0;
-  padding-right: 20px;
+  padding-right: 30px;
   text-align: right;
 }
 
@@ -134,7 +139,7 @@ nav ul li a:hover {
 }
 
 .torrent.even {
-  background-color: #F8F8F8;
+  background-color: #FAFAFA;
 }
 
 .torrent {
@@ -150,7 +155,7 @@ nav ul li a:hover {
 }
 
 .torrent.active {
-  background-color: #FFF8DC !important;
+  background-color: #E7E7E7 !important;
   color: #000;
 }
 .torrent.active h3 {
@@ -186,46 +191,54 @@ nav ul li a:hover {
   background: url(jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x;
 }
 
-.torrent .pauseAndActivateButton {
+/* torrent control buttons */
+.buttons {
   display: block;
-  color: transparent;
-  background-color: transparent;
-  border: 0px;
   float: right;
-  margin-right: 10px;
 }
 
-.torrent .pauseAndActivateButton.activate {
-  background-image: url(images/control_play.png);
+.buttons form {
+  display: inline;
+}
+
+.buttons input[type='submit'],
+.buttons a {
+  float: left;
+  display: block;
   width: 15px;
   height: 15px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
-.torrent .pauseAndActivateButton.pause {
-  background-image: url(images/control_pause.png);
-  width: 15px;
-  height: 15px; 
+.buttons .pauseAndActivateButton {
+  float: left;
+  display: block;
+  margin-right: 1em;
+  color: transparent;
+  background-color: transparent;
+  border: 0;
+}
+
+.pauseAndActivateButton.activate {
+  background: transparent url(images/control_play.png) no-repeat;
+}
+
+.pauseAndActivateButton.pause {
+  background: transparent url(images/control_pause.png) no-repeat;
 }
 
 .deleteButton {
-  display: block;
   color: transparent;
-  background-color: transparent;
-  border: 0px;
-  float: right;
-  margin-right: 10px;
-  background-image: url(images/control_eject.png);
-  width: 15px;
-  height: 15px; 
+  background: transparent url(images/control_eject.png) no-repeat;
 }
+
 
 .torrent .statusString {
   clear: both;
   color: #999;
-}
-
-.torrent .name {
-
 }
 
 .torrent .progressDetails {
@@ -236,12 +249,12 @@ nav ul li a:hover {
 
 /* filterbar */
 #filterbar {
-  width: 920px;
+  width: 890px;
   height: 30px;
-  margin: 34px auto 0 auto;
+  margin: 54px auto 0 auto;
   border-bottom: 1px solid #CCC;
   overflow: hidden;
-  padding-left: 30px;
+  padding: 0 30px;
 }
 
 #filterbar a {
@@ -259,8 +272,7 @@ nav ul li a:hover {
 }
 
 #filterbar #filter_sort_links {
-  padding-right: 6px;
-  width: 400px;
+  width: 350px;
   float: left;
 }
 #filterbar #filter_sort_links #sorts {
@@ -270,9 +282,22 @@ nav ul li a:hover {
   width: 200px;
   float: right;
   text-align: right;
-  padding: 0px;
-  padding-right: 6px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
+}
+
+#filterbar input {
+  margin: 0;
+  padding: 3px 10px;
+  border: 1px solid #999;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  font-size: 1em;
+}
+
+#filterbar input:focus {
+  outline: none;
 }
 
 
@@ -302,11 +327,11 @@ nav ul li a:hover {
 
 #torrents li {
   display: block;
-  padding: 6px 10px 6px 30px;
+  padding: 6px 30px;
   border-bottom: solid 1px #DDD;
 }
 #torrents li.compact {
-padding: 3px 10px 3px 30px;
+padding: 3px 30px;
 }
 
 /* info */
@@ -314,7 +339,7 @@ padding: 3px 10px 3px 30px;
   width: 379px;
   float: left;
   padding: 1em 10px 1.5em 10px;
-  background-color: #444;
+  background-color: #FAFAFA;
   display: none;
   border-left: 1px solid #DDD;
   overflow: auto;
@@ -326,8 +351,8 @@ padding: 3px 10px 3px 30px;
   width: 100%;
   margin-bottom: 1.5em;
   padding-top: .5em;
-  border-top: 1px solid #555;
-  border-bottom: 1px solid #555;
+  border-top: 1px solid #DFDFDF;
+  border-bottom: 1px solid #DFDFDF;
 }
 #info .peers {
   margin-bottom: 20px;
@@ -340,7 +365,7 @@ padding: 3px 10px 3px 30px;
 }
 
 #info a {
-  color: #FFF;
+  color: #444;
 }
 
 #info a:hover,
@@ -362,18 +387,13 @@ padding: 3px 10px 3px 30px;
   margin-left: 0px;
 }
 
-#info input {
-  border: solid 2px #dddddd;
+#info input[type='text'] {
+  border: solid 1px #DDD;
   padding: 1px;
 }
 
 #info input.short {
   width: 35px;
-}
-
-#info input.submit {
-  background-color: white;
-  padding: 4px;
 }
 
 #info input.long {
@@ -410,13 +430,18 @@ padding: 3px 10px 3px 30px;
   color: #555;
 }
 
-#info .menu {
+#info nav {
+  height: 20px;
   margin: -1em -10px 1em -10px;
+  background-color: #FFF;
+  border-bottom: 1px solid #DFDFDF;
+}
+
+#info .menu {
   padding: 0;
   overflow: hidden;
-  background-color: #444;
-  border-top: 1px solid #444;
-  border-bottom: 1px solid #555;
+  border-top: 0;
+  border-bottom: 0;
 }
 #info .menu li {
   float: left;
@@ -424,16 +449,39 @@ padding: 3px 10px 3px 30px;
   padding-bottom: 0;
 }
 
-#info .menu li a {
-  width: 77px;
+#info nav ul.menu li a {
+  width: auto;
   height: 2em;
   line-height: 2em;
   display: block;
-  padding: 0;
-  border-right: 1px solid #555;
-  border-left: 1px solid #333;
+  padding: 0 1em;
+  border-right: 1px solid #DFDFDF;
+  border-left: 1px solid #FFF;
+  border-bottom: 1px solid #DFDFDF;
+  text-shadow: 1px 1px 1px #FFF;
+  background-color: #FFF;
+  -webkit-transition-property: color, background;
+  -webkit-transition-duration: 0.4s, 0.1s;
+  -webkit-transition-timing-function: linear, ease-in;
+  -moz-transition-property: color, background;
+  -moz-transition-duration: 0.4s, 0.1s;
+  -moz-transition-timing-function: linear, ease-in;
+  -o-transition-property: color, background;
+  -o-transition-duration: 0.4s, 0.1s;
+  -o-transition-timing-function: linear, ease-in;
 }
 
+#info nav ul.menu li a.active,
+#info nav ul.menu li a:focus,
+#info nav ul.menu li a:hover {
+  color: #000;
+  text-shadow: 1px 1px 1px #FFF;
+  background-color: #FAFAFA;
+}
+
+#info .menu li a.active {
+  border-bottom: 1px solid #FAFAFA;
+}
 
 #info .percent_done {
   font-size: 12px;
@@ -476,19 +524,6 @@ padding: 3px 10px 3px 30px;
 }
 
 .compact .statusString {
-  display: inline-block;
-}
-
-.compact .buttons {
-  display: block;
-  float: right;
-}
-
-.compact .buttons .pauseAndActivateButton {
-  display: inline-block;
-}
-
-.compact .buttons form {
   display: inline-block;
 }
 
