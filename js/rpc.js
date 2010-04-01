@@ -5,7 +5,7 @@
   Sammy.TransmissionRPC = function(app) {
 
     app.rpc = {
-      'url': 'http://localhost:9091/transmission/rpc',
+      'url': '/transmission/rpc',
       'session_id': ''
     };
     
