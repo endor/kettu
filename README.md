@@ -4,6 +4,7 @@ using [jquery](http://jquery.com), [sammy](http://github.com/quirkey/sammy) and 
 
 By Frank Prößdorf <fp@notjusthosting.com>.
 
+kettu osaa monta asiaa.
 
 ## Thanks
 * Kriesse for the elegant design.
@@ -33,8 +34,7 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 ## Todo
 * display errors, also tracker errors in tracker info + torrents list (maybe red)
-* when adding a torrent, maybe open a dialog (facebox or something) where user can select/prioritize files,
-  download folder etc. (need to get the new torrent's id for that)
+* when adding a torrent, select download folder
 * graphing up/download:
   * aggregate data
 * iphone compatibility
@@ -48,3 +48,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe actually request if turtle mode is enabled to set correct value
 * update jquery, etc.
 * x in search field does not reset table
+* list should be scrollable when info stays on top
+* file list in facebox should be scrollable

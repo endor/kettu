@@ -78,14 +78,18 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   put('#/torrents/:id', function() {
-    var request = context.parseRequestFromPutParams(context.params);
+    var id = parseInt(context.params['id']);
+    var request = context.parseRequestFromPutParams(context.params, id);
     context.remote_query(request, function(response) {
       if(request['method'].match(/torrent-set/)) {
         context.trigger('flash', 'Torrent updated successfully.');
       } else {
-        getTorrent(request['arguments']['id'], renderTorrent);
+        getTorrent(id, renderTorrent);
       }
     });
+    if(context.params['start_download']) {
+      context.remote_query({'method': 'torrent-start', 'arguments': {'ids': id}}, function() {});
+    }
   });
   
   getAndRenderTorrentInfo = function(id) {
@@ -173,7 +177,7 @@ Torrents = function(transmission) { with(transmission) {
       context.remote_query(torrentsRequest(), function(response) {
         context.closeInfo();
         getTorrent(getNewestTorrent(response).id, function(torrent) {
-          context.partial('./templates/torrents/new_with_data.mustache', torrent, function(rendered_view) {
+          context.partial('./templates/torrents/new_with_data.mustache', TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
             $.facebox(rendered_view);
           });          
         })

@@ -35,7 +35,7 @@ Feature: Torrent info
       And I should see a countdown time of about 30 minutes
 
   Scenario: info displays file information
-    Given a torrent with the file "README.md" which has a size of 12 bytes and has already downloaded 6 bytes and is not wanted
+    Given a torrent with the file "README.md" which has a size of 12 bytes and has already downloaded 6 bytes and is not wanted and another file "INSTALL.md"
     When I go to the start page
       And I wait for the AJAX call to finish
       And I double click on the torrent "1"

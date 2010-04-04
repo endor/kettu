@@ -104,8 +104,8 @@ var TorrentHelpers = {
     }
   },
   
-  parseRequestFromPutParams: function(params) {
-    var request, id = parseInt(params['id']);
+  parseRequestFromPutParams: function(params, id) {
+    var request;
     if(params['method']) {
       request = {
         'method': params['method'],

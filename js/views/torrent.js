@@ -88,6 +88,7 @@ TorrentView = function(torrent, context, sort_peers) {
     });
     if(view.files.length == 1) {
       view.files[0]['disabled'] = ' disabled="disabled"';
+      view.files[0]['wanted'] = ' checked="checked"';
     }
   };
   
