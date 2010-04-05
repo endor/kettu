@@ -34,8 +34,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 ## Todo
 * display errors, also tracker errors in tracker info + torrents list (maybe red)
-* graphing up/download:
-  * aggregate data
 * iphone compatibility
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * extend stats view
@@ -44,4 +42,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
 * maybe be able to select multiple torrents and pause/activate them
 * maybe actually request if turtle mode is enabled to set correct value
-* update jquery, etc.
+* maybe aggregate graphing data
+* clean up torrents controller

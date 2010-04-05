@@ -11,6 +11,7 @@ Feature: view list of torrents
   Scenario: clicking on a torrent
     Given a torrent with the name "Mutant Ninja Turtles"
     When I go to the start page
+      And show response
       And I click on the torrent
     Then the torrent should be highlighted
   

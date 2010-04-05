@@ -127,15 +127,15 @@ describe 'TorrentView'
     end
     
     it 'should add wanted if the file is wanted'
-      torrent_view.files[0] = {}
-      torrent_view.fileStats[0] = {'wanted': true}
+      torrent_view.files = [{}, {}]
+      torrent_view.fileStats = [{'wanted': true}, {}]
       torrent_view.addIdsToFiles()
       torrent_view.files[0].wanted.should.eql(' checked="checked"')
     end
     
     it 'should not add wanted if the file is not wanted'
-      torrent_view.files[0] = {}
-      torrent_view.fileStats[0] = {'wanted': false}
+      torrent_view.files = [{}, {}]
+      torrent_view.fileStats = [{'wanted': false}, {}]
       torrent_view.addIdsToFiles()
       torrent_view.files[0].wanted.should_not.eql(' checked="checked"')      
     end
@@ -160,6 +160,13 @@ describe 'TorrentView'
       torrent_view.fileStats = [{}]
       torrent_view.addIdsToFiles()
       torrent_view.files[0].disabled.should.eql(' disabled="disabled"')
+    end
+    
+    it 'should add wanted if the file is wanted'
+      torrent_view.files[0] = {}
+      torrent_view.fileStats[0] = {'wanted': false}
+      torrent_view.addIdsToFiles()
+      torrent_view.files[0].wanted.should.eql(' checked="checked"')
     end
   end
 end
