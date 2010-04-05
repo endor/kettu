@@ -89,6 +89,13 @@ Torrents = function(transmission) { with(transmission) {
     });
     if(context.params['start_download']) {
       context.remote_query({'method': 'torrent-start', 'arguments': {'ids': id}}, function() {});
+      getTorrent(id, renderTorrent);
+    }
+    if(context.params['location']) {
+      context.remote_query({
+          'method': 'torrent-set-location',
+          'arguments': {'ids': id, 'location': context.params['location'], 'move': true}
+        }, function() {});
     }
   });
   

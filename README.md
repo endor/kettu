@@ -34,12 +34,10 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 ## Todo
 * display errors, also tracker errors in tracker info + torrents list (maybe red)
-* when adding a torrent, select download folder
 * graphing up/download:
   * aggregate data
 * iphone compatibility
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
-* add transmission logo
 * extend stats view
 * maybe right clicking shows relevant menus
 * maybe icons for different file types in file list
@@ -47,6 +45,3 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe be able to select multiple torrents and pause/activate them
 * maybe actually request if turtle mode is enabled to set correct value
 * update jquery, etc.
-* x in search field does not reset table
-* list should be scrollable when info stays on top
-* file list in facebox should be scrollable
