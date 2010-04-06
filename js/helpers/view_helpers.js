@@ -42,5 +42,15 @@ var ViewHelpers = {
       $('#info .item:first').show();
       $('#info .menu-item:first').addClass('active');      
     }
-  }  
+  },
+  
+  sanitizeNumber: function(number) {
+    if(number >= 0) {
+      return number;
+    } else if(number == -1) {
+      return 'N/A';
+    } else if(number == -2) {
+      return 'Infinity';
+    }
+  }
 };

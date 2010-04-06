@@ -112,11 +112,25 @@ TorrentView = function(torrent, context, sort_peers) {
     });
   };
   
+  view.sanitizeNumbers = function() {
+    view.uploadRatio = context.sanitizeNumber(view.uploadRatio);
+    if(view.trackerStats !== undefined) {
+      var i = 0;
+      $.each(view.trackerStats, function() {
+        view.trackerStats[i]['seederCount'] = context.sanitizeNumber(this.seederCount);
+        view.trackerStats[i]['leecherCount'] = context.sanitizeNumber(this.leecherCount);
+        view.trackerStats[i]['downloadCount'] = context.sanitizeNumber(this.downloadCount);
+        i += 1;
+      });      
+    }
+  };
+  
   view.addFormattedTimes();
   view.addFormattedSizes();
   view.sortPeers();
   view.addIdsToFiles();
   view.addPriorityStringToFiles();
+  view.sanitizeNumbers();
   
   return view;
 };

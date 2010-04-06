@@ -1,6 +1,6 @@
 describe 'TorrentView'
   before_each
-    context               = {}
+    context               = {sanitizeNumber: function() {}}
     context.formatNextAnnounceTime = function() {}
     torrent_view          = TorrentView({'trackerStats': [], 'files': [], 'peers': [], 'fileStats': []}, context)
     timestamp             = "1265737984"
