@@ -43,12 +43,31 @@ var InfoHelpers = {
   
   handleClickOnTorrent: function(torrent) {
     var context = this;
-    $('#' + torrent.id).click(function() {
-      context.highlightLi('#torrents', this);
-      if(context.infoIsOpen()) {
-        context.saveLastMenuItem($('.menu-item.active').attr('id'));
-        window.location = '#/torrents/' + $(this).attr('id');
-        // NOTE: a redirect seems to interfere with our double click handling here
+    $('#' + torrent.id).click(function(e) {
+      if(e.shiftKey && $('.torrent.active').length >= 1) {
+        var torrents, first_index, last_index;
+        
+        first_index = $('.torrent.active:first').index();
+        last_index = $('.torrent').index($(this));
+        
+        if(first_index > last_index) {
+          first_index = last_index;
+          last_index = $('.torrent.active:last').index();
+        }
+        
+        torrents = $('.torrent:lt(' + (last_index + 1) + ')');
+        if(first_index >= 0) {
+          torrents = torrents.filter(':gt(' + (first_index - 1) + ')');
+        }
+        context.highlightTorrents(torrents);
+        $('#search').focus();
+      } else {
+        context.highlightTorrents($(this));
+        if(context.infoIsOpen()) {
+          context.saveLastMenuItem($('.menu-item.active').attr('id'));
+          window.location = '#/torrents/' + $(this).attr('id');
+          // NOTE: a redirect seems to interfere with our double click handling here
+        }        
       }
     });    
   },
