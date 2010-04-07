@@ -93,15 +93,13 @@ var TorrentHelpers = {
   },
   
   makeSortLinkReverse: function() {
-    var link = $('#sorts .' + transmission.sort_mode);
-    var url = link.attr('href');
+    var option = $('#sorts .' + transmission.sort_mode);
+    var url = option.val();
     
-    $('#sorts a').each(function() {
-      $(this).attr('href', $(this).attr('href').match(/([^&]+)(&reverse=true)?/)[1]);
+    $('#sorts option').each(function() {
+      $(this).val($(this).val().match(/([^&]+)(&reverse=true)?/)[1]);
     });
-    if(!url.match(/reverse/)) {
-      link.attr('href', url + '&reverse=true');
-    }
+    option.val(url + '&reverse=true');
   },
   
   parseRequestFromPutParams: function(params, id) {

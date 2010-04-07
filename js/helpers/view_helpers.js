@@ -52,5 +52,12 @@ var ViewHelpers = {
     } else if(number == -2) {
       return 'Infinity';
     }
+  },
+  
+  activateSortSelect: function(context) {
+    console.log(context);
+    $('#sorts select').change(function() {
+      context.redirect($(this).val());
+    });
   }
 };

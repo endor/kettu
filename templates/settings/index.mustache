@@ -51,14 +51,14 @@
       <tr>
         <th>Incoming TCP Port:</th>
         <td class="long">
-          <input type="text" name="peer-port" value="{{peer-port}}" class="short" min=1024 max=65535 />
+          <input type="number" name="peer-port" value="{{peer-port}}" class="short" min="1024" max="65535" />
           <div id="port-open"></div>
         </td>
       </tr>
       <tr>
         <th>Refresh Web Client every:</th>
         <td>
-          <input type="text" name="reload-interval" value="{{reload-interval}}" class="short" /> seconds
+          <input type="number" name="reload-interval" value="{{reload-interval}}" class="short" /> seconds
         </td>
       </tr>
     </table>
@@ -70,14 +70,14 @@
         <th>Speed Limit Download:</th>
         <td>
           <input type="checkbox" name="speed-limit-down-enabled" /> 
-          <input type="text" name="speed-limit-down" value="{{speed-limit-down}}" class="short" /> KB/s
+          <input type="number" name="speed-limit-down" value="{{speed-limit-down}}" class="short" /> KB/s
         </td>
       </tr>
       <tr>
         <th>Speed Limit Upload:</th>
         <td>
           <input type="checkbox" name="speed-limit-up-enabled" /> 
-          <input type="text" name="speed-limit-up" value="{{speed-limit-up}}" class="short" /> KB/s
+          <input type="number" name="speed-limit-up" value="{{speed-limit-up}}" class="short" /> KB/s
         </td>
       </tr>
     </table>
@@ -86,13 +86,13 @@
       <tr>
         <th>Speed Limit Download:</th>
         <td>
-          <input type="text" name="alt-speed-down" value="{{alt-speed-down}}" class="short" /> KB/s
+          <input type="number" name="alt-speed-down" value="{{alt-speed-down}}" class="short" /> KB/s
         </td>
       </tr>
       <tr>
         <th>Speed Limit Upload:</th>
         <td>
-          <input type="text" name="alt-speed-up" value="{{alt-speed-up}}" class="short" /> KB/s
+          <input type="number" name="alt-speed-up" value="{{alt-speed-up}}" class="short" /> KB/s
         </td>
       </tr>
     </table>
