@@ -167,7 +167,13 @@ Torrents = function(transmission) { with(transmission) {
   };
   
   saveModesToStore = function(params) {
-    transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
+    if(params['sort'] == 'reverse') {
+      transmission.reverse_sort = !transmission.reverse_sort;
+      $('#reverse_link').attr('href', '#/torrents?sort=reverse&random=' + new Date().getTime());
+    } else {
+      transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
+    }
+    
     transmission.view_mode = params['view'] || transmission.store.get('view_mode') || 'normal';
     transmission.filter_mode = params['filter'] || transmission.store.get('filter_mode') || 'all';
     
@@ -175,7 +181,6 @@ Torrents = function(transmission) { with(transmission) {
     transmission.store.set('view_mode', transmission.view_mode);
     transmission.store.set('filter_mode', transmission.filter_mode);
     
-    transmission.reverse_sort = params['reverse'] || false;
     $('.torrent').show();
   };
   

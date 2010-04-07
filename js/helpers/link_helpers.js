@@ -5,7 +5,6 @@ var LinkHelpers = {
     this.activateStatisticsLink();
     this.activateTurtleModeLink();
     this.activateCompactViewLink();
-    this.activateFilterAndSortLink();
   },
   
   activateAddTorrentLink: function() {
@@ -17,18 +16,6 @@ var LinkHelpers = {
         window.location.hash = '/torrents/new';
       }
       return false;
-    });
-  },
-
-  activateFilterAndSortLink: function() {
-    var context = this;
-    $('#activate_filters').click(function() {
-      $('#filters').show();
-      $('#sorts').hide();
-    });
-    $('#activate_sorts').click(function() {
-      $('#filters').hide();
-      $('#sorts').show();      
     });
   },
 
