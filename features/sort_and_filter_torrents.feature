@@ -6,7 +6,6 @@ Feature: sort and filter torrents
   Scenario: filter torrents
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 8, 16"
     When I go to the start page
-      And I follow "Filter"
       And I follow "Downloading"
     Then I should see "Mutant Ninja Turtles"
       But I should not see "Donald Duck"
@@ -69,7 +68,6 @@ Feature: sort and filter torrents
   Scenario: filter and sort at the same time
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 4, 16"
     When I go to the name sorted torrents page
-      And I follow "Filter"
       And I follow "Downloading"
     Then I should see "Donald Duck" before "Mutant Ninja Turtles"
       And I should not see "Saber Riders"

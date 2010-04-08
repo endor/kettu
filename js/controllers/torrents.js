@@ -172,6 +172,7 @@ Torrents = function(transmission) { with(transmission) {
       $('#reverse_link').attr('href', '#/torrents?sort=reverse&random=' + new Date().getTime());
     } else {
       transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
+      $('#sorts select option[class="' + transmission.sort_mode + '"]').attr('selected', 'selected');
     }
     
     transmission.view_mode = params['view'] || transmission.store.get('view_mode') || 'normal';

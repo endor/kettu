@@ -55,7 +55,6 @@ var ViewHelpers = {
   },
   
   activateSortSelect: function(context) {
-    console.log(context);
     $('#sorts select').change(function() {
       context.redirect($(this).val());
     });
