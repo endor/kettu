@@ -99,6 +99,19 @@ Torrents = function(transmission) { with(transmission) {
     }
   });
   
+  put('#/torrents', function() {
+    var ids = $.map(context.params['ids'].split(','), function(id) {return parseInt(id, 10);});
+    var request = {
+      'method': context.params['method'],
+      'arguments': {'ids': ids}
+    }
+    context.remote_query(request, function(response) {
+      $.each(ids, function() {
+        getTorrent(this, renderTorrent);
+      });
+    });
+  });
+  
   getAndRenderTorrentInfo = function(id) {
     if($('.menu-item.active').get(0)) {
       context.saveLastMenuItem($('.menu-item.active').attr('id'));
@@ -146,7 +159,9 @@ Torrents = function(transmission) { with(transmission) {
   };
     
   renderTorrent = function(torrent) {
-    context.partial('./templates/torrents/show.mustache', TorrentsView(torrent, context), function(rendered_view) {
+    var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
+    
+    context.partial('./templates/torrents/' + template + '.mustache', TorrentsView(torrent, context), function(rendered_view) {
       $(element_selector).find('#' + torrent.id).replaceWith(rendered_view);
       trigger('torrent-refreshed', torrent);
     });    

@@ -12,6 +12,7 @@ var transmission = $.sammy(function() { with(this) {
   }
   
   helpers(ApplicationHelpers);
+  helpers(ContextMenuHelpers);
   helpers(FilterTorrentsHelpers);
   helpers(InfoHelpers);
   helpers(LinkHelpers);
@@ -39,6 +40,7 @@ var transmission = $.sammy(function() { with(this) {
     this.activateLinks();
     this.activateSearch(this);
     this.activateSortSelect(this);
+    this.activateContextMenu();
     this.configureFacebox();
     this.closeInfo();
   }});
