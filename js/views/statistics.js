@@ -9,5 +9,17 @@ StatisticsView = function(statistics) {
     'time_active_total': Math.formatSeconds(statistics['cumulative-stats']['secondsActive'])
   }
   
+  if(statistics['current-stats']['downloadedBytes'] == 0) {
+    view['ratio'] = statistics['current-stats']['uploadedBytes'] == 0 ? 'N/A' : 'Infinity';
+  } else {
+    view['ratio'] = (statistics['current-stats']['uploadedBytes'] / statistics['current-stats']['downloadedBytes']).toFixed(4);
+  }
+
+  if(statistics['cumulative-stats']['downloadedBytes'] == 0) {
+    view['ratio_total'] = statistics['cumulative-stats']['uploadedBytes'] == 0 ? 'N/A' : 'Infinity';
+  } else {
+    view['ratio_total'] = (statistics['cumulative-stats']['uploadedBytes'] / statistics['cumulative-stats']['downloadedBytes']).toFixed(4);
+  }
+  
   return view;
 }
