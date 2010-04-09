@@ -4,9 +4,9 @@ var ViewHelpers = {
     $(menu_id + ' ' + element_class).addClass('active');
   },
   
-  highlightLi: function(menu_id, li) {
-    $(menu_id + ' li').removeClass('active');
-    $(li).addClass('active');
+  highlightTorrents: function(torrents) {
+    $('#torrents .torrent').removeClass('active');
+    torrents.addClass('active');
   },
   
   showAndHideFlash: function(message) {
@@ -42,5 +42,21 @@ var ViewHelpers = {
       $('#info .item:first').show();
       $('#info .menu-item:first').addClass('active');      
     }
-  }  
+  },
+  
+  sanitizeNumber: function(number) {
+    if(number >= 0) {
+      return number;
+    } else if(number == -1) {
+      return 'N/A';
+    } else if(number == -2) {
+      return 'Infinity';
+    }
+  },
+  
+  activateSortSelect: function(context) {
+    $('#sorts select').change(function() {
+      context.redirect($(this).val());
+    });
+  }
 };

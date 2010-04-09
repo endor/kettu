@@ -3,7 +3,7 @@ Statistics = function(transmission) { with(transmission) {
     var context = this;    
     var request = {
       'method': 'session-stats',
-      'arguments': {'fields': ['current-stats', 'torrentCount']}
+      'arguments': {'fields': ['current-stats', 'torrentCount', 'cumulative-stats']}
     }
     
     context.remote_query(request, function(response) {

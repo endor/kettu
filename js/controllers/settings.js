@@ -4,7 +4,7 @@ Settings = function(transmission) { with(transmission) {
     var request = { 'method': 'session-get', 'arguments': {} };
     
     context.remote_query(request, function(view) {
-      view['reload-interval'] = transmission.reload_interval/1000;
+      view['reload-interval'] = context.reload_interval/1000;
       context.partial('./templates/settings/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         trigger('settings-refreshed', view);

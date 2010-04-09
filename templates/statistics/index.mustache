@@ -5,7 +5,7 @@
   </ul>
 </nav>
 
-<h2>Current Statistics</h2>
+<h2>Statistics</h2>
 
 <div class="item data">
   <table class="content">
@@ -15,15 +15,31 @@
     </tr>
     <tr>
       <th>Uploaded:</th>
-      <td>{{uploaded}}</td>
+      <td>
+        {{uploaded}}<br />
+        {{uploaded_total}} total
+      </td>
     </tr>
     <tr>
       <th>Downloaded:</th>
-      <td>{{downloaded}}</td>
+      <td>
+        {{downloaded}}<br />
+        {{downloaded_total}} total
+      </td>
+    </tr>
+    <tr>
+      <th>Ratio:</th>
+      <td>
+        {{ratio}}<br />
+        {{ratio_total}} total
+      </td>
     </tr>
     <tr>
       <th>Time active:</th>
-      <td>{{time_active}}</td>
+      <td>
+        {{time_active}}<br />
+        {{time_active_total}} total
+      </td>
     </tr>
   </table>
 </div>

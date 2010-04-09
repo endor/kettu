@@ -1,4 +1,48 @@
-var TorrentHelpers = {  
+var TorrentHelpers = {
+  build_request: function(method, arguments) {
+    return({
+      'method': method,
+      'arguments': arguments
+    });
+  },
+  
+  set_and_save_modes: function(params) {
+    if(params['sort'] == 'reverse') {
+      transmission.reverse_sort = !transmission.reverse_sort;
+      $('#reverse_link').attr('href', '#/torrents?sort=reverse&random=' + new Date().getTime());
+    } else {
+      transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
+      $('#sorts select option[class="' + transmission.sort_mode + '"]').attr('selected', 'selected');
+    }
+    
+    transmission.view_mode = params['view'] || transmission.store.get('view_mode') || 'normal';
+    transmission.filter_mode = params['filter'] || transmission.store.get('filter_mode') || 'all';
+    
+    transmission.store.set('sort_mode', transmission.sort_mode);
+    transmission.store.set('view_mode', transmission.view_mode);
+    transmission.store.set('filter_mode', transmission.filter_mode);
+    
+    $('.torrent').show();
+  },
+
+  submit_add_torrent_form: function(context, paused, torrentUploaded) {
+    $('#add_torrent_form').ajaxSubmit({
+  		'url': '/transmission/upload?paused=' + paused,
+  		'type': 'POST',
+  		'data': { 'X-Transmission-Session-Id' : context.remote_session_id() },
+  		'dataType': 'xml',
+      'iframe': true,
+  		'success': function(response) {
+  		  torrentUploaded($(response).children(':first').text().match(/200/));
+  		}
+		});  
+  },
+  
+  get_newest_torrent: function(context, response) {
+    var torrents = response['torrents'].map( function(row) { return Torrent(row);} );
+    return context.sortTorrents('age', torrents, false)[0];
+  },
+  
   globalUpAndDownload: function(torrents) {
     var uploadRate = 0.0, downloadRate = 0.0;
     $.each(torrents, function() {
@@ -66,7 +110,6 @@ var TorrentHelpers = {
   },
   
   updateViewElements: function(torrents, need_change) {
-    this.makeSortLinkReverse();
     this.updateTorrents(torrents, need_change);
     this.cycleTorrents();
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
@@ -92,30 +135,13 @@ var TorrentHelpers = {
     }
   },
   
-  makeSortLinkReverse: function() {
-    var link = $('#sorts .' + transmission.sort_mode);
-    var url = link.attr('href');
-    
-    $('#sorts a').each(function() {
-      $(this).attr('href', $(this).attr('href').match(/([^&]+)(&reverse=true)?/)[1]);
-    });
-    if(!url.match(/reverse/)) {
-      link.attr('href', url + '&reverse=true');
-    }
-  },
-  
-  parseRequestFromPutParams: function(params) {
-    var request, id = parseInt(params['id']);
+  parseRequestFromPutParams: function(params, id) {
+    var request;
     if(params['method']) {
       request = {
         'method': params['method'],
         'arguments': {'ids': id}
       };
-    } else if(params['location']) {
-      request = {
-        'method': 'torrent-set-location',
-        'arguments': {'ids': id, 'location': params['location'], 'move': true}
-      }
     } else {
       var wanted_files = $.map($('.file:checked'), function(file) {
         return parseInt($(file).attr('name').split('_')[1], 10);

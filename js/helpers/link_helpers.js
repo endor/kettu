@@ -5,30 +5,17 @@ var LinkHelpers = {
     this.activateStatisticsLink();
     this.activateTurtleModeLink();
     this.activateCompactViewLink();
-    this.activateFilterAndSortLink();
   },
   
   activateAddTorrentLink: function() {
     var context = this;
     $('#add_a_torrent').click(function() {
-      if(context.infoIsOpen()) {
+      if(context.infoIsOpen() && window.location.hash.match('/torrents/new')) {
         context.closeInfo();
       } else {
         window.location.hash = '/torrents/new';
       }
       return false;
-    });
-  },
-
-  activateFilterAndSortLink: function() {
-    var context = this;
-    $('#activate_filters').click(function() {
-      $('#filters').show();
-      $('#sorts').hide();
-    });
-    $('#activate_sorts').click(function() {
-      $('#filters').hide();
-      $('#sorts').show();      
     });
   },
 
@@ -81,7 +68,7 @@ var LinkHelpers = {
   activateSettingsLink: function() {
     var context = this;
     $('#settings').click(function() {
-      if(context.infoIsOpen()) {
+      if(context.infoIsOpen() && window.location.hash.match('/settings')) {
         context.closeInfo();
       } else {
         context.redirect('#/settings');
@@ -93,7 +80,7 @@ var LinkHelpers = {
   activateStatisticsLink: function() {
     var context = this;
     $('#statistics').click(function() {
-      if(context.infoIsOpen()) {
+      if(context.infoIsOpen() && window.location.hash.match('/statistics')) {
         context.closeInfo();
       } else {
         context.redirect('#/statistics');

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<?xml version="1.0" encoding="UTF-8"?>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -14,6 +13,7 @@
     <script src="./vendor/jquery/jquery.ui.js"></script>
     <script src="./vendor/jquery/jquery.form.js"></script>
     <script src="./vendor/jquery/facebox.js"></script>
+    <script src="./vendor/jquery/jquery.contextmenu.js"></script>
     <script src="./vendor/sammy/sammy.js"></script>
     <script src="./vendor/sammy/sammy.json.js"></script>
     <script src="./vendor/sammy/sammy.storage.js"></script>
@@ -33,6 +33,7 @@
     <script src="./js/views/torrent.js"></script>
     <script src="./js/views/torrents.js"></script>
     <script src="./js/helpers/application_helpers.js"></script>
+    <script src="./js/helpers/context_menu_helpers.js"></script>
     <script src="./js/helpers/filter_torrents_helpers.js"></script>
     <script src="./js/helpers/info_helpers.js"></script>
     <script src="./js/helpers/link_helpers.js"></script>
@@ -59,27 +60,30 @@
       
       <div id="filterbar">
         <div id="filter_sort_links">
-          <a href="#" id="activate_filters">Filter</a> |&nbsp;
-          <a href="#" id="activate_sorts">Sort</a> -&nbsp;
           <span id="filters">
+            Filter:&nbsp;
             <a href="#/torrents?filter=all" class="all">All</a>
             <a href="#/torrents?filter=downloading" class="downloading">Downloading</a>
             <a href="#/torrents?filter=seeding" class="seeding">Seeding</a>
             <a href="#/torrents?filter=paused" class="paused">Paused</a>           
             <a href="#/torrents?filter=activity" class="activity">Activity</a>
-          </span>
-          <span id="sorts">
-            <a href="#/torrents?sort=activity" class="activity">Activity</a>
-            <a href="#/torrents?sort=age" class="age">Age</a>
-            <a href="#/torrents?sort=name" class="name">Name</a>
-            <a href="#/torrents?sort=progress" class="progress">Progress</a>
-            <a href="#/torrents?sort=queue" class="queue">Queue</a>
-            <a href="#/torrents?sort=state" class="state">State</a>
-          </span>
+          </span>&nbsp;|&nbsp;
+          Sort:&nbsp;
+          <form id="sorts">
+            <select name="sort_by">
+              <option value="#/torrents?sort=activity" class="activity">Activity</option>
+              <option value="#/torrents?sort=age" class="age">Age</option>
+              <option value="#/torrents?sort=name" class="name">Name</option>
+              <option value="#/torrents?sort=progress" class="progress">Progress</option>
+              <option value="#/torrents?sort=queue" class="queue">Queue</option>
+              <option value="#/torrents?sort=state" class="state">State</option>
+            </select>
+            <a href="#/torrents?sort=reverse" id="reverse_link">Reverse Order</a>
+          </form>
         </div>
         
         <div id="search_filter">
-          <input type="search" placeholder="Search" id="search" />
+          <input type="search" placeholder="Filter" id="search" />
         </div>
       </div>      
     </header>
@@ -89,7 +93,47 @@
         <div class="torrents_container">
           <ul id="torrents"></ul>
         </div>
-        <div id="info"></div>   
+
+        <div id="info"></div>
+
+        <ul id="context_menu">
+          <li class="pause">
+            <form action="#/torrents" method="PUT">
+              <input type="hidden" name="ids" class="ids" value="" />
+              <input type="hidden" name="method" value="torrent-stop" />
+              <input type="submit" value="Pause" />
+            </form>
+          </li>
+          <li class="activate">
+            <form action="#/torrents" method="PUT">
+              <input type="hidden" name="ids" class="ids" value="" />
+              <input type="hidden" name="method" value="torrent-start" />
+              <input type="submit" value="Activate" />
+            </form>            
+          </li>
+          <li class="delete">
+            <a href="#delete_form" class="facebox_link">Delete</a>
+            <div id="delete_form" class="facebox_div">
+              <img src="css/images/junk.png" class="image" />
+              <p class="message">
+                Are you sure, you want to delete the following torrents?<br /><br />
+              </p>
+              <br class="clear" />
+              <div class="facebox_buttons">
+                <form method="DELETE" action="#/torrents" class="torrent_delete_form">
+                  <input type="hidden" name="ids" class="ids" value="" />
+                  <input type="submit" value="Delete" />
+                </form>      
+                <form method="DELETE" action="#/torrents" class="torrent_delete_form">
+                  <input type="hidden" name="ids" class="ids" value="" />
+                  <input type="hidden" value="true" name="delete_data" />
+                  <input type="submit" value="Delete with data" />
+                </form>        
+              </div>
+              <br class="clear" />
+            </div>
+          </li>
+        </ul>
       </div>
     </div>   
 

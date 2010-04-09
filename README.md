@@ -4,6 +4,7 @@ using [jquery](http://jquery.com), [sammy](http://github.com/quirkey/sammy) and 
 
 By Frank Prößdorf <fp@notjusthosting.com>.
 
+kettu osaa monta asiaa.
 
 ## Thanks
 * Kriesse for the elegant design.
@@ -32,19 +33,11 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* display errors, also tracker errors in tracker info + torrents list (maybe red)
-* when adding a torrent, maybe open a dialog (facebox or something) where user can select/prioritize files,
-  download folder etc. (need to get the new torrent's id for that)
-* graphing up/download:
-  * aggregate data
 * iphone compatibility
-* debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
-* add transmission logo
-* extend stats view
-* maybe right clicking shows relevant menus
 * maybe icons for different file types in file list
 * maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
-* maybe be able to select multiple torrents and pause/activate them
 * maybe actually request if turtle mode is enabled to set correct value
-* update jquery, etc.
-* x in search field does not reset table
+* maybe aggregate graphing data
+* maybe have a trash icon where torrents can be dragged and dropped into
+* maybe inspector button, maybe selecting a torrent should not open inspector if in stats/pref view
+* optimize multi selection functionality

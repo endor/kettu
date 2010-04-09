@@ -4,11 +4,10 @@ Feature: Torrent info
   I want to see more information about the torrent
 
   Scenario: double clicking on a torrent opens info
-    Given a torrent with the name "Mutant Ninja Turtles"
-      And the torrent "Mutant Ninja Turtles" has more info like the download directory which is "/downloads"
+    Given a torrent with the name "Mutant Ninja Turtles" and the download directory "/downloads"
     When I go to the start page
       And I wait for the AJAX call to finish
-      And I double click on the torrent
+      And I double click on the torrent "1"
       And I wait for the AJAX call to finish
     Then I should see "/downloads"
     When I double click on the torrent
@@ -18,9 +17,12 @@ Feature: Torrent info
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the ids "1, 2, 3"
       And the torrent "Mutant Ninja Turtles" has more info like the download directory which is "/downloads"
     When I go to the start page
+      And I wait for the AJAX call to finish
       And I double click on the torrent "1"
+      And I wait for the AJAX call to finish
       And the torrent "Donald Duck" has more info like the download directory which is "/my_torrents"
       And I click on the torrent "2"
+      And I wait for the AJAX call to finish
     Then I should see "/my_torrents"  
   
   Scenario: info displays tracker information
@@ -35,7 +37,7 @@ Feature: Torrent info
       And I should see a countdown time of about 30 minutes
 
   Scenario: info displays file information
-    Given a torrent with the file "README.md" which has a size of 12 bytes and has already downloaded 6 bytes and is not wanted
+    Given a torrent with the file "README.md" which has a size of 12 bytes and has already downloaded 6 bytes and is not wanted and another file "INSTALL.md"
     When I go to the start page
       And I wait for the AJAX call to finish
       And I double click on the torrent "1"

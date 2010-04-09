@@ -284,11 +284,11 @@ nav ul li a:hover {
 }
 
 #filterbar #filter_sort_links {
-  width: 350px;
+  width: 500px;
   float: left;
 }
 #filterbar #filter_sort_links #sorts {
-  display: none;
+  display: inline;
 }
 #filterbar #search_filter {
   width: 200px;
@@ -399,7 +399,7 @@ padding: 3px 30px;
   margin-left: 0px;
 }
 
-#info input[type='text'] {
+#info input[type='text'],input[type='url'],input[type='number'] {
   border: solid 1px #DDD;
   padding: 1px;
 }

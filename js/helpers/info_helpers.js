@@ -40,15 +40,33 @@ var InfoHelpers = {
       return false;
     });
   },
-  
+
+  // NOTE: make this smaller and more readable
   handleClickOnTorrent: function(torrent) {
     var context = this;
-    $('#' + torrent.id).click(function() {
-      context.highlightLi('#torrents', this);
-      if(context.infoIsOpen()) {
-        context.saveLastMenuItem($('.menu-item.active').attr('id'));
-        window.location = '#/torrents/' + $(this).attr('id');
-        // NOTE: a redirect seems to interfere with our double click handling here
+
+    $('#' + torrent.id).click(function(e) {
+      if(e.shiftKey && $('.torrent.active').length >= 1) {
+        var first_index = $('.torrent.active:first').index();
+        var last_index = $('.torrent').index($(this));
+        
+        if(first_index > last_index) {
+          first_index = last_index;
+          last_index = $('.torrent.active:last').index();
+        }
+        
+        var torrents = $('.torrent:lt(' + (last_index + 1) + ')');
+        if(first_index > 0) { torrents = torrents.filter(':gt(' + (first_index - 1) + ')'); }
+        
+        context.highlightTorrents(torrents);
+        $('#search').focus();
+      } else {
+        context.highlightTorrents($(this));
+        if(context.infoIsOpen()) {
+          context.saveLastMenuItem($('.menu-item.active').attr('id'));
+          window.location = '#/torrents/' + $(this).attr('id');
+          // NOTE: a redirect seems to interfere with our double click handling here
+        }        
       }
     });    
   },
@@ -73,12 +91,12 @@ var InfoHelpers = {
       return false;
     });
     $('#info .files .select_all').click(function() {
-      $('#info .file').attr('checked', true);
+      $('#info .file:not(:disabled)').attr('checked', true);
       $('#info .files form').submit();
       return false;
     });
     $('#info .files .deselect_all').click(function() {
-      $('#info .file').attr('checked', false);
+      $('#info .file:not(:disabled)').attr('checked', false);
       $('#info .files form').submit();
       return false;
     });    

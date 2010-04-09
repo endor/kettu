@@ -18,6 +18,7 @@
     <script src="../js/helpers/math_helpers.js"></script>
     <script src="../js/helpers/statistic_helpers.js"></script>
     <script src="../js/helpers/store_helpers.js"></script>
+    <script src="../js/helpers/view_helpers.js"></script>
     <script>
       function runSuites() {
         JSpec
@@ -29,6 +30,7 @@
         .exec('store_helpers_spec.js')
         .exec('statistic_helpers_spec.js')
         .exec('setting_helpers_spec.js')
+        .exec('view_helpers_spec.js')
         .exec('torrent_view_spec.js')
         .exec('torrents_view_spec.js')
         .run({failuresOnly : true})

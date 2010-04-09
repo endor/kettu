@@ -4,17 +4,23 @@ $.expr[":"].containsIgnoreCase = function(el, i, m) {
 };
 
 var SearchHelpers = {
-  activateSearch: function() {
+  performSearch: function(search_term) {
+    if(search_term.length > 0) {
+      $('.torrent').hide();
+      $('.torrent:containsIgnoreCase(' + search_term + ')').show();
+      $(".torrent[data-tracker*='" + search_term + "']").show();
+    } else {
+      $('.torrent').show();
+    }    
+  },
+  
+  activateSearch: function(context) {
+    $('#search').mousedown(function() {
+      context.performSearch('');
+    });
+    
     $('#search').keyup(function() {
-      var search_term = $(this).val();
-      
-      if(search_term.length > 0) {
-        $('.torrent').hide();
-        $('.torrent:containsIgnoreCase(' + search_term + ')').show();
-        $(".torrent[data-tracker*='" + search_term + "']").show();
-      } else {
-        $('.torrent').show();
-      }
+      context.performSearch($(this).val());
     });
   }
 }

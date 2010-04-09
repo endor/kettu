@@ -87,8 +87,8 @@ var SettingHelpers = {
   
   update_reload_interval: function(context, new_reload_interval) {
     new_reload_interval = parseInt(new_reload_interval, 10);
-    if(new_reload_interval != (transmission.reload_interval/1000)) {
-      transmission.reload_interval = new_reload_interval * 1000;
+    if(new_reload_interval != (context.reload_interval/1000)) {
+      context.reload_interval = new_reload_interval * 1000;
       clearInterval(transmission.interval_id);
       context.closeInfo();
     }

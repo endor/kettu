@@ -21,6 +21,10 @@ TorrentsView = function(torrent, context) {
     }
   };
   
+  view.errorClass = function() {
+    return view.hasError() ? ' error' : '';
+  };
+  
   view.cache_partial = context.cache_partial;
 
   return view;

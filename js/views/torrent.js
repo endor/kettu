@@ -6,7 +6,7 @@ TorrentView = function(torrent, context, sort_peers) {
     var current = new Date(parseInt(timestamp) * 1000);
     if(current) {
       var date = (current.getMonth() + 1) + '/' + current.getDate() + '/' + current.getFullYear();
-      var time = current.getHours() + ':' + current.getMinutes();
+      var time = current.getHours() + ':' + (current.getMinutes() < 10 ? '0' + current.getMinutes() : current.getMinutes());
       return date + ' ' + time;      
     } else {
       return timestamp;
@@ -20,6 +20,8 @@ TorrentView = function(torrent, context, sort_peers) {
         view.trackerStats[i]['lastAnnounceTimeFormatted'] = view.formatTime(this.lastAnnounceTime);
         view.trackerStats[i]['nextAnnounceTimeFormatted'] = context.formatNextAnnounceTime(this.nextAnnounceTime);
         view.trackerStats[i]['lastScrapeTimeFormatted'] = view.formatTime(this.lastScrapeTime);
+        view.trackerStats[i]['lastScrapeDidNotSucceed'] = !view.lastScrapeSucceeded;
+        view.trackerStats[i]['lastAnnounceDidNotSucceed'] = !view.lastAnnounceSucceeded;
         i += 1;
       });      
     }    
@@ -88,6 +90,7 @@ TorrentView = function(torrent, context, sort_peers) {
     });
     if(view.files.length == 1) {
       view.files[0]['disabled'] = ' disabled="disabled"';
+      view.files[0]['wanted'] = ' checked="checked"';
     }
   };
   
@@ -111,11 +114,25 @@ TorrentView = function(torrent, context, sort_peers) {
     });
   };
   
+  view.sanitizeNumbers = function() {
+    view.uploadRatio = context.sanitizeNumber(view.uploadRatio);
+    if(view.trackerStats !== undefined) {
+      var i = 0;
+      $.each(view.trackerStats, function() {
+        view.trackerStats[i]['seederCount'] = context.sanitizeNumber(this.seederCount);
+        view.trackerStats[i]['leecherCount'] = context.sanitizeNumber(this.leecherCount);
+        view.trackerStats[i]['downloadCount'] = context.sanitizeNumber(this.downloadCount);
+        i += 1;
+      });
+    }
+  };
+  
   view.addFormattedTimes();
   view.addFormattedSizes();
   view.sortPeers();
   view.addIdsToFiles();
   view.addPriorityStringToFiles();
+  view.sanitizeNumbers();
   
   return view;
 };
