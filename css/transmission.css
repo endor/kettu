@@ -39,6 +39,7 @@ header {
 }
 
 .container {
+  margin-bottom: 20px;
   padding-top: 140px;
   overflow: hidden;
 }
