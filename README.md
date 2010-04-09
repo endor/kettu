@@ -34,7 +34,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 ## Todo
 * iphone compatibility
-* debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * maybe icons for different file types in file list
 * maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
 * maybe actually request if turtle mode is enabled to set correct value
