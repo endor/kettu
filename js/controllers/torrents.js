@@ -45,6 +45,23 @@ Torrents = function(transmission) { with(transmission) {
     });
   });
   
+  route('delete', '#/torrents', function() {
+    var ids = $.map(context.params['ids'].split(','), function(id) {return parseInt(id, 10);});
+    var request = {
+      'method': 'torrent-remove',
+      'arguments': {'ids': ids}
+    }
+    if(this.params['delete_data']) {
+      request['arguments']['delete-local-data'] = true;
+    }
+    context.remote_query(request, function(response) {
+      context.trigger('flash', 'Torrents removed successfully.');
+      $.each(ids, function() {
+        $('#' + this).remove();
+      });
+    });
+  });
+  
   post('#/torrents', function() {
     var paused = (this.params['start_when_added'] != "on");
     if(this.params['url'].length > 0) {

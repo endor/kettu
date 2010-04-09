@@ -37,10 +37,10 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * iphone compatibility
 * debug why browser sometimes seems to fill up memory and become slower (maybe not cleaning up all intervals?)
 * extend stats view
-* maybe right clicking shows relevant menus
 * maybe icons for different file types in file list
 * maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
 * maybe be able to select multiple torrents and pause/activate them
 * maybe actually request if turtle mode is enabled to set correct value
 * maybe aggregate graphing data
 * clean up torrents controller
+* optimize multi selection functionality

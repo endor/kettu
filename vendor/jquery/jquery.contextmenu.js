@@ -19,6 +19,11 @@
         menu.hide();
         return true;
       });
+      
+      menu.find('a').click(function() {
+        menu.hide();
+        return true;
+      });
 
       $(document).keyup(function(event) {
         switch(event.keyCode) {

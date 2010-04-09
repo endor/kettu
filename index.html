@@ -93,7 +93,9 @@
         <div class="torrents_container">
           <ul id="torrents"></ul>
         </div>
+
         <div id="info"></div>
+
         <ul id="context_menu">
           <li class="pause">
             <form action="#/torrents" method="PUT">
@@ -108,6 +110,28 @@
               <input type="hidden" name="method" value="torrent-start" />
               <input type="submit" value="Activate" />
             </form>            
+          </li>
+          <li class="delete">
+            <a href="#delete_form" class="facebox_link">Delete</a>
+            <div id="delete_form" class="facebox_div">
+              <img src="css/images/junk.png" class="image" />
+              <p class="message">
+                Are you sure, you want to delete the following torrents?<br /><br />
+              </p>
+              <br class="clear" />
+              <div class="facebox_buttons">
+                <form method="DELETE" action="#/torrents" class="torrent_delete_form">
+                  <input type="hidden" name="ids" class="ids" value="" />
+                  <input type="submit" value="Delete" />
+                </form>      
+                <form method="DELETE" action="#/torrents" class="torrent_delete_form">
+                  <input type="hidden" name="ids" class="ids" value="" />
+                  <input type="hidden" value="true" name="delete_data" />
+                  <input type="submit" value="Delete with data" />
+                </form>        
+              </div>
+              <br class="clear" />
+            </div>
           </li>
         </ul>
       </div>
