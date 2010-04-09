@@ -24,3 +24,7 @@ Feature: view list of torrents
     When I follow "Disable Compact View"
     Then I should see "remaining"
   
+  Scenario: see errors in torrent list
+    Given a torrent with an error "torrent not registered with this tracker"
+    When I go to the start page
+    Then I should see "torrent not registered with this tracker"

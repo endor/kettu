@@ -6,7 +6,7 @@ TorrentView = function(torrent, context, sort_peers) {
     var current = new Date(parseInt(timestamp) * 1000);
     if(current) {
       var date = (current.getMonth() + 1) + '/' + current.getDate() + '/' + current.getFullYear();
-      var time = current.getHours() + ':' + current.getMinutes();
+      var time = current.getHours() + ':' + (current.getMinutes() < 10 ? '0' + current.getMinutes() : current.getMinutes());
       return date + ' ' + time;      
     } else {
       return timestamp;
@@ -20,6 +20,8 @@ TorrentView = function(torrent, context, sort_peers) {
         view.trackerStats[i]['lastAnnounceTimeFormatted'] = view.formatTime(this.lastAnnounceTime);
         view.trackerStats[i]['nextAnnounceTimeFormatted'] = context.formatNextAnnounceTime(this.nextAnnounceTime);
         view.trackerStats[i]['lastScrapeTimeFormatted'] = view.formatTime(this.lastScrapeTime);
+        view.trackerStats[i]['lastScrapeDidNotSucceed'] = !view.lastScrapeSucceeded;
+        view.trackerStats[i]['lastAnnounceDidNotSucceed'] = !view.lastAnnounceSucceeded;
         i += 1;
       });      
     }    
@@ -121,7 +123,7 @@ TorrentView = function(torrent, context, sort_peers) {
         view.trackerStats[i]['leecherCount'] = context.sanitizeNumber(this.leecherCount);
         view.trackerStats[i]['downloadCount'] = context.sanitizeNumber(this.downloadCount);
         i += 1;
-      });      
+      });
     }
   };
   

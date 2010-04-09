@@ -18,3 +18,11 @@
 #context_menu li.hover {
   background-color: #E7E7E7;
 }
+
+.statusString.error {
+  color: red;
+  border: 0px;
+  padding: 0px;
+  background-color: white;
+  margin: 0px;
+}

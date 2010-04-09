@@ -4,7 +4,7 @@ Torrent = function(attributes) {
   torrent['fields'] = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
-    'addedDate', 'trackerStats'
+    'addedDate', 'trackerStats', 'error', 'errorString'
   ];
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
@@ -32,6 +32,9 @@ Torrent = function(attributes) {
   };
   torrent.isDoneDownloading = function() {
     return torrent.status === torrent.stati['seeding'] || torrent.leftUntilDone === 0;
+  };
+  torrent.hasError = function() {
+    return torrent.error > 0;
   };
   torrent.needsMetaData = function() { 
     return torrent.metadataPercentComplete < 1 
@@ -106,12 +109,15 @@ Torrent = function(attributes) {
     localized_stati[torrent.stati['seeding']] = 'Seeding';
     localized_stati[torrent.stati['paused']] = 'Paused';
 
-    return localized_stati[this['status']] ? localized_stati[this['status']] : 'error';
+    return localized_stati[this['status']] ? localized_stati[this['status']] : 'Error';
   };
   torrent.statusString = function() {
     var currentStatus = torrent.statusStringLocalized(torrent.status);
     if(torrent.isActive()) {
       currentStatus += ' - ' + torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
+    }
+    if(torrent.hasError()) {
+      currentStatus = 'Tracker returned an error: ' + torrent.errorString + '.';
     }
     return currentStatus;
   };

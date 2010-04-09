@@ -31,20 +31,6 @@ Torrents = function(transmission) { with(transmission) {
     });
   });
   
-  route('delete', '#/torrents/:id', function() {
-    var request = {
-      'method': 'torrent-remove',
-      'arguments': {'ids': parseInt(this.params['id'])}
-    };
-    if(this.params['delete_data']) {
-      request['arguments']['delete-local-data'] = true;
-    }
-    context.remote_query(request, function(response) {
-      context.trigger('flash', 'Torrent removed successfully.');
-      $('#' + context.params['id']).remove();
-    });
-  });
-  
   route('delete', '#/torrents', function() {
     var ids = $.map(context.params['ids'].split(','), function(id) {return parseInt(id, 10);});
     var request = {
@@ -135,7 +121,8 @@ Torrents = function(transmission) { with(transmission) {
     }
     getTorrent(id, function(torrent) {
       var view = TorrentView(torrent, context, context.params['sort_peers']);
-      context.partial('./templates/torrents/show_info.mustache', view, function(rendered_view) {
+      var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
+      context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         context.startCountDownOnNextAnnounce();
         if(context.params['sort_peers']) {
@@ -149,7 +136,8 @@ Torrents = function(transmission) { with(transmission) {
   updateTorrentInfo = function(id) {
     getTorrent(id, function(torrent) {
       var view = TorrentView(torrent, context, context.params['sort_peers']);
-      context.partial('./templates/torrents/show_info.mustache', view, function(rendered_view) {
+      var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
+      context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
         $.each(['.activity', '.trackers', '.peers', '.files'], function() {
           $('#info ' + this.toString()).html($('<div>' + rendered_view + '</div>').find(this.toString()).html());
         })

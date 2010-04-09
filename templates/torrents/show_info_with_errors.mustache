@@ -41,6 +41,10 @@
         <td>{{created_at}}</td>
       </tr>
       <tr>
+        <th>Error:</th>
+        <td class="error">{{errorString}}.</td>
+      </tr>
+      <tr>
         <th>Download Directory:</th>
         <td><input type="text" name="location" value="{{downloadDir}}" /></td>
       </tr>    
@@ -99,7 +103,12 @@
     <table class="content">
       <tr>
         <th>Last Announce:</th>
-        <td>{{lastAnnounceTimeFormatted}}</td>
+        <td>
+          {{lastAnnounceTimeFormatted}}
+          {{#lastAnnounceDidNotSucceed}}
+            <br />{{errorString}}
+          {{/lastAnnounceDidNotSucceed}}
+        </td>
       </tr>
       <tr>
         <th>Next Announce:</th>
@@ -107,7 +116,12 @@
       </tr>
       <tr>
         <th>Last Scrape:</th>
-        <td>{{lastScrapeTimeFormatted}}</td>
+        <td>
+          {{lastScrapeTimeFormatted}}
+          {{#lastScrapeDidNotSucceed}}
+            <br />{{lastScrapeResult}}
+          {{/lastScrapeDidNotSucceed}}
+        </td>
       </tr>
       <tr>
         <th>Seeders:</th>

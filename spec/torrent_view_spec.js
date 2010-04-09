@@ -4,7 +4,7 @@ describe 'TorrentView'
     context.formatNextAnnounceTime = function() {}
     torrent_view          = TorrentView({'trackerStats': [], 'files': [], 'peers': [], 'fileStats': []}, context)
     timestamp             = "1265737984"
-    day                   = (new Date).getTimezoneOffset()/60 < -6 ? 10 : 9
+    day                   = (new Date()).getTimezoneOffset()/60 < -6 ? 10 : 9
   end
 
   describe 'addFormattedTimes'
