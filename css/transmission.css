@@ -44,8 +44,8 @@ header {
 }
 
 footer {
-  background-color: #444;
-  border-top: 1px solid #444;
+  background-color: #555;
+  border-top: 1px solid #555;
   border-bottom: 1px solid #999;
   left: 0;
   right: 0;
@@ -103,15 +103,15 @@ nav ul li a {
   text-decoration: none;
   text-align: center;
   padding: 0;
-  border-right: 1px solid #333;
-  border-left: 1px solid #555;
-  -webkit-transition-property: color, background;
+  border-right: 1px solid #444;
+  border-left: 1px solid #666;
+  -webkit-transition-property: color, background-color;
   -webkit-transition-duration: 0.4s, 0.1s;
   -webkit-transition-timing-function: linear, ease-in;
-  -moz-transition-property: color, background;
+  -moz-transition-property: color, background-color;
   -moz-transition-duration: 0.4s, 0.1s;
   -moz-transition-timing-function: linear, ease-in;
-  -o-transition-property: color, background;
+  -o-transition-property: color, background-color;
   -o-transition-duration: 0.4s, 0.1s;
   -o-transition-timing-function: linear, ease-in;
 }
@@ -119,9 +119,21 @@ nav ul li a.active,
 nav ul li a:focus,
 nav ul li a:hover {
   color: #FFF;
-  text-shadow: 1px 1px 1px #000;
   background-color: #333;
+  border-right: 1px solid #111;
+  border-left: 1px solid #777;
+  outline: none;
 }
+
+
+/* icons for bottom navi */
+#compact_view {
+  background-image: url();
+  background-repeat: no-repeat;
+  background-position: ;
+  padding-left: 20px;
+}
+
 
 
 #globalUpAndDownload {
