@@ -39,5 +39,5 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe actually request if turtle mode is enabled to set correct value
 * maybe aggregate graphing data
 * maybe have a trash icon where torrents can be dragged and dropped into
-* clean up torrents controller
+* maybe inspector button, maybe selecting a torrent should not open inspector if in stats/pref view
 * optimize multi selection functionality
