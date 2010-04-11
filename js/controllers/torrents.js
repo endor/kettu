@@ -8,17 +8,17 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   get('#/torrents', function() {
-    get_and_render_torrents();
+    get_and_render_torrents(true);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
-    transmission.interval_id = setInterval('get_and_render_torrents()', context.reload_interval);
+    transmission.interval_id = setInterval('get_and_render_torrents(false)', context.reload_interval);
   });
   
-  get_and_render_torrents = function() {
+  get_and_render_torrents = function(rerender) {
     var request = context.build_request('torrent-get', {fields:Torrent({})['fields']});
     context.remote_query(request, function(response) {
       trigger('torrents-refreshed', {
         "torrents": response['torrents'].map( function(row) {return Torrent(row)} ),
-        "need_change": (context.params['view'] || context.params['sort'] || context.params['filter'])
+        "rerender": rerender
       });
     });    
   };
@@ -176,7 +176,7 @@ Torrents = function(transmission) { with(transmission) {
   bind('torrents-refreshed', function(e, params) { with(this) {
     var sorted_torrents = this.sortTorrents(transmission.sort_mode, params['torrents'], transmission.reverse_sort);
     var filtered_torrents = this.filterTorrents(transmission.filter_mode, sorted_torrents);
-    this.updateViewElements(filtered_torrents, params['need_change']);
+    this.updateViewElements(filtered_torrents, params['rerender']);
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {
