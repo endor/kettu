@@ -2,23 +2,6 @@
   list-style-type: none;
 }
 
-#context_menu {
-  display: none;
-  position: absolute;
-  background-color: white;
-  padding: 0px;
-  list-style-type: none;
-}
-
-#context_menu li {
-  border: solid 1px #bbb;
-  padding: 5px;
-}
-
-#context_menu li.hover {
-  background-color: #E7E7E7;
-}
-
 .statusString.error {
   color: red;
   border: 0px;

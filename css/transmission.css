@@ -271,17 +271,27 @@ nav ul li a:hover {
 }
 
 #filterbar a {
-  color: #777;
-  text-decoration: none;
+  display: inline-block;
   margin-right: 4px;
+  padding: 0 .6em;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  color: #444;
+  text-decoration: none;
 }
 
-#filterbar a:hover {
-  color: #000;
+#filterbar a:focus,
+#filterbar a:hover,
+#filterbar a.active {
+  color: #FFF;
+  text-shadow: 1px 1px 2px #000;
+  background-color: #CCC;
+  outline: none;
 }
 
 #filterbar a.active {
-  color: #444;
+  background-color: #999;
 }
 
 #filterbar #filter_sort_links {
@@ -551,4 +561,67 @@ padding: 3px 30px;
 .hint {
   color: #888888;
   font-size: 80%;
+}
+
+
+
+
+/* context menu */
+#context_menu {
+  display: none;
+  position: absolute;
+  background-color: #FFF;
+  background-color: rgba(255,255,255,.8);
+  padding: 0px;
+  border: 1px solid #BBB;
+  list-style-type: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 0 5px rgba(0,0,0,.1);
+}
+
+#context_menu li {
+  text-align: center;
+  border-bottom: solid 1px #DDD;
+  padding: 0;
+}
+
+#context_menu li.hover {
+  background-color: #CCC;
+}
+
+#context_menu li form {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+#context_menu li input[type='submit'],
+#context_menu li a {
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  padding: 5px 20px;
+  border: 0;
+  cursor: pointer;
+  text-align: center;
+  background: none;
+  color: #444;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+  overflow: visible; /* removes extra side padding in IE */
+}
+
+#context_menu li input[type='submit']:hover,
+#context_menu li input[type='submit']:focus,
+#context_menu li input[type='submit']:active,
+#context_menu li a:hover,
+#context_menu li a:focus,
+#context_menu li a:active {
+  color: #FFF;
+  text-shadow: 1px 1px 2px #000;
 }
