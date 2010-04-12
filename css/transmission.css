@@ -17,15 +17,14 @@ h3 {
   margin-bottom: .5em;
 }
 
-
 #info,
 #info h1, #info h2, #info h3, #info h4, #info h5, #info h6 {
   color: #444;
 }
 
 /* structure */
-
-header, footer {
+header, 
+footer {
   position: fixed;
   height: 2em;
   width: 100%;
@@ -68,23 +67,6 @@ footer nav ul {
   padding: 0;
 }
 
-/* flash */
-#flash {
-  display: none;
-  position: fixed;
-  top: 1em;
-  right: 1em;
-  padding: 1em;
-  font-weight: bold;
-  color: #FFF;
-  background-color: #444;
-  background-color: rgba(0,0,0,0.7);
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
-}
-
-
 /* bottom navigation */
 nav ul {
   list-style: none;
@@ -96,14 +78,13 @@ nav ul li {
 
 nav ul li a {
   float: left;
-  width: 158px;
   height: 2em;
   display: block;
   color: #DDD;
   text-shadow: 1px 1px 1px #000;
   text-decoration: none;
   text-align: center;
-  padding: 0;
+  padding: 0 3em;
   border-right: 1px solid #444;
   border-left: 1px solid #666;
   -webkit-transition-property: color, background-color;
@@ -126,16 +107,67 @@ nav ul li a:hover {
   outline: none;
 }
 
+/* bottom nav, toggles info window */
+.info_nav {
+  float: right;
+}
 
-/* icons for bottom navi */
-#compact_view {
-  background-image: url();
+/* bottom nav, toggles compact view and turtle mode */
+.icon_nav {
+  
+}
+
+nav ul.icon_nav li a {
+  width: 40px;
+  padding: 0;
+  text-indent: -9999px;
+  background-image: url(../images/kettu_icons.png);
   background-repeat: no-repeat;
-  background-position: ;
-  padding-left: 20px;
+}
+
+nav ul.icon_nav li a.active,
+nav ul.icon_nav li a:focus,
+nav ul.icon_nav li a:hover {
+
+}
+
+/* icons for bottom nav */
+#compact_view {
+  background-position: -32px 0;
+}
+
+#compact_view.active,
+#compact_view:hover,
+#compact_view:focus {
+  background-position: -32px -41px;
+}
+
+#turtle_mode {
+  background-position: 10px 0;
+}
+
+#turtle_mode.active,
+#turtle_mode:hover,
+#turtle_mode:focus {
+  background-position: 10px -41px;
 }
 
 
+/* flash */
+#flash {
+  display: none;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  padding: 1em;
+  font-weight: bold;
+  color: #FFF;
+  background-color: #444;
+  background-color: rgba(0,0,0,0.7);
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
 
 #globalUpAndDownload {
   width: 920px;
@@ -270,6 +302,73 @@ nav ul li a:hover {
   padding: 0 30px;
 }
 
+#filterbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#filterbar > ul {
+  display: inline-block;
+}
+
+#filterbar ul li {
+  display: block;
+  float: left;
+  list-style: none;
+}
+
+
+/* sorts dropdown menu */
+.sorts_dropdown {
+  padding-left: 290px;
+}
+
+.sorts_dropdown > a {
+  width: 120px;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.sorts_dropdown > a:hover,
+.sorts_dropdown > a:active,
+.sorts_dropdown > a:focus {
+  background: 0;
+}
+
+ul#sorts {
+  width: 120px;
+  position: absolute;
+  display: block;
+/*  display: none; */
+  background-color: #FFF;
+  background-color: rgba(255,255,255,.9);
+  padding: 0px;
+  border: 1px solid #BBB;
+  list-style-type: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 0 5px rgba(0,0,0,.1);
+}
+
+ul#sorts li {
+  display: block;
+  float: none;
+  padding: 0;
+  border-bottom: solid 1px #DDD;
+}
+ul#sorts li:hover {
+  background-color: #CCC;
+}
+ul#sorts li a {
+  display: block;
+  cursor: pointer;
+}
+
 #filterbar a {
   display: inline-block;
   margin-right: 4px;
@@ -295,14 +394,12 @@ nav ul li a:hover {
 }
 
 #filterbar #filter_sort_links {
-  width: 500px;
+  width: 730px;
   float: left;
 }
-#filterbar #filter_sort_links #sorts {
-  display: inline;
-}
+
 #filterbar #search_filter {
-  width: 200px;
+  width: 140px;
   float: right;
   text-align: right;
   padding: 0;
@@ -321,6 +418,22 @@ nav ul li a:hover {
 
 #filterbar input:focus {
   outline: none;
+}
+
+/* reverse link, triangle */
+#reverse_link {
+  width: 12px;
+  padding: 0;
+  text-indent: -9999px;
+  background-image: url(../images/kettu_icons.png);
+  background-repeat: no-repeat;
+  background-position: -77px 2px;
+}
+
+#reverse_link.active,
+#reverse_link:hover,
+#reverse_link:focus {
+  background-position-y: -40px;
 }
 
 
@@ -368,7 +481,9 @@ padding: 3px 30px;
   overflow: auto;
 }
 
-#info table { width: auto;}
+#info table {
+  width: auto;
+}
 
 #info .content {
   width: 100%;
@@ -410,7 +525,9 @@ padding: 3px 30px;
   margin-left: 0px;
 }
 
-#info input[type='text'],input[type='url'],input[type='number'] {
+#info input[type='text'],
+#info input[type='url'],
+#info input[type='number'] {
   border: solid 1px #DDD;
   padding: 1px;
 }
@@ -562,9 +679,6 @@ padding: 3px 30px;
   color: #888888;
   font-size: 80%;
 }
-
-
-
 
 /* context menu */
 #context_menu {
