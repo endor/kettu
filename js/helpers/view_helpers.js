@@ -4,9 +4,12 @@ var ViewHelpers = {
     $(menu_id + ' ' + element_class).addClass('active');
   },
   
-  highlightTorrents: function(torrents) {
+  highlightTorrents: function(torrents, more_torrents) {
     $('#torrents .torrent').removeClass('active');
     torrents.addClass('active');
+    if(more_torrents) {
+      more_torrents.addClass('active');
+    }
   },
   
   showAndHideFlash: function(message) {

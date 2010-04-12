@@ -28,7 +28,7 @@ var InfoHelpers = {
 
   handleDoubleClickOnTorrent: function(torrent) {
     var context = this;
-    $('#' + torrent.id).dblclick(function() {
+    $('#' + torrent.id).dblclick(function(event) {
       if(context.infoIsOpen()) {
         context.closeInfo();
       } else {
@@ -37,29 +37,30 @@ var InfoHelpers = {
           context.redirect('#/torrents/' + active_torrent.attr('id'));
         }        
       }
-      return false;
+      event.preventDefault();
     });
   },
-
+  
   // NOTE: make this smaller and more readable
   handleClickOnTorrent: function(torrent) {
     var context = this;
-
     $('#' + torrent.id).click(function(e) {
       if(e.shiftKey && $('.torrent.active').length >= 1) {
         var first_index = $('.torrent.active:first').index();
         var last_index = $('.torrent').index($(this));
-        
+
         if(first_index > last_index) {
           first_index = last_index;
           last_index = $('.torrent.active:last').index();
         }
-        
+
         var torrents = $('.torrent:lt(' + (last_index + 1) + ')');
         if(first_index > 0) { torrents = torrents.filter(':gt(' + (first_index - 1) + ')'); }
-        
+
         context.highlightTorrents(torrents);
-        $('#search').focus();
+        $('#search').focus();          
+      } else if(e.metaKey && $('.torrent.active').length >= 1) {
+        $(this).toggleClass('active');
       } else {
         context.highlightTorrents($(this));
         if(context.infoIsOpen()) {
@@ -71,9 +72,41 @@ var InfoHelpers = {
     });    
   },
   
+  handleDragging: function() {
+    var context = this;
+    $('#torrents').mousedown(function(event) {
+      context.original_position = $(event.target).closest('.torrent').position().top;
+      
+      $('#torrents').mousemove(function(event) {
+        var selectable_torrents = [];
+        var y1 = context.original_position;
+        var y2 = $(event.target).closest('.torrent').position().top;
+
+    		if(y2 < y1) {var tmp = y1; y1 = y2; y2 = tmp; }
+        
+        $('.torrent').each(function() {
+          var position = $(this).position();
+          
+          if(position.top < y2 && position.top > y1) {
+            $(this).addClass('active');
+          }
+        });
+      });
+      
+      event.preventDefault();
+    });
+
+    $('body').mouseup(function() {
+      $('#torrents').unbind('mousemove');
+    });
+    
+    $('#torrents').mouseup(function() {
+      $('#torrents').unbind('mousemove');
+    });
+  },
+
   updateInfo: function(torrent) {
     this.trigger('changed');
-    
     this.handleClickOnTorrent(torrent);
     this.handleDoubleClickOnTorrent(torrent);
   },

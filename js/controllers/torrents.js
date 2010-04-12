@@ -177,10 +177,11 @@ Torrents = function(transmission) { with(transmission) {
     var sorted_torrents = this.sortTorrents(transmission.sort_mode, params['torrents'], transmission.reverse_sort);
     var filtered_torrents = this.filterTorrents(transmission.filter_mode, sorted_torrents);
     this.updateViewElements(filtered_torrents, params['rerender']);
+    this.handleDragging();
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {
     this.updateInfo(torrent);
-    this.cycleTorrents();    
+    this.cycleTorrents();
   }});
 }};
