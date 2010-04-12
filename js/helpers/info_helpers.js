@@ -119,7 +119,7 @@ var InfoHelpers = {
     $('#info input').change(function() {
       $(this).parents('form:first').trigger('submit');
       return false;
-    });
+    });    
   },
 
   activateFileInputs: function() {
@@ -135,6 +135,17 @@ var InfoHelpers = {
     $('#info .files .deselect_all').click(function() {
       $('#info .file:not(:disabled)').attr('checked', false);
       $('#info .files form').submit();
+      return false;
+    });
+    $('#info .folder').click(function() {
+      $(this).next().slideToggle('slow');
+      // .toggle(function() {
+      //   console.log($(this)[0]);
+      //   $(this).fadeIn();
+      // }, function() {
+      //   console.log($(this)[0]);
+      //   $(this).fadeOut();
+      // });
       return false;
     });    
   },

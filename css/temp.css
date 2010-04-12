@@ -9,3 +9,7 @@
   background-color: white;
   margin: 0px;
 }
+
+.files_in_folders {
+  display: none;
+}

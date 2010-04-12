@@ -126,15 +126,19 @@ Torrents = function(transmission) { with(transmission) {
       var view = TorrentView(torrent, context, context.params['sort_peers']);
       var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
       context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
-        $.each(['.activity', '.trackers', '.peers', '.files'], function() {
-          $('#info ' + this.toString()).html($('<div>' + rendered_view + '</div>').find(this.toString()).html());
-        })
+        rendered_view = $('<div>' + rendered_view + '</div>');
+        $.each(['.activity', '.trackers', '.peers'], function() {
+          $('#info ' + this.toString()).html(rendered_view.find(this.toString()).html());
+        });
+        $.each(rendered_view.find('.file'), function() {
+          $('#info #' + $(this).attr('id')).siblings('.percent_done').html($(this).siblings('.percent_done').html());
+        });
         
         context.startCountDownOnNextAnnounce();
+        context.activateFileInputs();
         if(context.params['sort_peers']) {
           $('#menu-item-peers').click();
         }
-        context.activateFileInputs();
       });
     });    
   };
