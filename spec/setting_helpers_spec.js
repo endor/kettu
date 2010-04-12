@@ -22,13 +22,13 @@ describe 'SettingHelpers'
     end
   end
   
-  describe 'turtle_mode_hash'
+  describe 'speed_limit_mode_hash'
     it 'should return a hash with alt-speed-enabled set to true if given parameter is string true'
-      setting_helpers.turtle_mode_hash("true")['alt-speed-enabled'].should.be_true;
+      setting_helpers.speed_limit_mode_hash("true")['alt-speed-enabled'].should.be_true;
     end
     
     it 'should return a hash with alt-speed-enabled set to false if given parameter is string false'
-      setting_helpers.turtle_mode_hash("false")['alt-speed-enabled'].should.be_false;
+      setting_helpers.speed_limit_mode_hash("false")['alt-speed-enabled'].should.be_false;
     end    
   end
   

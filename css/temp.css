@@ -9,3 +9,7 @@
   background-color: white;
   margin: 0px;
 }
+
+ul#sorts {
+  display: none;
+}

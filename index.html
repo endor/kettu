@@ -73,43 +73,20 @@
             </ul>
           </li>
           <li class="sorts_dropdown">
-            <a href="#" title="Sort by …">Sort by …</a>
+            <a href="#" title="Sort by …" id="sort_link">Sort by …</a>
             <ul id="sorts">
-              <li><a class="activity">Activity</a></li>
-              <li><a class="age">Age</a></li>
-              <li><a class="name">Name</a></li>
-              <li><a class="progress">Progress</a></li>
-              <li><a class="queue">Queue</a></li>
-              <li><a class="state">State</a></li>
+              <li><a href="#/torrents?sort=activity" class="activity">Sort by Activity</a></li>
+              <li><a href="#/torrents?sort=age" class="age">Sort by Age</a></li>
+              <li><a href="#/torrents?sort=name" class="name">Sort by Name</a></li>
+              <li><a href="#/torrents?sort=progress" class="progress">Sort by Progress</a></li>
+              <li><a href="#/torrents?sort=queue" class="queue">Sort by Queue</a></li>
+              <li><a href="#/torrents?sort=state" class="state">Sort by State</a></li>
             </ul>
           </li>
           <li>
             <a href="#/torrents?sort=reverse" id="reverse_link">Reverse Order</a> 
           </li>
         </ul>
-
-<!-- 
-        <div id="filter_sort_links">
-          <span id="filters">
-            <a href="#/torrents?filter=all" class="all">All</a>
-            <a href="#/torrents?filter=downloading" class="downloading">Downloading</a>
-            <a href="#/torrents?filter=seeding" class="seeding">Seeding</a>
-            <a href="#/torrents?filter=paused" class="paused">Paused</a>           
-            <a href="#/torrents?filter=activity" class="activity">Activity</a>
-          </span>
-          <form id="sorts">
-            <select name="sort_by">
-              <option value="#/torrents?sort=activity" class="activity">Activity</option>
-              <option value="#/torrents?sort=age" class="age">Age</option>
-              <option value="#/torrents?sort=name" class="name">Name</option>
-              <option value="#/torrents?sort=progress" class="progress">Progress</option>
-              <option value="#/torrents?sort=queue" class="queue">Queue</option>
-              <option value="#/torrents?sort=state" class="state">State</option>
-            </select>
-            <a href="#/torrents?sort=reverse" id="reverse_link">Reverse Order</a>
-          </form>
-        </div>
--->
 
         <div id="search_filter">
           <input type="search" placeholder="Filter" id="search" />
@@ -166,7 +143,7 @@
       </div>
     </div>   
 
-    <form action="#/settings" method="PUT" id="turtle_mode_form">
+    <form action="#/settings" method="PUT" id="speed_limit_mode_form">
       <input type="hidden" name="alt-speed-enabled" value="true" />
     </form>
   
@@ -174,7 +151,7 @@
       <nav id="footer">        
         <ul class="icon_nav">
           <li><a href="#" id="compact_view" title="Compact View">Enable Compact View</a></li>
-          <li><a href="#" id="turtle_mode" title="Turtle Mode">Enable Turtle Mode</a></li>
+          <li><a href="#" id="speed_limit_mode" title="Speed Limit Mode">Enable Speed Limit Mode</a></li>
         </ul>
 
         <ul class="info_nav">

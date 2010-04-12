@@ -112,7 +112,7 @@ nav ul li a:hover {
   float: right;
 }
 
-/* bottom nav, toggles compact view and turtle mode */
+/* bottom nav, toggles compact view and speed limit mode */
 .icon_nav {
   
 }
@@ -142,13 +142,13 @@ nav ul.icon_nav li a:hover {
   background-position: -32px -41px;
 }
 
-#turtle_mode {
+#speed_limit_mode {
   background-position: 10px 0;
 }
 
-#turtle_mode.active,
-#turtle_mode:hover,
-#turtle_mode:focus {
+#speed_limit_mode.active,
+#speed_limit_mode:hover,
+#speed_limit_mode:focus {
   background-position: 10px -41px;
 }
 
@@ -428,6 +428,10 @@ ul#sorts li a {
   background-image: url(../images/kettu_icons.png);
   background-repeat: no-repeat;
   background-position: -77px 2px;
+}
+
+#reverse_link.reverse {
+  background-position: -100px 2px;
 }
 
 #reverse_link.active,

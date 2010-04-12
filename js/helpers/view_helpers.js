@@ -58,8 +58,14 @@ var ViewHelpers = {
   },
   
   activateSortSelect: function(context) {
-    $('#sorts select').change(function() {
-      context.redirect($(this).val());
+    $('#sort_link').click(function() {
+      $('#sorts').slideToggle();
+    });
+    $('#sorts a').click(function() {
+      $('#sorts').slideUp();
+    });
+    $('#reverse_link').click(function() {
+      $(this).toggleClass('reverse');
     });
   }
 };

@@ -3,7 +3,7 @@ var LinkHelpers = {
     this.activateAddTorrentLink();
     this.activateSettingsLink();
     this.activateStatisticsLink();
-    this.activateTurtleModeLink();
+    this.activateSpeedLimitModeLink();
     this.activateCompactViewLink();
   },
   
@@ -19,23 +19,23 @@ var LinkHelpers = {
     });
   },
 
-  activateTurtleModeLink: function() {
-    if(transmission.store.get('turtle_mode') == 'enabled') {
-      $('#turtle_mode').addClass('active');
-      $('#turtle_mode').text('Disable Turtle Mode');
-      $('#turtle_mode_form').find('input:first').attr('value', 'false');
+  activateSpeedLimitModeLink: function() {
+    if(transmission.store.get('speed_limit_mode') == 'enabled') {
+      $('#speed_limit_mode').addClass('active');
+      $('#speed_limit_mode').text('Disable Speed Limit Mode');
+      $('#speed_limit_mode_form').find('input:first').attr('value', 'false');
     }
     
-    $('#turtle_mode').click(function() {
-      var form = $('#turtle_mode_form');
+    $('#speed_limit_mode').click(function() {
+      var form = $('#speed_limit_mode_form');
       form.trigger('submit');
       if($(this).hasClass('active')) {
         $(this).removeClass('active');
-        $(this).text('Enable Turtle Mode');
+        $(this).text('Enable Speed Limit Mode');
         form.find('input:first').attr('value', 'true');
       } else {
         $(this).addClass('active');
-        $(this).text('Disable Turtle Mode');
+        $(this).text('Disable Speed Limit Mode');
         form.find('input:first').attr('value', 'false');
       }
       return false;
