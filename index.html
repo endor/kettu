@@ -61,6 +61,34 @@
       <div id="globalUpAndDownload"></div>
       
       <div id="filterbar">
+
+        <ul id="filter_sort_links">
+          <li>
+            <ul id="filters">
+              <li><a href="#/torrents?filter=all" class="all">All</a></li>
+              <li><a href="#/torrents?filter=downloading" class="downloading">Downloading</a></li>
+              <li><a href="#/torrents?filter=seeding" class="seeding">Seeding</a></li>
+              <li><a href="#/torrents?filter=paused" class="paused">Paused</a></li>   
+              <li><a href="#/torrents?filter=activity" class="activity">Activity</a></li>
+            </ul>
+          </li>
+          <li class="sorts_dropdown">
+            <a href="#" title="Sort by …">Sort by …</a>
+            <ul id="sorts">
+              <li><a class="activity">Activity</a></li>
+              <li><a class="age">Age</a></li>
+              <li><a class="name">Name</a></li>
+              <li><a class="progress">Progress</a></li>
+              <li><a class="queue">Queue</a></li>
+              <li><a class="state">State</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#/torrents?sort=reverse" id="reverse_link">Reverse Order</a> 
+          </li>
+        </ul>
+
+<!-- 
         <div id="filter_sort_links">
           <span id="filters">
             <a href="#/torrents?filter=all" class="all">All</a>
@@ -81,7 +109,8 @@
             <a href="#/torrents?sort=reverse" id="reverse_link">Reverse Order</a>
           </form>
         </div>
-        
+-->
+
         <div id="search_filter">
           <input type="search" placeholder="Filter" id="search" />
         </div>
@@ -143,9 +172,12 @@
   
     <footer>
       <nav id="footer">        
-        <ul>
-          <li><a href="#" id="compact_view">Enable Compact View</a></li>
-          <li><a href="#" id="turtle_mode">Enable Turtle Mode</a></li>
+        <ul class="icon_nav">
+          <li><a href="#" id="compact_view" title="Compact View">Enable Compact View</a></li>
+          <li><a href="#" id="turtle_mode" title="Turtle Mode">Enable Turtle Mode</a></li>
+        </ul>
+
+        <ul class="info_nav">
           <li><a href="#" id="add_a_torrent">Add a Torrent</a></li>
           <li><a href="#" id="statistics">Statistics</a></li>
           <li><a href="#" id="settings">Preferences</a></li>
