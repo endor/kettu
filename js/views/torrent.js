@@ -28,21 +28,17 @@ TorrentView = function(torrent, context, sort_peers) {
   };
   
   view.addFormattedSizes = function() {
-    var i = 0;
     if(view.files !== undefined) {
       $.each(view.files, function() {
-        view.files[i]['lengthFormatted'] = Math.formatBytes(this['length']);
-        view.files[i]['percentDone'] = Math.formatPercent(this['length'], this['length'] - this.bytesCompleted);
-        i += 1;
+        this.lengthFormatted = Math.formatBytes(this['length']);
+        this.percentDone = Math.formatPercent(this['length'], this['length'] - this.bytesCompleted);
       });
     }
     if(view.peers !== undefined) {
-      i = 0;
       $.each(view.peers, function() {
-        view.peers[i]['uploadFormatted'] = this['rateToPeer'] !== 0 ? Math.formatBytes(this['rateToPeer']) : '';
-        view.peers[i]['downloadFormatted'] = this['rateToClient'] !== 0? Math.formatBytes(this['rateToClient']) : '';
-        view.peers[i]['percentDone'] = Math.formatPercent(100, 100 - (this['progress'] * 100));
-        i += 1;
+        this.uploadFormatted = this['rateToPeer'] !== 0 ? Math.formatBytes(this['rateToPeer']) : '';
+        this.downloadFormatted = this['rateToClient'] !== 0? Math.formatBytes(this['rateToClient']) : '';
+        this.percentDone = Math.formatPercent(100, 100 - (this['progress'] * 100));
       });      
     }
   };
@@ -82,15 +78,27 @@ TorrentView = function(torrent, context, sort_peers) {
   };
   
   view.addIdsToFiles = function() {
-    $.each(view.files, function() {
-      var id = view.files.indexOf(this)
-      this['id'] = 'file_' + id;
-      this['wanted'] = view.fileStats[id].wanted ? ' checked="checked"' : '';
-      this['disabled'] = (view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0) ? ' disabled="disabled"' : '';
-    });
-    if(view.files.length == 1) {
-      view.files[0]['disabled'] = ' disabled="disabled"';
-      view.files[0]['wanted'] = ' checked="checked"';
+    if(view.files) {
+      $.each(view.files, function() {
+        var id = view.files.indexOf(this)
+        this['id'] = 'file_' + id;
+        this['wanted'] = view.fileStats[id].wanted ? ' checked="checked"' : '';
+        this['disabled'] = (view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0) ? ' disabled="disabled"' : '';
+      });
+      if(view.files.length == 1) {
+        view.files[0]['disabled'] = ' disabled="disabled"';
+        view.files[0]['wanted'] = ' checked="checked"';
+      }      
+    }
+  };
+  
+  view.folderizeFiles = function() {
+    if(view.files) {
+      $.each(view.files, function() {
+        var name = this['name'].split('/');
+        if(name.length > 1) { name.shift(); }
+        this['name'] = name.join('/');
+      });
     }
   };
   
@@ -130,9 +138,10 @@ TorrentView = function(torrent, context, sort_peers) {
   view.addFormattedTimes();
   view.addFormattedSizes();
   view.sortPeers();
-  view.addIdsToFiles();
   view.addPriorityStringToFiles();
   view.sanitizeNumbers();
+  view.addIdsToFiles();
+  view.folderizeFiles();
   
   return view;
 };
