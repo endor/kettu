@@ -44,8 +44,8 @@ Feature: sort and filter torrents
   Scenario: sort torrents by activity
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the download rates "16000, 8000, 4000"
     When I go to the activity sorted torrents page
-    Then I should see "Mutant Ninja Turtles" before "Donald Duck"
-      And I should see "Donald Duck" before "Saber Riders"
+    Then I should see "Saber Riders" before "Donald Duck"
+      And I should see "Donald Duck" before "Mutant Ninja Turtles"
   
   Scenario: sort torrents by age
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the date added "87742, 84253, 81181"

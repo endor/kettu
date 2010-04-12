@@ -67,5 +67,8 @@ var ViewHelpers = {
     $('#reverse_link').click(function() {
       $(this).toggleClass('reverse');
     });
+    if(transmission.reverse_sort) {
+      $('#reverse_link').addClass('reverse');
+    }
   }
 };

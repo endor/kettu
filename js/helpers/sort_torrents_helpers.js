@@ -16,7 +16,7 @@ var SortTorrentsHelpers = {
         break;
       case 'activity':
         torrent_sort_function = function(a, b) {
-          return b.activity() - a.activity();
+          return a.activity() - b.activity();
         };
         break;
       case 'age':

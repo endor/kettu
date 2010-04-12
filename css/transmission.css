@@ -427,11 +427,11 @@ ul#sorts li a {
   text-indent: -9999px;
   background-image: url(../images/kettu_icons.png);
   background-repeat: no-repeat;
-  background-position: -77px 2px;
+  background-position: -100px 2px;
 }
 
 #reverse_link.reverse {
-  background-position: -100px 2px;
+  background-position: -77px 2px;
 }
 
 #reverse_link.active,

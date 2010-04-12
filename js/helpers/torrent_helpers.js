@@ -10,6 +10,7 @@ var TorrentHelpers = {
     if(params['sort'] == 'reverse') {
       transmission.reverse_sort = !transmission.reverse_sort;
       $('#reverse_link').attr('href', '#/torrents?sort=reverse&random=' + new Date().getTime());
+      transmission.sort_mode = transmission.store.get('sort_mode') || 'name';
     } else {
       transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
       var sort_mode = transmission.sort_mode.charAt(0).toUpperCase() + transmission.sort_mode.slice(1);
