@@ -3,7 +3,7 @@ body {
   padding: 0px;
   font-size: 62.5%; /* 10px */
   color: #444;
-  background: url("../images/kettu_bg.png") repeat-y 50% 0;
+  background: url("images/kettu_bg.png") repeat-y 50% 0;
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
@@ -35,7 +35,7 @@ header, footer {
 
 header {
   height: 140px;
-  background: url("../images/kettu_bg_header.png") no-repeat 50% 0;
+  background: url("images/kettu_bg_header.png") no-repeat 50% 0;
 }
 
 .container {
@@ -337,7 +337,7 @@ nav ul li a:hover {
 }
 
 .main.info {
-  background: transparent url(../images/kettu_bg_info.png) repeat-y 100% 0;
+  background: transparent url(images/kettu_bg_info.png) repeat-y 100% 0;
 }
 
 .main.info .torrents_container {

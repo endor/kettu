@@ -39,4 +39,9 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 * maybe actually request if turtle mode is enabled to set correct value
 * maybe aggregate graphing data
 * maybe have a trash icon where torrents can be dragged and dropped into
+* maybe also small buttons for pause and activate so we wont need the context menu
 * maybe inspector button, maybe selecting a torrent should not open inspector if in stats/pref view
+* maybe inspector should open beneath the selected torrent (as with a small arrow pointing first right, then down)
+* maybe checkboxes in preferences could be on/off sliders
+* maybe some nice animation effects for faceboxes (disappearing), or torrents (disappearing, starting, pausing)
+* check for speed bottle necks, needs to be thin
