@@ -98,9 +98,9 @@ var TorrentHelpers = {
     });
   },
   
-  updateTorrents: function(torrents, need_change) {
+  updateTorrents: function(torrents, rerender) {
     this.cache_partials();
-    if(torrents && need_change) {
+    if(torrents && rerender) {
       $('.torrent').remove();
       this.addOrUpdateTorrents(torrents);
     } else if(torrents) {
@@ -109,8 +109,8 @@ var TorrentHelpers = {
     }
   },
   
-  updateViewElements: function(torrents, need_change) {
-    this.updateTorrents(torrents, need_change);
+  updateViewElements: function(torrents, rerender) {
+    this.updateTorrents(torrents, rerender);
     this.cycleTorrents();
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
     this.highlightLink('#filters', '.' + transmission.filter_mode);
