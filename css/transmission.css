@@ -121,7 +121,7 @@ nav ul.icon_nav li a {
   width: 40px;
   padding: 0;
   text-indent: -9999px;
-  background-image: url(../images/kettu_icons.png);
+  background-image: url(images/kettu_icons.png);
   background-repeat: no-repeat;
 }
 
@@ -425,7 +425,7 @@ ul#sorts li a {
   width: 12px;
   padding: 0;
   text-indent: -9999px;
-  background-image: url(../images/kettu_icons.png);
+  background-image: url(images/kettu_icons.png);
   background-repeat: no-repeat;
   background-position: -100px 2px;
 }
@@ -628,6 +628,11 @@ padding: 3px 30px;
 }
 
 #info .percent_done {
+  font-size: 12px;
+  color: #666666;
+}
+
+#info .priority {
   font-size: 12px;
   color: #666666;
 }

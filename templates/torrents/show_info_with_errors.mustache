@@ -164,12 +164,31 @@
   <a href="#" class="select_all">Select All</a> | <a href="#" class="deselect_all">Deselect All</a>
   <form action="#/torrents/{{id}}" method="PUT">
     <ul class="content files">
-      {{#files}}
+      {{#folderless_files}}
         <li>
-          <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} /> {{name}}<br />
+          <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} />
+          {{name}}<br />
           <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}, Priority: {{priorityString}}</span>
         </li>
-      {{/files}}
+      {{/folderless_files}}
+      
+      {{#folders}}
+        <li>
+          <a href="#" class="folder">
+            <img src="css/images/arrow_right.png" class="arrow" /> {{name}}
+          </a><br />
+          <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
+          <ul class="files_in_folders">
+            {{#files}}
+              <li>
+                <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} />
+                {{name}}<br />
+                <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}, Priority: {{priorityString}}</span>                
+              </li>
+            {{/files}}
+          </ul>
+        </li>
+      {{/folders}}
     </ul>
   </form>
 </div>

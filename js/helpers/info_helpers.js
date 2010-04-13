@@ -139,8 +139,14 @@ var InfoHelpers = {
     });
     $('#info .folder').click(function() {
       $(this).nextAll('.files_in_folders:first').slideToggle();
+      var arrow = $(this).find('.arrow');
+      if(arrow.attr('src').match(/right/)) {
+        arrow.attr('src', 'css/images/arrow_down.png');
+      } else {
+        arrow.attr('src', 'css/images/arrow_right.png');
+      }
       return false;
-    });    
+    });
   },
   
   startCountDownOnNextAnnounce: function() {
