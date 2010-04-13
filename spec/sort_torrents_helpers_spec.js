@@ -22,9 +22,9 @@ describe 'SortTorrentsHelpers'
       Torrent({'id': '3', 'rateDownload': 512, 'rateUpload': 5})
     ]
     var sorted_torrents = sort_helpers.sortTorrents('activity', torrents)
-    sorted_torrents[0].id.should.eql('2')
+    sorted_torrents[0].id.should.eql('1')
     sorted_torrents[1].id.should.eql('3')
-    sorted_torrents[2].id.should.eql('1')    
+    sorted_torrents[2].id.should.eql('2')    
   end
 
   it 'should be sortable by age'
@@ -84,9 +84,9 @@ describe 'SortTorrentsHelpers'
       Torrent({'id': '3', 'rateDownload': 512, 'rateUpload': 5})
     ]
     var sorted_torrents = sort_helpers.sortTorrents('activity', torrents, true)
-    sorted_torrents[0].id.should.eql('1')
+    sorted_torrents[0].id.should.eql('2')
     sorted_torrents[1].id.should.eql('3')
-    sorted_torrents[2].id.should.eql('2')
+    sorted_torrents[2].id.should.eql('1')
   end
   
   it 'should not sort reverse if reverse if false'
@@ -96,8 +96,8 @@ describe 'SortTorrentsHelpers'
       Torrent({'id': '3', 'rateDownload': 512, 'rateUpload': 5})
     ]
     var sorted_torrents = sort_helpers.sortTorrents('activity', torrents, false)
-    sorted_torrents[0].id.should.eql('2')
+    sorted_torrents[0].id.should.eql('1')
     sorted_torrents[1].id.should.eql('3')
-    sorted_torrents[2].id.should.eql('1')
+    sorted_torrents[2].id.should.eql('2')
   end
 end

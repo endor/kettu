@@ -13,3 +13,7 @@
 .files_in_folders {
   display: none;
 }
+
+ul#sorts {
+  display: none;
+}

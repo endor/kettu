@@ -47,21 +47,21 @@ var SettingHelpers = {
     return context.validator.errors;
   },
   
-  is_turtle_mode_update: function(params) {
+  is_speed_limit_mode_update: function(params) {
     return (params['alt-speed-enabled'] !== undefined);
   },
   
   prepare_arguments: function(context, params) {    
     if(params['alt-speed-enabled']) {
-      transmission.store.set('turtle_mode', (params['alt-speed-enabled'] == "true") ? 'enabled' : 'disabled');
-      return context.turtle_mode_hash(params['alt-speed-enabled']);
+      transmission.store.set('speed_limit_mode', (params['alt-speed-enabled'] == "true") ? 'enabled' : 'disabled');
+      return context.speed_limit_mode_hash(params['alt-speed-enabled']);
     } else {
       return context.arguments_hash(params);
     }
   },
   
-  turtle_mode_hash: function(turtle_mode) {
-    return {'alt-speed-enabled': (turtle_mode == "true") ? true : false};
+  speed_limit_mode_hash: function(speed_limit_mode) {
+    return {'alt-speed-enabled': (speed_limit_mode == "true") ? true : false};
   },
   
   arguments_hash: function(params, updatable_settings) {
