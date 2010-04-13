@@ -32,8 +32,6 @@ TorrentView = function(torrent, context, sort_peers) {
       $.each(view.files, function() {
         this.lengthFormatted = Math.formatBytes(this['length']);
         this.percentDone = Math.formatPercent(this['length'], this['length'] - this.bytesCompleted);
-        this.isDone = this['length'] == this.bytesCompleted;
-        this.isNotDone = !this.isDone;
       });
     }
     if(view.peers !== undefined) {
