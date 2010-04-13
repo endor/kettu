@@ -159,7 +159,8 @@
       
       {{#folders}}
         <li>
-          <a href="#" class="folder">{{name}}</a>
+          <a href="#" class="folder">{{name}}</a><br />
+          <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
           <ul class="files_in_folders">
             {{#files}}
               <li>

@@ -117,6 +117,7 @@ Torrents = function(transmission) { with(transmission) {
           $('#menu-item-peers').click();
         }
         context.activateInfoInputs();
+        context.activateFileInputs();
       });
     });
   };
@@ -133,9 +134,7 @@ Torrents = function(transmission) { with(transmission) {
         $.each(rendered_view.find('.file'), function() {
           $('#info #' + $(this).attr('id')).siblings('.percent_done').html($(this).siblings('.percent_done').html());
         });
-        
         context.startCountDownOnNextAnnounce();
-        context.activateFileInputs();
         if(context.params['sort_peers']) {
           $('#menu-item-peers').click();
         }

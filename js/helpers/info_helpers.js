@@ -138,14 +138,7 @@ var InfoHelpers = {
       return false;
     });
     $('#info .folder').click(function() {
-      $(this).next().slideToggle('slow');
-      // .toggle(function() {
-      //   console.log($(this)[0]);
-      //   $(this).fadeIn();
-      // }, function() {
-      //   console.log($(this)[0]);
-      //   $(this).fadeOut();
-      // });
+      $(this).nextAll('.files_in_folders:first').slideToggle();
       return false;
     });    
   },
