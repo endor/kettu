@@ -151,11 +151,7 @@
   <form action="#/torrents/{{id}}" method="PUT">
     <ul class="content files">
       {{#folderless_files}}
-        <li>
-          <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} />
-          {{name}}<br />
-          <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}, Priority: {{priorityString}}</span>
-        </li>
+        {{>file}}
       {{/folderless_files}}
       
       {{#folders}}
@@ -166,11 +162,7 @@
           <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
           <ul class="files_in_folders">
             {{#files}}
-              <li>
-                <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} />
-                {{name}}<br />
-                <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}, Priority: {{priorityString}}</span>                
-              </li>
+              {{>file}}
             {{/files}}
           </ul>
         </li>

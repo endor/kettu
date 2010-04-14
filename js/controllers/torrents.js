@@ -110,6 +110,7 @@ Torrents = function(transmission) { with(transmission) {
     getTorrent(id, function(torrent) {
       var view = TorrentView(torrent, context, context.params['sort_peers']);
       var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
+      var partial = './templates/torrents/file.mustache';
       context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         context.startCountDownOnNextAnnounce();
@@ -118,7 +119,7 @@ Torrents = function(transmission) { with(transmission) {
         }
         context.activateInfoInputs();
         context.activateFileInputs();
-      });
+      }, {file: partial});
     });
   };
   
@@ -126,6 +127,7 @@ Torrents = function(transmission) { with(transmission) {
     getTorrent(id, function(torrent) {
       var view = TorrentView(torrent, context, context.params['sort_peers']);
       var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
+      var partial = './templates/torrents/file.mustache';
       context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
         rendered_view = $('<div>' + rendered_view + '</div>');
         $.each(['.activity', '.trackers', '.peers'], function() {
@@ -138,7 +140,7 @@ Torrents = function(transmission) { with(transmission) {
         if(context.params['sort_peers']) {
           $('#menu-item-peers').click();
         }
-      });
+      }, {file: partial});
     });    
   };
   

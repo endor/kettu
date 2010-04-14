@@ -79,13 +79,17 @@ if (!Mustache) {
         Tries to find a partial in the global scope and render it
       */
       render_partial: function(name, context, partials) {
-        if(typeof(context[name]) != "object") {
-          throw({message: "subcontext for '" + name + "' is not an object"});
-        }
         if(!partials || !partials[name]) {
           throw({message: "unknown_partial"});
         }
-        return this.render(partials[name], context[name], partials, true);
+        if(context[name]) {
+          if(typeof(context[name]) != "object") {
+            throw({message: "subcontext for '" + name + "' is not an object"});
+          }
+          return this.render(partials[name], context[name], partials, true);          
+        } else {
+          return this.render(partials[name], context, partials, true);
+        }
       },
 
       /*
