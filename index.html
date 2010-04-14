@@ -116,6 +116,13 @@
               <input type="submit" value="Activate" />
             </form>            
           </li>
+          <li class="verify">
+            <form action="#/torrents" method="PUT">
+              <input type="hidden" name="ids" class="ids" value="" />
+              <input type="hidden" name="method" value="torrent-verify" />
+              <input type="submit" value="Verify" />
+            </form>            
+          </li>          
           <li class="delete">
             <a href="#delete_form" class="facebox_link">Delete</a>
             <div id="delete_form" class="facebox_div">
@@ -154,7 +161,7 @@
         </ul>
 
         <ul class="info_nav">
-          <li><a href="#" id="add_a_torrent">Add a Torrent</a></li>
+          <li><a href="#" id="add_a_torrent">Add Torrent</a></li>
           <li><a href="#" id="statistics">Statistics</a></li>
           <li><a href="#" id="settings">Preferences</a></li>
         </ul>

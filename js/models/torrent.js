@@ -4,7 +4,7 @@ Torrent = function(attributes) {
   torrent['fields'] = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
-    'addedDate', 'trackerStats', 'error', 'errorString'
+    'addedDate', 'trackerStats', 'error', 'errorString', 'recheckProgress'
   ];
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
@@ -32,6 +32,9 @@ Torrent = function(attributes) {
   };
   torrent.isDoneDownloading = function() {
     return torrent.status === torrent.stati['seeding'] || torrent.leftUntilDone === 0;
+  };
+  torrent.isVerifying = function() {
+    return torrent.status == 1 || torrent.status == 2;
   };
   torrent.hasError = function() {
     return torrent.error > 0;
@@ -80,7 +83,10 @@ Torrent = function(attributes) {
     if(torrent.isActive() && torrent.needsMetaData()) {
       status = 'meta';
       progressBar = $("<div></div>").progressbar({value: 100}).html();
-    } else if(torrent.isActive()  && !torrent.isDoneDownloading()) {
+    } else if(torrent.isVerifying()) {
+      status = 'verifying';
+      progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();      
+    } else if(torrent.isActive() && !torrent.isDoneDownloading()) {
       status = 'downloading';
       progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();
     } else if(torrent.isActive() && torrent.isDoneDownloading()) {
@@ -118,6 +124,9 @@ Torrent = function(attributes) {
     }
     if(torrent.hasError()) {
       currentStatus = 'Tracker returned an error: ' + torrent.errorString + '.';
+    }
+    if(torrent.isVerifying()) {
+      currentStatus += ' - ' + (torrent.recheckProgress * 100).toFixed(2) + '%';
     }
     return currentStatus;
   };
