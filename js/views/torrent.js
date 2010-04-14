@@ -93,11 +93,39 @@ TorrentView = function(torrent, context, sort_peers) {
   };
   
   view.folderizeFiles = function() {
+    view.folderless_files = [];
+    view.folders = [];
+    var i = -1;
+    
     if(view.files) {
       $.each(view.files, function() {
         var name = this['name'].split('/');
         if(name.length > 1) { name.shift(); }
-        this['name'] = name.join('/');
+        if(name.length == 1) {
+          this['name'] = name.join('/');
+          view.folderless_files.push(this);
+        } else {
+          var folder = name.shift();
+          this['name'] = name.join('/');
+          
+          if(view.folders[i] && view.folders[i].name == folder) {
+            view.folders[i].files.push(this);
+            view.folders[i].lengthFormatted += this.length;
+            view.folders[i].bytesCompleted += this.bytesCompleted;
+          } else {
+            view.folders.push({
+              name: folder,
+              files: [this],
+              lengthFormatted: this.length,
+              bytesCompleted: this.bytesCompleted
+            });
+            i += 1;
+          }
+        }
+      });
+      $.each(view.folders, function() {
+        this.percentDone = Math.formatPercent(this.lengthFormatted, this.lengthFormatted - this.bytesCompleted);
+        this.lengthFormatted = Math.formatBytes(this.lengthFormatted);
       });
     }
   };

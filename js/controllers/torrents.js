@@ -110,6 +110,7 @@ Torrents = function(transmission) { with(transmission) {
     getTorrent(id, function(torrent) {
       var view = TorrentView(torrent, context, context.params['sort_peers']);
       var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
+      var partial = './templates/torrents/file.mustache';
       context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         context.startCountDownOnNextAnnounce();
@@ -117,7 +118,8 @@ Torrents = function(transmission) { with(transmission) {
           $('#menu-item-peers').click();
         }
         context.activateInfoInputs();
-      });
+        context.activateFileInputs();
+      }, {file: partial});
     });
   };
   
@@ -125,17 +127,20 @@ Torrents = function(transmission) { with(transmission) {
     getTorrent(id, function(torrent) {
       var view = TorrentView(torrent, context, context.params['sort_peers']);
       var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
+      var partial = './templates/torrents/file.mustache';
       context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
-        $.each(['.activity', '.trackers', '.peers', '.files'], function() {
-          $('#info ' + this.toString()).html($('<div>' + rendered_view + '</div>').find(this.toString()).html());
-        })
-        
+        rendered_view = $('<div>' + rendered_view + '</div>');
+        $.each(['.activity', '.trackers', '.peers'], function() {
+          $('#info ' + this.toString()).html(rendered_view.find(this.toString()).html());
+        });
+        $.each(rendered_view.find('.file'), function() {
+          $('#info #' + $(this).attr('id')).siblings('.percent_done').html($(this).siblings('.percent_done').html());
+        });
         context.startCountDownOnNextAnnounce();
         if(context.params['sort_peers']) {
           $('#menu-item-peers').click();
         }
-        context.activateFileInputs();
-      });
+      }, {file: partial});
     });    
   };
   

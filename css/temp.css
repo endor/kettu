@@ -10,6 +10,38 @@
   margin: 0px;
 }
 
+.files_in_folders {
+  display: none;
+  margin-left: 10px;
+}
+
 ul#sorts {
+  display: none;
+}
+
+span.file_icon {
+  background-image: url(images/file.png);
+  background-repeat: no-repeat;
+  padding-left: 24px;
+  height: 20px;
+}
+
+span.folder_icon {
+  background-image: url(images/folder.png);
+  background-repeat: no-repeat;
+  padding-left: 24px;
+  height: 20px;
+}
+
+.arrow {
+  margin-left: 5px;
+  margin-right: 3px;
+}
+
+.files a {
+  text-decoration: none;
+}
+
+.priority_choice {
   display: none;
 }
