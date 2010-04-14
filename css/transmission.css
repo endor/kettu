@@ -40,7 +40,7 @@ header {
 .container {
   margin-bottom: 20px;
   padding-top: 140px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 footer {
@@ -398,6 +398,19 @@ ul#sorts li a {
   float: left;
 }
 
+#filterbar a#sort_link {
+  background: none;
+  width: 108px;
+}
+
+#filterbar a#sort_link:hover,
+#filterbar a#sort_link:active,
+#filterbar a#sort_link:focus {
+  color: #000;
+  text-shadow: none;
+}
+
+
 #filterbar #search_filter {
   width: 140px;
   float: right;
@@ -450,7 +463,7 @@ ul#sorts li a {
 
 .main {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .main.info {
@@ -462,6 +475,7 @@ ul#sorts li a {
   width: 550px !important;
   min-height: 10px;
   float: left;
+  overflow: visible;
 }
 /* torrents list container */
 
@@ -688,6 +702,7 @@ padding: 3px 30px;
 #context_menu {
   display: none;
   position: absolute;
+  z-index: 1000;
   background-color: #FFF;
   background-color: rgba(255,255,255,.8);
   padding: 0px;
