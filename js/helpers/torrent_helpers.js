@@ -27,7 +27,7 @@ var TorrentHelpers = {
     $('.torrent').show();
   },
 
-  submit_add_torrent_form: function(context, paused, torrentUploaded) {
+  submit_add_torrent_form: function(context, paused, torrentsUploaded) {
     $('#add_torrent_form').ajaxSubmit({
   		'url': '/transmission/upload?paused=' + paused,
   		'type': 'POST',
@@ -35,14 +35,21 @@ var TorrentHelpers = {
   		'dataType': 'xml',
       'iframe': true,
   		'success': function(response) {
-  		  torrentUploaded($(response).children(':first').text().match(/200/));
+  		  torrentsUploaded($(response).children(':first').text().match(/200/));
   		}
 		});  
   },
   
-  get_newest_torrent: function(context, response) {
-    var torrents = response['torrents'].map( function(row) { return Torrent(row);} );
-    return context.sortTorrents('age', torrents, false)[0];
+  get_newest_torrents: function(context, response) {
+    var newest = [];
+
+    $.each(response['torrents'].map(function(row) {return Torrent(row);}), function() {
+      if((parseInt(this.addedDate, 10) - parseInt((new Date().getTime()).toString().substr(0, 10), 10)) > -2) {
+        newest.push(this);
+      }
+    });
+
+    return newest;
   },
   
   globalUpAndDownload: function(torrents) {

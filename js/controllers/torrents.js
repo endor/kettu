@@ -7,10 +7,10 @@ Torrents = function(transmission) { with(transmission) {
     context.reload_interval = context.reload_interval || 2000;
   });
   
-  get('#/torrents', function() {
+  get('#/torrents', function(context) {
     get_and_render_torrents(true);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
-    transmission.interval_id = setInterval('get_and_render_torrents(false)', context.reload_interval);
+    transmission.interval_id = setInterval('get_and_render_torrents(false)', context.reload_interval);    
   });
   
   get_and_render_torrents = function(rerender) {
@@ -34,11 +34,11 @@ Torrents = function(transmission) { with(transmission) {
   get('#/torrents/add', function() {
     var request = context.build_request('torrent-add', {'filename': this.params['url'], 'paused': false});
     context.remote_query(request, function(response) {
-      torrentUploaded(response['torrent-added']);
+      torrentsUploaded(response['torrent-added']);
     });
   });
   
-  route('delete', '#/torrents', function() {
+  del('#/torrents', function() {
     var ids = $.map(context.params['ids'].split(','), function(id) {return parseInt(id, 10);});
     var request = context.build_request('torrent-remove', {'ids': ids});
     
@@ -51,15 +51,13 @@ Torrents = function(transmission) { with(transmission) {
   });
   
   post('#/torrents', function() {
-    var paused = (this.params['start_when_added'] != "on");
-    
     if(this.params['url'].length > 0) {
-      var request = context.build_request('torrent-add', {'filename': this.params['url'], 'paused': paused})
+      var request = context.build_request('torrent-add', {'filename': this.params['url'], 'paused': true})
       context.remote_query(request, function(response) {
-        torrentUploaded(response['torrent-added']);
+        torrentsUploaded(response['torrent-added']);
       });      
     } else {
-      context.submit_add_torrent_form(context, paused, torrentUploaded);      
+      context.submit_add_torrent_form(context, true, torrentsUploaded);      
     }    
   });
   
@@ -95,6 +93,8 @@ Torrents = function(transmission) { with(transmission) {
   
   put('#/torrents', function() {
     var ids = $.map(context.params['ids'].split(','), function(id) {return parseInt(id, 10);});
+    if(!ids[ids.length - 1] > 0) { delete(ids[ids.length - 1]); }
+
     var request = context.build_request(context.params['method'], {'ids': ids});
     context.remote_query(request, function(response) {
       $.each(ids, function() {
@@ -162,16 +162,23 @@ Torrents = function(transmission) { with(transmission) {
     });    
   };
   
-  torrentUploaded = function(torrent_added) {
+  torrentsUploaded = function(torrent_added) {
     if(torrent_added) {
       var request = context.build_request('torrent-get', {fields:Torrent({})['fields']});
       context.remote_query(request, function(response) {
         context.closeInfo();
-        getTorrent(context.get_newest_torrent(context, response).id, function(torrent) {
-          context.partial('./templates/torrents/new_with_data.mustache', TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
+        var newest = context.get_newest_torrents(context, response);
+        if(newest.length > 1) {
+          context.partial('./templates/torrents/new_multiple.mustache', {torrents: newest}, function(rendered_view) {
             $.facebox(rendered_view);
-          });          
-        })
+          });
+        } else {
+          getTorrent(newest[0].id, function(torrent) {
+            context.partial('./templates/torrents/new_with_data.mustache', TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
+              $.facebox(rendered_view);
+            });          
+          });
+        }
       });
     } else {
       context.trigger('flash', 'Torrent could not be added.');

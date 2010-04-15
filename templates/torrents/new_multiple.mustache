@@ -1,0 +1,22 @@
+<img src="css/images/start.png" class="image" />
+
+<p class="message">
+  You have added the torrents:<br />
+  {{#torrents}}
+    "{{name}}" ({{totalSizeString}}).<br />
+  {{/torrents}}
+</p>
+
+<form id="update_torrent" method="PUT" action="#/torrents">
+  <div class="facebox_buttons">
+    <input type="hidden" name="ids" value="{{#torrents}}{{id}},{{/torrents}}" />
+    <input type="hidden" name="method" value="torrent-start" />
+    
+    <p>
+      <input type="checkbox" name="start_download" checked="checked" />
+      <label for="start_download">Start Download</label><br />      
+    </p>
+
+    <p><input type="submit" value="Update Torrents" /></p>
+  </div>
+</form>
