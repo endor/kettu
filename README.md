@@ -33,7 +33,7 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* maybe show ratio goal in torrent list (if so, it should be changeable in the settings)
+* update torrent info feature once last_request step is working_
 * maybe aggregate graphing data
 * maybe have a trash icon where torrents can be dragged and dropped into
 * maybe inspector button, maybe selecting a torrent should not open inspector if in stats/pref view

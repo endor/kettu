@@ -11,7 +11,7 @@ end
 
 post '/transmission/rpc' do
   content_type :json
-  
+
   # do not log recurring requests
   unless params.to_s.match(/torrent\-get/)
     File.open(File.dirname(__FILE__) + '/../support/last_request.json', 'w') do |f|

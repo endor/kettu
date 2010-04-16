@@ -117,7 +117,7 @@ Torrents = function(transmission) { with(transmission) {
         if(context.params['sort_peers']) {
           $('#menu-item-peers').click();
         }
-        context.activateInfoInputs();
+        context.activateInfoInputs(torrent);
         context.activateFileInputs();
       }, {file: partial});
     });

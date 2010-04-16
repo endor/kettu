@@ -5,47 +5,42 @@
     <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-trackers" data-item="trackers">Trackers</a></li>
     <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-peers" data-item="peers">Peers</a></li>
     <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-files" data-item="files">Files</a></li>
+    <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-preferences" data-item="preferences">Preferences</a></li>
   </ul>
 </nav>
 <h3>{{name}}</h3>
 
 <div class="item information">
-  <form action="#/torrents/{{id}}" method="PUT">
-    <table class="content">
-      <tr>
-        <th>Size:</th>
-        <td>{{totalSizeString}}</td>
-      </tr>
-      <tr>
-        <th>Pieces:</th>
-        <td>{{pieceCount}}, {{pieceSizeString}}</td>
-      </tr>
-      <tr>
-        <th>Hash:</th>
-        <td>{{hashString}}</td>
-      </tr>
-      <tr>
-        <th>Secure:</th>
-        <td>{{secure}}</td>
-      </tr>
-      <tr>
-        <th>Comment:</th>
-        <td>{{comment}}</td>
-      </tr>
-      <tr>
-        <th>Creator:</th>
-        <td>{{creator}}</td>
-      </tr>
-      <tr>
-        <th>Date:</th>
-        <td>{{created_at}}</td>
-      </tr>
-      <tr>
-        <th>Download Directory:</th>
-        <td><input type="text" name="location" value="{{downloadDir}}" /></td>
-      </tr>    
-    </table>
-  </form>  
+  <table class="content">
+    <tr>
+      <th>Size:</th>
+      <td>{{totalSizeString}}</td>
+    </tr>
+    <tr>
+      <th>Pieces:</th>
+      <td>{{pieceCount}}, {{pieceSizeString}}</td>
+    </tr>
+    <tr>
+      <th>Hash:</th>
+      <td>{{hashString}}</td>
+    </tr>
+    <tr>
+      <th>Secure:</th>
+      <td>{{secure}}</td>
+    </tr>
+    <tr>
+      <th>Comment:</th>
+      <td>{{comment}}</td>
+    </tr>
+    <tr>
+      <th>Creator:</th>
+      <td>{{creator}}</td>
+    </tr>
+    <tr>
+      <th>Date:</th>
+      <td>{{created_at}}</td>
+    </tr>
+  </table> 
 </div>
 
 <div class="item activity">
@@ -76,11 +71,11 @@
     </tr>
     <tr>
       <th>Download speed:</th>
-      <td>{{rateDownload}}</td>
+      <td>{{rateDownloadFormatted}}</td>
     </tr>
     <tr>
       <th>Upload speed:</th>
-      <td>{{rateUpload}}</td>
+      <td>{{rateUploadFormatted}}</td>
     </tr>
     <tr>
       <th>Peers - Upload to:</th>
@@ -148,7 +143,7 @@
 
 <div class="item files">
   <a href="#" class="select_all">Select All</a> | <a href="#" class="deselect_all">Deselect All</a>
-  <form action="#/torrents/{{id}}" method="PUT">
+  <form action="#/torrents/{{id}}" method="PUT" class="file_form">
     <ul class="content files">
       {{#folderless_files}}
         {{>file}}
@@ -168,5 +163,55 @@
         </li>
       {{/folders}}
     </ul>
+  </form>
+</div>
+
+<div class="item preferences">
+  <form action="#/torrents/{{id}}" method="PUT" class="preferences_form">
+    <table class="content">
+      <tr>
+        <th>Download Directory:</th>
+        <td><input type="text" name="location" value="{{downloadDir}}" /></td>
+      </tr>
+      <tr>
+        <th>Priority</th>
+        <td>
+          <select name="bandwidthPriority" class="bandwidthPriority" id="bandwidthPriority">
+            <option value="-1">Low</option>
+            <option value="0">Normal</option>
+            <option value="1">High</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Stop Seeding At</th>
+        <td>
+          <select name="seedRatioMode" class="seedRatioMode">
+            <option value="0">Global Setting</option>
+            <option value="2">Seed Forever</option>
+            <option value="1">Stop at Ratio</option>
+          </select>
+          <input type="number" name="seedRatioLimit" value="{{seedRatioLimit}}" class="short seedRatioLimit" />
+        </td>
+      </tr>   
+      <tr>
+        <th>Limit Download</th>
+        <td>
+          <input type="checkbox" name="downloadLimited" /> 
+          <input type="number" name="downloadLimit" value="{{downloadLimit}}" class="short" /> KB/s
+        </td>
+      </tr>   
+      <tr>
+        <th>Limit Upload</th>
+        <td>
+          <input type="checkbox" name="uploadLimited" /> 
+          <input type="number" name="uploadLimit" value="{{uploadLimit}}" class="short" /> KB/s
+        </td>
+      </tr>
+      <tr>
+        <th>Maximum Connections</th>
+        <td><input type="number" name="peer-limit" value="{{peer-limit}}" class="short" /></td>
+      </tr>
+    </table>    
   </form>
 </div>

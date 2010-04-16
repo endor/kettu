@@ -115,11 +115,32 @@ var InfoHelpers = {
     this.handleDoubleClickOnTorrent(torrent);
   },
   
-  activateInfoInputs: function() {
+  activateInfoInputs: function(torrent) {
     $('#info input').change(function() {
       $(this).parents('form:first').trigger('submit');
       return false;
-    });    
+    });
+
+    $('#info select').change(function() {
+      $(this).parents('form:first').trigger('submit');
+      if($(this).hasClass('seedRatioMode')) {
+        if($(this).val() == 1) {
+          $('#info .seedRatioLimit').show();
+        } else {
+          $('#info .seedRatioLimit').hide();
+        }
+      }
+      return false;
+    });
+    
+    $('#info .bandwidthPriority').val(torrent.bandwidthPriority);
+    $('#info .seedRatioMode').val(torrent.seedRatioMode);
+
+    if(torrent.seedRatioMode == 1) {
+      $('#info .seedRatioLimit').show();
+    } else {
+      $('#info .seedRatioLimit').hide();
+    }
   },
 
   activateFileInputs: function() {

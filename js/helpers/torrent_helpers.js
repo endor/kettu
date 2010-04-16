@@ -151,6 +151,26 @@ var TorrentHelpers = {
         'method': params['method'],
         'arguments': {'ids': id}
       };
+    } else if(params['location']) {
+      updatable_settings = [
+        "bandwidthPriority", "downloadLimit", "downloadLimited",
+        "location", "peer-limit", "seedRatioLimit", "seedRatioMode",
+        "uploadLimit", "uploadLimited"
+      ];
+      request = {
+        'method': 'torrent-set',
+        'arguments': {'ids': id}
+      }
+      
+      $.each(updatable_settings, function() {
+        var setting = this;
+        request['arguments'][setting] = params[setting] ? true : false;
+        if(params[setting] && params[setting].match(/^-?\d+$/)) {
+          request['arguments'][setting] = parseInt(params[setting], 10);
+        } else if(params[setting] && params[setting] != "on") {
+          request['arguments'][setting] = params[setting];
+        }
+      });
     } else {
       var wanted_files = $.map($('.file:checked'), function(file) {
         return parseInt($(file).attr('name').split('_')[1], 10);

@@ -41,6 +41,8 @@ TorrentView = function(torrent, context, sort_peers) {
         this.percentDone = Math.formatPercent(100, 100 - (this['progress'] * 100));
       });      
     }
+    view.rateDownloadFormatted = Math.formatBytes(view.rateDownload) + '/s';
+    view.rateUploadFormatted = Math.formatBytes(view.rateUpload) + '/s';
   };
   
   view.sortPeers = function() {
@@ -135,13 +137,13 @@ TorrentView = function(torrent, context, sort_peers) {
       var id = view.fileStats.indexOf(this);
       switch(this.priority) {
         case 0:
-          view.files[id]['priorityString'] = 'normal';
+          view.files[id]['priorityString'] = 'Normal';
           break;
         case 1:
-          view.files[id]['priorityString'] = 'high';
+          view.files[id]['priorityString'] = 'High';
           break;
         case -1:
-          view.files[id]['priorityString'] = 'low';
+          view.files[id]['priorityString'] = 'Low';
           break;
       }
       if(view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0) {
