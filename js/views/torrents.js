@@ -25,6 +25,14 @@ TorrentsView = function(torrent, context) {
     return view.hasError() ? ' error' : '';
   };
   
+  view.showPriorityArrow = function() {
+    return torrent.bandwidthPriority != 0;
+  }
+  
+  view.priorityArrow = function() {
+    return torrent.bandwidthPriority == 1 ? 'up' : 'down';
+  }
+  
   view.cache_partial = context.cache_partial;
 
   return view;

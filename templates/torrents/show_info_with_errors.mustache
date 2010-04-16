@@ -44,10 +44,6 @@
         <th>Error:</th>
         <td class="error">{{errorString}}.</td>
       </tr>
-      <tr>
-        <th>Download Directory:</th>
-        <td><input type="text" name="location" value="{{downloadDir}}" /></td>
-      </tr>    
     </table>
   </form>  
 </div>
@@ -137,58 +133,4 @@
       </tr>
     </table>
   {{/trackerStats}}
-</div>
-
-<div class="item peers">
-  <table class="peers">
-    <tr>
-      <th>IP Address</th>
-      <th class="long"><a href="#/torrents/{{id}}?sort_peers=client">Client</a></th>
-      <th><a href="#/torrents/{{id}}?sort_peers=percent">%</a></th>
-      <th><a href="#/torrents/{{id}}?sort_peers=upload">Upload</a></th>
-      <th><a href="#/torrents/{{id}}?sort_peers=download">Download</a></th>
-    </tr>
-    {{#peers}}
-      <tr>
-        <td>{{address}}</td>
-        <td>{{clientName}}</td>
-        <td>{{percentDone}}</td>
-        <td>{{uploadFormatted}}</td>
-        <td>{{downloadFormatted}}</td>
-      </tr>
-    {{/peers}}
-  </table>
-</div>
-
-<div class="item files">
-  <a href="#" class="select_all">Select All</a> | <a href="#" class="deselect_all">Deselect All</a>
-  <form action="#/torrents/{{id}}" method="PUT">
-    <ul class="content files">
-      {{#folderless_files}}
-        <li>
-          <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} />
-          {{name}}<br />
-          <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}, Priority: {{priorityString}}</span>
-        </li>
-      {{/folderless_files}}
-      
-      {{#folders}}
-        <li>
-          <a href="#" class="folder">
-            <img src="css/images/arrow_right.png" class="arrow" /> {{name}}
-          </a><br />
-          <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
-          <ul class="files_in_folders">
-            {{#files}}
-              <li>
-                <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} />
-                {{name}}<br />
-                <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}, Priority: {{priorityString}}</span>                
-              </li>
-            {{/files}}
-          </ul>
-        </li>
-      {{/folders}}
-    </ul>
-  </form>
 </div>

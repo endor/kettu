@@ -2,7 +2,12 @@
   <div class="progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all">
     {{{progressBar}}} 
   </div>
-  <div class="name">{{name}}</div>
+  <div class="name">
+    {{name}}
+    {{#showPriorityArrow}}
+      <img src="css/images/priority_{{priorityArrow}}_small.png" class="priority" />
+    {{/showPriorityArrow}}
+  </div>
   
   <div class="statusString{{errorClass}}">{{statusString}}</div>
   <div class="buttons">

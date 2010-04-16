@@ -5,7 +5,7 @@
     <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-trackers" data-item="trackers">Trackers</a></li>
     <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-peers" data-item="peers">Peers</a></li>
     <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-files" data-item="files">Files</a></li>
-    <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-preferences" data-item="preferences">Preferences</a></li>
+    <li><a href="#/torrents/{{id}}" class="menu-item" id="menu-item-preferences" data-item="preferences">Options</a></li>
   </ul>
 </nav>
 <h3>{{name}}</h3>
@@ -177,9 +177,9 @@
         <th>Priority</th>
         <td>
           <select name="bandwidthPriority" class="bandwidthPriority" id="bandwidthPriority">
-            <option value="-1">Low</option>
-            <option value="0">Normal</option>
             <option value="1">High</option>
+            <option value="0">Normal</option>
+            <option value="-1">Low</option>
           </select>
         </td>
       </tr>

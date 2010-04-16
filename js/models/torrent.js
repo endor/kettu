@@ -4,12 +4,12 @@ Torrent = function(attributes) {
   torrent['fields'] = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
-    'addedDate', 'trackerStats', 'error', 'errorString', 'recheckProgress'
+    'addedDate', 'trackerStats', 'error', 'errorString', 'recheckProgress', 'bandwidthPriority'
   ];
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
-    'pieceCount', 'pieceSize', 'peers', 'fileStats', 'bandwidthPriority', 'peer-limit',
+    'pieceCount', 'pieceSize', 'peers', 'fileStats', 'peer-limit',
     'seedRatioLimit', 'seedRatioMode', 'uploadLimit', 'uploadLimited', 'downloadLimit',
     'downloadLimited'
   ];

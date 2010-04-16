@@ -31,3 +31,8 @@ ul#sorts {
 .priority_choice {
   display: none;
 }
+
+img.priority {
+  margin: 0px;
+  padding: 0px;
+}
