@@ -5,9 +5,17 @@ var ContextMenuHelpers = {
     $('#torrents').contextMenu({
       menu: '#context_menu',
       onContextMenu: function(event) {
+        $('#context_menu .pause').show();
+        $('#context_menu .activate').show();
+        
         highlight_closest_torrent(event);
         put_selected_ids_into_form();
         add_names_to_delete_form();
+        if($('.torrent').length == $('.torrent.active').length) {
+          change_select_all_into_deselect_all();
+        }
+        activate_select_all_link();
+        hide_pause_or_delete_form();
         
         function highlight_closest_torrent(event) {
           var closest_torrent = $(event.target).closest('.torrent');
@@ -24,6 +32,30 @@ var ContextMenuHelpers = {
         function add_names_to_delete_form() {
           var selected_names = $.map($('.torrent.active'), function(torrent) { return $(torrent).find('.name').text(); }).join('<br />');
           $('#context_menu #delete_form .message').html("Are you sure, you want to delete the following torrents?<br /><br />" + selected_names);
+        };
+        
+        function activate_select_all_link() {
+          $('#context_menu .select_all_link').click(function() {
+            $('.torrent').addClass('active');
+          });
+          $('#context_menu .deselect_all_link').click(function() {
+            $('.torrent').removeClass('active');
+          });
+        };
+        
+        function change_select_all_into_deselect_all() {
+          $('#context_menu .select_all a').removeClass('select_all_link').addClass('deselect_all_link').text('Deselect All');
+        };
+        
+        function hide_pause_or_delete_form() {
+          if($('.torrent.active').length == $('.torrent.active.paused').length) {
+            $('#context_menu .pause').hide();
+          }
+          
+          var not_paused = $('.torrent.active.downloading').length + $('.torrent.active.seeding').length;
+          if($('.torrent.active').length == not_paused) {
+            $('#context_menu .activate').hide();
+          }
         };
       }
     });
