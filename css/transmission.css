@@ -34,7 +34,7 @@ footer {
 
 header {
   height: 140px;
-  background: url("images/kettu_bg_header.png") no-repeat 50% 0;
+  background: url("images/kettu_bg_header_with_logo.png") no-repeat 50% 0;
 }
 
 .container {
@@ -676,7 +676,7 @@ padding: 3px 30px;
 }
 
 .progressbar {
-  width: 80%;
+  width: 92%;
 }
 
 .ui-progressbar {

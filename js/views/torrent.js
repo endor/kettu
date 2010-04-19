@@ -147,9 +147,10 @@ TorrentView = function(torrent, context, sort_peers) {
           break;
       }
       if(view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0) {
-        view.files[id]['priorityString'] = 'done';
+        view.files[id]['priorityString'] = 'Done';
       }
     });
+    view.more_than_one_file = view.files.length > 1;
   };
   
   view.sanitizeNumbers = function() {

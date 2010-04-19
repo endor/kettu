@@ -15,9 +15,6 @@ var SearchHelpers = {
   },
   
   activateSearch: function(context) {
-    $('#search').mousedown(function() {
-      context.performSearch('');
-    });
     $('#search').keyup(function(e) {
       context.performSearch($(this).val());
     });
