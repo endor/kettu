@@ -328,11 +328,11 @@ nav ul.icon_nav li a:hover {
 
 /* sorts dropdown menu */
 .sorts_dropdown {
-  padding-left: 290px;
+  padding-left: 310px;
 }
 
 .sorts_dropdown > a {
-  width: 120px;
+  width: 80px;
   margin: 0;
   padding: 0;
   display: block;
@@ -345,7 +345,7 @@ nav ul.icon_nav li a:hover {
 }
 
 ul#sorts {
-  width: 120px;
+  width: 100px;
   position: absolute;
   display: block;
 /*  display: none; */
@@ -407,7 +407,7 @@ ul#sorts li a {
 
 #filterbar a#sort_link {
   background: none;
-  width: 108px;
+  width: 80px;
 }
 
 #filterbar a#sort_link:hover,
@@ -759,6 +759,7 @@ padding: 3px 30px;
   outline: none;
   position: relative;
   overflow: visible; /* removes extra side padding in IE */
+  font-size: 1em;
 }
 
 #context_menu li input[type='submit']:hover,

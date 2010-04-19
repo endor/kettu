@@ -34,5 +34,11 @@ ul#sorts {
 
 img.priority {
   margin: 0px;
+  margin-left: 10px;
+  padding: 0px;
+}
+
+img.priority.compact {
+  margin: 0px;
   padding: 0px;
 }
