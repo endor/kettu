@@ -58,9 +58,20 @@ var InfoHelpers = {
         if(first_index > 0) { torrents = torrents.filter(':gt(' + (first_index - 1) + ')'); }
 
         context.highlightTorrents(torrents);
+        if(context.infoIsOpen()) {
+          context.partial('./templates/torrents/multiple_torrents_selected.mustache', {}, function(view) {
+            $('#info').html(view);
+          });          
+        }
+        
         $('#search').focus();          
       } else if(e.metaKey && $('.torrent.active').length >= 1) {
         $(this).toggleClass('active');
+        if(context.infoIsOpen()) {
+          context.partial('./templates/torrents/multiple_torrents_selected.mustache', {}, function(view) {
+            $('#info').html(view);
+          });          
+        }
       } else {
         context.highlightTorrents($(this));
         if(context.infoIsOpen()) {

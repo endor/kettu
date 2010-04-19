@@ -13,6 +13,25 @@ Feature: Torrent info
     When I double click on the torrent
     Then I should not see "/downloads"
     
+  Scenario: clicking on inspector opens info
+    Given a torrent with the name "Mutant Ninja Turtles" and the download directory "/downloads"
+    When I go to the start page
+      And I wait for the AJAX call to finish
+      And I click on the torrent "1"
+      And I follow "Inspector"
+      And I wait for the AJAX call to finish
+    Then I should see "/downloads"
+    When I follow "Inspector"
+    Then I should not see "/downloads"
+    
+  Scenario: inspector cannot show unselected torrents
+    Given a torrent with the name "Mutant Ninja Turtles" and the download directory "/downloads"
+    When I go to the start page
+      And I wait for the AJAX call to finish
+      And I follow "Inspector"
+      And I wait for the AJAX call to finish
+    Then I should see "You have not selected any torrents to inspect."
+
   Scenario: double clicking on a torrent and then single clicking on another one updates info
     Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the ids "1, 2, 3"
       And the torrent "Mutant Ninja Turtles" has more info like the download directory which is "/downloads"

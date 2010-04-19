@@ -1,10 +1,40 @@
 var LinkHelpers = {
   activateLinks: function() {
+    this.activateInspectorLink();
     this.activateAddTorrentLink();
     this.activateSettingsLink();
     this.activateStatisticsLink();
     this.activateSpeedLimitModeLink();
     this.activateCompactViewLink();
+  },
+  
+  activateInspectorLink: function() {
+    var context = this;
+    
+    $('#inspector').click(function() {
+      if(context.infoIsOpen() && (window.location.hash.match(/\/torrents\/\d+/) ||
+          $('#info').html().match('not selected any') || $('#info').html().match('can only inspect'))) {
+        context.closeInfo();
+      } else {
+        var active_torrents = $('.torrent.active');
+        switch(active_torrents.length) {
+          case 0:
+            context.partial('./templates/torrents/no_torrents_selected.mustache', {}, function(view) {
+              context.openInfo(view);
+            });
+            break;
+          case 1:
+            context.redirect('#/torrents/' + active_torrents.attr('id'));
+            break;
+          default:
+            context.partial('./templates/torrents/multiple_torrents_selected.mustache', {}, function(view) {
+              context.openInfo(view);
+            });
+            break;
+        }
+      }      
+      return false;
+    });
   },
   
   activateAddTorrentLink: function() {
