@@ -152,6 +152,16 @@ nav ul.icon_nav li a:hover {
   background-position: 10px -41px;
 }
 
+#start_all {
+  background-position: center center;
+  background-image: url(images/start_all.png);
+}
+
+#stop_all {
+  background-position: center center;
+  background-image: url(images/stop_all.png);
+}
+
 
 /* flash */
 #flash {

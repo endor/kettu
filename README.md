@@ -33,8 +33,7 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* maybe still needs start/stop all buttons (could be small buttons in the ui somewhere)
-* update torrent info feature once last_request step is working_
+* update torrent info feature once last_request step is working
 * maybe aggregate graphing data
 * maybe have a trash icon where torrents can be dragged and dropped into
 * maybe inspector button, maybe selecting a torrent should not open inspector if in stats/pref view

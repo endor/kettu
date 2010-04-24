@@ -6,6 +6,7 @@ var LinkHelpers = {
     this.activateStatisticsLink();
     this.activateSpeedLimitModeLink();
     this.activateCompactViewLink();
+    this.activateStartAndStopAllLink();
   },
   
   activateInspectorLink: function() {
@@ -92,6 +93,20 @@ var LinkHelpers = {
       }
       context.redirect(redirect_path);
       return false;
+    });
+  },
+  
+  activateStartAndStopAllLink: function() {
+    $('#start_all').click(function() {
+      var selected_ids = $.map($('.torrent'), function(torrent) {return $(torrent).attr('id')}).join(',');
+      $('#context_menu .activate form .ids').val(selected_ids);
+      $('#context_menu .activate form').submit();      
+    });
+    
+    $('#stop_all').click(function() {
+      var selected_ids = $.map($('.torrent'), function(torrent) {return $(torrent).attr('id')}).join(',');
+      $('#context_menu .pause form .ids').val(selected_ids);
+      $('#context_menu .pause form').submit();
     });
   },
   
