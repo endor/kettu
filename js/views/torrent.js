@@ -137,17 +137,17 @@ TorrentView = function(torrent, context, sort_peers) {
       var id = view.fileStats.indexOf(this);
       switch(this.priority) {
         case 0:
-          view.files[id]['priorityString'] = 'Normal';
+          view.files[id]['priorityArrow'] = 'normal';
           break;
         case 1:
-          view.files[id]['priorityString'] = 'High';
+          view.files[id]['priorityArrow'] = 'up';
           break;
         case -1:
-          view.files[id]['priorityString'] = 'Low';
+          view.files[id]['priorityArrow'] = 'down';
           break;
       }
       if(view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0) {
-        view.files[id]['priorityString'] = 'Done';
+        view.files[id]['priorityArrow'] = 'done';
       }
     });
     view.more_than_one_file = view.files.length > 1;

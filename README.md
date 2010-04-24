@@ -33,8 +33,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* the inspector file table: the status is larger than the file names, priority should be up/down arrow instead of text
-* changing a setting in the client doesn't update the web client (toggle on speed limit in the client, for example)
 * maybe still needs start/stop all buttons (could be small buttons in the ui somewhere)
 * update torrent info feature once last_request step is working_
 * maybe aggregate graphing data
