@@ -6,12 +6,12 @@ var SettingHelpers = {
       var checkbox = $(this);
       var name = checkbox.attr('name');
       if(settings[name]) {
-        checkbox.attr('checked', 'checked');
+        checkbox.attr('checked', true);
       }
       $.each(['protocol-handler-enabled', 'content-handler-enabled'], function() {
         if(name == this && transmission.store.exists(this)) {
-          checkbox.attr('disabled', 'disabled');
-          checkbox.attr('checked', 'checked');
+          checkbox.attr('disabled', true);
+          checkbox.attr('checked', true);
         }
       });
     });

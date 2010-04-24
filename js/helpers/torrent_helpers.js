@@ -6,6 +6,7 @@ var TorrentHelpers = {
     });
   },
   
+  // TODO: this needs to be cleaned up
   set_and_save_modes: function(params) {
     if(params['sort'] == 'reverse') {
       transmission.reverse_sort = !transmission.reverse_sort;
@@ -23,6 +24,16 @@ var TorrentHelpers = {
     transmission.store.set('sort_mode', transmission.sort_mode);
     transmission.store.set('view_mode', transmission.view_mode);
     transmission.store.set('filter_mode', transmission.filter_mode);
+    
+    if(transmission.settings_interval_id) {
+      clearInterval(transmission.settings_interval_id);
+      delete(transmission.settings_interval_id);
+    }
+    
+    if(transmission.info_interval_id) {
+      clearInterval(transmission.info_interval_id);
+      delete(transmission.info_interval_id);      
+    }
     
     $('.torrent').show();
   },

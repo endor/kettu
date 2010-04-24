@@ -1,19 +1,43 @@
 Settings = function(transmission) { with(transmission) {
+  var context, original_settings;
+  
+  before(function() {
+    context = this;
+  });
+  
   get('#/settings', function() {
-    var context = this;
     var request = { 'method': 'session-get', 'arguments': {} };
     
-    context.remote_query(request, function(view) {
-      view['reload-interval'] = context.reload_interval/1000;
-      context.partial('./templates/settings/index.mustache', view, function(rendered_view) {
+    context.remote_query(request, function(new_settings) {
+      original_settings = new_settings;      
+      new_settings['reload-interval'] = context.reload_interval/1000;
+      
+      context.partial('./templates/settings/index.mustache', new_settings, function(rendered_view) {
         context.openInfo(rendered_view);
-        trigger('settings-refreshed', view);
+        trigger('settings-refreshed');
       });
     });
   });
   
+  updateSettings = function() {
+    var request = { 'method': 'session-get', 'arguments': {} };
+    
+    context.remote_query(request, function(new_settings) {
+      var differences = context.hash_diff(original_settings, new_settings);
+      if(differences) {
+        for(difference in differences) {
+          if(typeof(differences[difference]) == 'boolean') {
+            $('.' + difference).attr('checked', differences[difference]);
+          } else {
+            $('.' + difference).val(differences[difference]);
+          }
+        }
+        original_settings = new_settings;
+      }
+    });    
+  }
+  
   put('#/settings', function() {
-    var context = this;
     var request = { 'method': 'session-set', 'arguments': this.prepare_arguments(context, this.params) };
 
     this.manage_handlers(context, this.params);
@@ -45,9 +69,12 @@ Settings = function(transmission) { with(transmission) {
     });
   };
   
-  bind('settings-refreshed', function(e, settings){ with(this) {
-    this.updateSettingsCheckboxes(settings);
-    this.updateSettingsSelects(settings);
-    this.menuizeInfo();
-  }});
+  bind('settings-refreshed', function() {
+    context.updateSettingsCheckboxes(original_settings);
+    context.updateSettingsSelects(original_settings);
+    context.menuizeInfo();
+    
+    if(context.settings_interval_id) { clearInterval(context.settings_interval_id); }
+    context.settings_interval_id = setInterval('updateSettings()', context.reload_interval);
+  });
 }};

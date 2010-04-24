@@ -14,5 +14,18 @@ var ApplicationHelpers = {
         return true;
       });
     });
+  },
+  
+  hash_diff: function(hash1, hash2) {
+    var diff = {}, different = false;
+    
+    for(key in hash1) {
+      if(hash1[key] != hash2[key]) {
+        diff[key] = hash2[key];
+        different = true;
+      }
+    }
+    
+    return different ? diff : false;
   }
 }
