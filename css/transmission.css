@@ -190,11 +190,15 @@ nav ul.icon_nav li a:hover {
 
 .torrent:nth-child(odd) {
   background-color: #FFF;
+  background: -moz-linear-gradient(left, right, from(white), to(#F6F6F6));
+  background: -webkit-gradient(linear, center top, center bottom, from(white), to(#F7F7F7));
   overflow: hidden;
 }
 
 .torrent:nth-child(even) {
   background-color: #FAFAFA;
+  background: -moz-linear-gradient(left, right, from(#F7F7F7), to(#EFEFEF));
+  background: -webkit-gradient(linear, center top, center bottom, from(#F6F6F6), to(#EDEDED));
   overflow: hidden;
 }
 
@@ -212,6 +216,7 @@ nav ul.icon_nav li a:hover {
 
 .torrent.active {
   background-color: #E7E7E7 !important;
+  background: -webkit-gradient(linear, center top, center bottom, from(#EDEDED), to(#E1E1E1));
   color: #000;
 }
 .torrent.active h3 {

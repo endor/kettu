@@ -1,8 +1,9 @@
-<li>
+<li class="file">
   <input type="checkbox" name="{{id}}" id="{{id}}" class="file"{{wanted}}{{disabled}} />
-  {{name}}<br />
+  {{name}}
+  <img src="css/images/priority_{{priorityArrow}}_small.png" class="priority compact" />
+  <br />
   <span class="percent_done">
-    {{percentDone}}% of {{lengthFormatted}},
-    Priority: <img src="css/images/priority_{{priorityArrow}}_small.png" class="priority compact" />
+    {{percentDone}}% of {{lengthFormatted}}
   </span>
 </li>

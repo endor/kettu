@@ -32,6 +32,10 @@ ul#sorts {
   display: none;
 }
 
+.percent_done {
+  margin-left: 20px;
+}
+
 img.priority {
   margin: 0px;
   margin-left: 10px;
@@ -41,4 +45,12 @@ img.priority {
 img.priority.compact {
   margin: 0px;
   padding: 0px;
+}
+
+.file img.priority.compact {
+  float: right;
+}
+
+.file:nth-child(even) {
+  background-color: #F9F9F9;
 }

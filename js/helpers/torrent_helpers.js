@@ -126,7 +126,6 @@ var TorrentHelpers = {
   
   updateViewElements: function(torrents, rerender) {
     this.updateTorrents(torrents, rerender);
-    this.cycleTorrents();
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
     this.highlightLink('#filters', '.' + transmission.filter_mode);
     this.highlightLink('#sorts', '.' + transmission.sort_mode);
