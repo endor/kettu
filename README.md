@@ -34,14 +34,9 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 ## Todo
 * update torrent info feature once last_request step is working
-* use css to make rows alternate in colors
-* maybe aggregate graphing data
 * maybe have a trash icon where torrents can be dragged and dropped into
-* maybe inspector button, maybe selecting a torrent should not open inspector if in stats/pref view
 * maybe inspector should open beneath the selected torrent (as with a small arrow pointing first right, then down)
 * maybe checkboxes in preferences could be on/off sliders, something with sliders
-* maybe gradients, transforms
 * maybe some nice animation effects for faceboxes (disappearing), or torrents (disappearing, starting, pausing)
-* maybe add <audio> to audio files
-* check for speed bottle necks, needs to be thin
-
+* maybe add <audio> to audio files, transforms
+* check for speed bottle necks, needs to be thin, raphael should be loaded at a later point somehow

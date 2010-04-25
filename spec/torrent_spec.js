@@ -96,7 +96,6 @@ describe 'Torrent'
     
     it 'should contain the up and download speed'
       var torrent = Torrent({status: Torrent({}).stati['downloading'], rateUpload: 10000, rateDownload: 10000, leftUntilDone: 10});
-      console.log(torrent.isDoneDownloading());
       torrent.statusString().should.match(/DL: 10.0 KB\/s, UL: 10.0 KB\/s/);
     end
     
