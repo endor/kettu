@@ -122,7 +122,12 @@ Torrent = function(attributes) {
   torrent.statusString = function() {
     var currentStatus = torrent.statusStringLocalized(torrent.status);
     if(torrent.isActive()) {
-      currentStatus += ' - ' + torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
+      currentStatus += ' - ';
+      if(torrent.isDoneDownloading()) {
+        currentStatus += torrent.uploadRateString(torrent.rateUpload);
+      } else {
+        currentStatus += torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
+      }
     }
     if(torrent.hasError()) {
       currentStatus = 'Tracker returned an error: ' + torrent.errorString + '.';
@@ -134,13 +139,14 @@ Torrent = function(attributes) {
   };
   torrent.statusWord = function() {
     for(var i in torrent.stati) {
-      if(torrent.stati[i] == torrent.status) {
-        return i;
-      }
+      if(torrent.stati[i] == torrent.status) { return i; }
     }
   };
+  torrent.uploadRateString = function(uploadRate) {
+    return 'UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
+  };
   torrent.downAndUploadRateString = function(downloadRate, uploadRate) {
-    return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
+    return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, ' + torrent.uploadRateString(uploadRate);
   };
   torrent.activity = function() {
     return torrent.rateDownload + torrent.rateUpload;

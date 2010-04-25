@@ -44,7 +44,7 @@ var StatisticHelpers = {
         txt2 = {font: '12px Fontin-Sans, Arial', fill: "#000"},
         X = (width - leftgutter) / graph['data'].length,
         max = Math.max.apply(Math, graph['data']),
-        Y = (height - bottomgutter - topgutter) / max;
+        Y = (height - bottomgutter - topgutter) / (max || 1);
     r.drawGrid(leftgutter + X * .5, topgutter, width - leftgutter - X, height - topgutter - bottomgutter, 10, 10, "#888888");
     
     var path = r.path().attr({stroke: color, "stroke-width": 4, "stroke-linejoin": "round"}),

@@ -95,8 +95,14 @@ describe 'Torrent'
     end
     
     it 'should contain the up and download speed'
-      var torrent = Torrent({status: Torrent({}).stati['downloading'], rateUpload: 10000, rateDownload: 10000});
+      var torrent = Torrent({status: Torrent({}).stati['downloading'], rateUpload: 10000, rateDownload: 10000, leftUntilDone: 10});
+      console.log(torrent.isDoneDownloading());
       torrent.statusString().should.match(/DL: 10.0 KB\/s, UL: 10.0 KB\/s/);
+    end
+    
+    it 'should not contain the download speed when torrent is seeding'
+      var torrent = Torrent({status: Torrent({}).stati['seeding'], rateUpload: 10000, rateDownload: 10000});
+      torrent.statusString().should_not.match(/DL: 10.0 KB\/s/);
     end
     
     it 'should not contain up and download speed when torrent is not active'
