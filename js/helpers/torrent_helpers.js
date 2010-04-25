@@ -62,15 +62,11 @@ var TorrentHelpers = {
 
     return newest;
   },
-  
-  globalUpAndDownload: function(torrents) {
-    var uploadRate = 0.0, downloadRate = 0.0;
-    $.each(torrents, function() {
-      uploadRate += this.rateUpload;
-      downloadRate += this.rateDownload;
-    });
-    this.addUpAndDownToStore({"up": uploadRate, "down": downloadRate});
-    return Torrent({}).downAndUploadRateString(downloadRate, uploadRate);
+
+  globalUpAndDownload: function(torrents) {    
+    var rates = transmission.store.get('up_and_download_rate');
+    var last_rate = rates[rates.length - 1];
+    return Torrent({}).downAndUploadRateString(last_rate.down, last_rate.up);
   },
   
   makeNewTorrent: function(torrent, view) {

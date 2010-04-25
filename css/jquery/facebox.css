@@ -14,6 +14,10 @@
   box-shadow: 0px 0px 10px #888;
 }
 
+#facebox.graph {
+  left: 8em !important;
+}
+
 .facebox_div {
   display: none;
 }
@@ -39,6 +43,11 @@
 
 #facebox .footer img {
   vertical-align: middle;
+}
+
+#facebox h1 {
+  color: #999999;
+  font-size: 20px;
 }
 
 #facebox_overlay {

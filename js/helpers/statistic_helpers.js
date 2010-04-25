@@ -1,41 +1,96 @@
 var StatisticHelpers = {
-  drawGraphs: function() {
-    this.drawPie('torrents_by_status', {
-      'Downloading': ($('.downloading').length - 1),
-      'Seeding': ($('.seeding').length - 1),
-      'Paused': ($('.paused').length - 1)
-    });
-    this.drawLines('up_and_download_stats', {
-      'Upload': $.map(transmission.store.get('up_and_download_rate'), function(item) { return (item.up / 1024); }),
-      'Download': $.map(transmission.store.get('up_and_download_rate'), function(item) { return (item.down / 1024); })
+  activate_graph_links: function(context) {
+    $('.graph_links a').click(function() {
+      var type = $(this).attr('class') + '_graph';
+      var graph = context[type].apply();
+
+      context.partial('./templates/statistics/' + type + '.mustache', {}, function(rendered_view) {
+        $.facebox(rendered_view);
+        $('#facebox').addClass('graph');
+        context.draw_graph(type, graph);
+      });
+      
+      return false;      
     });
   },
   
-  drawPie: function(id, data) {
-    var bluffGraph = new Bluff.Pie(id, 300);
-    bluffGraph.set_theme({
-      colors: ['#B2DFEE', '#FFEC8B', '#BCEE68'],
-      marker_color: '#aea9a9',
-      font_color: '#555555',
-      background_colors: ['#F8F8F8', '#FFFFFF']
+  up_and_download_graph: function() {
+    var graph = {'data': [], 'labels': ''}, i = 2;
+    
+    $.each(transmission.store.get('up_and_download_rate'), function() {
+      if(i == 0) {
+        graph['data'].push((this.up / 1024) + (this.down / 1024));
+        i = 2;
+      } else {
+        i -= 1;
+      }
     });
-    for(label in data) {
-      bluffGraph.data(label, data[label]);      
-    }
-    bluffGraph.draw();    
+    
+    graph['labels'] = 'Activity';
+    return graph;
   },
   
-  drawLines: function(id, data) {
-    var bluffGraph = new Bluff.Line(id, 300);
-    bluffGraph.set_theme({
-      colors: ['#B2DFEE', '#FFEC8B', '#BCEE68'],
-      marker_color: '#aea9a9',
-      font_color: '#555555',
-      background_colors: ['#F8F8F8', '#FFFFFF']
-    });
-    for(label in data) {
-      bluffGraph.data(label, data[label]);      
+  draw_graph: function(holder, graph) {
+    var width = 800,
+        height = 300,
+        leftgutter = 10,
+        bottomgutter = 30,
+        topgutter = 20,
+        colorhue = .6 || Math.random(),
+        color = "#bbbbbb",
+        r = Raphael(holder, width, height),
+        txt = {font: '12px Fontin-Sans, Arial', fill: "#fff"},
+        txt1 = {font: '10px Fontin-Sans, Arial', fill: "#fff"},
+        txt2 = {font: '12px Fontin-Sans, Arial', fill: "#000"},
+        X = (width - leftgutter) / graph['data'].length,
+        max = Math.max.apply(Math, graph['data']),
+        Y = (height - bottomgutter - topgutter) / max;
+    r.drawGrid(leftgutter + X * .5, topgutter, width - leftgutter - X, height - topgutter - bottomgutter, 10, 10, "#888888");
+    
+    var path = r.path().attr({stroke: color, "stroke-width": 4, "stroke-linejoin": "round"}),
+        bgp = r.path().attr({stroke: "none", opacity: .3, fill: color}).moveTo(leftgutter + X * .5, height - bottomgutter),
+        frame = r.rect(10, 10, 100, 40, 5).attr({fill: "#000", stroke: "#474747", "stroke-width": 2}).hide(),
+        label = [],
+        is_label_visible = false,
+        leave_timer,
+        blanket = r.set();
+    label[0] = r.text(60, 10, "").attr(txt).hide();
+    
+    for(var i = 0, ii = graph['data'].length; i < ii; i++) {
+        var y = Math.round(height - bottomgutter - Y * graph['data'][i]),
+            x = Math.round(leftgutter + X * (i + .5)),
+            t = r.text(x, height - 6, graph['data'][i]).attr(txt).toBack();
+        bgp[i == 0 ? "lineTo" : "cplineTo"](x, y, 10);
+        path[i == 0 ? "moveTo" : "cplineTo"](x, y, 10);
+        var dot = r.circle(x, y, 5).attr({fill: color, stroke: "#000"});
+        blanket.push(r.rect(leftgutter + X * i, 0, X, height - bottomgutter).attr({stroke: "none", fill: "#fff", opacity: 0}));
+        var rect = blanket[blanket.length - 1];
+
+        (function (x, y, data, lbl, dot) {
+            var timer, i = 0;
+            $(rect.node).hover(function () {
+                clearTimeout(leave_timer);
+                var newcoord = {x: +x + 7.5, y: y - 19};
+                if (newcoord.x + 100 > width) {
+                    newcoord.x -= 114;
+                }
+                frame.show().animate({x: newcoord.x, y: newcoord.y}, 200 * is_label_visible);
+                label[0].attr({text: data.toFixed(2) + " KB/s"}).show().animateWith(frame, {x: +newcoord.x + 50, y: +newcoord.y + 12}, 200 * is_label_visible);
+                dot.attr("r", 7);
+                is_label_visible = true;
+            }, function () {
+                dot.attr("r", 5);
+                leave_timer = setTimeout(function () {
+                    frame.hide();
+                    label[0].hide();
+                    is_label_visible = false;
+                }, 1);
+            });
+        })(x, y, graph['data'][i], graph['labels'][i], dot);        
     }
-    bluffGraph.draw();    
+    bgp.lineTo(x, height - bottomgutter).andClose();
+    frame.toFront();
+    label[0].toFront();
+    blanket.toFront();
   }
 }

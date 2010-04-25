@@ -9,7 +9,7 @@ Statistics = function(transmission) { with(transmission) {
     context.remote_query(request, function(response) {
       context.partial('./templates/statistics/index.mustache', StatisticsView(response), function(rendered_view) {
         context.openInfo(rendered_view);
-        context.drawGraphs();
+        context.activate_graph_links(context);
       });      
     });
   });

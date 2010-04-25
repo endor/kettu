@@ -47,10 +47,10 @@ img.priority.compact {
   padding: 0px;
 }
 
-.file img.priority.compact {
+.file_info img.priority.compact {
   float: right;
 }
 
-.file:nth-child(even) {
+.file_info:nth-child(even) {
   background-color: #F9F9F9;
 }

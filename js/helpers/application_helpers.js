@@ -14,6 +14,9 @@ var ApplicationHelpers = {
         return true;
       });
     });
+    $(document).bind('afterClose.facebox', function() {
+      $('#facebox').removeClass('graph');
+    });
   },
   
   hash_diff: function(hash1, hash2) {

@@ -186,6 +186,7 @@ Torrents = function(transmission) { with(transmission) {
   };
   
   bind('torrents-refreshed', function(e, params) { with(this) {
+    this.addUpAndDownToStore(params['torrents']);
     var sorted_torrents = this.sortTorrents(transmission.sort_mode, params['torrents'], transmission.reverse_sort);
     var filtered_torrents = this.filterTorrents(transmission.filter_mode, sorted_torrents);
     this.updateViewElements(filtered_torrents, params['rerender']);
