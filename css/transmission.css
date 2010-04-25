@@ -188,13 +188,14 @@ nav ul.icon_nav li a:hover {
   text-align: right;
 }
 
-.torrent {
+.torrent:nth-child(odd) {
   background-color: #FFF;
   overflow: hidden;
 }
 
-.torrent.even {
+.torrent:nth-child(even) {
   background-color: #FAFAFA;
+  overflow: hidden;
 }
 
 .torrent {

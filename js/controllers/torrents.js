@@ -194,6 +194,5 @@ Torrents = function(transmission) { with(transmission) {
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {
     this.updateInfo(torrent);
-    this.cycleTorrents();
   }});
 }};

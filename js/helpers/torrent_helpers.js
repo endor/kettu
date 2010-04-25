@@ -73,11 +73,6 @@ var TorrentHelpers = {
     return Torrent({}).downAndUploadRateString(downloadRate, uploadRate);
   },
   
-  cycleTorrents: function() {
-    $('.torrent').removeClass('even');
-    $('.torrent:even').addClass('even');
-  },
-  
   makeNewTorrent: function(torrent, view) {
     var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
     var rendered_view = this.mustache(this.cache(template), TorrentsView(torrent, this));
