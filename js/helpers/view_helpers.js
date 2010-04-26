@@ -1,9 +1,4 @@
 var ViewHelpers = {
-  highlightLink: function(menu_id, element_class) {
-    $(menu_id + ' a').removeClass('active');
-    $(menu_id + ' ' + element_class).addClass('active');
-  },
-  
   highlightTorrents: function(torrents, more_torrents) {
     $('#torrents .torrent').removeClass('active');
     torrents.addClass('active');
@@ -12,17 +7,13 @@ var ViewHelpers = {
     }
   },
   
-  showAndHideFlash: function(message) {
-    $('#flash').html(message);
-    $('#flash').show().delay(3000).fadeOut('slow');
-  },
-
   showErrors: function(errors) {
     var error_string = '<p>';
     $.each(errors, function() {
-      error_string += this['field'] + ': ' + this['message'] + '<br />';
+      error_string += this.field + ': ' + this.message + '<br />';
     });
-    $('#errors').html(error_string + '.</p>');
+    error_string += '.</p>';
+    $('#errors').html(error_string);
   },
   
   saveLastMenuItem: function(id) {

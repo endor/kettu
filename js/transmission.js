@@ -25,7 +25,7 @@ var transmission = $.sammy(function() { with(this) {
   Statistics(this);
   
   bind('flash', function(e, message) { with(this) {
-    this.showAndHideFlash(message);
+    $('#flash').html(message).show().delay(3000).fadeOut('slow');
   }});
   
   bind('errors', function(e, errors) { with(this) {

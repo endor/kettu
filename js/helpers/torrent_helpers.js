@@ -21,6 +21,9 @@ var TorrentHelpers = {
     transmission.view_mode = params['view'] || transmission.store.get('view_mode') || 'normal';
     transmission.filter_mode = params['filter'] || transmission.store.get('filter_mode') || 'all';
     
+    $('#filters a').removeClass('active');
+    $('#filters ' + transmission.filter_mode).addClass('active');
+    
     transmission.store.set('sort_mode', transmission.sort_mode);
     transmission.store.set('view_mode', transmission.view_mode);
     transmission.store.set('filter_mode', transmission.filter_mode);
@@ -123,8 +126,6 @@ var TorrentHelpers = {
   updateViewElements: function(torrents, rerender) {
     this.updateTorrents(torrents, rerender);
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
-    this.highlightLink('#filters', '.' + transmission.filter_mode);
-    this.highlightLink('#sorts', '.' + transmission.sort_mode);
     $('.facebox_link').facebox();
   },
   
