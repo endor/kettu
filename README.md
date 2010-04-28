@@ -17,6 +17,9 @@ You can use kettu instead of the original web client to remotely administrate yo
 
 It is recommended to set the TRANSMISSION_WEB_HOME environment variable to the root path of this web client. Then you just need to open the location to the transmission web server (e.g. localhost:9091) and it will work.
 
+### On Mac OS X, using a (pre-v2.0) nightly
+In the current (pre-v2.0) nightlies on the mac, you can simply drop kettu in the Transmission Application Support folder and rename it web (~/Library/Application Support/Transmission/web/). The next time you start Transmission, it will use kettu.
+
 ## Goals
 * Usage should be as simple as possible
 * Try out new features that older browsers may not support
