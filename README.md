@@ -19,7 +19,7 @@ You can use kettu instead of the original web client to remotely administrate yo
 If you're just trying kettu out, it is recommended to set the TRANSMISSION_WEB_HOME environment variable to the root path of this web client. Then you just need to open the location to the transmission web server (e.g. localhost:9091) and it will work.
 
 ### Installation
-Move the kettu files in the right location, and the next time you start Transmission, it will use kettu.
+Move the kettu files in the right location, and the next time you start Transmission, it will use kettu. If you're using the daemon, you can simply send it a `SIGHUB`.
 
 #### Linux
 Without overwriting the default Web Interface, you can drop the kettu files into: `~/.local/share/transmission/web/`.
