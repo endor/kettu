@@ -1,6 +1,7 @@
 var InfoHelpers = {
   closeInfo: function() {
     this.clearReloadInterval();
+    this.saveLastMenuItem($('.menu-item.active'));
     $('.main').removeClass('info');
     $('#info').hide();
     return false;
@@ -67,7 +68,7 @@ var InfoHelpers = {
       } else {
         context.highlightTorrents($(this));
         if(context.infoIsOpen()) {
-          context.saveLastMenuItem($('.menu-item.active').attr('id'));
+          context.saveLastMenuItem($('.menu-item.active'));
           window.location = '#/torrent_details/' + $(this).attr('id');
           // NOTE: a redirect seems to interfere with our double click handling here
         }        
@@ -181,7 +182,7 @@ var InfoHelpers = {
       
       if(formatted.match(/59 min/)) {
         clearInterval(timer);
-        context.saveLastMenuItem($('.menu-item.active').attr('id'));
+        context.saveLastMenuItem($('.menu-item.active'));
         context.closeInfo();
         context.openInfo();
       } else {

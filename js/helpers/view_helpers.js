@@ -2,9 +2,7 @@ var ViewHelpers = {
   highlightTorrents: function(torrents, more_torrents) {
     $('#torrents .torrent').removeClass('active');
     torrents.addClass('active');
-    if(more_torrents) {
-      more_torrents.addClass('active');
-    }
+    if(more_torrents) { more_torrents.addClass('active'); }
   },
   
   showErrors: function(errors) {
@@ -33,7 +31,6 @@ var ViewHelpers = {
     $('#info .item').hide();
     if(transmission.last_menu_item) {
       $('#' + transmission.last_menu_item).click();
-      delete transmission.last_menu_item;
     } else {
       $('#info .item:first').show();
       $('#info .menu-item:first').addClass('active');      

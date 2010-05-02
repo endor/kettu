@@ -19,7 +19,9 @@ TorrentDetails = function(transmission) { with(transmission) {
       default:
         var ids = $.map(active_torrents, function(torrent) { return parseInt($(torrent).attr('id'), 10); });
         var accumulation = {number_of_torrents: 0, size: 0, status_words: [],
-                            downloaded: 0, uploaded: 0, ratio: 0};
+                            downloaded: 0, uploaded: 0, ratio: 0, secure: [],
+                            left_until_done: 0, rate_download: 0, rate_upload: 0,
+                            peers_upload: 0, peers_download: 0};
         accumulate_torrents_and_render_result(ids, accumulation);
         break;
     }    
@@ -30,6 +32,7 @@ TorrentDetails = function(transmission) { with(transmission) {
       var view = TorrentDetailsView(accumulation);
       context.partial('./templates/torrent_details/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
+        if(transmission.last_menu_item) { $('#' + transmission.last_menu_item).click(); }
       });      
     } else {
       var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']);
@@ -39,8 +42,14 @@ TorrentDetails = function(transmission) { with(transmission) {
         accumulation.number_of_torrents += 1;
         accumulation.size += torrent.sizeWhenDone;
         accumulation.status_words.push(torrent.statusStringLocalized());
+        accumulation.secure.push(torrent.secure());
         accumulation.downloaded += (torrent.sizeWhenDone - torrent.leftUntilDone);
         accumulation.uploaded += torrent.uploadedEver;
+        accumulation.left_until_done += torrent.leftUntilDone;
+        accumulation.rate_download += torrent.rateDownload;
+        accumulation.rate_upload += torrent.rateUpload;
+        accumulation.peers_upload += torrent.peersGettingFromUs;
+        accumulation.peers_download += torrent.peersSendingToUs;
         accumulate_torrents_and_render_result(torrents, accumulation);
       });
     }
@@ -58,7 +67,6 @@ TorrentDetails = function(transmission) { with(transmission) {
     var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']);
     var request = context.build_request('torrent-get', {'ids': id, 'fields': fields});
 
-    context.saveLastMenuItem($('.menu-item.active'));
     context.remote_query(request, function(response) {
       var torrent = response['torrents'].map( function(row) {return Torrent(row);} )[0];
       var view = TorrentView(torrent, context, context.params['sort_peers']);
