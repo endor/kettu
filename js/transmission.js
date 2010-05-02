@@ -20,6 +20,7 @@ var transmission = $.sammy(function() { with(this) {
   helpers(TorrentHelpers);
   helpers(ViewHelpers);
   
+  TorrentDetails(this);
   Torrents(this);
   Settings(this);
   Statistics(this);
@@ -39,6 +40,7 @@ var transmission = $.sammy(function() { with(this) {
     this.activateContextMenu();
     this.configureFacebox();
     this.closeInfo();
+    this.hideContextMenu();
   }});
 }});
  

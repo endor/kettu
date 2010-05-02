@@ -216,7 +216,7 @@ nav ul.icon_nav li a:hover {
 
 .torrent.active {
   background-color: #E7E7E7 !important;
-  background: -webkit-gradient(linear, center top, center bottom, from(#EDEDED), to(#E1E1E1));
+  background: -webkit-gradient(linear, center top, center bottom, from(#DFDFDF), to(#D3D3D3));
   color: #000;
 }
 .torrent.active h3 {

@@ -1,14 +1,12 @@
 (function($) {
   $.fn.contextMenu = function(options) {
     var menu = $(options.menu);
-    menu.click(function(e) {
-     e.stopPropagation();
+    menu.click(function(event) {
+     event.stopPropagation();
     });
 
-    $(this).bind('contextmenu', function(e) {
-      if(options.onContextMenu) {
-        options.onContextMenu(e);
-      }
+    $(this).bind('contextmenu', function(event) {
+      if(options.onContextMenu) { options.onContextMenu(event); }
 
       menu.find('li').hover(
         function() { $(this).addClass('hover'); },
@@ -34,11 +32,11 @@
       });
 			
       menu.css({
-        left: e.pageX - 170,
-        top: e.pageY - 150
+        left: event.pageX - 170,
+        top: event.pageY - 150
       }).show();
-      $(document).one('click', function() { menu.hide(); })			
-
+      $(document).one('click', function() { menu.hide(); })      
+      
       return false;
     });
       

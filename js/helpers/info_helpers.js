@@ -3,8 +3,6 @@ var InfoHelpers = {
     this.clearReloadInterval();
     $('.main').removeClass('info');
     $('#info').hide();
-    var path = transmission.filter_mode ? '#/torrents?filter=' + transmission.filter_mode : '#/torrents';
-    this.redirect(path);
     return false;
   },
 
@@ -33,7 +31,7 @@ var InfoHelpers = {
         context.closeInfo();
       } else {
         var active_torrent = $('.torrent.active');
-        if(active_torrent.get(0)) {
+        if(active_torrent.length > 0) {
           context.redirect('#/torrents/' + active_torrent.attr('id'));
         }        
       }
@@ -45,6 +43,9 @@ var InfoHelpers = {
   handleClickOnTorrent: function(torrent) {
     var context = this;
     $('#' + torrent.id).click(function(e) {
+      // NOTE: why is this necessary? somehow safari does not stop propagation on a context menu event.
+      if($('#context_menu').is(':visible')) { return false; }
+      
       if(e.shiftKey && $('.torrent.active').length >= 1) {
         var first_index = $('.torrent.active:first').index();
         var last_index = $('.torrent').index($(this));
@@ -80,6 +81,8 @@ var InfoHelpers = {
           // NOTE: a redirect seems to interfere with our double click handling here
         }        
       }
+      
+      e.preventDefault();
     });    
   },
   

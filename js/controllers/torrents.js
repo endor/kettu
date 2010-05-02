@@ -7,7 +7,7 @@ Torrents = function(transmission) { with(transmission) {
     context.reload_interval = context.reload_interval || 2000;
   });
   
-  get('#/torrents', function(context) {
+  get('#/torrents', function() {
     get_and_render_torrents(true);
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
     transmission.interval_id = setInterval('get_and_render_torrents(false)', context.reload_interval);    

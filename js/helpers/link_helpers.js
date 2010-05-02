@@ -14,25 +14,10 @@ var LinkHelpers = {
     
     $('#inspector').click(function() {
       if(context.infoIsOpen() && (window.location.hash.match(/\/torrents\/\d+/) ||
-          $('#info').html().match('not selected any') || $('#info').html().match('can only inspect'))) {
+          window.location.hash.match(/\/torrent_details/))) {
         context.closeInfo();
       } else {
-        var active_torrents = $('.torrent.active');
-        switch(active_torrents.length) {
-          case 0:
-            context.partial('./templates/torrents/no_torrents_selected.mustache', {}, function(view) {
-              context.openInfo(view);
-            });
-            break;
-          case 1:
-            context.redirect('#/torrents/' + active_torrents.attr('id'));
-            break;
-          default:
-            context.partial('./templates/torrents/multiple_torrents_selected.mustache', {}, function(view) {
-              context.openInfo(view);
-            });
-            break;
-        }
+        context.redirect('#/torrent_details');
       }      
       return false;
     });

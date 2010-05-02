@@ -1,4 +1,8 @@
 var ContextMenuHelpers = {
+  hideContextMenu: function() {
+    $('#context_menu').hide();
+  },
+  
   activateContextMenu: function() {
     var context = this;
     
@@ -12,7 +16,9 @@ var ContextMenuHelpers = {
         put_selected_ids_into_form();
         add_names_to_delete_form();
         if($('.torrent').length == $('.torrent.active').length) {
-          change_select_all_into_deselect_all();
+          $('#context_menu .select_all a').removeClass('select_all_link').addClass('deselect_all_link').text('Deselect All');
+        } else {
+          $('#context_menu .select_all a').removeClass('deselect_all_link').addClass('select_all_link').text('Select All');
         }
         activate_select_all_link();
         hide_pause_or_delete_form();
@@ -41,10 +47,6 @@ var ContextMenuHelpers = {
           $('#context_menu .deselect_all_link').click(function() {
             $('.torrent').removeClass('active');
           });
-        };
-        
-        function change_select_all_into_deselect_all() {
-          $('#context_menu .select_all a').removeClass('select_all_link').addClass('deselect_all_link').text('Deselect All');
         };
         
         function hide_pause_or_delete_form() {
