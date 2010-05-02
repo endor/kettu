@@ -32,7 +32,7 @@ var InfoHelpers = {
       } else {
         var active_torrent = $('.torrent.active');
         if(active_torrent.length > 0) {
-          context.redirect('#/torrents/' + active_torrent.attr('id'));
+          context.redirect('#/torrent_details/' + active_torrent.attr('id'));
         }        
       }
       event.preventDefault();
@@ -59,30 +59,19 @@ var InfoHelpers = {
         if(first_index > 0) { torrents = torrents.filter(':gt(' + (first_index - 1) + ')'); }
 
         context.highlightTorrents(torrents);
-        if(context.infoIsOpen()) {
-          context.partial('./templates/torrents/multiple_torrents_selected.mustache', {}, function(view) {
-            $('#info').html(view);
-          });          
-        }
-        
+        if(context.infoIsOpen()) { context.redirect('#/torrent_details'); }
         $('#search').focus();          
       } else if(e.metaKey && $('.torrent.active').length >= 1) {
         $(this).toggleClass('active');
-        if(context.infoIsOpen()) {
-          context.partial('./templates/torrents/multiple_torrents_selected.mustache', {}, function(view) {
-            $('#info').html(view);
-          });          
-        }
+        if(context.infoIsOpen()) { context.redirect('#/torrent_details'); }
       } else {
         context.highlightTorrents($(this));
         if(context.infoIsOpen()) {
           context.saveLastMenuItem($('.menu-item.active').attr('id'));
-          window.location = '#/torrents/' + $(this).attr('id');
+          window.location = '#/torrent_details/' + $(this).attr('id');
           // NOTE: a redirect seems to interfere with our double click handling here
         }        
       }
-      
-      e.preventDefault();
     });    
   },
   

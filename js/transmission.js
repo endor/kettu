@@ -18,6 +18,7 @@ var transmission = $.sammy(function() { with(this) {
   helpers(StatisticHelpers);
   helpers(StoreHelpers);
   helpers(TorrentHelpers);
+  helpers(TorrentDetailsHelpers);
   helpers(ViewHelpers);
   
   TorrentDetails(this);

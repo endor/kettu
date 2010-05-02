@@ -61,12 +61,6 @@ Torrents = function(transmission) { with(transmission) {
     }    
   });
   
-  get('#/torrents/:id', function() {
-    getAndRenderTorrentInfo(parseInt(context.params['id'], 10));
-    context.clearReloadInterval();
-    transmission.info_interval_id = setInterval('updateTorrentInfo(' + parseInt(context.params['id'], 10) + ')', context.reload_interval);
-  });
-  
   put('#/torrents/:id', function() {
     var id = parseInt(context.params['id']);
     var request = context.parseRequestFromPutParams(context.params, id);
@@ -102,47 +96,6 @@ Torrents = function(transmission) { with(transmission) {
       });
     });
   });
-  
-  getAndRenderTorrentInfo = function(id) {
-    if($('.menu-item.active').get(0)) {
-      context.saveLastMenuItem($('.menu-item.active').attr('id'));
-    }
-    getTorrent(id, function(torrent) {
-      var view = TorrentView(torrent, context, context.params['sort_peers']);
-      var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
-      var partial = './templates/torrents/file.mustache';
-      context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
-        context.openInfo(rendered_view);
-        context.startCountDownOnNextAnnounce();
-        if(context.params['sort_peers']) {
-          $('#menu-item-peers').click();
-        }
-        context.activateInfoInputs(torrent);
-        context.activateFileInputs();
-      }, {file: partial});
-    });
-  };
-  
-  updateTorrentInfo = function(id) {
-    getTorrent(id, function(torrent) {
-      var view = TorrentView(torrent, context, context.params['sort_peers']);
-      var template = torrent.hasError() ? 'show_info_with_errors' : 'show_info';
-      var partial = './templates/torrents/file.mustache';
-      context.partial('./templates/torrents/' + template + '.mustache', view, function(rendered_view) {
-        rendered_view = $('<div>' + rendered_view + '</div>');
-        $.each(['.activity', '.trackers', '.peers'], function() {
-          $('#info ' + this.toString()).html(rendered_view.find(this.toString()).html());
-        });
-        $.each(rendered_view.find('.file'), function() {
-          $('#info #' + $(this).attr('id')).siblings('.percent_done').html($(this).siblings('.percent_done').html());
-        });
-        context.startCountDownOnNextAnnounce();
-        if(context.params['sort_peers']) {
-          $('#menu-item-peers').click();
-        }
-      }, {file: partial});
-    });    
-  };
   
   getTorrent = function(id, callback) {
     var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']);

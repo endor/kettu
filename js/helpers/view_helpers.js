@@ -16,8 +16,10 @@ var ViewHelpers = {
     $('#errors').html(error_string);
   },
   
-  saveLastMenuItem: function(id) {
-    transmission.last_menu_item = id;
+  saveLastMenuItem: function(active_menu_item) {
+    if(active_menu_item.length > 0) {
+      transmission.last_menu_item = $(active_menu_item).attr('id');
+    }
   },
   
   menuizeInfo: function() {
