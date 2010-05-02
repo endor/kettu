@@ -18,11 +18,7 @@ TorrentDetails = function(transmission) { with(transmission) {
         break;
       default:
         var ids = $.map(active_torrents, function(torrent) { return parseInt($(torrent).attr('id'), 10); });
-        var accumulation = {number_of_torrents: 0, size: 0, status_words: [],
-                            downloaded: 0, uploaded: 0, ratio: 0, secure: [],
-                            left_until_done: 0, rate_download: 0, rate_upload: 0,
-                            peers_upload: 0, peers_download: 0};
-        accumulate_torrents_and_render_result(ids, accumulation);
+        accumulate_torrents_and_render_result(ids, empty_accumulation_hash());
         break;
     }    
   });

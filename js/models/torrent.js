@@ -4,14 +4,14 @@ Torrent = function(attributes) {
   torrent['fields'] = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
-    'addedDate', 'trackerStats', 'error', 'errorString', 'recheckProgress', 'bandwidthPriority'
+    'addedDate', 'trackerStats', 'error', 'errorString', 'recheckProgress', 'bandwidthPriority',
+    'seedRatioMode', 'seedRatioLimit'
   ];
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
-    'pieceCount', 'pieceSize', 'peers', 'fileStats', 'peer-limit',
-    'seedRatioLimit', 'seedRatioMode', 'uploadLimit', 'uploadLimited', 'downloadLimit',
-    'downloadLimited'
+    'pieceCount', 'pieceSize', 'peers', 'fileStats', 'peer-limit', 'downloadLimited',
+    'uploadLimit', 'uploadLimited', 'downloadLimit'
   ];
   $.each(torrent.fields, function() {
     torrent[this] = attributes[this];
@@ -53,11 +53,10 @@ Torrent = function(attributes) {
       progressDetails = torrent.metaDataProgress();
     } else if(!torrent.isDoneDownloading()) {
       progressDetails = torrent.downloadingProgress();
-      if(torrent.isActive()) {
-        progressDetails += ' - ' + torrent.etaString();
-      }
+      if(torrent.isActive()) { progressDetails += ' - ' + torrent.etaString(); }
     } else {
       progressDetails = torrent.uploadingProgress();
+      if(torrent.seedRatioMode == 1) { progressDetails += ' - ' + torrent.etaString(); }
     }
 
     return progressDetails;
@@ -80,23 +79,25 @@ Torrent = function(attributes) {
     return "Magnetized transfer - retrieving metadata (" + percentRetrieved + "%)";
   };
   torrent.progressBar = function() {
-    var status, progressBar;
+    var status, progressBar, value = torrent.percentDone();
     
     if(torrent.isActive() && torrent.needsMetaData()) {
       status = 'meta';
-      progressBar = $("<div></div>").progressbar({value: 100}).html();
+      value = 100;
+      progressBar = $("<div></div>").progressbar({value: value}).html();
     } else if(torrent.isVerifying()) {
       status = 'verifying';
-      progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();      
+      progressBar = $("<div></div>").progressbar({value: value}).html();      
     } else if(torrent.isActive() && !torrent.isDoneDownloading()) {
       status = 'downloading';
-      progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();
+      progressBar = $("<div></div>").progressbar({value: value}).html();
     } else if(torrent.isActive() && torrent.isDoneDownloading()) {
+      if(torrent.seedRatioMode == 1) { value = torrent.uploadRatio/torrent.seedRatioLimit * 100; }
       status = 'uploading';
-      progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();      
+      progressBar = $("<div></div>").progressbar({value: value}).html();      
     } else {
       status = 'paused';
-      progressBar = $("<div></div>").progressbar({value: torrent.percentDone()}).html();
+      progressBar = $("<div></div>").progressbar({value: value}).html();
     }
     
     return progressBar.replace(/ui-widget-header/, 'ui-widget-header-' + status);
