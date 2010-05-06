@@ -18,7 +18,7 @@ TorrentDetails = function(transmission) { with(transmission) {
         break;
       default:
         var ids = $.map(active_torrents, function(torrent) { return parseInt($(torrent).attr('id'), 10); });
-        accumulate_torrents_and_render_result(ids, empty_accumulation_hash());
+        accumulate_torrents_and_render_result(ids, context.empty_accumulation_hash());
         break;
     }    
   });
