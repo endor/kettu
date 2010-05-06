@@ -151,7 +151,8 @@ TorrentView = function(torrent, context, sort_peers) {
         view.files[id]['priorityArrow'] = 'done';
       }
     });
-    view.more_than_one_file = view.files.length > 1;
+    view.show_select_all = view.files.length > 1 && !view.isDoneDownloading();
+    console.log(view.show_select_all);
   };
   
   view.sanitizeNumbers = function() {

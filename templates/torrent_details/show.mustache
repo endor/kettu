@@ -142,9 +142,9 @@
 </div>
 
 <div class="item files">
-  {{#more_than_one_file}}
+  {{#show_select_all}}
     <a href="#" class="select_all">Select All</a> | <a href="#" class="deselect_all">Deselect All</a>
-  {{/more_than_one_file}}
+  {{/show_select_all}}
   <form action="#/torrents/{{id}}" method="PUT" class="file_form">
     <ul class="content files">
       {{#folderless_files}}
