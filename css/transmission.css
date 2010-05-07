@@ -153,13 +153,11 @@ nav ul.icon_nav li a:hover {
 }
 
 #start_all {
-  background-position: center center;
-  background-image: url(images/start_all.png);
+  background-position: -115px 0;
 }
 
 #stop_all {
-  background-position: center center;
-  background-image: url(images/stop_all.png);
+  background-position: -145px 0;
 }
 
 
@@ -418,7 +416,7 @@ ul#sorts li a {
 
 #filterbar a#sort_link {
   background: none;
-  width: 80px;
+  width: 95px;
 }
 
 #filterbar a#sort_link:hover,
@@ -516,6 +514,23 @@ padding: 3px 30px;
   border-left: 1px solid #DDD;
   overflow: auto;
 }
+
+/* fixed position info div. not quite working yet */
+/*
+#info {
+  width: 379px;
+  float: left;
+  padding: 1em 10px 1.5em 10px;
+  background-color: #FAFAFA;
+  display: none;
+  border-left: 1px solid #DDD;
+  overflow: auto;
+  position: fixed;
+  top: 140px;
+  right: 0px;
+}
+*/
+
 
 #info table {
   width: auto;
