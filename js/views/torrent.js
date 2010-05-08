@@ -152,7 +152,6 @@ TorrentView = function(torrent, context, sort_peers) {
       }
     });
     view.show_select_all = view.files.length > 1 && !view.isDoneDownloading();
-    console.log(view.show_select_all);
   };
   
   view.sanitizeNumbers = function() {

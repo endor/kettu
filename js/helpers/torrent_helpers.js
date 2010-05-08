@@ -28,9 +28,9 @@ var TorrentHelpers = {
     transmission.store.set('view_mode', transmission.view_mode);
     transmission.store.set('filter_mode', transmission.filter_mode);
     
-    if(transmission.settings_interval_id) {
-      clearInterval(transmission.settings_interval_id);
-      delete(transmission.settings_interval_id);
+    if(transmission.update_settings_interval_id) {
+      clearInterval(transmission.update_settings_interval_id);
+      delete(transmission.update_settings_interval_id);
     }
     
     if(transmission.info_interval_id) {
@@ -123,8 +123,24 @@ var TorrentHelpers = {
     }
   },
   
-  updateViewElements: function(torrents, rerender) {
+  updateSpeedLimitMode: function(speed_limit_mode_enabled, context) {
+    if(context.speed_limit_mode_enabled == speed_limit_mode_enabled) { return; }
+
+    var form = $('#speed_limit_mode_form');
+    if(speed_limit_mode_enabled) {
+      $('#speed_limit_mode').addClass('active').text('Disable Speed Limit Mode');
+      form.find('input:first').attr('value', 'false');
+    } else {
+      $('#speed_limit_mode').removeClass('active').text('Enable Speed Limit Mode');
+      form.find('input:first').attr('value', 'true');      
+    }
+    
+    context.speed_limit_mode_enabled = speed_limit_mode_enabled;
+  },
+  
+  updateViewElements: function(torrents, rerender, settings) {
     this.updateTorrents(torrents, rerender);
+    this.updateSpeedLimitMode(settings['alt-speed-enabled'], this);
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
     $('.facebox_link').facebox();
   },

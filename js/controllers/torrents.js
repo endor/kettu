@@ -9,8 +9,11 @@ Torrents = function(transmission) { with(transmission) {
   
   get('#/torrents', function() {
     get_and_render_torrents(true);
+    get_settings();
     if(transmission.interval_id) { clearInterval(transmission.interval_id); }
-    transmission.interval_id = setInterval('get_and_render_torrents(false)', context.reload_interval);    
+    if(transmission.settings_interval_id) { clearInterval(transmission.settings_interval_id); }
+    transmission.interval_id = setInterval('get_and_render_torrents(false)', context.reload_interval);
+    transmission.settings_interval_id = setInterval('get_settings()', (context.reload_interval * 2));
   });
   
   get_and_render_torrents = function(rerender) {
@@ -23,6 +26,11 @@ Torrents = function(transmission) { with(transmission) {
     });    
   };
 
+  get_settings = function() {
+    var request = { 'method': 'session-get', 'arguments': {} };
+    context.remote_query(request, function(new_settings) { transmission.settings = new_settings; });
+  };
+  
   get('#/torrents/new', function() {
     this.partial('./templates/torrents/new.mustache', {}, function(rendered_view) {
       context.openInfo(rendered_view);
@@ -119,7 +127,7 @@ Torrents = function(transmission) { with(transmission) {
     if(torrent_added) {
       var request = context.build_request('torrent-get', {fields:Torrent({})['fields']});
       context.remote_query(request, function(response) {
-        context.closeInfo();
+        context.closeInfo(context);
         var newest = context.get_newest_torrents(context, response);
         if(newest.length > 1) {
           context.partial('./templates/torrents/new_multiple.mustache', {torrents: newest}, function(rendered_view) {
@@ -139,11 +147,12 @@ Torrents = function(transmission) { with(transmission) {
   };
   
   bind('torrents-refreshed', function(e, params) { with(this) {
-    this.addUpAndDownToStore(params['torrents']);
     var sorted_torrents = this.sortTorrents(transmission.sort_mode, params['torrents'], transmission.reverse_sort);
     var filtered_torrents = this.filterTorrents(transmission.filter_mode, sorted_torrents);
-    this.updateViewElements(filtered_torrents, params['rerender']);
+    this.addUpAndDownToStore(params['torrents']);
+    this.updateViewElements(filtered_torrents, params['rerender'], transmission.settings || {});
     this.handleDragging();
+    
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {

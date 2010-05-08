@@ -15,7 +15,7 @@ var LinkHelpers = {
     $('#inspector').click(function() {
       if(context.infoIsOpen() && (window.location.hash.match(/\/torrents\/\d+/) ||
           window.location.hash.match(/\/torrent_details/))) {
-        context.closeInfo();
+        context.closeInfo(context);
       } else {
         context.redirect('#/torrent_details');
       }      
@@ -27,7 +27,7 @@ var LinkHelpers = {
     var context = this;
     $('#add_a_torrent').click(function() {
       if(context.infoIsOpen() && window.location.hash.match('/torrents/new')) {
-        context.closeInfo();
+        context.closeInfo(context);
       } else {
         window.location.hash = '/torrents/new';
       }
@@ -36,12 +36,6 @@ var LinkHelpers = {
   },
 
   activateSpeedLimitModeLink: function() {
-    if(transmission.store.get('speed_limit_mode') == 'enabled') {
-      $('#speed_limit_mode').addClass('active');
-      $('#speed_limit_mode').text('Disable Speed Limit Mode');
-      $('#speed_limit_mode_form').find('input:first').attr('value', 'false');
-    }
-    
     $('#speed_limit_mode').click(function() {
       var form = $('#speed_limit_mode_form');
       form.trigger('submit');
@@ -99,7 +93,7 @@ var LinkHelpers = {
     var context = this;
     $('#settings').click(function() {
       if(context.infoIsOpen() && window.location.hash.match('/settings')) {
-        context.closeInfo();
+        context.closeInfo(context);
       } else {
         context.redirect('#/settings');
       }
@@ -111,7 +105,7 @@ var LinkHelpers = {
     var context = this;
     $('#statistics').click(function() {
       if(context.infoIsOpen() && window.location.hash.match('/statistics')) {
-        context.closeInfo();
+        context.closeInfo(context);
       } else {
         context.redirect('#/statistics');
       }

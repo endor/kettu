@@ -90,7 +90,7 @@ var SettingHelpers = {
     if(new_reload_interval != (context.reload_interval/1000)) {
       context.reload_interval = new_reload_interval * 1000;
       clearInterval(transmission.interval_id);
-      context.closeInfo();
+      context.closeInfo(context);
     }
   },
   

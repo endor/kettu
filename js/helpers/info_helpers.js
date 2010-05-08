@@ -1,6 +1,7 @@
 var InfoHelpers = {
-  closeInfo: function() {
-    this.clearReloadInterval();
+  closeInfo: function(context) {
+    if(context.info_interval_id) { clearInterval(context.info_interval_id); }
+    if(context.update_settings_interval_id) { clearInterval(context.update_settings_interval_id); }
     this.saveLastMenuItem($('.menu-item.active'));
     $('.main').removeClass('info');
     $('#info').hide();
@@ -15,12 +16,6 @@ var InfoHelpers = {
     this.menuizeInfo();
   },
 
-  clearReloadInterval: function() {
-    if(transmission.info_interval_id) {
-      clearInterval(transmission.info_interval_id);
-    }
-  },
-  
   infoIsOpen: function() {
     return $('.main').hasClass('info');
   },
@@ -29,7 +24,7 @@ var InfoHelpers = {
     var context = this;
     $('#' + torrent.id).dblclick(function(event) {
       if(context.infoIsOpen()) {
-        context.closeInfo();
+        context.closeInfo(context);
       } else {
         var active_torrent = $('.torrent.active');
         if(active_torrent.length > 0) {
@@ -183,7 +178,7 @@ var InfoHelpers = {
       if(formatted.match(/59 min/)) {
         clearInterval(timer);
         context.saveLastMenuItem($('.menu-item.active'));
-        context.closeInfo();
+        context.closeInfo(context);
         context.openInfo();
       } else {
         $('.countdown').text(formatted);

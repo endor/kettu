@@ -7,34 +7,30 @@ Settings = function(transmission) { with(transmission) {
   
   get('#/settings', function() {
     var request = { 'method': 'session-get', 'arguments': {} };
+
+    original_settings = transmission.settings || {};
+    original_settings['reload-interval'] = context.reload_interval/1000;
     
-    context.remote_query(request, function(new_settings) {
-      original_settings = new_settings;      
-      new_settings['reload-interval'] = context.reload_interval/1000;
-      
-      context.partial('./templates/settings/index.mustache', new_settings, function(rendered_view) {
-        context.openInfo(rendered_view);
-        trigger('settings-refreshed');
-      });
+    context.partial('./templates/settings/index.mustache', original_settings, function(rendered_view) {
+      context.openInfo(rendered_view);
+      trigger('settings-refreshed');
     });
   });
   
   updateSettings = function() {
-    var request = { 'method': 'session-get', 'arguments': {} };
-    
-    context.remote_query(request, function(new_settings) {
-      var differences = context.hash_diff(original_settings, new_settings);
-      if(differences) {
-        for(difference in differences) {
-          if(typeof(differences[difference]) == 'boolean') {
-            $('.' + difference).attr('checked', differences[difference]);
-          } else {
-            $('.' + difference).val(differences[difference]);
-          }
+    var request = { 'method': 'session-get', 'arguments': {} };    
+    var differences = context.hash_diff(original_settings, transmission.settings || {});
+
+    if(differences) {
+      for(difference in differences) {
+        if(typeof(differences[difference]) == 'boolean') {
+          $('.' + difference).attr('checked', differences[difference]);
+        } else {
+          $('.' + difference).val(differences[difference]);
         }
-        original_settings = new_settings;
       }
-    });    
+      original_settings = transmission.settings;
+    }
   }
   
   put('#/settings', function() {
@@ -74,7 +70,7 @@ Settings = function(transmission) { with(transmission) {
     context.updateSettingsSelects(original_settings);
     context.menuizeInfo();
     
-    if(context.settings_interval_id) { clearInterval(context.settings_interval_id); }
-    context.settings_interval_id = setInterval('updateSettings()', context.reload_interval);
+    if(context.update_settings_interval_id) { clearInterval(context.update_settings_interval_id); }
+    context.update_settings_interval_id = setInterval('updateSettings()', (context.reload_interval * 2));
   });
 }};

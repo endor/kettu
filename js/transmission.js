@@ -40,7 +40,7 @@ var transmission = $.sammy(function() { with(this) {
     this.activateSortSelect(this);
     this.activateContextMenu();
     this.configureFacebox();
-    this.closeInfo();
+    this.closeInfo(this);
     this.hideContextMenu();
   }});
 }});
