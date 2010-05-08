@@ -29,7 +29,7 @@ var ViewHelpers = {
       $('#info .' + item).show();
     });
     $('#info .item').hide();
-    if(transmission.last_menu_item) {
+    if(transmission.last_menu_item && $('#' + transmission.last_menu_item).length > 0) {
       $('#' + transmission.last_menu_item).click();
     } else {
       $('#info .item:first').show();

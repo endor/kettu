@@ -152,7 +152,6 @@ Torrents = function(transmission) { with(transmission) {
     this.addUpAndDownToStore(params['torrents']);
     this.updateViewElements(filtered_torrents, params['rerender'], transmission.settings || {});
     this.handleDragging();
-    
   }});
   
   bind('torrent-refreshed', function(e, torrent) { with(this) {
