@@ -15,7 +15,7 @@ var TorrentHelpers = {
     } else {
       transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
       var sort_mode = transmission.sort_mode.charAt(0).toUpperCase() + transmission.sort_mode.slice(1);
-      $('#sort_link').text('Sort by ' + sort_mode);
+      $('#sort_link').text('Sort by ' + (sort_mode || '…'));
     }
     
     transmission.view_mode = params['view'] || transmission.store.get('view_mode') || 'normal';
