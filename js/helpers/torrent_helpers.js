@@ -22,7 +22,7 @@ var TorrentHelpers = {
     transmission.filter_mode = params['filter'] || transmission.store.get('filter_mode') || 'all';
     
     $('#filters a').removeClass('active');
-    $('#filters ' + transmission.filter_mode).addClass('active');
+    $('#filters .' + transmission.filter_mode).addClass('active');
     
     transmission.store.set('sort_mode', transmission.sort_mode);
     transmission.store.set('view_mode', transmission.view_mode);
