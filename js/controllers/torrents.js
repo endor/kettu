@@ -3,15 +3,13 @@ Torrents = function(transmission) { with(transmission) {
   
   before(function() {
     context = this;
-    context.set_and_save_modes(context.params);
     context.reload_interval = context.reload_interval || 2000;
   });
   
   get('#/torrents', function() {
+    context.set_and_save_modes(context);
     get_and_render_torrents(true);
     get_settings();
-    if(transmission.interval_id) { clearInterval(transmission.interval_id); }
-    if(transmission.settings_interval_id) { clearInterval(transmission.settings_interval_id); }
     transmission.interval_id = setInterval('get_and_render_torrents(false)', context.reload_interval);
     transmission.settings_interval_id = setInterval('get_settings()', (context.reload_interval * 2));
   });

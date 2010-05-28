@@ -6,41 +6,47 @@ var TorrentHelpers = {
     });
   },
   
-  // TODO: this needs to be cleaned up
-  set_and_save_modes: function(params) {
+  set_and_save_modes: function(context) {
+    var params = context.params;
+    
     if(params['sort'] == 'reverse') {
       transmission.reverse_sort = !transmission.reverse_sort;
       $('#reverse_link').attr('href', '#/torrents?sort=reverse&random=' + new Date().getTime());
-      transmission.sort_mode = transmission.store.get('sort_mode') || 'name';
-    } else {
-      transmission.sort_mode = params['sort'] || transmission.store.get('sort_mode') || 'name';
-      var sort_mode = transmission.sort_mode.charAt(0).toUpperCase() + transmission.sort_mode.slice(1);
-      $('#sort_link').text('Sort by ' + (sort_mode || '…'));
+      delete(params['sort']);
     }
-    
-    transmission.view_mode = params['view'] || transmission.store.get('view_mode') || 'normal';
-    transmission.filter_mode = params['filter'] || transmission.store.get('filter_mode') || 'all';
-    
-    $('#filters a').removeClass('active');
-    $('#filters .' + transmission.filter_mode).addClass('active');
-    
-    transmission.store.set('sort_mode', transmission.sort_mode);
-    transmission.store.set('view_mode', transmission.view_mode);
-    transmission.store.set('filter_mode', transmission.filter_mode);
-    
-    if(transmission.update_settings_interval_id) {
-      clearInterval(transmission.update_settings_interval_id);
-      delete(transmission.update_settings_interval_id);
-    }
-    
-    if(transmission.info_interval_id) {
-      clearInterval(transmission.info_interval_id);
-      delete(transmission.info_interval_id);      
-    }
+
+    $.each([{key: 'view', def: 'normal'}, {key: 'filter', def: 'all'}, {key: 'sort', def: 'name'}], function() {
+      var key = this.key, def = this.def;
+      transmission[key + '_mode'] = params[key] || transmission.store.get(key + '_mode') || def;
+      transmission.store.set(key + '_mode', transmission[key + '_mode']);
+    });
+
+    context.update_sort_dropdown();
+    context.update_filter_list();
+    context.clear_all_intervals();
     
     $('.torrent').show();
   },
+  
+  clear_all_intervals: function() {
+    $.each(['update_settings_interval_id', 'info_interval_id', 'interval_id', 'settings_interval_id'], function() {
+      if(transmission[this]) {
+        clearInterval(transmission[this]);
+        delete(transmission[this]);
+      }      
+    });    
+  },
+  
+  update_sort_dropdown: function() {
+    var sort_mode = transmission.sort_mode.charAt(0).toUpperCase() + transmission.sort_mode.slice(1);
+    $('#sort_link').text('Sort by ' + (sort_mode || '…'));    
+  },
 
+  update_filter_list: function() {
+    $('#filters a').removeClass('active');
+    $('#filters .' + transmission.filter_mode).addClass('active');
+  },
+  
   submit_add_torrent_form: function(context, paused, torrentsUploaded) {
     $('#add_torrent_form').ajaxSubmit({
   		'url': '/transmission/upload?paused=' + paused,
