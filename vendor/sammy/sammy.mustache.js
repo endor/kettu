@@ -407,7 +407,7 @@ if (!Mustache) {
     //
     var mustache = function(template, data, partials) {
       data     = $.extend({}, this, data);
-      partials = $.extend({}, data.partials, partials); 
+      partials = $.extend({}, data.partials, partials);
       return Mustache.to_html(template, data, partials);
     };
   
