@@ -1,9 +1,8 @@
-Statistics = function(transmission) { with(transmission) {
-  get('#/statistics', function() {
-    var context = this;    
+Statistics = function(transmission) {
+  transmission.get('#/statistics', function(context) {
     var request = {
-      'method': 'session-stats',
-      'arguments': {'fields': ['current-stats', 'torrentCount', 'cumulative-stats']}
+      method: 'session-stats',
+      arguments: {fields: ['current-stats', 'torrentCount', 'cumulative-stats']}
     }
     
     context.remote_query(request, function(response) {
@@ -13,4 +12,4 @@ Statistics = function(transmission) { with(transmission) {
       });      
     });
   });
-}};
+};

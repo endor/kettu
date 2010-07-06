@@ -1,59 +1,53 @@
-Settings = function(transmission) { with(transmission) {
-  var context, original_settings;
+Settings = function(transmission) {
+  var original_settings;
   
-  before(function() {
-    context = this;
-  });
-  
-  get('#/settings', function() {
-    var request = { 'method': 'session-get', 'arguments': {} };
+  transmission.get('#/settings', function(context) {
+    var request = { method: 'session-get', arguments: {} };
 
     original_settings = transmission.settings || {};
     original_settings['reload-interval'] = context.reload_interval/1000;
     
     context.partial('./templates/settings/index.mustache', original_settings, function(rendered_view) {
       context.openInfo(rendered_view);
-      trigger('settings-refreshed');
+      transmission.trigger('settings-refreshed');
     });
   });
   
   updateSettings = function() {
-    var request = { 'method': 'session-get', 'arguments': {} };    
-    var differences = context.hash_diff(original_settings, transmission.settings || {});
+    // TODO: there has to be a nicer way than transmission.context_prototype.prototype
+    var request = { method: 'session-get', arguments: {} },
+      differences = transmission.context_prototype.prototype.hash_diff(original_settings, transmission.settings || {}) || [];
 
-    if(differences) {
-      for(difference in differences) {
-        if(typeof(differences[difference]) == 'boolean') {
-          $('.' + difference).attr('checked', differences[difference]);
-        } else {
-          $('.' + difference).val(differences[difference]);
-        }
+    for(difference in differences) {
+      if(typeof(differences[difference]) == 'boolean') {
+        $('.' + difference).attr('checked', differences[difference]);
+      } else {
+        $('.' + difference).val(differences[difference]);
       }
-      original_settings = transmission.settings;
     }
+    original_settings = transmission.settings;
   }
   
-  put('#/settings', function() {
-    var request = { 'method': 'session-set', 'arguments': this.prepare_arguments(context, this.params) };
+  transmission.put('#/settings', function(context) {
+    var request = { method: 'session-set', arguments: this.prepare_arguments(context, this.params) };
 
     this.manage_handlers(context, this.params);
     
     if(this.is_speed_limit_mode_update(request['arguments']) || this.setting_arguments_valid(context, $.extend(request['arguments'], {'reload-interval': this.params['reload-interval']}))) {
       delete(request['arguments']['reload-interval']);
       context.remote_query(request, function(response) {
-        trigger('flash', 'Settings updated successfully.');
+        transmission.trigger('flash', 'Settings updated successfully.');
         if(context.params['peer-port']) { updatePeerPortDiv(context); }
         if(context.params['reload-interval']) { context.update_reload_interval(context, context.params['reload-interval']); }
       });      
     } else {
-      trigger('flash', 'Settings could not be updated.');
-      trigger('errors', this.setting_arguments_errors(context));
+      transmission.trigger('flash', 'Settings could not be updated.');
+      transmission.trigger('errors', this.setting_arguments_errors(context));
     }
   });
 
   updatePeerPortDiv = function(context) {
-    $('#port-open').addClass('waiting');
-    $('#port-open').show();
+    $('#port-open').addClass('waiting').show();
     var request = { 'method': 'port-test', 'arguments': {} };
     context.remote_query(request, function(response) {
       $('#port-open').removeClass('waiting');
@@ -65,12 +59,12 @@ Settings = function(transmission) { with(transmission) {
     });
   };
   
-  bind('settings-refreshed', function() {
-    context.updateSettingsCheckboxes(original_settings);
-    context.updateSettingsSelects(original_settings);
-    context.menuizeInfo();
+  transmission.bind('settings-refreshed', function() {
+    this.updateSettingsCheckboxes(original_settings);
+    this.updateSettingsSelects(original_settings);
+    this.menuizeInfo();
     
-    if(context.update_settings_interval_id) { clearInterval(context.update_settings_interval_id); }
-    context.update_settings_interval_id = setInterval('updateSettings()', (context.reload_interval * 2));
+    if(this.update_settings_interval_id) { clearInterval(this.update_settings_interval_id); }
+    this.update_settings_interval_id = setInterval('updateSettings()', (this.reload_interval * 2));
   });
-}};
+};
