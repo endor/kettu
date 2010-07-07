@@ -8,7 +8,7 @@ Feature: Torrent info
     When I go to the start page
       And I wait for the AJAX call to finish
       And I double click on the torrent "1"
-      And I wait for the AJAX call to finish
+      # And I wait for the AJAX call to finish
     Then I should see "/downloads"
     When I double click on the torrent
     Then I should not see "/downloads"
@@ -19,7 +19,7 @@ Feature: Torrent info
       And I wait for the AJAX call to finish
       And I click on the torrent "1"
       And I follow "Inspector"
-      And I wait for the AJAX call to finish
+      # And I wait for the AJAX call to finish
     Then I should see "/downloads"
     When I follow "Inspector"
     Then I should not see "/downloads"

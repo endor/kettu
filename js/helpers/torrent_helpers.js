@@ -5,6 +5,61 @@ var TorrentHelpers = {
       'arguments': arguments
     });
   },
+
+  get_and_render_torrents: function(rerender) {
+    var request = this.build_request('torrent-get', {fields:Torrent({})['fields']});
+    this.remote_query(request, function(response) {
+      transmission.trigger('torrents-refreshed', {
+        torrents: response['torrents'].map( function(row) {return Torrent(row)} ),
+        rerender: rerender
+      });
+    });    
+  },
+
+  render_config_for_new_torrents: function(torrent_added) {
+    var context = this;
+    
+    if(torrent_added) {
+      var request = context.build_request('torrent-get', {fields:Torrent({})['fields']});
+      context.remote_query(request, function(response) {
+        context.closeInfo(context);
+        var newest = context.get_newest_torrents(context, response);
+        if(newest.length > 1) {
+          context.partial('./templates/torrents/new_multiple.mustache', {torrents: newest}, function(rendered_view) {
+            $.facebox(rendered_view);
+          });
+        } else {
+          context.get_torrent(newest[0].id, function(torrent) {
+            context.partial('./templates/torrents/new_with_data.mustache', TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
+              $.facebox(rendered_view);
+            });          
+          });
+        }
+      });
+    } else {
+      transmission.trigger('flash', 'Torrent could not be added.');
+    }
+  },
+  
+  get_torrent: function(id, callback) {
+    var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']),
+      request = this.build_request('torrent-get', { ids: id, fields: fields }),
+      context = this;
+      
+    callback = callback || this.render_torrent;
+    
+    this.remote_query(request, function(response) {
+      callback.call(context, response['torrents'].map( function(row) { return Torrent(row); } )[0]);
+    });
+  },
+  
+  render_torrent: function(torrent) {
+    var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
+    this.partial('./templates/torrents/' + template + '.mustache', TorrentsView(torrent, this), function(rendered_view) {
+      $(transmission.element_selector).find('#' + torrent.id).replaceWith(rendered_view);
+      transmission.trigger('torrent-refreshed', torrent);
+    });
+  },  
   
   set_and_save_modes: function(context) {
     var params = context.params;
@@ -47,15 +102,15 @@ var TorrentHelpers = {
     $('#filters .' + transmission.filter_mode).addClass('active');
   },
   
-  submit_add_torrent_form: function(context, paused, torrentsUploaded) {
+  submit_add_torrent_form: function(context, paused) {
     $('#add_torrent_form').ajaxSubmit({
-  		'url': '/transmission/upload?paused=' + paused,
-  		'type': 'POST',
-  		'data': { 'X-Transmission-Session-Id' : context.remote_session_id() },
-  		'dataType': 'xml',
-      'iframe': true,
-  		'success': function(response) {
-  		  torrentsUploaded($(response).children(':first').text().match(/200/));
+  		url: '/transmission/upload?paused=' + paused,
+  		type: 'POST',
+  		data: { 'X-Transmission-Session-Id' : context.remote_session_id() },
+  		dataType: 'xml',
+      iframe: true,
+  		success: function(response) {
+  		  context.render_config_for_new_torrents($(response).children(':first').text().match(/200/));
   		}
 		});  
   },
@@ -87,6 +142,7 @@ var TorrentHelpers = {
   
   updateStatus: function(old_torrent, torrent) {
     old_torrent.removeClass('downloading').removeClass('seeding').removeClass('paused').addClass(torrent.statusWord());
+    old_torrent.find('input.pauseAndActivateButton').removeClass('downloading').removeClass('seeding').removeClass('paused').addClass(torrent.statusWord());
   },
   
   updateTorrent: function(torrent) {

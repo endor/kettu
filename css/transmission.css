@@ -283,11 +283,11 @@ nav ul.icon_nav li a:hover {
   border: 0;
 }
 
-.pauseAndActivateButton.activate {
+.pauseAndActivateButton.paused {
   background: transparent url(images/control_play.png) no-repeat;
 }
 
-.pauseAndActivateButton.pause {
+.pauseAndActivateButton.downloading, .pauseAndActivateButton.seeding {
   background: transparent url(images/control_pause.png) no-repeat;
 }
 

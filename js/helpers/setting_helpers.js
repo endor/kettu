@@ -108,5 +108,10 @@ var SettingHelpers = {
   
   base_url: function() { 
     return window.location.href.match(/^([^#]+)#.+$/)[1];
+  },
+  
+  get_settings: function() {
+    var request = { method: 'session-get', arguments: {} };
+    this.remote_query(request, function(new_settings) { transmission.settings = new_settings; });
   }
 };

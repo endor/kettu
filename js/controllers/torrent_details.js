@@ -25,8 +25,8 @@ TorrentDetails = function(transmission) {
         if(transmission.last_menu_item) { $('#' + transmission.last_menu_item).click(); }
       });      
     } else {
-      var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']);
-      var request = context.build_request('torrent-get', {ids: torrents.shift(), fields: fields});
+      var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']),
+        request = context.build_request('torrent-get', {ids: torrents.shift(), fields: fields});
       context.remote_query(request, function(response) {
         var torrent = response['torrents'].map( function(row) {return Torrent(row);} )[0];
         accumulation.number_of_torrents += 1;
@@ -40,7 +40,7 @@ TorrentDetails = function(transmission) {
         accumulation.rate_upload += torrent.rateUpload;
         accumulation.peers_upload += torrent.peersGettingFromUs;
         accumulation.peers_download += torrent.peersSendingToUs;
-        accumulate_torrents_and_render_result(torrents, accumulation);
+        accumulate_torrents_and_render_result(context, torrents, accumulation);
       });
     }
   };

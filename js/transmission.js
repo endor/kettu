@@ -26,15 +26,15 @@ var transmission = $.sammy(function() { with(this) {
   Settings(this);
   Statistics(this);
   
-  bind('flash', function(e, message) { with(this) {
+  bind('flash', function(e, message) {
     $('#flash').html(message).show().delay(3000).fadeOut('slow');
-  }});
+  });
   
-  bind('errors', function(e, errors) { with(this) {
+  bind('errors', function(e, errors) {
     this.showErrors(errors);
-  }});
+  });
   
-  bind('init', function() { with(this) {
+  bind('init', function() {
     this.activateLinks();
     this.activateSearch(this);
     this.activateSortSelect(this);
@@ -42,7 +42,7 @@ var transmission = $.sammy(function() { with(this) {
     this.configureFacebox();
     this.closeInfo(this);
     this.hideContextMenu();
-  }});
+  });
 }});
  
 $(function() {
