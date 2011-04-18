@@ -7,7 +7,7 @@ Settings = function(transmission) {
     original_settings = transmission.settings || {};
     original_settings['reload-interval'] = context.reload_interval/1000;
     
-    context.partial('./templates/settings/index.mustache', original_settings, function(rendered_view) {
+    context.render('templates/settings/index.mustache', original_settings, function(rendered_view) {
       context.openInfo(rendered_view);
       transmission.trigger('settings-refreshed');
     });

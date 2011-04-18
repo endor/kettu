@@ -4,7 +4,7 @@ var StatisticHelpers = {
       var type = $(this).attr('class') + '_graph';
       var graph = context[type].apply();
 
-      context.partial('./templates/statistics/' + type + '.mustache', {}, function(rendered_view) {
+      context.render('templates/statistics/' + type + '.mustache', {}, function(rendered_view) {
         $.facebox(rendered_view);
         $('#facebox').addClass('graph');
         context.draw_graph(type, graph);

@@ -1,7 +1,7 @@
 var InfoHelpers = {
   closeInfo: function(context) {
-    if(context.info_interval_id) { clearInterval(context.info_interval_id); }
-    if(context.update_settings_interval_id) { clearInterval(context.update_settings_interval_id); }
+    if(transmission.info_interval_id) { clearInterval(transmission.info_interval_id); }
+    if(transmission.update_settings_interval_id) { clearInterval(transmission.update_settings_interval_id); }
     this.saveLastMenuItem($('.menu-item.active'));
     $('.main').removeClass('info');
     $('#info').hide();

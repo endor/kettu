@@ -25,12 +25,12 @@ var TorrentHelpers = {
         context.closeInfo(context);
         var newest = context.get_newest_torrents(context, response);
         if(newest.length > 1) {
-          context.partial('./templates/torrents/new_multiple.mustache', {torrents: newest}, function(rendered_view) {
+          context.render('templates/torrents/new_multiple.mustache', {torrents: newest}, function(rendered_view) {
             $.facebox(rendered_view);
           });
         } else {
           context.get_torrent(newest[0].id, function(torrent) {
-            context.partial('./templates/torrents/new_with_data.mustache', TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
+            context.render('templates/torrents/new_with_data.mustache', TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
               $.facebox(rendered_view);
             });          
           });
@@ -55,7 +55,7 @@ var TorrentHelpers = {
   
   render_torrent: function(torrent) {
     var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
-    this.partial('./templates/torrents/' + template + '.mustache', TorrentsView(torrent, this), function(rendered_view) {
+    this.render('templates/torrents/' + template + '.mustache', TorrentsView(torrent, this), function(rendered_view) {
       $(transmission.element_selector).find('#' + torrent.id).replaceWith(rendered_view);
       transmission.trigger('torrent-refreshed', torrent);
     });
@@ -210,7 +210,7 @@ var TorrentHelpers = {
   cache_partials: function() {
     var context = this;
     $.each(['delete_data', 'show', 'show_compact'], function() {
-      context.cache_partial('./templates/torrents/' + this + '.mustache', this, context);
+      context.cache_partial('templates/torrents/' + this + '.mustache', this, context);
     });
   },
   

@@ -3,7 +3,7 @@ TorrentDetails = function(transmission) {
     var active_torrents = $('.torrent.active');
     switch(active_torrents.length) {
       case 0:
-        context.partial('./templates/torrent_details/no_torrents_selected.mustache', {}, function(view) {
+        context.render('templates/torrent_details/no_torrents_selected.mustache', {}, function(view) {
           context.openInfo(view);
         });
         break;
@@ -20,7 +20,7 @@ TorrentDetails = function(transmission) {
   var accumulate_torrents_and_render_result = function(context, torrents, accumulation) {
     if(torrents.length == 0) {
       var view = TorrentDetailsView(accumulation);
-      context.partial('./templates/torrent_details/index.mustache', view, function(rendered_view) {
+      context.render('templates/torrent_details/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
         if(transmission.last_menu_item) { $('#' + transmission.last_menu_item).click(); }
       });      
@@ -55,9 +55,9 @@ TorrentDetails = function(transmission) {
         var torrent = response['torrents'].map( function(row) {return Torrent(row);} )[0],
           view = TorrentView(torrent, context, context.params['sort_peers']),
           template = torrent.hasError() ? 'show_with_errors' : 'show',
-          partial = './templates/torrent_details/file.mustache';
+          partial = 'templates/torrent_details/file.mustache';
 
-        context.partial('./templates/torrent_details/' + template + '.mustache', view, function(rendered_view) {
+        context.render('templates/torrent_details/' + template + '.mustache', view, function(rendered_view) {
           context[callback].call(this, context, rendered_view, torrent);
         }, {file: partial});
       });

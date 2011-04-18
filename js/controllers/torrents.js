@@ -17,7 +17,7 @@ Torrents = function(transmission) {
   });
   
   transmission.get('#/torrents/new', function(context) {
-    this.partial('./templates/torrents/new.mustache', {}, function(rendered_view) {
+    this.render('templates/torrents/new.mustache', {}, function(rendered_view) {
       context.openInfo(rendered_view);
     });
   });

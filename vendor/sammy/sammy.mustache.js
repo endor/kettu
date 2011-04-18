@@ -331,6 +331,8 @@ if (!window.Mustache) {
 
   Sammy = Sammy || {};
 
+  Sammy.MustacheOriginal = Mustache;
+
   // <tt>Sammy.Mustache</tt> provides a quick way of using mustache style templates in your app.
   // The plugin itself includes the awesome mustache.js lib created and maintained by Jan Lehnardt
   // at http://github.com/janl/mustache.js
@@ -439,6 +441,7 @@ if (!window.Mustache) {
     if (!method_alias) method_alias = 'mustache';
     app.helper(method_alias, mustache);
 
+    return Mustache;
   };
 
 })(jQuery);
