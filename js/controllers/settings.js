@@ -5,7 +5,7 @@ Settings = function(transmission) {
     var request = { method: 'session-get', arguments: {} };
 
     original_settings = transmission.settings || {};
-    original_settings['reload-interval'] = context.reload_interval/1000;
+    original_settings['reload-interval'] = transmission.reloadInterval/1000;
     
     context.render('templates/settings/index.mustache', original_settings, function(rendered_view) {
       context.openInfo(rendered_view);
@@ -13,10 +13,8 @@ Settings = function(transmission) {
     });
   });
   
-  updateSettings = function() {
-    // TODO: there has to be a nicer way than transmission.context_prototype.prototype
-    var request = { method: 'session-get', arguments: {} },
-      differences = transmission.context_prototype.prototype.hash_diff(original_settings, transmission.settings || {}) || [];
+  updateSettings = function(context) {
+    var differences = context.hash_diff(original_settings, transmission.settings || {}) || [];
 
     for(difference in differences) {
       if(typeof(differences[difference]) == 'boolean') {
@@ -25,6 +23,7 @@ Settings = function(transmission) {
         $('.' + difference).val(differences[difference]);
       }
     }
+
     original_settings = transmission.settings;
   }
   
@@ -65,6 +64,6 @@ Settings = function(transmission) {
     this.menuizeInfo();
     
     if(this.update_settings_interval_id) { clearInterval(this.update_settings_interval_id); }
-    this.update_settings_interval_id = setInterval('updateSettings()', (this.reload_interval * 2));
+    this.update_settings_interval_id = setInterval(updateSettings, (transmission.reloadInterval * 2), this);
   });
 };

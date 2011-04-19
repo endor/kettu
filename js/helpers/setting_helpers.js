@@ -87,8 +87,8 @@ var SettingHelpers = {
   
   update_reload_interval: function(context, new_reload_interval) {
     new_reload_interval = parseInt(new_reload_interval, 10);
-    if(new_reload_interval != (context.reload_interval/1000)) {
-      context.reload_interval = new_reload_interval * 1000;
+    if(new_reload_interval != (transmission.reloadInterval/1000)) {
+      reloadInterval.reload_interval = new_reload_interval * 1000;
       clearInterval(transmission.interval_id);
       context.closeInfo(context);
     }
@@ -111,7 +111,7 @@ var SettingHelpers = {
   },
   
   get_settings: function() {
-    var request = { method: 'session-get', arguments: {} };
-    this.remote_query(request, function(new_settings) { transmission.settings = new_settings; });
+    this.remote_query({ method: 'session-get', arguments: {} },
+      function(new_settings) { transmission.settings = new_settings; });
   }
 };

@@ -1,11 +1,10 @@
 Torrents = function(transmission) {
   transmission.get('#/torrents', function(context) {
-    context.reload_interval = context.reload_interval || 2000;
     context.set_and_save_modes(context);
     context.get_and_render_torrents(true);
     context.get_settings();
-    transmission.interval_id = setInterval("transmission.trigger('render_torrents')", context.reload_interval);
-    transmission.settings_interval_id = setInterval("transmission.trigger('render_settings')", (context.reload_interval * 2));
+    transmission.interval_id = setInterval("transmission.trigger('render_torrents')", transmission.reloadInterval);
+    transmission.settings_interval_id = setInterval("transmission.trigger('render_settings')", (transmission.reloadInterval * 2));
   });
   
   transmission.bind('render_torrents', function() {

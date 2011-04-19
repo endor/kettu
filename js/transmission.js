@@ -46,6 +46,7 @@ var transmission = $.sammy(function() { with(this) {
 }});
  
 $(function() {
+  transmission.reloadInterval = 2000;
   transmission.run('#/torrents');
   transmission.trigger('init');
 });

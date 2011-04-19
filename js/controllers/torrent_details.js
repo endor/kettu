@@ -68,6 +68,6 @@ TorrentDetails = function(transmission) {
     transmission.context = context;
     transmission.context.get_and_render_torrent_details(id, 'render_torrent_details_in_view');
     if(transmission.info_interval_id) { clearInterval(transmission.info_interval_id); }
-    transmission.info_interval_id = setInterval("transmission.context.get_and_render_torrent_details(" + id + ", 'update_torrent_details_in_view')", context.reload_interval);
+    transmission.info_interval_id = setInterval("transmission.context.get_and_render_torrent_details(" + id + ", 'update_torrent_details_in_view')", transmission.reloadInterval);
   });  
 };
