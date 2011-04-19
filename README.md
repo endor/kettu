@@ -43,9 +43,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* find a way to repair the tests:
-  * capybara + selenium does not support dblclick, when trying to trigger it, it doesn't work with firefox.
-  * with culerity the whole torrent_info feature does not work for some reason, show me the page shows shit.
 * deal with memory leak
   * this seems to only exist in safari. chrome and firefox don't show the memory leak.
 * maybe have a trash icon where torrents can be dragged and dropped into

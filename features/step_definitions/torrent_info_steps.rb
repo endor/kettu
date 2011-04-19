@@ -34,10 +34,10 @@ When /there is new data for the torrent with new IP "([^\"]+)" and new client na
 end
 
 Then /I should see a countdown time of about 30 minutes/ do
-  $browser.div(:text, /(29|30) min, (\d+) sec/).should be_exist
+  page.body.should match(/(29|30) min, (\d+) sec/)
 end
 
 Then /I should see a formatted time for the timestamp/ do
   time = Time.at(1266830556).strftime("%m/%e/%Y %k:%M").sub(/^0/, '')
-  $browser.div(:text, /#{time}/).should be_exist
+  page.body.should match(time)
 end

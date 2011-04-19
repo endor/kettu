@@ -56,21 +56,17 @@ Given /three torrents with the names "([^\"]+)" and the (download rates|stati|da
 end
 
 When /^I click on the torrent$/ do
-  $browser.li(:id, '1').click
-end
-
-When /^I double click on the torrent$/ do
-  $browser.li(:id, '1').double_click
+  find('#1').click
 end
 
 Then /the torrent should be highlighted/ do
-  $browser.li(:id, '1').attribute_value(:class).should include('active')
-end
-
-When /I double click on the torrent "([^\"]+)"/ do |id|
-  $browser.li(:id, id).double_click
+  find('#1.active').should_not be_nil
 end
 
 When /I click on the torrent "([^\"]+)"/ do |id|
-  $browser.li(:id, id).click
+  find("##{id}").click
+end
+
+Then /the torrent info should be closed/ do
+  find('#info').should_not be_visible
 end

@@ -1,8 +1,14 @@
-require 'timeout'
 require 'rubygems'
-require 'culerity'
-require 'cucumber/formatter/unicode'
 require 'json'
+require 'capybara/cucumber'
+require File.dirname(__FILE__) + '/testapp'
+require 'test/unit'
+require 'test/unit/assertions'
+include Test::Unit::Assertions
+
+Capybara.app = Sinatra::Application
+Capybara.javascript_driver = :selenium
+Capybara.default_driver = :selenium
 
 Symbol.class_eval do
   def to_proc
@@ -11,24 +17,20 @@ Symbol.class_eval do
 end unless :symbol.respond_to?(:to_proc)
 
 Before do
-  $testapp = IO.popen("/usr/bin/env ruby #{File.dirname(__FILE__) + '/testapp.rb'} 2>/dev/null 1>/dev/null", 'r+')
-  $server ||= Culerity::run_server
-  $browser = Culerity::RemoteBrowserProxy.new $server, {:browser => :firefox, :javascript_exceptions => true, :resynchronize => false, :status_code_exceptions => true}
-  $browser.log_level = :warning
-  Dir.glob(File.dirname(__FILE__) + '/*.json').each {|f| File.delete(f)}
+  FileUtils.rm_rf(File.dirname(__FILE__) + '/../fixtures')
 end
 
-def host
-  'http://localhost:4567'
-end
-
-def app
-  'kettu'
-end
-
-at_exit do
-  $browser.exit if $browser
-  $server.close if $server
-  Process.kill(9, $testapp.pid.to_i) if $testapp # see why ruby process is still running
-  Dir.glob(File.dirname(__FILE__) + '/*.json').each {|f| File.delete(f)}
+def patiently(&block)
+  cycles = 0
+  begin
+    yield
+  rescue  => e
+    cycles += 1
+    sleep 0.1
+    if cycles < 10
+      retry 
+    else
+      raise e
+    end
+  end
 end
