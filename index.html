@@ -13,47 +13,53 @@
     <link rel="stylesheet" type="text/css" href="./css/iphone.css" media="only screen and (max-device-width: 480px)" />
     <link rel="stylesheet" type="text/css" href="./css/iphone.css" media="handheld" />
 		
-    <script src="./vendor/jquery/jquery.js"></script>
-    <script src="./vendor/jquery/jquery.ui.js"></script>
-    <script src="./vendor/jquery/jquery.form.js"></script>
-    <script src="./vendor/jquery/jquery.uniq.js"></script>
-    <script src="./vendor/jquery/facebox.js"></script>
-    <script src="./vendor/jquery/jquery.contextmenu.js"></script>
-    <script src="./vendor/raphael/raphael.js"></script>
-    <script src="./vendor/raphael/raphael.grid.js"></script>
-    <script src="./vendor/raphael/raphael.path.methods.js"></script>
-    <script src="./vendor/sammy/sammy.js"></script>
-    <script src="./vendor/sammy/sammy.json.js"></script>
-    <script src="./vendor/sammy/sammy.storage.js"></script>
-    <script src="./vendor/sammy/sammy.mustache.js"></script>
-    <script src="./js/rpc.js"></script>
-    <script src="./js/controllers/settings.js"></script>
-    <script src="./js/controllers/statistics.js"></script>
-    <script src="./js/controllers/torrents.js"></script>
-    <script src="./js/controllers/torrent_details.js"></script>
-    <script src="./js/models/torrent.js"></script>
-    <script src="./js/models/validator.js"></script>
-    <script src="./js/models/settings_validator.js"></script>
-    <script src="./js/views/statistics.js"></script>
-    <script src="./js/views/torrent.js"></script>
-    <script src="./js/views/torrents.js"></script>
-    <script src="./js/views/torrent_details.js"></script>
-    <script src="./js/helpers/application_helpers.js"></script>
-    <script src="./js/helpers/context_menu_helpers.js"></script>
-    <script src="./js/helpers/filter_torrents_helpers.js"></script>
-    <script src="./js/helpers/info_helpers.js"></script>
-    <script src="./js/helpers/link_helpers.js"></script>
-    <script src="./js/helpers/math_helpers.js"></script>
-    <script src="./js/helpers/search_helpers.js"></script>
-    <script src="./js/helpers/setting_helpers.js"></script>
-    <script src="./js/helpers/sort_torrents_helpers.js"></script>
-    <script src="./js/helpers/statistic_helpers.js"></script>
-    <script src="./js/helpers/store_helpers.js"></script>
-    <script src="./js/helpers/torrent_helpers.js"></script>
-    <script src="./js/helpers/torrent_details_helpers.js"></script>
-    <script src="./js/helpers/view_helpers.js"></script>
-    <script src="./js/transmission.js"></script>
-    <script src="./features/support/culerity.js"></script>
+		<script type="text/javascript" src="vendor/lab/lab.js"></script>
+    <script type="text/javascript">
+
+      $LAB
+        .script('vendor/jquery/jquery.js').wait()
+        .script('vendor/jquery/jquery.ui.js')
+        .script('vendor/jquery/jquery.form.js')
+        .script('vendor/jquery/jquery.uniq.js')
+        .script('vendor/jquery/jquery.contextmenu.js')
+        .script('vendor/jquery/facebox.js')
+        .script('vendor/raphael/raphael.js').wait()
+        .script('vendor/raphael/raphael.grid.js')
+        .script('vendor/raphael/raphael.path.methods.js')
+        .script('vendor/sammy/sammy.js').wait()
+        .script('vendor/sammy/sammy.json.js')
+        .script('vendor/sammy/sammy.storage.js')
+        .script('vendor/sammy/sammy.mustache.js')
+        .script('js/rpc.js').wait()
+        .script('js/controllers/settings.js')
+        .script('js/controllers/statistics.js')
+        .script('js/controllers/torrents.js')
+        .script('js/controllers/torrent_details.js')
+        .script('js/models/torrent.js')
+        .script('js/models/validator.js')
+        .script('js/models/settings_validator.js')
+        .script('js/views/statistics.js')
+        .script('js/views/torrent.js')
+        .script('js/views/torrents.js')
+        .script('js/views/torrent_details.js')
+        .script('js/helpers/application_helpers.js')
+        .script('js/helpers/context_menu_helpers.js')
+        .script('js/helpers/filter_torrents_helpers.js')
+        .script('js/helpers/info_helpers.js')
+        .script('js/helpers/link_helpers.js')
+        .script('js/helpers/math_helpers.js')
+        .script('js/helpers/search_helpers.js')
+        .script('js/helpers/setting_helpers.js')
+        .script('js/helpers/sort_torrents_helpers.js')
+        .script('js/helpers/statistic_helpers.js')
+        .script('js/helpers/store_helpers.js')
+        .script('js/helpers/torrent_helpers.js')
+        .script('js/helpers/torrent_details_helpers.js')
+        .script('js/helpers/view_helpers.js').wait()
+        .script('js/transmission.js')
+        .script('features/support/culerity.js');
+
+    </script>    
     
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="icon" type="image/ico" href="favicon.ico" />
