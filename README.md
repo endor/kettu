@@ -36,10 +36,10 @@ In the current (pre-v2.0) nightlies on the mac, you can simply drop kettu in the
 ## Tests
 
 ### Unit Tests
-There are [jspecs](http://github.com/visionmedia/jspec) in `/spec` which you can run by opening the `index.html` file within the spec directory.
+There are [jspecs](https://github.com/visionmedia/jspec) in `/spec` which you can run by opening the `index.html` file within the spec directory.
 
 ### Acceptance Tests
-There are [culerity](http://github.com/langalex/culerity) tests in `features`. You will need culerity, celerity and the most current htmlunit to run them. You will just need to type `cucumber features/<feature>`.
+There are [capybara](https://github.com/jnicklas/capybara) tests in `features`. You will just need to type `cucumber features/<feature>`.
 
 
 ## Todo
