@@ -43,8 +43,6 @@ There are [culerity](http://github.com/langalex/culerity) tests in `features`. Y
 
 
 ## Todo
-* deal with memory leak
-  * this seems to only exist in safari. chrome and firefox don't show the memory leak.
 * maybe have a trash icon where torrents can be dragged and dropped into
 * maybe checkboxes in preferences could be on/off sliders, something with sliders
 * maybe add <audio> to audio files, transforms

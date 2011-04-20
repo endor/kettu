@@ -5,7 +5,7 @@ var StoreHelpers = {
       uploadRate += this.rateUpload;
       downloadRate += this.rateDownload;
     });
-    
+
     if(transmission.store.exists('up_and_download_rate')) {
       store_data = transmission.store.get('up_and_download_rate');
       if(store_data.length > 99) { store_data.shift(); }

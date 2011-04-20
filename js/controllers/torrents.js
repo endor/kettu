@@ -92,7 +92,6 @@ Torrents = function(transmission) {
     var filtered_torrents = this.filterTorrents(transmission.filter_mode, sorted_torrents);
     this.addUpAndDownToStore(params['torrents']);
     this.updateViewElements(filtered_torrents, params['rerender'], transmission.settings || {});
-    this.handleDragging();
   });
   
   transmission.bind('torrent-refreshed', function(e, torrent) {

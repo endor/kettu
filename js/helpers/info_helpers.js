@@ -68,43 +68,6 @@ var InfoHelpers = {
           // NOTE: a redirect seems to interfere with our double click handling here
         }        
       }
-    });    
-  },
-  
-  handleDragging: function() {
-    var context = this;
-    $('#torrents').mousedown(function(event) {
-      var closest_torrent = $(event.target).closest('.torrent');
-      context.original_position = closest_torrent.position().top;
-      context.closest_torrent = closest_torrent;
-
-  		// NOTE: this might be slow for lots of torrents
-  		//       maybe there's a faster way to do this?
-      $('#torrents').mousemove(function(event) {
-        context.closest_torrent.addClass('active');
-        
-        var y1 = context.original_position;
-        var y2 = $(event.target).closest('.torrent').position().top;
-
-    		if(y2 < y1) { var tmp = y1; y1 = y2; y2 = tmp; }
-        
-        $('.torrent:visible').each(function() {
-          var position = $(this).position();          
-          if(position.top < y2 && position.top > y1) {
-            $(this).addClass('active');
-          }
-        });
-      });
-      
-      event.preventDefault();
-    });
-
-    $('body').mouseup(function() {
-      $('#torrents').unbind('mousemove');
-    });
-    
-    $('#torrents').mouseup(function() {
-      $('#torrents').unbind('mousemove');
     });
   },
 

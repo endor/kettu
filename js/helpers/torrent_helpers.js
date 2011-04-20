@@ -7,7 +7,7 @@ var TorrentHelpers = {
   },
 
   get_and_render_torrents: function(rerender) {
-    var request = this.build_request('torrent-get', {fields:Torrent({})['fields']});
+    var request = { method: 'torrent-get', arguments: { fields: Torrent({})['fields'] } };
     this.remote_query(request, function(response) {
       transmission.trigger('torrents-refreshed', {
         torrents: response['torrents'].map( function(row) {return Torrent(row)} ),
@@ -138,6 +138,7 @@ var TorrentHelpers = {
     var rendered_view = this.mustache(this.cache(template), TorrentsView(torrent, this));
     $('#torrents').append(rendered_view);
     this.updateInfo(torrent);
+    rendered_view = null;
   },
   
   updateStatus: function(old_torrent, torrent) {
@@ -148,9 +149,10 @@ var TorrentHelpers = {
   updateTorrent: function(torrent) {
     var old_torrent = $('#' + torrent.id);
     old_torrent.find('.progressDetails').html(torrent.progressDetails());
-    old_torrent.find('.progressbar').html(torrent.progressBar());
+    old_torrent.find('.progressbar').html(torrent.progressBar()); // NOTE: memory leak in safari
     old_torrent.find('.statusString').html(torrent.statusString());
     this.updateStatus(old_torrent, torrent);
+    old_torrent = null;
   },
   
   addOrUpdateTorrents: function(torrents) {
@@ -209,8 +211,8 @@ var TorrentHelpers = {
   
   cache_partials: function() {
     var context = this;
-    $.each(['delete_data', 'show', 'show_compact'], function() {
-      context.cache_partial('templates/torrents/' + this + '.mustache', this, context);
+    ['delete_data', 'show', 'show_compact'].forEach(function(partial) {
+      context.cache_partial('templates/torrents/' + partial + '.mustache', partial, context);
     });
   },
   

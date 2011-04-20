@@ -79,28 +79,27 @@ Torrent = function(attributes) {
     return "Magnetized transfer - retrieving metadata (" + percentRetrieved + "%)";
   };
   torrent.progressBar = function() {
-    var status, progressBar, value = torrent.percentDone();
+    var status, value = torrent.percentDone();
     
     if(torrent.isActive() && torrent.needsMetaData()) {
       status = 'meta';
       value = 100;
-      progressBar = $("<div></div>").progressbar({value: value}).html();
     } else if(torrent.isVerifying()) {
       status = 'verifying';
-      progressBar = $("<div></div>").progressbar({value: value}).html();      
     } else if(torrent.isActive() && !torrent.isDoneDownloading()) {
       status = 'downloading';
-      progressBar = $("<div></div>").progressbar({value: value}).html();
     } else if(torrent.isActive() && torrent.isDoneDownloading()) {
       if(torrent.seedRatioMode == 1) { value = torrent.uploadRatio/torrent.seedRatioLimit * 100; }
       status = 'uploading';
-      progressBar = $("<div></div>").progressbar({value: value}).html();      
     } else {
       status = 'paused';
-      progressBar = $("<div></div>").progressbar({value: value}).html();
     }
     
-    return progressBar.replace(/ui-widget-header/, 'ui-widget-header-' + status);
+    // NOTE: creating the progressbar via $('<div></div>').progressbar({}); seems to lead to a memory leak in safari
+    
+    var progressBar = '<div class="ui-progressbar-value ui-widget-header-' + status + ' ui-corner-left" style="width: ' + value + '%; "></div>';
+
+    return progressBar;
   };
   torrent.etaString = function() {
     if(torrent.eta < 0) {

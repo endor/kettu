@@ -111,7 +111,7 @@ var SettingHelpers = {
   },
   
   get_settings: function() {
-    this.remote_query({ method: 'session-get', arguments: {} },
-      function(new_settings) { transmission.settings = new_settings; });
+    var request = { method: 'session-get', arguments: {} };
+    this.remote_query(request, function(new_settings) { transmission.settings = new_settings; });
   }
 };

@@ -1,40 +1,41 @@
-var transmission = $.sammy(function() { with(this) {
-  use(Sammy.TransmissionRPC);
-  use(Sammy.Mustache);
-  use(Sammy.Cache);
+var transmission = $.sammy(function() {
+  this.use(Sammy.TransmissionRPC);
+  this.use(Sammy.Mustache);
+  this.use(Sammy.Cache);
   
-  element_selector = 'body';
-  cache_partials = true;
-  store = new Sammy.Store({name: 'data', type: ['local', 'cookie']});
+  this.element_selector = 'body';
+  this.cache_partials = true;
+  this.store = new Sammy.Store({name: 'data', type: ['local', 'cookie']});
   
-  helpers(ApplicationHelpers);
-  helpers(ContextMenuHelpers);
-  helpers(FilterTorrentsHelpers);
-  helpers(InfoHelpers);
-  helpers(LinkHelpers);
-  helpers(SearchHelpers);
-  helpers(SettingHelpers);
-  helpers(SortTorrentsHelpers);
-  helpers(StatisticHelpers);
-  helpers(StoreHelpers);
-  helpers(TorrentHelpers);
-  helpers(TorrentDetailsHelpers);
-  helpers(ViewHelpers);
+  this.helpers(ApplicationHelpers);
+  this.helpers(ContextMenuHelpers);
+  this.helpers(DraggingHelpers);
+  this.helpers(FilterTorrentsHelpers);
+  this.helpers(InfoHelpers);
+  this.helpers(LinkHelpers);
+  this.helpers(SearchHelpers);
+  this.helpers(SettingHelpers);
+  this.helpers(SortTorrentsHelpers);
+  this.helpers(StatisticHelpers);
+  this.helpers(StoreHelpers);
+  this.helpers(TorrentHelpers);
+  this.helpers(TorrentDetailsHelpers);
+  this.helpers(ViewHelpers);
   
   TorrentDetails(this);
   Torrents(this);
   Settings(this);
   Statistics(this);
   
-  bind('flash', function(e, message) {
+  this.bind('flash', function(e, message) {
     $('#flash').html(message).show().delay(3000).fadeOut('slow');
   });
   
-  bind('errors', function(e, errors) {
+  this.bind('errors', function(e, errors) {
     this.showErrors(errors);
   });
   
-  bind('init', function() {
+  this.bind('init', function() {
     this.activateLinks();
     this.activateSearch(this);
     this.activateSortSelect(this);
@@ -42,8 +43,9 @@ var transmission = $.sammy(function() { with(this) {
     this.configureFacebox();
     this.closeInfo(this);
     this.hideContextMenu();
+    this.handleDragging();
   });
-}});
+});
  
 $(function() {
   transmission.reloadInterval = 2000;
