@@ -110,7 +110,7 @@ var TorrentHelpers = {
   		dataType: 'xml',
       iframe: true,
   		success: function(response) {
-  		  context.render_config_for_new_torrents($(response).children(':first').text().match(/200/));
+  		  context.render_config_for_new_torrents(JSON.parse($(response).children(':first').text()).success);
   		}
 		});  
   },
