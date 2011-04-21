@@ -3,13 +3,13 @@ var SettingHelpers = {
   
   updateSettingsCheckboxes: function(settings) {
     $.each($('#info').find('input[type=checkbox]'), function() {
-      var checkbox = $(this);
-      var name = checkbox.attr('name');
-      if(settings[name]) {
-        checkbox.attr('checked', true);
-      }
-      $.each(['protocol-handler-enabled', 'content-handler-enabled'], function() {
-        if(name == this && transmission.store.exists(this)) {
+      var checkbox = $(this),
+        name = checkbox.attr('name');
+
+      if(settings[name]) { checkbox.attr('checked', true); }
+      
+      ['protocol-handler-enabled', 'content-handler-enabled'].forEach(function(element) {
+        if(name == element && transmission.store.exists(element)) {
           checkbox.attr('disabled', true);
           checkbox.attr('checked', true);
         }
@@ -71,7 +71,7 @@ var SettingHelpers = {
     updatable_settings = updatable_settings || [
       'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
       'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
-      'encryption'
+      'encryption', 'utp-enabled'
     ];
     var hash = {};
 

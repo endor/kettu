@@ -16,7 +16,7 @@
     <table class="content">
       <tr>
         <th>Download Directory:</th>
-        <td><input type="text" name="download-dir" value="{{download-dir}}" class="download-dir" /></td>
+        <td><input type="text" name="download-dir" value="{{download-dir}}" class="long download-dir" /></td>
       </tr>
       <tr>
         <th>Encryption:</th>
@@ -48,6 +48,12 @@
   </div>
   <div class="item network">
     <table class="content">
+      <tr>
+        <th>Enable Micro Transport Protocol:</th>
+        <td>
+          <input type="checkbox" name="utp-enabled" class="utp-enabled" /><br />
+        </td>
+      </tr>
       <tr>
         <th>Incoming TCP Port:</th>
         <td class="long">
