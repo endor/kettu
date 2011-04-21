@@ -51,17 +51,20 @@ var SettingHelpers = {
     return (params['alt-speed-enabled'] !== undefined);
   },
   
-  prepare_arguments: function(context, params) {    
+  prepare_arguments: function(context, params) {
     if(params['alt-speed-enabled']) {
-      transmission.store.set('speed_limit_mode', (params['alt-speed-enabled'] == "true") ? 'enabled' : 'disabled');
+      var speedLimitModeEnabled = params['alt-speed-enabled'] == "true";
+      params.settingsFlash = 'Speed Limit Mode ' + (speedLimitModeEnabled ? 'enabled.' : 'disabled.');
+      transmission.store.set('speed_limit_mode', (speedLimitModeEnabled ? 'enabled' : 'disabled'));
       return context.speed_limit_mode_hash(params['alt-speed-enabled']);
     } else {
+      params.settingsFlash = 'Settings updated successfully.';
       return context.arguments_hash(params);
     }
   },
   
   speed_limit_mode_hash: function(speed_limit_mode) {
-    return {'alt-speed-enabled': (speed_limit_mode == "true") ? true : false};
+    return { 'alt-speed-enabled': (speed_limit_mode == "true") ? true : false };
   },
   
   arguments_hash: function(params, updatable_settings) {
@@ -88,7 +91,7 @@ var SettingHelpers = {
   update_reload_interval: function(context, new_reload_interval) {
     new_reload_interval = parseInt(new_reload_interval, 10);
     if(new_reload_interval != (transmission.reloadInterval/1000)) {
-      reloadInterval.reload_interval = new_reload_interval * 1000;
+      transmission.reloadInterval = new_reload_interval * 1000;
       clearInterval(transmission.interval_id);
       context.closeInfo(context);
     }

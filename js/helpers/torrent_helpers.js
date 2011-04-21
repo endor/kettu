@@ -149,7 +149,7 @@ var TorrentHelpers = {
   updateTorrent: function(torrent) {
     var old_torrent = $('#' + torrent.id);
     old_torrent.find('.progressDetails').html(torrent.progressDetails());
-    old_torrent.find('.progressbar').html(torrent.progressBar()); // NOTE: memory leak in safari
+    old_torrent.find('.progressbar').html(torrent.progressBar());
     old_torrent.find('.statusString').html(torrent.statusString());
     this.updateStatus(old_torrent, torrent);
     old_torrent = null;

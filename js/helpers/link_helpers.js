@@ -37,15 +37,16 @@ var LinkHelpers = {
 
   activateSpeedLimitModeLink: function() {
     $('#speed_limit_mode').click(function() {
-      var form = $('#speed_limit_mode_form');
+      var form = $('#speed_limit_mode_form'),
+        link = $(this), title;
       form.trigger('submit');
-      if($(this).hasClass('active')) {
-        $(this).removeClass('active');
-        $(this).text('Enable Speed Limit Mode');
+      if(link.hasClass('active')) {
+        title = 'Enable Speed Limit Mode';
+        link.text(title).attr('title', title).removeClass('active');
         form.find('input:first').attr('value', 'true');
       } else {
-        $(this).addClass('active');
-        $(this).text('Disable Speed Limit Mode');
+        title = 'Disable Speed Limit Mode';
+        link.text(title).attr('title', title).addClass('active');
         form.find('input:first').attr('value', 'false');
       }
       return false;
@@ -77,13 +78,13 @@ var LinkHelpers = {
   
   activateStartAndStopAllLink: function() {
     $('#start_all').click(function() {
-      var selected_ids = $.map($('.torrent'), function(torrent) {return $(torrent).attr('id')}).join(',');
+      var selected_ids = $.map($('.torrent'), function(torrent) { return $(torrent).attr('id'); }).join(',');
       $('#context_menu .activate form .ids').val(selected_ids);
       $('#context_menu .activate form').submit();      
     });
     
     $('#stop_all').click(function() {
-      var selected_ids = $.map($('.torrent'), function(torrent) {return $(torrent).attr('id')}).join(',');
+      var selected_ids = $.map($('.torrent'), function(torrent) { return $(torrent).attr('id'); }).join(',');
       $('#context_menu .pause form .ids').val(selected_ids);
       $('#context_menu .pause form').submit();
     });
@@ -112,4 +113,4 @@ var LinkHelpers = {
       return false;
     });
   }
-}
+};
