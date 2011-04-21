@@ -71,7 +71,8 @@ var SettingHelpers = {
     updatable_settings = updatable_settings || [
       'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
       'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
-      'encryption', 'utp-enabled', 'peer-port-random-on-start', 'port-forwarding-enabled'
+      'encryption', 'utp-enabled', 'peer-port-random-on-start', 'port-forwarding-enabled',
+      'lpd-enabled'
     ];
     var hash = {};
 

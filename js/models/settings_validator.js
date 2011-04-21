@@ -4,7 +4,7 @@ var SettingsValidator = function() {
       'peer-port', 'alt-speed-down','alt-speed-up', 'dht-enabled', 'download-dir', 
       'encryption', 'peer-port', 'pex-enabled', 'speed-limit-down', 'speed-limit-down-enabled',
       'speed-limit-up', 'speed-limit-up-enabled', 'utp-enabled', 'peer-port-random-on-start',
-      'port-forwarding-enabled'
+      'port-forwarding-enabled', 'lpd-enabled'
     ],
     'numericality_of': [
       {'field': 'peer-port', 'max': 65535},

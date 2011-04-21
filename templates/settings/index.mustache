@@ -47,6 +47,7 @@
     </table>
   </div>
   <div class="item network">
+    <h3>Peer communication</h3>
     <table class="content">
       <tr>
         <th>Enable Micro Transport Protocol:</th>
@@ -54,6 +55,9 @@
           <input type="checkbox" name="utp-enabled" class="utp-enabled" /><br />
         </td>
       </tr>
+    </table>
+    <h3>Peer communication</h3>
+    <table class="content">
       <tr>
         <th>Incoming TCP Port:</th>
         <td class="long">
@@ -110,14 +114,19 @@
     </table>
   </div>
   <div class="item peers">
+    <h3>Connections</h3>
     <table class="content">
       <tr>
-        <th>DHT enabled:</th>
+        <th>Use peer exchange (PEX) for public torrents:</th>
+        <td><input type="checkbox" name="pex-enabled" class="pex-enabled" /></td>
+      </tr>
+      <tr>
+        <th>Use distributed hash table (DHT) for public torrents:</th>
         <td><input type="checkbox" name="dht-enabled" class="dht-enabled" /></td>
       </tr>
       <tr>
-        <th>PEX enabled:</th>
-        <td><input type="checkbox" name="pex-enabled" class="pex-enabled" /></td>
+        <th>Use local peer discovery (LPD) for public torrents:</th>
+        <td><input type="checkbox" name="lpd-enabled" class="lpd-enabled" /></td>
       </tr>
     </table>
   </div>
