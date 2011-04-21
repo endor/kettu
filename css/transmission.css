@@ -513,24 +513,10 @@ padding: 3px 30px;
   display: none;
   border-left: 1px solid #DDD;
   overflow: auto;
-}
-
-/* fixed position info div. not quite working yet */
-/*
-#info {
-  width: 379px;
-  float: left;
-  padding: 1em 10px 1.5em 10px;
-  background-color: #FAFAFA;
-  display: none;
-  border-left: 1px solid #DDD;
-  overflow: auto;
   position: fixed;
   top: 140px;
   right: 0px;
 }
-*/
-
 
 #info table {
   width: auto;
@@ -543,9 +529,11 @@ padding: 3px 30px;
   border-top: 1px solid #DFDFDF;
   border-bottom: 1px solid #DFDFDF;
 }
+
 #info .peers {
   margin-bottom: 20px;
 }
+
 #info .peers th {
   padding: 7px;
   margin-right: 10px;
@@ -566,10 +554,12 @@ padding: 3px 30px;
 #info .peers th.long {
   width: 40%;
 }
+
 #info ul {
   list-style-type: none;
   padding-left: 0;
 }
+
 #info li {
   padding-bottom: 6px;
   padding-left: 0px;

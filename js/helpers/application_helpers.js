@@ -19,6 +19,10 @@ var ApplicationHelpers = {
     });
   },
   
+  calculateCSSValues: function() {
+    transmission.windowWidth = $(window).width();
+  },
+  
   hash_diff: function(hash1, hash2) {
     var diff = {}, different = false;
     

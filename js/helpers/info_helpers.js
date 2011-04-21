@@ -11,6 +11,8 @@ var InfoHelpers = {
   openInfo: function(view) {
     var info = $('#info');
     info.html(view);
+    // NOTE: if there's a way in CSS to fix this without using JS, that'd be preferable
+    info.css('right', (transmission.windowWidth / 2) - 480);
     info.show();
     $('.main').addClass('info');
     this.menuizeInfo();

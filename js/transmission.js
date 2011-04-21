@@ -36,14 +36,15 @@ var transmission = $.sammy(function() {
   });
   
   this.bind('init', function() {
+    this.activateContextMenu();
     this.activateLinks();
     this.activateSearch(this);
     this.activateSortSelect(this);
-    this.activateContextMenu();
-    this.configureFacebox();
+    this.calculateCSSValues();
     this.closeInfo(this);
-    this.hideContextMenu();
+    this.configureFacebox();
     this.handleDragging();
+    this.hideContextMenu();
   });
 });
  
