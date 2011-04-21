@@ -12,7 +12,11 @@ var InfoHelpers = {
     var info = $('#info');
     info.html(view);
     // NOTE: if there's a way in CSS to fix this without using JS, that'd be preferable
-    info.css('right', (transmission.windowWidth / 2) - 480);
+    if($(window).width() > 480) {
+      info.css('left', ($(window).width() / 2) - ($('#container').width() / 2) + 550);
+    } else {
+      info.css('height', $(window).height());
+    }
     info.show();
     $('.main').addClass('info');
     this.menuizeInfo();

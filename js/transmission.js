@@ -40,7 +40,6 @@ var transmission = $.sammy(function() {
     this.activateLinks();
     this.activateSearch(this);
     this.activateSortSelect(this);
-    this.calculateCSSValues();
     this.closeInfo(this);
     this.configureFacebox();
     this.handleDragging();
