@@ -7,7 +7,7 @@ var SettingsValidator = function() {
     ],
     'numericality_of': [
       {'field': 'peer-port', 'max': 65535},
-      'reload-interval', 'speed-limit-down', 'speed-limit-up', 'alt-speed-down', 'alt-speed-up'
+      'speed-limit-down', 'speed-limit-up', 'alt-speed-down', 'alt-speed-up'
     ],
     'inclusion_of': {'field': 'encryption', 'in': ['required', 'preferred', 'tolerated']}    
   }

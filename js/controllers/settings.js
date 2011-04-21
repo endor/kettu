@@ -2,10 +2,7 @@ Settings = function(transmission) {
   var original_settings;
   
   transmission.get('#/settings', function(context) {
-    var request = { method: 'session-get', arguments: {} };
-
     original_settings = transmission.settings || {};
-    original_settings['reload-interval'] = transmission.reloadInterval/1000;
     
     context.render('templates/settings/index.mustache', original_settings, function(rendered_view) {
       context.openInfo(rendered_view);
@@ -17,7 +14,7 @@ Settings = function(transmission) {
     var differences = context.hash_diff(original_settings, transmission.settings || {}) || [];
 
     for(var difference in differences) {
-      if(typeof differences[difference] == 'boolean') {
+      if(typeof differences[difference] === 'boolean') {
         $('.' + difference).attr('checked', differences[difference]);
       } else {
         $('.' + difference).val(differences[difference]);
@@ -32,12 +29,10 @@ Settings = function(transmission) {
 
     this.manage_handlers(context, this.params);
     
-    if(this.is_speed_limit_mode_update(request['arguments']) || this.setting_arguments_valid(context, $.extend(request['arguments'], {'reload-interval': this.params['reload-interval']}))) {
-      delete request['arguments']['reload-interval'];
+    if(this.is_speed_limit_mode_update(request['arguments']) || this.setting_arguments_valid(context, request['arguments'])) {
       context.remote_query(request, function(response) {
         transmission.trigger('flash', context.params.settingsFlash);
         if(context.params['peer-port']) { updatePeerPortDiv(context); }
-        if(context.params['reload-interval']) { context.update_reload_interval(context, context.params['reload-interval']); }
       });      
     } else {
       transmission.trigger('flash', 'Settings could not be updated.');

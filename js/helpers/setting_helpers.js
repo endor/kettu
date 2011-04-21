@@ -88,15 +88,6 @@ var SettingHelpers = {
     return hash;
   },
   
-  update_reload_interval: function(context, new_reload_interval) {
-    new_reload_interval = parseInt(new_reload_interval, 10);
-    if(new_reload_interval != (transmission.reloadInterval/1000)) {
-      transmission.reloadInterval = new_reload_interval * 1000;
-      clearInterval(transmission.interval_id);
-      context.closeInfo(context);
-    }
-  },
-  
   manage_handlers: function(context, params) {
     if(params['protocol-handler-enabled'] && !transmission.store.exists('protocol-handler-enabled')) {
       transmission.store.set('protocol-handler-enabled', true);
