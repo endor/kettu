@@ -41,26 +41,26 @@ header {
 }
 
 .container {
-  margin-bottom: 20px;
+/*  margin-top: 30px;*/
   overflow: visible;
 }
 
 footer {
+  display: none;
   background-color: #555;
   border-top: 1px solid #555;
   border-bottom: 1px solid #999;
   left: 0;
   right: 0;
-  bottom: 0;
-  text-align: right;
+  top: 0;
+  position: fixed;
   box-shadow: 0 -10px 10px rgba(0,0,0,.1);
   -webkit-box-shadow: 0 -10px 10px rgba(0,0,0,.1);
   -moz-box-shadow: 0 -10px 10px rgba(0,0,0,.1);
-  height: 100px;
+  height: 30px;
 }
 
 footer nav {
-  width: 950px;
   margin: 0 auto;
   padding: 0;
 }
@@ -77,7 +77,7 @@ nav ul {
 nav ul li {
   display: inline;
   list-style: none;
-  height: 100px;
+  height: 30px;
 }
 
 #add_a_torrent {
@@ -89,15 +89,15 @@ nav ul li {
 }
 
 nav ul li a {
-  height: 100px;
-  font-size: 25px;
+  height: 30px;
+  font-size: 13px;
   float: left;
   display: block;
   color: #DDD;
   text-shadow: 1px 1px 1px #000;
   text-decoration: none;
   text-align: center;
-  padding: 0 3em;
+  padding: 0 2em;
   border-right: 1px solid #444;
   border-left: 1px solid #666;
   -webkit-transition-property: color, background-color;
@@ -122,8 +122,6 @@ nav ul li a:hover {
 
 /* bottom nav, toggles info window */
 .info_nav {
-  float: right;
-  height: 100px;
 }
 
 /* bottom nav, toggles compact view and speed limit mode */
@@ -206,7 +204,7 @@ nav ul.icon_nav li a:hover {
 }
 
 .torrent {
-  height: 150px;
+  height: 40px;
   -webkit-transition-property: background;
   -webkit-transition-duration: 0.4s, 0.1s;
   -webkit-transition-timing-function: linear, ease-in;
@@ -216,7 +214,8 @@ nav ul.icon_nav li a:hover {
   -o-transition-property: background;
   -o-transition-duration: 0.4s, 0.1s;
   -o-transition-timing-function: linear, ease-in;
-  font-size: 20px;
+  font-size: 16px;
+  position: relative;
 }
 
 .torrent h3 {
@@ -510,7 +509,7 @@ ul#sorts li a {
   border-bottom: solid 1px #DDD;
 }
 #torrents li.compact {
-padding: 3px 30px;
+  padding: 3px 10px;
 }
 
 /* info */
@@ -711,8 +710,10 @@ padding: 3px 30px;
 
 /* compact view */
 .compact .progressbar {
-  width: 60px;
+  width: 300px;
   display: inline-block;
+  position: absolute;
+  bottom: 3px;
 }
 
 .compact .name {
