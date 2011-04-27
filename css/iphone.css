@@ -520,7 +520,7 @@ ul#sorts li a {
 #info {
   float: left;
   padding: 5px;
-  background-color: #FAFAFA;
+  background-color: #FFF;
   display: none;
   border-left: 1px solid #DDD;
   overflow: auto;
@@ -529,6 +529,7 @@ ul#sorts li a {
   font-size: 14px;
   border-bottom: 5px solid #555;
   width: 100%;
+  opacity: 1;
 }
 
 #info table {
@@ -538,6 +539,8 @@ ul#sorts li a {
 #info .content {
   margin-bottom: 1.5em;
   padding-top: .5em;
+  background-color: #FFF;
+  opacity: 1;
 }
 
 #info .peers {
@@ -621,28 +624,6 @@ ul#sorts li a {
   color: #555;
 }
 
-#info nav {
-  background-color: #FFF;
-  border-bottom: 1px solid #DFDFDF;
-}
-
-#info .menu {
-  padding: 0px;
-  margin: 0px;
-  overflow: hidden;
-  border-top: 0px;
-  border-bottom: 0px;
-}
-#info .menu li {
-  float: left;
-  margin-right: 0;
-  padding-bottom: 0;
-}
-
-#info #menu-item-trackers {
-  display: none;
-}
-
 #info #buttonbar {
   margin-bottom: 0.8em;
   height: 40px;
@@ -652,6 +633,7 @@ ul#sorts li a {
   border-bottom: solid 1px #dfdfdf;
   border-top: solid 1px #dfdfdf;
 }
+
 #info #buttonbar .button {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -668,6 +650,7 @@ ul#sorts li a {
   width: 90px;
   display: inline-block;
   margin: 5px;
+  position: relative;
 }
 
 #info #buttonbar a {
@@ -687,25 +670,56 @@ ul#sorts li a {
   font-size: 1em;
 }
 
+#info #buttonbar span.back {
+  background-image: url(/transmission/web/css/images/icons-36-black.png);
+  -moz-background-size: 776px 18px;
+  -o-background-size: 776px 18px;
+  -webkit-background-size: 776px 18px;
+  background-size: 776px 18px;
+  background-position: -144px 50%;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 36px;
+  height: 24px;
+  display: block;
+}
+
+#info nav {
+  padding: 5px;
+}
+
+#info .menu {
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+  border-top: 0px;
+  border-bottom: 0px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #F2F2F2;
+}
+
+#info .menu li {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+#info #menu-item-trackers {
+  display: none;
+}
+
 #info nav ul.menu li a {
-  width: auto;
   font-size: 14px;
   line-height: 2em;
-  display: block;
   padding: 0 0.3em;
   border: 0px;
   border-bottom: 1px solid #DFDFDF;
   text-shadow: 1px 1px 1px #FFF;
-  background-color: #FFF;
-  -webkit-transition-property: color, background;
-  -webkit-transition-duration: 0.4s, 0.1s;
-  -webkit-transition-timing-function: linear, ease-in;
-  -moz-transition-property: color, background;
-  -moz-transition-duration: 0.4s, 0.1s;
-  -moz-transition-timing-function: linear, ease-in;
-  -o-transition-property: color, background;
-  -o-transition-duration: 0.4s, 0.1s;
-  -o-transition-timing-function: linear, ease-in;
+  background-color: #F2F2F2;
 }
 
 #info nav ul.menu li a.active,
@@ -713,11 +727,11 @@ ul#sorts li a {
 #info nav ul.menu li a:hover {
   color: #000;
   text-shadow: 1px 1px 1px #FFF;
-  background-color: #FAFAFA;
+  background-color: #F8F8F8;
 }
 
 #info .menu li a.active {
-  border-bottom: 1px solid #FAFAFA;
+  border-bottom: 1px solid #F8F8F8;
 }
 
 #info .percent_done {
@@ -913,4 +927,5 @@ ul#sorts li a {
   color: #222;
   text-shadow: 1px 1px 1px #000;
 }
+
 

@@ -19,7 +19,7 @@ var InfoHelpers = {
     } else {
       info.css('height', $(window).height());
       info.css('width', $(window).width());
-      info.prepend('<div id="buttonbar"><div class="button"><a href="#/torrents" class="back">Back</div></div></div>');
+      info.prepend('<div id="buttonbar"><div class="button"><span class="back"></span><a href="#/torrents" class="back">Back</a></div></div>');
       info.find('.back').click(function() {
         context.closeInfo();
         context.redirect('#/torrents');
