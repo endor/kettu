@@ -14,6 +14,8 @@ var InfoHelpers = {
     // NOTE: if there's a way in CSS to fix this without using JS, that'd be preferable
     if($(window).width() > 480) {
       info.css('left', ($(window).width() / 2) - ($('#container').width() / 2) + 550);
+    } else {
+      info.css('height', $(window).height());
     }
     info.show();
     $('.main').addClass('info');

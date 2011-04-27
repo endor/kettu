@@ -211,7 +211,7 @@ var TorrentHelpers = {
   
   cache_partials: function() {
     var context = this;
-    ['delete_data', 'show', 'show_compact'].forEach(function(partial) {
+    ['delete_data', 'show', 'show_compact', 'taphold_menu'].forEach(function(partial) {
       context.cache_partial('templates/torrents/' + partial + '.mustache', partial, context);
     });
   },

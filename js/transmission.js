@@ -36,6 +36,7 @@ var transmission = $.sammy(function() {
   });
   
   this.bind('init', function() {
+    this.activateTapHoldMenu();
     this.activateContextMenu();
     this.activateLinks();
     this.activateSearch(this);

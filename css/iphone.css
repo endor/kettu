@@ -798,3 +798,72 @@ ul#sorts li a {
   color: #FFF;
   text-shadow: 1px 1px 2px #000;
 }
+
+#taphold_menu {
+  width: 100%;
+  height: 100%;
+  background-color: #555555;
+  opacity: 0.9;
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+#taphold_menu li {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -o-shadow: 0 0 5px rgba(0,0,0,.1);
+  text-align: center;
+  padding: 0;
+  background-color: white !important;
+  opacity: 1;
+  width: 90px;
+  display: inline-block;
+  margin: 5px;
+}
+
+#taphold_menu li form {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+#taphold_menu li input[type='submit'] {
+  height: 34px;
+}
+
+#taphold_menu li input[type='submit'],
+#taphold_menu li a {
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  padding: 5px;
+  border: 0;
+  cursor: pointer;
+  text-align: center;
+  background: none;
+  color: #444;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+  overflow: visible; /* removes extra side padding in IE */
+  font-size: 1em;
+}
+
+#taphold_menu li input[type='submit']:hover,
+#taphold_menu li input[type='submit']:focus,
+#taphold_menu li input[type='submit']:active,
+#taphold_menu li a:hover,
+#taphold_menu li a:focus,
+#taphold_menu li a:active {
+  color: #FFF;
+  text-shadow: 1px 1px 2px #000;
+}
+
