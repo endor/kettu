@@ -1,5 +1,5 @@
 var InfoHelpers = {
-  closeInfo: function(context) {
+  closeInfo: function() {
     if(transmission.info_interval_id) { clearInterval(transmission.info_interval_id); }
     if(transmission.update_settings_interval_id) { clearInterval(transmission.update_settings_interval_id); }
     this.saveLastMenuItem($('.menu-item.active'));
@@ -9,13 +9,21 @@ var InfoHelpers = {
   },
 
   openInfo: function(view) {
-    var info = $('#info');
+    var info = $('#info'),
+      context = this;
+
     info.html(view);
     // NOTE: if there's a way in CSS to fix this without using JS, that'd be preferable
     if($(window).width() > 480) {
       info.css('left', ($(window).width() / 2) - ($('#container').width() / 2) + 550);
     } else {
       info.css('height', $(window).height());
+      info.css('width', $(window).width());
+      info.prepend('<div id="buttonbar"><div class="button"><a href="#/torrents" class="back">Back</div></div></div>');
+      info.find('.back').click(function() {
+        context.closeInfo();
+        context.redirect('#/torrents');
+      });
     }
     info.show();
     $('.main').addClass('info');

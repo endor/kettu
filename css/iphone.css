@@ -17,6 +17,10 @@ h3 {
   margin-bottom: .5em;
 }
 
+#info h3 {
+  margin-top: 1em;
+}
+
 #info,
 #info h1, #info h2, #info h3, #info h4, #info h5, #info h6 {
   color: #444;
@@ -514,17 +518,17 @@ ul#sorts li a {
 
 /* info */
 #info {
-  width: 930px;
   float: left;
-  padding: 10px 10px 10px 10px;
+  padding: 5px;
   background-color: #FAFAFA;
   display: none;
   border-left: 1px solid #DDD;
   overflow: auto;
   position: absolute;
   top: 0px;
-  font-size: 20px;
+  font-size: 14px;
   border-bottom: 5px solid #555;
+  width: 100%;
 }
 
 #info table {
@@ -532,11 +536,8 @@ ul#sorts li a {
 }
 
 #info .content {
-  width: 100%;
   margin-bottom: 1.5em;
   padding-top: .5em;
-  border-top: 1px solid #DFDFDF;
-  border-bottom: 1px solid #DFDFDF;
 }
 
 #info .peers {
@@ -621,17 +622,16 @@ ul#sorts li a {
 }
 
 #info nav {
-  height: 100px;
-  margin: -1em -10px 1em -10px;
   background-color: #FFF;
   border-bottom: 1px solid #DFDFDF;
 }
 
 #info .menu {
-  padding: 0;
+  padding: 0px;
+  margin: 0px;
   overflow: hidden;
-  border-top: 0;
-  border-bottom: 0;
+  border-top: 0px;
+  border-bottom: 0px;
 }
 #info .menu li {
   float: left;
@@ -639,14 +639,61 @@ ul#sorts li a {
   padding-bottom: 0;
 }
 
+#info #menu-item-trackers {
+  display: none;
+}
+
+#info #buttonbar {
+  margin-bottom: 0.8em;
+  height: 40px;
+  background-color: #555;
+  opacity: 0.9;
+  width: 100%;
+  border-bottom: solid 1px #dfdfdf;
+  border-top: solid 1px #dfdfdf;
+}
+#info #buttonbar .button {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 0 5px rgba(0,0,0,.1);
+  -o-shadow: 0 0 5px rgba(0,0,0,.1);
+  text-align: center;
+  padding: 0;
+  background-color: white !important;
+  opacity: 1;
+  width: 90px;
+  display: inline-block;
+  margin: 5px;
+}
+
+#info #buttonbar a {
+  width: 50px;
+  display: block;
+  margin: 0 auto;
+  padding: 5px;
+  border: 0;
+  cursor: pointer;
+  text-align: center;
+  background: none;
+  color: #444;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+  overflow: visible; /* removes extra side padding in IE */
+  font-size: 1em;
+}
+
 #info nav ul.menu li a {
   width: auto;
-  font-size: 30px;
+  font-size: 14px;
   line-height: 2em;
   display: block;
-  padding: 0 1em;
-  border-right: 1px solid #DFDFDF;
-  border-left: 1px solid #FFF;
+  padding: 0 0.3em;
+  border: 0px;
   border-bottom: 1px solid #DFDFDF;
   text-shadow: 1px 1px 1px #FFF;
   background-color: #FFF;
@@ -863,7 +910,7 @@ ul#sorts li a {
 #taphold_menu li a:hover,
 #taphold_menu li a:focus,
 #taphold_menu li a:active {
-  color: #FFF;
-  text-shadow: 1px 1px 2px #000;
+  color: #222;
+  text-shadow: 1px 1px 1px #000;
 }
 
