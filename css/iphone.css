@@ -19,6 +19,7 @@ h3 {
 
 #info h3 {
   margin-top: 1em;
+  margin-left: 0.5em;
 }
 
 #info,
@@ -526,7 +527,7 @@ ul#sorts li a {
   overflow: auto;
   position: absolute;
   top: 0px;
-  font-size: 14px;
+  font-size: 12px;
   border-bottom: 5px solid #555;
   width: 100%;
   opacity: 1;
@@ -537,6 +538,7 @@ ul#sorts li a {
 }
 
 #info .content {
+  margin-left: 0.3em;
   margin-bottom: 1.5em;
   padding-top: .5em;
   background-color: #FFF;
@@ -706,6 +708,8 @@ ul#sorts li a {
   float: left;
   margin: 0;
   padding: 0;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 #info #menu-item-trackers {
