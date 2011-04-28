@@ -19,26 +19,21 @@
     </li>
   {{/paused}}
   <li class="delete">                                                         
-    <a href="#delete_form" class="facebox_link">Delete</a>                    
-    <div id="delete_form" class="facebox_div">                                
-      <img src="css/images/junk.png" class="image" />                         
-      <p class="message">                      
-        Are you sure, you want to delete the following torrents?<br /><br />  
-        {{name}}
-      </p>                                                                    
-      <br class="clear" />                                                    
-      <div class="facebox_buttons">                                           
+    <a href="#delete_form" class="delete_link">Delete</a>                    
+    <ul id="delete_form" class="facebox_div">
+      <li>
         <form method="DELETE" action="#/torrents" class="torrent_delete_form">
           <input type="hidden" name="ids" class="ids" value="{{id}}" />             
-          <input type="submit" value="Delete" />                              
-        </form>                                                               
+          <input type="submit" value="Delete" />
+        </form>        
+      </li>
+      <li class="long">
         <form method="DELETE" action="#/torrents" class="torrent_delete_form">
-          <input type="hidden" name="ids" class="ids" value="{{id}}" />             
-          <input type="hidden" value="true" name="delete_data" />             
-          <input type="submit" value="Delete with data" />                    
-        </form>                                                               
-      </div>                                                                  
-      <br class="clear" />                                                    
-    </div>                                                                    
+          <input type="hidden" name="ids" class="ids" value="{{id}}" />
+          <input type="hidden" value="true" name="delete_data" />
+          <input type="submit" value="Delete with data" />
+        </form>        
+      </li>
+    </ul>
   </li>                                                                       
 </ul>

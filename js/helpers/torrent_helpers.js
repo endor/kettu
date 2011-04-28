@@ -206,7 +206,6 @@ var TorrentHelpers = {
     this.updateTorrents(torrents, rerender);
     this.updateSpeedLimitMode(settings['alt-speed-enabled'], this);
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
-    $('.facebox_link').facebox();
   },
   
   cache_partials: function() {

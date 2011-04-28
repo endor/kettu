@@ -872,6 +872,10 @@ ul#sorts li a {
   left: 0px;
 }
 
+#taphold_menu li.long {
+  width: 140px;
+}
+
 #taphold_menu li {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
