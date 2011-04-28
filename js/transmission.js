@@ -51,8 +51,10 @@ var transmission = $.sammy(function() {
 $(function() {
   transmission.reloadInterval = 2000;
   if($(window).width() > 480) {
+    transmission.mobile = false;
     transmission.run('#/torrents');    
   } else {
+    transmission.mobile = true;
     transmission.run('#/torrents?view=compact');
   }
   transmission.trigger('init');

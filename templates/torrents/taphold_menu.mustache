@@ -29,11 +29,11 @@
       <br class="clear" />                                                    
       <div class="facebox_buttons">                                           
         <form method="DELETE" action="#/torrents" class="torrent_delete_form">
-          <input type="hidden" name="ids" class="ids" value="" />             
+          <input type="hidden" name="ids" class="ids" value="{{id}}" />             
           <input type="submit" value="Delete" />                              
         </form>                                                               
         <form method="DELETE" action="#/torrents" class="torrent_delete_form">
-          <input type="hidden" name="ids" class="ids" value="" />             
+          <input type="hidden" name="ids" class="ids" value="{{id}}" />             
           <input type="hidden" value="true" name="delete_data" />             
           <input type="submit" value="Delete with data" />                    
         </form>                                                               

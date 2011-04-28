@@ -4,21 +4,28 @@ var ContextMenuHelpers = {
   },
   
   activateTapHoldMenu: function() {
-    var context = this;
-    
-    $('.torrent').live('taphold', function(event) {
-      var torrent = $(this);
+    if(transmission.mobile) {
+      var context = this;
 
-      if($('.torrent.active').length === 0 || !torrent.hasClass('active')) {
-        context.highlightTorrents(torrent);
-      }
-      $(this).append(context.mustache(context.cache('taphold_menu'), {
-        id: torrent.attr('id'),
-        name: torrent.find('.name').text(),
-        paused: torrent.hasClass('paused'),
-        not_paused: !torrent.hasClass('paused')
-      }));
-    });
+      $('.torrent').live('taphold', function(event) {
+        var torrent = $(this);
+
+        if($('.torrent.active').length === 0) {
+          context.highlightTorrents(torrent);
+        }
+        
+        var data = {
+          id: torrent.attr('id'),
+          name: torrent.find('.name').text(),
+          paused: torrent.hasClass('paused'),
+          not_paused: !torrent.hasClass('paused')
+        };
+        
+        context.render('templates/torrents/taphold_menu.mustache', data, function(rendered_view) {
+          torrent.append(rendered_view);
+        });
+      });      
+    }
   },
   
   activateContextMenu: function() {
@@ -27,56 +34,29 @@ var ContextMenuHelpers = {
     $('#torrents').contextMenu({
       menu: '#context_menu',
       onContextMenu: function(event) {
-        $('#context_menu .pause').show();
-        $('#context_menu .activate').show();
-        
-        highlight_closest_torrent(event);
-        put_selected_ids_into_form();
-        add_names_to_delete_form();
-        if($('.torrent').length === $('.torrent.active').length) {
-          $('#context_menu .select_all a').removeClass('select_all_link').addClass('deselect_all_link').text('Deselect All');
-        } else {
-          $('#context_menu .select_all a').removeClass('deselect_all_link').addClass('select_all_link').text('Select All');
+        if($('.torrent.active').length === 0) {
+          context.highlightTorrents($(event.target).closest('.torrent'));
         }
-        activate_select_all_link();
-        hide_pause_or_delete_form();
+
+        var active_torrents = $('.torrent.active'),
+          data = {
+            ids: $.map(active_torrents, function(torrent) { return $(torrent).attr('id'); }).join(','),
+            names: $.map(active_torrents, function(torrent) { return $(torrent).find('.name').text(); }).join('<br />'),
+            deselect_all: $('.torrent').length === active_torrents.length,
+            paused: active_torrents.length === $('.torrent.active.paused').length,
+            not_paused: $('.torrent.active.paused').length === 0
+          };
         
-        function highlight_closest_torrent(event) {
-          var closest_torrent = $(event.target).closest('.torrent');
-          if($('.torrent.active').length === 0 || !closest_torrent.hasClass('active')) {
-            context.highlightTorrents(closest_torrent);
-          }
-        }
-        
-        function put_selected_ids_into_form() {
-          var selected_ids = $.map($('.torrent.active'), function(torrent) { return $(torrent).attr('id'); }).join(',');
-          $('#context_menu form .ids').val(selected_ids);
-        }
-        
-        function add_names_to_delete_form() {
-          var selected_names = $.map($('.torrent.active'), function(torrent) { return $(torrent).find('.name').text(); }).join('<br />');
-          $('#context_menu #delete_form .message').html("Are you sure, you want to delete the following torrents?<br /><br />" + selected_names);
-        }
-        
-        function activate_select_all_link() {
+        context.render('templates/context_menu/show.mustache', data, function(rendered_view) {
+          $('#context_menu').html('').append(rendered_view);
+
           $('#context_menu .select_all_link').click(function() {
             $('.torrent').addClass('active');
           });
           $('#context_menu .deselect_all_link').click(function() {
             $('.torrent').removeClass('active');
           });
-        }
-        
-        function hide_pause_or_delete_form() {
-          if($('.torrent.active').length == $('.torrent.active.paused').length) {
-            $('#context_menu .pause').hide();
-          }
-          
-          var not_paused = $('.torrent.active.downloading').length + $('.torrent.active.seeding').length;
-          if($('.torrent.active').length == not_paused) {
-            $('#context_menu .activate').hide();
-          }
-        }
+        });        
       }
     });
   }

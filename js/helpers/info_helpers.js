@@ -14,9 +14,7 @@ var InfoHelpers = {
 
     info.html(view);
     // NOTE: if there's a way in CSS to fix this without using JS, that'd be preferable
-    if($(window).width() > 480) {
-      info.css('left', ($(window).width() / 2) - ($('#container').width() / 2) + 550);
-    } else {
+    if(transmission.mobile) {
       info.css('height', $(window).height());
       info.css('width', $(window).width());
       info.prepend('<div id="buttonbar"><div class="button"><span class="back"></span><a href="#/torrents" class="back">Back</a></div></div>');
@@ -24,6 +22,8 @@ var InfoHelpers = {
         context.closeInfo();
         context.redirect('#/torrents');
       });
+    } else {
+      info.css('left', ($(window).width() / 2) - ($('#container').width() / 2) + 550);
     }
     info.show();
     $('.main').addClass('info');
