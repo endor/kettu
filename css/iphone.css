@@ -872,8 +872,12 @@ ul#sorts li a {
   left: 0px;
 }
 
+#taphold_menu li.middle {
+  width: 110px;
+}
+
 #taphold_menu li.long {
-  width: 140px;
+  width: 175px;
 }
 
 #taphold_menu li {
@@ -892,6 +896,7 @@ ul#sorts li a {
   width: 90px;
   display: inline-block;
   margin: 5px;
+  position: relative;
 }
 
 #taphold_menu li form {
@@ -932,4 +937,18 @@ ul#sorts li a {
   text-shadow: 1px 1px 1px #000;
 }
 
+#taphold_menu span.delete {
+  background-image: url(/transmission/web/css/images/icons-36-black.png);
+  -moz-background-size: 776px 18px;
+  -o-background-size: 776px 18px;
+  -webkit-background-size: 776px 18px;
+  background-size: 776px 18px;
+  background-position: -72px 50%;
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  width: 36px;
+  height: 24px;
+  display: block;
+}
 

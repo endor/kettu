@@ -2368,7 +2368,7 @@ $.widget( "mobile.page", $.mobile.widget, {
 				//trigger before show/hide events
 				from.data( "page" )._trigger( "beforehide", null, { nextPage: to } );
 			}
-			to.data( "page" )._trigger( "beforeshow", null, { prevPage: from || $("") } );
+			// to.data( "page" )._trigger( "beforeshow", null, { prevPage: from || $("") } );
 
 			function pageChangeComplete(){
 
@@ -2402,10 +2402,10 @@ $.widget( "mobile.page", $.mobile.widget, {
 
 				//trigger show/hide events
 				if( from ){
-					from.data( "page" )._trigger( "hide", null, { nextPage: to } );
+          // from.data( "page" )._trigger( "hide", null, { nextPage: to } );
 				}
 				//trigger pageshow, define prevPage as either from or empty jQuery obj
-				to.data( "page" )._trigger( "show", null, { prevPage: from || $("") } );
+				// to.data( "page" )._trigger( "show", null, { prevPage: from || $("") } );
 
 				//set "to" as activePage
 				$.mobile.activePage = to;

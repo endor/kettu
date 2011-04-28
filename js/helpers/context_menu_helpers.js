@@ -22,7 +22,8 @@ var ContextMenuHelpers = {
         
         context.render('templates/torrents/taphold_menu.mustache', data, function(rendered_view) {
           torrent.append(rendered_view);
-          $('#taphold_menu .delete_link').click(function(event) {
+          
+          $('li.delete').live('click', function(event) {
             $('#taphold_menu').html($('#delete_form').html());
             event.preventDefault();
           });

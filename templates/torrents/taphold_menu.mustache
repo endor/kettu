@@ -21,13 +21,15 @@
   <li class="delete">                                                         
     <a href="#delete_form" class="delete_link">Delete</a>                    
     <ul id="delete_form" class="facebox_div">
-      <li>
+      <li class="middle">
+        <span class="delete"></span>
         <form method="DELETE" action="#/torrents" class="torrent_delete_form">
           <input type="hidden" name="ids" class="ids" value="{{id}}" />             
           <input type="submit" value="Delete" />
         </form>        
       </li>
       <li class="long">
+        <span class="delete"></span>
         <form method="DELETE" action="#/torrents" class="torrent_delete_form">
           <input type="hidden" name="ids" class="ids" value="{{id}}" />
           <input type="hidden" value="true" name="delete_data" />
