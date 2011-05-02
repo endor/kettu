@@ -834,7 +834,8 @@
       // bind to submit to capture post/put/delete routes
       this.bind('submit', function(e) {
         var returned = app._checkFormSubmission($(e.target).closest('form'));
-        return (returned === false) ? e.preventDefault() : false;
+        e.preventDefault();
+        e.stopPropagation();
       });
 
       // bind unload to body unload
