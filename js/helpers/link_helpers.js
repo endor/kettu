@@ -77,17 +77,22 @@ var LinkHelpers = {
   },
   
   activateStartAndStopAllLink: function() {
-    $('#start_all').click(function() {
-      var selected_ids = $.map($('.torrent'), function(torrent) { return $(torrent).attr('id'); }).join(',');
-      $('#context_menu .activate form .ids').val(selected_ids);
-      $('#context_menu .activate form').submit();      
-    });
+    var context = this,
+      start_stop_all = function(data, clazz) {
+        return function(evt) {
+          context.render('templates/context_menu/show.mustache', data, function(rendered_view) {
+            $('#context_menu').html('').append(rendered_view);
+
+            var selected_ids = $.map($('.torrent'), function(torrent) { return $(torrent).attr('id'); }).join(',');
+            $('#context_menu .' + clazz + ' form .ids').val(selected_ids);
+            $('#context_menu .' + clazz + ' form').submit();
+          });
+          evt.preventDefault();
+        }
+      };
     
-    $('#stop_all').click(function() {
-      var selected_ids = $.map($('.torrent'), function(torrent) { return $(torrent).attr('id'); }).join(',');
-      $('#context_menu .pause form .ids').val(selected_ids);
-      $('#context_menu .pause form').submit();
-    });
+    $('#start_all').click(start_stop_all({paused: true}, 'activate'));    
+    $('#stop_all').click(start_stop_all({not_paused: true}, 'pause'));
   },
   
   activateSettingsLink: function() {
