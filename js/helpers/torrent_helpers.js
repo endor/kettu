@@ -1,8 +1,8 @@
 var TorrentHelpers = {
   build_request: function(method, arguments) {
     return({
-      'method': method,
-      'arguments': arguments
+      method: method,
+      arguments: arguments
     });
   },
 
@@ -84,12 +84,12 @@ var TorrentHelpers = {
   },
   
   clear_all_intervals: function() {
-    $.each(['update_settings_interval_id', 'info_interval_id', 'interval_id', 'settings_interval_id'], function() {
-      if(transmission[this]) {
-        clearInterval(transmission[this]);
-        delete(transmission[this]);
-      }      
-    });    
+    (['update_settings_interval_id', 'info_interval_id', 'interval_id', 'settings_interval_id']).forEach(function(interval) {
+      if(transmission[interval]) {
+        clearInterval(transmission[interval]);
+        delete(transmission[interval]);
+      }
+    });
   },
   
   update_sort_dropdown: function() {
@@ -243,13 +243,14 @@ var TorrentHelpers = {
         'arguments': {'ids': id}
       }
       
-      $.each(updatable_settings, function() {
-        var setting = this;
-        request['arguments'][setting] = params[setting] ? true : false;
-        if(params[setting] && params[setting].match(/^-?\d+$/)) {
-          request['arguments'][setting] = parseInt(params[setting], 10);
-        } else if(params[setting] && params[setting] != "on") {
-          request['arguments'][setting] = params[setting];
+      updatable_settings.forEach(function(setting) {
+        if(params.hasOwnProperty(setting)) {          
+          request['arguments'][setting] = params[setting] ? true : false;
+          if(params[setting] && params[setting].match(/^-?\d+$/)) {
+            request['arguments'][setting] = parseInt(params[setting], 10);
+          } else if(params[setting] && params[setting] != "on") {
+            request['arguments'][setting] = params[setting];
+          }
         }
       });
     } else {
