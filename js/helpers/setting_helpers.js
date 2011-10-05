@@ -16,7 +16,7 @@ var SettingHelpers = {
       });
     });
     
-    $('#info input').change(function(event) {
+    $('#info input, #info select').change(function(event) {
       if($(this).attr('name') == 'protocol-handler-enabled' || $(this).attr('name') == 'content-handler-enabled') {
         $(this).attr('disabled', 'disabled');
         $(this).attr('checked', 'checked');
@@ -30,12 +30,28 @@ var SettingHelpers = {
     $.each($('#info').find('select'), function() {
       var name = $(this).attr('name');
       var value = settings[name];
+      
       $.each($(this).find('option'), function() {
         if($(this).val() == value) {
           $(this).attr('selected', 'selected');
-        } 
+        }
       });
     });
+    
+    var scheduled_times = {
+      "alt-speed-time-begin-hours": Math.floor(settings['alt-speed-time-begin'] / 60),
+      "alt-speed-time-begin-minutes": (settings['alt-speed-time-begin'] % 60),
+      "alt-speed-time-end-hours": Math.floor(settings['alt-speed-time-end'] / 60),
+      "alt-speed-time-end-minutes": (settings['alt-speed-time-end'] % 60)
+    };
+
+    for(key in scheduled_times) {
+      $.each($('#info select[name="' + key + '"]').find('option'), function() {
+        if($(this).val() == scheduled_times[key]) {
+          $(this).attr('selected', 'selected');
+        }
+      });
+    }
   },
 
   setting_arguments_valid: function(context, setting_arguments) {
@@ -72,7 +88,7 @@ var SettingHelpers = {
       'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
       'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
       'encryption', 'utp-enabled', 'peer-port-random-on-start', 'port-forwarding-enabled',
-      'lpd-enabled'
+      'lpd-enabled', 'alt-speed-time-enabled', 'alt-speed-time-day'
     ];
     var hash = {};
 
@@ -86,7 +102,18 @@ var SettingHelpers = {
       }
     });
     
+    if (hash['alt-speed-time-enabled']) {
+        hash['alt-speed-time-begin'] = this.calculateAltSpeedTime(params, 'alt-speed-time-begin');
+        hash['alt-speed-time-end'] = this.calculateAltSpeedTime(params, 'alt-speed-time-end');
+    }
+    
     return hash;
+  },
+  
+  calculateAltSpeedTime: function(params, key) {
+    var hours = parseInt(params[key + '-hours'], 10);
+    var minutes = parseInt(params[key + '-minutes'], 10);
+    return hours * 60 + minutes;
   },
   
   manage_handlers: function(context, params) {

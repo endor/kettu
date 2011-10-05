@@ -39,7 +39,7 @@ In the current (pre-v2.0) nightlies on the mac, you can simply drop kettu in the
 There are [jspecs](https://github.com/visionmedia/jspec) in `/spec` which you can run by opening the `index.html` file within the spec directory.
 
 ### Acceptance Tests
-There are [capybara](https://github.com/jnicklas/capybara) tests in `features`. You will just need to type `cucumber features/<feature>`.
+You need to install the [chromedriver](http://code.google.com/p/selenium/downloads/list). Then there are [capybara](https://github.com/jnicklas/capybara) tests in `features`. You will just need to type `cucumber features/<feature>`.
 
 
 ## Todo

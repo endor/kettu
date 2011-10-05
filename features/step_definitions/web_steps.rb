@@ -127,7 +127,7 @@ end
 Then /^(?:|I )should see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
   patiently do
     with_scope(selector) do
-      assert page.has_content?(text)
+      page.should have_content(text)
     end
   end
 end
@@ -136,7 +136,7 @@ Then /^(?:|I )should see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, selec
   regexp = Regexp.new(regexp)
   patiently do
     with_scope(selector) do
-      assert page.has_xpath?('//*', :text => regexp)
+      page.should have_xpath('//*', :text => regexp)
     end
   end
 end
@@ -144,7 +144,7 @@ end
 Then /^(?:|I )should not see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
   patiently do
     with_scope(selector) do
-      assert page.has_no_content?(text)
+      page.should have_no_content(text)
     end
   end
 end
@@ -153,7 +153,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, s
   regexp = Regexp.new(regexp)
   patiently do
     with_scope(selector) do
-      assert page.has_no_xpath?('//*', :text => regexp)
+      page.should have_no_xpath('//*', :text => regexp)
     end
   end
 end
@@ -161,7 +161,7 @@ end
 Then /^the "([^\"]*)" field(?: within "([^\"]*)")? should contain "([^\"]*)"$/ do |field, selector, value|
   patiently do
     with_scope(selector) do
-      assert_match(/#{value}/, field_labeled(field).value)
+      field_labeled(field).value.should match(/#{value}/)
     end
   end
 end
@@ -169,7 +169,7 @@ end
 Then /^the "([^\"]*)" field(?: within "([^\"]*)")? should not contain "([^\"]*)"$/ do |field, selector, value|
   patiently do
     with_scope(selector) do
-      assert_no_match(/#{value}/, find_field(field).value)
+      find_field(field).value.should_not match(/#{value}/)
     end
   end
 end
@@ -177,7 +177,7 @@ end
 Then /^the "([^\"]*)" checkbox(?: within "([^\"]*)")? should be checked$/ do |label, selector|
   patiently do
     with_scope(selector) do
-      assert_equal 'checked', field_labeled(label)['checked']
+      field_labeled(label)['checked'].should == 'checked'
     end
   end
 end
@@ -185,7 +185,7 @@ end
 Then /^the "([^\"]*)" checkbox(?: within "([^\"]*)")? should not be checked$/ do |label, selector|
   patiently do
     with_scope(selector) do
-      assert_not_equal 'checked', field_labeled(label)['checked']
+      field_labeled(label)['checked'].should_not == 'checked'
     end
   end
 end
@@ -195,7 +195,7 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   expected_params = Hash[expected_pairs.rows_hash.map{|k,v| [k,[v]]}]
  
   patiently do
-    assert_equal expected_params, actual_params
+    actual_params.should == expected_params
   end
 end
 

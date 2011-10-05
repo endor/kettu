@@ -4,10 +4,13 @@ Settings = function(transmission) {
   transmission.get('#/settings', function(context) {
     original_settings = transmission.settings || {};
     
+    var hours_partial = 'templates/settings/hours.mustache',
+        minutes_partial = 'templates/settings/minutes.mustache';
+    
     context.render('templates/settings/index.mustache', original_settings, function(rendered_view) {
-      context.openInfo(rendered_view);
+      context.openInfo(rendered_view);      
       transmission.trigger('settings-refreshed');
-    });
+    }, {hours: hours_partial, minutes: minutes_partial});
   });
   
   updateSettings = function(context) {

@@ -1,20 +1,17 @@
 require 'rubygems'
-require 'json'
-require 'capybara/cucumber'
 require File.dirname(__FILE__) + '/testapp'
-require 'test/unit'
-require 'test/unit/assertions'
-include Test::Unit::Assertions
 
-Capybara.app = Sinatra::Application
-Capybara.javascript_driver = :selenium
+require 'cucumber/formatter/unicode'
+require 'cucumber/web/tableish'
+require 'capybara/cucumber'
+require 'capybara/session'
+
 Capybara.default_driver = :selenium
+Capybara.app = Sinatra::Application
 
-Symbol.class_eval do
-  def to_proc
-    Proc.new{|object| object.send(self)}
-  end
-end unless :symbol.respond_to?(:to_proc)
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
 
 Before do
   FileUtils.rm_rf(File.dirname(__FILE__) + '/../fixtures')

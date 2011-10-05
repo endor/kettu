@@ -112,6 +112,55 @@
         </td>
       </tr>
     </table>
+    <h3>Scheduled Speed Limit</h3>
+    <table class="content">
+      <tr>
+        <th>Scheduled Speed Limit:</th>
+        <td>
+          <input type="checkbox" name="alt-speed-time-enabled" /> 
+        </td>
+      </tr>
+      <tr>
+        <th>Scheduled Speed Limit Begin:</th>
+        <td>
+          <select name="alt-speed-time-begin-hours">
+            {{>hours}}
+          </select>
+          <select name="alt-speed-time-begin-minutes">
+            {{>minutes}}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Scheduled Speed Limit End:</th>
+        <td>
+          <select name="alt-speed-time-end-hours">
+            {{>hours}}
+          </select>
+          <select name="alt-speed-time-end-minutes">
+            {{>minutes}}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Scheduled Speed Limit Day:</th>
+        <td>
+          <select name="alt-speed-time-day">
+            <option value="127">Every day</option>
+            <option value="62">Weekdays</option>
+            <option value="65">Weekends</option>
+            <option value="2">Monday</option>
+            <option value="4">Tuesday</option>
+            <option value="8">Wednesday</option>
+            <option value="16">Thursday</option>
+            <option value="32">Friday</option>
+            <option value="64">Saturday</option>
+            <option value="1">Sunday</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    
   </div>
   <div class="item peers">
     <h3>Connections</h3>
