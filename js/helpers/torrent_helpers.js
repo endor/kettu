@@ -36,6 +36,7 @@ var TorrentHelpers = {
           });
         }
       });
+      context.redirect('#/torrents');
     } else {
       transmission.trigger('flash', 'Torrent could not be added.');
     }
@@ -104,15 +105,16 @@ var TorrentHelpers = {
   
   submit_add_torrent_form: function(context, paused) {
     $('#add_torrent_form').ajaxSubmit({
-  		url: '/transmission/upload?paused=' + paused,
-  		type: 'POST',
-  		data: { 'X-Transmission-Session-Id' : context.remote_session_id() },
-  		dataType: 'xml',
+  	  url: '/transmission/upload?paused=' + paused,
+  	  type: 'POST',
+  	  data: { 'X-Transmission-Session-Id' : context.remote_session_id() },
+  	  dataType: 'xml',
       iframe: true,
-  		success: function(response) {
-  		  context.render_config_for_new_torrents(JSON.parse($(response).children(':first').text()).success);
-  		}
-		});  
+  	  success: function(response) {
+  	    console.log(response)
+  	    context.render_config_for_new_torrents(JSON.parse($(response).children(':first').text()).success);
+  	  }
+	});  
   },
   
   get_newest_torrents: function(context, response) {
