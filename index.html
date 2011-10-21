@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>kettu</title>
     <link rel="stylesheet" type="text/css" href="./css/jquery/ui.all.css"  />
     <link rel="stylesheet" type="text/css" href="./css/jquery/facebox.css" />
@@ -12,134 +12,161 @@
     <link rel="stylesheet" type="text/css" href="./css/temp.css" media="screen and (min-device-width: 481px)" />
     <link rel="stylesheet" type="text/css" href="css/iphone.css" media="only screen and (max-device-width: 480px)" />
     <link rel="stylesheet" type="text/css" href="css/iphone.css" media="handheld" />
-		
-		<script type="text/javascript" src="vendor/lab/lab.js"></script>
-    <script type="text/javascript">
-
-      $LAB
-        .script('vendor/jquery/jquery.js').wait()
-        .script('vendor/jquery/jquery.mobile.js')
-        .script('vendor/jquery/jquery.ui.js')
-        .script('vendor/jquery/jquery.form.js')
-        .script('vendor/jquery/jquery.uniq.js')
-        .script('vendor/jquery/jquery.contextmenu.js')
-        .script('vendor/jquery/facebox.js')
-        .script('vendor/raphael/raphael.js').wait()
-        .script('vendor/raphael/raphael.grid.js')
-        .script('vendor/raphael/raphael.path.methods.js')
-        .script('vendor/sammy/sammy.js').wait()
-        .script('vendor/sammy/sammy.json.js')
-        .script('vendor/sammy/sammy.storage.js')
-        .script('vendor/sammy/sammy.mustache.js')
-        .script('js/rpc.js').wait()
-        .script('js/controllers/settings.js')
-        .script('js/controllers/statistics.js')
-        .script('js/controllers/torrents.js')
-        .script('js/controllers/torrent_details.js')
-        .script('js/models/torrent.js')
-        .script('js/models/validator.js')
-        .script('js/models/settings_validator.js')
-        .script('js/views/statistics.js')
-        .script('js/views/torrent.js')
-        .script('js/views/torrents.js')
-        .script('js/views/torrent_details.js')
-        .script('js/helpers/application_helpers.js')
-        .script('js/helpers/context_menu_helpers.js')
-        .script('js/helpers/dragging_helpers.js')
-        .script('js/helpers/filter_torrents_helpers.js')
-        .script('js/helpers/info_helpers.js')
-        .script('js/helpers/link_helpers.js')
-        .script('js/helpers/math_helpers.js')
-        .script('js/helpers/search_helpers.js')
-        .script('js/helpers/setting_helpers.js')
-        .script('js/helpers/sort_torrents_helpers.js')
-        .script('js/helpers/statistic_helpers.js')
-        .script('js/helpers/store_helpers.js')
-        .script('js/helpers/torrent_helpers.js')
-        .script('js/helpers/torrent_details_helpers.js')
-        .script('js/helpers/view_helpers.js').wait()
-        .script('js/transmission.js');
-
-    </script>    
-    
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="icon" type="image/ico" href="favicon.ico" />
     <link rel="apple-touch-icon" href="./css/images/webclip-icon.png" />
   </head>
 
   <body>
-    <header>
-      <div id="flash"></div>
+    <div id="app">
+      <header>
+        <div id="flash"></div>
 
-      <div id="globalUpAndDownload"></div>
+        <div id="globalUpAndDownload"></div>
+
+        <div id="filterbar">
+
+          <ul id="filter_sort_links">
+            <li>
+              <ul id="filters">
+                <li><a href="#/torrents?filter=all" class="all">All</a></li>
+                <li><a href="#/torrents?filter=downloading" class="downloading">Downloading</a></li>
+                <li><a href="#/torrents?filter=seeding" class="seeding">Seeding</a></li>
+                <li><a href="#/torrents?filter=paused" class="paused">Paused</a></li>   
+                <li><a href="#/torrents?filter=activity" class="activity">Activity</a></li>
+              </ul>
+            </li>
+            <li class="sorts_dropdown">
+              <a href="#" title="Sort by …" id="sort_link">Sort by …</a>
+              <ul id="sorts">
+                <li><a href="#/torrents?sort=activity" class="activity">Sort by Activity</a></li>
+                <li><a href="#/torrents?sort=age" class="age">Sort by Age</a></li>
+                <li><a href="#/torrents?sort=name" class="name">Sort by Name</a></li>
+                <li><a href="#/torrents?sort=progress" class="progress">Sort by Progress</a></li>
+                <li><a href="#/torrents?sort=queue" class="queue">Sort by Queue</a></li>
+                <li><a href="#/torrents?sort=state" class="state">Sort by State</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#/torrents?sort=reverse" id="reverse_link" title="Reverse Order">Reverse Order</a> 
+            </li>
+          </ul>
+
+          <div id="search_filter">
+            <input type="search" placeholder="Filter" id="search" />
+          </div>
+        </div>      
+      </header>
+
+      <div id="container" class="container">    
+        <div class="main info">
+          <div class="torrents_container">
+            <ul id="torrents"></ul>
+          </div>
+
+          <div id="info"></div>
+
+          <ul id="context_menu">
+          </ul>
+        </div>
+      </div>   
+
+      <form action="#/settings" method="PUT" id="speed_limit_mode_form">
+        <input type="hidden" name="alt-speed-enabled" value="true" />
+      </form>
+
+      <footer>
+        <nav id="footer">        
+          <ul class="icon_nav">
+            <li><a href="#" id="compact_view" title="Compact View">Enable Compact View</a></li>
+            <li><a href="#" id="speed_limit_mode" title="Speed Limit Mode">Enable Speed Limit Mode</a></li>
+            <li><a href="#" id="start_all" title="Start All">Start All</a></li>
+            <li><a href="#" id="stop_all" title="Stop All">Stop All</a></li>
+          </ul>
+
+          <ul class="info_nav">
+            <li><a href="#" class="inspector">Inspector</a></li>
+            <li><a href="#" id="add_a_torrent">Add Torrent</a></li>
+            <li><a href="#" id="statistics">Statistics</a></li>
+            <li><a href="#" id="settings">Preferences</a></li>
+          </ul>
+        </nav>      
+      </footer>      
+    </div>
+    
+    <div id="install">
+      <header>&nbsp;</header>
       
-      <div id="filterbar">
+      <h1>kettu</h1>
+      <h2>A web interface to the transmission bittorrent client.</h2>
 
-        <ul id="filter_sort_links">
-          <li>
-            <ul id="filters">
-              <li><a href="#/torrents?filter=all" class="all">All</a></li>
-              <li><a href="#/torrents?filter=downloading" class="downloading">Downloading</a></li>
-              <li><a href="#/torrents?filter=seeding" class="seeding">Seeding</a></li>
-              <li><a href="#/torrents?filter=paused" class="paused">Paused</a></li>   
-              <li><a href="#/torrents?filter=activity" class="activity">Activity</a></li>
-            </ul>
-          </li>
-          <li class="sorts_dropdown">
-            <a href="#" title="Sort by …" id="sort_link">Sort by …</a>
-            <ul id="sorts">
-              <li><a href="#/torrents?sort=activity" class="activity">Sort by Activity</a></li>
-              <li><a href="#/torrents?sort=age" class="age">Sort by Age</a></li>
-              <li><a href="#/torrents?sort=name" class="name">Sort by Name</a></li>
-              <li><a href="#/torrents?sort=progress" class="progress">Sort by Progress</a></li>
-              <li><a href="#/torrents?sort=queue" class="queue">Sort by Queue</a></li>
-              <li><a href="#/torrents?sort=state" class="state">Sort by State</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#/torrents?sort=reverse" id="reverse_link" title="Reverse Order">Reverse Order</a> 
-          </li>
-        </ul>
-
-        <div id="search_filter">
-          <input type="search" placeholder="Filter" id="search" />
-        </div>
-      </div>      
-    </header>
-
-    <div id="container" class="container">    
-      <div class="main info">
-        <div class="torrents_container">
-          <ul id="torrents"></ul>
-        </div>
-
-        <div id="info"></div>
-
-        <ul id="context_menu">
-        </ul>
+      <div id="install-wrapper">
+        <p>Tap the <em id="add-button"></em> (or <em>+</em>) button<br>
+          and choose <em>Add to Home Screen</em>.</p>
       </div>
-    </div>   
+    </div>
+    
+    <script type="text/javascript" src="vendor/lab/lab.js"></script>
+    <script type="text/javascript">
 
-    <form action="#/settings" method="PUT" id="speed_limit_mode_form">
-      <input type="hidden" name="alt-speed-enabled" value="true" />
-    </form>
-  
-    <footer>
-      <nav id="footer">        
-        <ul class="icon_nav">
-          <li><a href="#" id="compact_view" title="Compact View">Enable Compact View</a></li>
-          <li><a href="#" id="speed_limit_mode" title="Speed Limit Mode">Enable Speed Limit Mode</a></li>
-          <li><a href="#" id="start_all" title="Start All">Start All</a></li>
-          <li><a href="#" id="stop_all" title="Stop All">Stop All</a></li>
-        </ul>
+      var app = document.getElementById('app');
+      var install = document.getElementById('install');
+      
+      if(navigator.standalone === undefined || !!navigator.standalone) {
+        
+        app.style.display = "block";
+        install.style.display = "none";
+        
+        $LAB
+          .script('vendor/jquery/jquery.js').wait()
+          .script('vendor/jquery/jquery.mobile.js')
+          .script('vendor/jquery/jquery.ui.js')
+          .script('vendor/jquery/jquery.form.js')
+          .script('vendor/jquery/jquery.uniq.js')
+          .script('vendor/jquery/jquery.contextmenu.js')
+          .script('vendor/jquery/facebox.js')
+          .script('vendor/raphael/raphael.js').wait()
+          .script('vendor/raphael/raphael.grid.js')
+          .script('vendor/raphael/raphael.path.methods.js')
+          .script('vendor/sammy/sammy.js').wait()
+          .script('vendor/sammy/sammy.json.js')
+          .script('vendor/sammy/sammy.storage.js')
+          .script('vendor/sammy/sammy.mustache.js')
+          .script('js/rpc.js').wait()
+          .script('js/controllers/settings.js')
+          .script('js/controllers/statistics.js')
+          .script('js/controllers/torrents.js')
+          .script('js/controllers/torrent_details.js')
+          .script('js/models/torrent.js')
+          .script('js/models/validator.js')
+          .script('js/models/settings_validator.js')
+          .script('js/views/statistics.js')
+          .script('js/views/torrent.js')
+          .script('js/views/torrents.js')
+          .script('js/views/torrent_details.js')
+          .script('js/helpers/application_helpers.js')
+          .script('js/helpers/context_menu_helpers.js')
+          .script('js/helpers/dragging_helpers.js')
+          .script('js/helpers/filter_torrents_helpers.js')
+          .script('js/helpers/info_helpers.js')
+          .script('js/helpers/link_helpers.js')
+          .script('js/helpers/math_helpers.js')
+          .script('js/helpers/search_helpers.js')
+          .script('js/helpers/setting_helpers.js')
+          .script('js/helpers/sort_torrents_helpers.js')
+          .script('js/helpers/statistic_helpers.js')
+          .script('js/helpers/store_helpers.js')
+          .script('js/helpers/torrent_helpers.js')
+          .script('js/helpers/torrent_details_helpers.js')
+          .script('js/helpers/view_helpers.js').wait()
+          .script('js/transmission.js');
 
-        <ul class="info_nav">
-          <li><a href="#" class="inspector">Inspector</a></li>
-          <li><a href="#" id="add_a_torrent">Add Torrent</a></li>
-          <li><a href="#" id="statistics">Statistics</a></li>
-          <li><a href="#" id="settings">Preferences</a></li>
-        </ul>
-      </nav>      
-    </footer>
+        } else {
+          
+          app.style.display = "none";
+          install.style.display = "block";
+          
+        }
+    </script>
   </body>  
 </html>
