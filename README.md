@@ -10,6 +10,7 @@ kettu osaa monta asiaa.
 * Kriesse for the elegant design.
 * kjg for all the work on the transmission web client and help.
 * lenalena for introducing proper jspec testing to this project.
+* currency.io for their easy way of adding the app to the homescreen.
 
 
 ## Usage
