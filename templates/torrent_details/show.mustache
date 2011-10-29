@@ -171,9 +171,26 @@
 <div class="item preferences">
   <form action="#/torrents/{{id}}" method="PUT" class="preferences_form">
     <table class="content">
-      <tr>
-        <th>Download Directory:</th>
-        <td><input type="text" name="location" value="{{downloadDir}}" /></td>
+      {{#showLocationCategories}}
+        <tr>
+          <th>Download Directory:</th>
+          <td>
+            <select class="locationCategory" id="locationCategory">
+              {{#locationCategories}}
+                <option value="{{location}}">{{name}}</option>
+              {{/locationCategories}}
+              <option value="__custom__">Custom...</option>
+            </select>
+            <br />
+          </td>
+        </tr>
+      {{/showLocationCategories}}
+
+      <tr class="location-field">
+        <th>{{^showLocationCategories}}Download Directory:{{/showLocationCategories}}</th>
+        <td>
+          <input type="text" name="location" value="{{downloadDir}}" class="location" />
+        </td>
       </tr>
       <tr>
         <th>Priority</th>

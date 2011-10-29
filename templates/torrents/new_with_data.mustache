@@ -15,7 +15,19 @@
   </ul>
 
   <div class="facebox_buttons">
-    <p>
+
+    {{#showLocationCategories}}
+      <p>
+        <select class="locationCategory" id="locationCategory">
+          {{#locationCategories}}
+            <option value="{{location}}">{{name}}</option>
+          {{/locationCategories}}
+          <option value="__custom__">Custom...</option>
+        </select>
+      </p>
+    {{/showLocationCategories}}
+
+    <p class="location">
       <input type="text" name="location" value="{{downloadDir}}" />
     </p>
     

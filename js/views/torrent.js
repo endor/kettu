@@ -174,6 +174,24 @@ TorrentView = function(torrent, context, sort_peers) {
   view.sanitizeNumbers();
   view.addIdsToFiles();
   view.folderizeFiles();
+
+  view.showLocationCategories = false;
+
+  if (typeof context.app.settings != "undefined") {
+    var locationCategories = [];
+
+    if (locationCategories.length > 0) {
+      view.locationCategories = [{name:"Default", location: context.app.settings['download-dir']}];
+
+      $.each(locationCategories, function() {
+        if (this.location != view.locationCategories[0].location) {
+          view.locationCategories.push(this);
+        }
+      });
+
+      view.showLocationCategories = true;
+    }
+  }
   
   return view;
 };
