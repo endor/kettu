@@ -177,7 +177,16 @@
           <td>
             <select class="locationCategory" id="locationCategory">
               {{#locationCategories}}
-                <option value="{{location}}">{{name}}</option>
+                {{#optgroup}}
+                  <optgroup label="{{optgroup}}">
+                    {{#items}}
+                      <option value="{{location}}">{{name}}</option>
+                    {{/items}}
+                  </optgroup>
+                {{/optgroup}}
+                {{^optgroup}}
+                  <option value="{{location}}">{{name}}</option>
+                {{/optgroup}}
               {{/locationCategories}}
               <option value="__custom__">Custom...</option>
             </select>
