@@ -674,6 +674,14 @@ padding: 3px 30px;
   color: #666666;
 }
 
+#info .preferences th {
+  white-space: nowrap;
+}
+
+#info .preferences td {
+  width: 100%;
+}
+
 #pie_chart {
   margin-left: 30px;
   margin-top: 30px;
