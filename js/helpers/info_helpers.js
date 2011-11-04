@@ -54,8 +54,9 @@ kettu.InfoHelpers = {
   handleClickOnTorrent: function(torrent) {
     var context = this;
     $('#' + torrent.id).click(function(e) {
-      // NOTE: why is this necessary? somehow safari does not stop propagation on a context menu event.
-      if($('#context_menu').is(':visible')) { return false; }
+      // NOTE: safari does not stop propagation on a context menu event, that means
+      //       a click event is fired also
+      if($('#context_menu').is(':visible')) { $('#context_menu').hide(); return false; }
       
       if(e.shiftKey && $('.torrent.active').length >= 1) {
         var first_index = $('.torrent.active:first').index();

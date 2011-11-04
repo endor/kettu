@@ -1,8 +1,9 @@
 (function($) {
   $.fn.contextMenu = function(options) {
     var menu = $(options.menu);
+
     menu.click(function(event) {
-     event.stopPropagation();
+      event.stopPropagation();
     });
 
     $(this).bind('contextmenu', function(event) {
@@ -10,24 +11,20 @@
 
       menu.find('li').hover(
         function() { $(this).addClass('hover'); },
-        function(){ $(this).removeClass('hover'); }
+        function() { $(this).removeClass('hover'); }
       );
 
-      menu.find('form').submit(function() {
-        menu.hide();
-        return true;
-      });
+      var callback = function() {
+          menu.hide();
+          return true;          
+      };
       
-      menu.find('a').click(function() {
-        menu.hide();
-        return true;
-      });
+      menu.find('form').submit(callback);
+      menu.find('a').click(callback);
 
       $(document).keyup(function(event) {
-        switch(event.keyCode) {
-          case 27:
-            menu.hide();
-            break;
+        if(event.keyCode === 27) {
+            callback();
         }
       });
 			
@@ -35,7 +32,8 @@
         left: event.pageX - 170,
         top: event.pageY - 150
       }).show();
-      $(document).one('click', function() { menu.hide(); })      
+
+      $(document).one('click', callback);
       
       return false;
     });

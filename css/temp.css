@@ -54,3 +54,7 @@ img.priority.compact {
 .file_info:nth-child(even) {
   background-color: #F9F9F9;
 }
+
+#context_menu .delete .facebox_link {
+  padding-left: 5px;
+}
