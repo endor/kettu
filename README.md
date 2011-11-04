@@ -28,6 +28,12 @@ Without overwriting the default Web Interface, you can drop the kettu files into
 #### On Mac OS X, using a (pre-v2.0) nightly
 In the current (pre-v2.0) nightlies on the mac, you can simply drop kettu in the Transmission Application Support folder and rename it web (`~/Library/Application Support/Transmission/web/`).
 
+### Configuring
+Kettu has own settings.
+
+#### Location categories
+Kettu supports changing of location path. To make it simple, you can configure location categories. Put categories configuration into `locationCategories.js` file. See `locationCategories.js.example` for data format.
+
 ## Goals
 * Usage should be as simple as possible
 * Try out new features that older browsers may not support
