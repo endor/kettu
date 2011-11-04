@@ -581,10 +581,6 @@ padding: 3px 30px;
   width: 250px;
 }
 
-#info input.file {
-  border: 0px;
-}
-
 #info td.long {
   width: 82px;
 }
