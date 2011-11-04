@@ -20,16 +20,16 @@
       <p>
         <select class="locationCategory" id="locationCategory">
           {{#locationCategories}}
-            {{#optgroup}}
-              <optgroup label="{{optgroup}}">
+            {{#group}}
+              <optgroup label="{{group}}">
                 {{#items}}
                   <option value="{{location}}">{{name}}</option>
                 {{/items}}
               </optgroup>
-            {{/optgroup}}
-            {{^optgroup}}
+            {{/group}}
+            {{^group}}
               <option value="{{location}}">{{name}}</option>
-            {{/optgroup}}
+            {{/group}}
           {{/locationCategories}}
           <option value="__custom__">Custom...</option>
         </select>
