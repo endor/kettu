@@ -32,7 +32,7 @@ var TorrentHelpers = {
           context.get_torrent(newest[0].id, function(torrent) {
             context.render('templates/torrents/new_with_data.mustache', TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
               $.facebox(rendered_view);
-              context.initLocationCategories(torrent);
+              context.initLocations(torrent);
             });          
           });
         }
@@ -43,27 +43,6 @@ var TorrentHelpers = {
     }
   },
 
-  initLocationCategories: function(torrent) {
-    if ($('#facebox .locationCategory').length > 0) {
-      $('#facebox .locationCategory').change(function() {
-        if($(this).val() == '__custom__') {
-          $('#facebox .location').show();
-          return false;
-        } else {
-          $('#facebox .location').hide();
-          $('#facebox .location input').val($(this).val());
-        }
-      }).val(torrent.downloadDir);
-
-      if ($('#facebox .locationCategory').val() != torrent.downloadDir) {
-          $('#facebox .locationCategory').val('__custom__');
-          $('#facebox .location').show();
-      } else {
-          $('#facebox .location').hide();
-      }
-    }
-  },
-  
   get_torrent: function(id, callback) {
     var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']),
       request = this.build_request('torrent-get', { ids: id, fields: fields }),
@@ -133,7 +112,6 @@ var TorrentHelpers = {
   	  dataType: 'xml',
       iframe: true,
   	  success: function(response) {
-  	    console.log(response)
   	    context.render_config_for_new_torrents(JSON.parse($(response).children(':first').text()).success);
   	  }
 	});  

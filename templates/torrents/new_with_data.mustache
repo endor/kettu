@@ -16,25 +16,24 @@
 
   <div class="facebox_buttons">
 
-    {{#showLocationCategories}}
+    {{#showLocations}}
       <p>
-        <select class="locationCategory" id="locationCategory">
-          {{#locationCategories}}
+        <select class="locationSelect">
+          {{#locations}}
             {{#group}}
               <optgroup label="{{group}}">
                 {{#items}}
-                  <option value="{{location}}">{{name}}</option>
+                  <option value="{{path}}">{{name}}</option>
                 {{/items}}
               </optgroup>
             {{/group}}
             {{^group}}
-              <option value="{{location}}">{{name}}</option>
+              <option value="{{path}}">{{name}}</option>
             {{/group}}
-          {{/locationCategories}}
-          <option value="__custom__">Custom...</option>
+          {{/locations}}
         </select>
       </p>
-    {{/showLocationCategories}}
+    {{/showLocations}}
 
     <p class="location">
       <input type="text" name="location" value="{{downloadDir}}" />

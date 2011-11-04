@@ -8,6 +8,7 @@ var transmission = $.sammy(function() {
   this.store = new Sammy.Store({name: 'data', type: ['local', 'cookie']});
   
   this.helpers(ApplicationHelpers);
+  this.helpers(LocationHelpers);
   this.helpers(ContextMenuHelpers);
   this.helpers(DraggingHelpers);
   this.helpers(FilterTorrentsHelpers);
@@ -21,7 +22,6 @@ var transmission = $.sammy(function() {
   this.helpers(TorrentHelpers);
   this.helpers(TorrentDetailsHelpers);
   this.helpers(ViewHelpers);
-  this.helpers(FrontendSettings);
   
   TorrentDetails(this);
   Torrents(this);

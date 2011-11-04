@@ -167,6 +167,22 @@ TorrentView = function(torrent, context, sort_peers) {
     }
   };
   
+  view.loadLocations = function() {
+      view.showLocations = false;
+
+      if ($.isArray(config.locations) && config.locations.length > 0) {
+        view.locations = [{name:"Default", path: context.app.settings['download-dir']}];
+
+        config.locations.forEach(function(location) {
+          if (location.path != view.locations[0].path) {
+            view.locations.push(location);
+          }
+        });
+
+        view.showLocations = true;
+      }      
+  };
+  
   view.addFormattedTimes();
   view.addFormattedSizes();
   view.sortPeers();
@@ -174,20 +190,7 @@ TorrentView = function(torrent, context, sort_peers) {
   view.sanitizeNumbers();
   view.addIdsToFiles();
   view.folderizeFiles();
-
-  view.showLocationCategories = false;
-
-  if (typeof context.app.settings != "undefined" && context.locationCategories.length > 0) {
-    view.locationCategories = [{name:"Default", location: context.app.settings['download-dir']}];
-
-    $.each(context.locationCategories, function() {
-      if (this.location != view.locationCategories[0].location) {
-        view.locationCategories.push(this);
-      }
-    });
-
-    view.showLocationCategories = true;
-  }
+  view.loadLocations();
 
   return view;
 };

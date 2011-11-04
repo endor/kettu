@@ -98,15 +98,10 @@ var InfoHelpers = {
     });
 
     $('#info select').change(function() {
-      if($(this).hasClass('locationCategory')) {
-        if($(this).val() == '__custom__') {
-          $('#info .location-field').show();
-          return false;
-        } else {
-          $('#info .location-field').hide();
-          $('#info .location-field input').val($(this).val());
-        }
+      if($(this).hasClass('locationSelect')) {
+        $('#info .location-field input').val($(this).val());
       }
+
       $(this).parents('form:first').trigger('submit');
       if($(this).hasClass('seedRatioMode')) {
         if($(this).val() == 1) {
@@ -115,6 +110,7 @@ var InfoHelpers = {
           $('#info .seedRatioLimit').hide();
         }
       }
+      
       return false;
     });
     
@@ -127,15 +123,9 @@ var InfoHelpers = {
       $('#info .seedRatioLimit').hide();
     }
 
-    if ($('#info .locationCategory').length > 0) {
-      $('#info .locationCategory').val(torrent.downloadDir);
-
-      if ($('#info .locationCategory').val() != torrent.downloadDir) {
-          $('#info .locationCategory').val('__custom__');
-          $('#info .location-field').show();
-      } else {
-          $('#info .location-field').hide();
-      }
+    var $locationSelect = $('#info .locationSelect');
+    if ($locationSelect.length > 0) {
+      $locationSelect.val(torrent.downloadDir);
     }
   },
 

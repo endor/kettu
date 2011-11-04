@@ -1,0 +1,15 @@
+window.config.locations = [
+  {name:"Some location", path:"/home/user/folder1"},
+  {name:"Another location", path:"/home/user/folder2"},
+  {group:"Some group", items: [
+    {name:"Item1", path:"/home/user/item1"},
+    {name:"Item2", path:"/home/user/item2"},
+    {name:"Item3", path:"/home/user/item3"}
+  ]},
+  {name:"Third location", path:"/home/user/third"},
+  {group:"Another group", items: [
+    {name:"Item4", path:"/home/user/item4"},
+    {name:"Item5", path:"/home/user/item5"},
+    {name:"Item6", path:"/home/user/item6"}
+  ]}
+];

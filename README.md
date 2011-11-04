@@ -7,9 +7,10 @@ By Frank Prößdorf <fp@notjusthosting.com>.
 kettu osaa monta asiaa.
 
 ## Thanks
-* Kriesse for the elegant design.
+* kriesse for the elegant design.
 * kjg for all the work on the transmission web client and help.
 * lenalena for introducing proper jspec testing to this project.
+* kastigar for adding predefined locations.
 * currency.io for their easy way of adding the app to the homescreen.
 
 
@@ -28,11 +29,10 @@ Without overwriting the default Web Interface, you can drop the kettu files into
 #### On Mac OS X, using a (pre-v2.0) nightly
 In the current (pre-v2.0) nightlies on the mac, you can simply drop kettu in the Transmission Application Support folder and rename it web (`~/Library/Application Support/Transmission/web/`).
 
-### Configuring
-Kettu has own settings.
+### Configuration
 
-#### Location categories
-Kettu supports changing of location path. To make it simple, you can configure location categories. Put categories configuration into `locationCategories.js` file. See `locationCategories.js.example` for data format.
+#### Locations
+kettu supports the easy selection of a predefined location to download your torrents to. Put locations into the  `config/location.js` configuration file. See `config/locations.js.example` for an example.
 
 ## Goals
 * Usage should be as simple as possible
@@ -50,6 +50,7 @@ You need to install the [chromedriver](http://code.google.com/p/selenium/downloa
 
 
 ## Todo
+* really need to namespace all variables!
 * maybe have a trash icon where torrents can be dragged and dropped into
 * maybe checkboxes in preferences could be on/off sliders, something with sliders
 * maybe add <audio> to audio files, transforms
