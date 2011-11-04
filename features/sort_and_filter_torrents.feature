@@ -4,7 +4,7 @@ Feature: sort and filter torrents
   I want to sort and filter torrents
   
   Scenario: filter torrents
-    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 8, 16"
+    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 6, 0"
     When I go to the start page
       And I follow "Downloading"
     Then I should see "Mutant Ninja Turtles"
@@ -28,14 +28,14 @@ Feature: sort and filter torrents
     When I follow "All"
     
   Scenario: sort torrents by name
-    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 8, 16"
+    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 6, 0"
     When I go to the name sorted torrents page
       And I wait for the AJAX call to finish
     Then I should see "Donald Duck" before "Mutant Ninja Turtles"
       And I should see "Mutant Ninja Turtles" before "Saber Riders"
 
   Scenario: sort torrents by state
-    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "8, 16, 4"
+    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "6, 0, 4"
     When I go to the start page
       And I go to the state sorted torrents page
       And I wait for the AJAX call to finish
@@ -57,7 +57,7 @@ Feature: sort and filter torrents
       And I should see "Donald Duck" before "Saber Riders"
   
   Scenario: sort torrents by progress
-    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the left until done "8, 4, 16"
+    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the left until done "6, 4, 0"
     When I go to the progress sorted torrents page
       And I wait for the AJAX call to finish
     Then I should see "Saber Riders" before "Mutant Ninja Turtles"
@@ -71,7 +71,7 @@ Feature: sort and filter torrents
       And I should see "Donald Duck" before "Saber Riders"
       
   Scenario: filter and sort at the same time
-    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 4, 16"
+    Given three torrents with the names "Mutant Ninja Turtles, Donald Duck, Saber Riders" and the stati "4, 4, 0"
     When I go to the name sorted torrents page
       And I wait for the AJAX call to finish
       And I follow "Downloading"

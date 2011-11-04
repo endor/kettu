@@ -111,11 +111,13 @@ kettu.Torrent = function(attributes) {
   torrent.statusStringLocalized = function(status) {
     var localized_stati = {};
     
+    localized_stati[torrent.stati['paused']] = 'Paused';
     localized_stati[torrent.stati['waiting_to_check']] = 'Waiting to verify';
     localized_stati[torrent.stati['checking']] = 'Verifying local data';
     localized_stati[torrent.stati['downloading']] = 'Downloading';
+    localized_stati[torrent.stati['waiting_to_download']] = 'Waiting to download';
+    localized_stati[torrent.stati['waiting_to_seed']] = 'Waiting to seed';
     localized_stati[torrent.stati['seeding']] = 'Seeding';
-    localized_stati[torrent.stati['paused']] = 'Paused';
 
     return localized_stati[this['status']] ? localized_stati[this['status']] : 'Error';
   };
@@ -151,12 +153,15 @@ kettu.Torrent = function(attributes) {
   torrent.activity = function() {
     return torrent.rateDownload + torrent.rateUpload;
   };
+  
   torrent['stati'] = {
+    'paused': 0,
     'waiting_to_check': 1,
     'checking': 2,
+    'waiting_to_download': 3,
     'downloading': 4,
-    'seeding': 8,
-    'paused': 16
+    'waiting_to_seed': 5,
+    'seeding': 6
   };
 	
   return torrent;
