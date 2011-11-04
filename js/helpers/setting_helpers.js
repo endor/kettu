@@ -88,7 +88,10 @@ kettu.SettingHelpers = {
       'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
       'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
       'encryption', 'utp-enabled', 'peer-port-random-on-start', 'port-forwarding-enabled',
-      'lpd-enabled', 'alt-speed-time-enabled', 'alt-speed-time-day'
+      'lpd-enabled', 'alt-speed-time-enabled', 'alt-speed-time-day', 'seedRatioLimited',
+      'seedRatioLimit', 'idle-seeding-limit-enabled', 'idle-seeding-limit',
+      'download-queue-enabled', 'download-queue-size', 'seed-queue-enabled', 'seed-queue-size',
+      'queue-stalled-enabled', 'queue-stalled-minutes'
     ];
     var hash = {};
 

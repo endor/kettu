@@ -1,6 +1,7 @@
 <nav>
   <ul class="menu">
     <li><a href="#/settings" class="menu-item" data-item="general">General</a></li>
+    <li><a href="#/settings" class="menu-item" data-item="transfers">Transfers</a></li>
     <li><a href="#/settings" class="menu-item" data-item="network">Network</a></li>
     <li><a href="#/settings" class="menu-item" data-item="bandwidth">Bandwidth</a></li>
     <li><a href="#/settings" class="menu-item" data-item="peers">Peers</a></li>
@@ -42,6 +43,49 @@
           <input type="checkbox" name="content-handler-enabled" class="content-handler-enabled" /><br />
           <span class="hint">This is a feature not all browsers may support yet.
             Once enabled, you can only disable this in your browser settings.</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="item transfers">
+    <h3>Limits</h3>
+    <table class="content">
+      <tr>
+        <th>Stop seeding at Ratio:</th>
+        <td>
+          <input type="checkbox" name="seedRatioLimited" />
+          <input type="number" name="seedRatioLimit" value="{{seedRatioLimit}}" class="short seedRatioLimit" />
+        </td>
+      </tr>
+      <tr>
+        <th>Stop seeding when inactive for:</th>
+        <td>
+          <input type="checkbox" name="idle-seeding-limit-enabled" />
+          <input type="number" name="idle-seeding-limit" value="{{idle-seeding-limit}}" class="short idle-seeding-limit" /> minutes          
+        </td>
+      </tr>
+    </table>
+    <h3>Queues</h3>
+    <table class="content">
+      <tr>
+        <th>Download with maximum of:</th>
+        <td>
+          <input type="checkbox" name="download-queue-enabled" />
+          <input type="number" name="download-queue-size" value="{{download-queue-size}}" class="short download-queue-size" /> active transfers
+        </td>
+      </tr>
+      <tr>
+        <th>Seed with maximum of:</th>
+        <td>
+          <input type="checkbox" name="seed-queue-enabled" />
+          <input type="number" name="seed-queue-size" value="{{seed-queue-size}}" class="short seed-queue-size" /> active transfers
+        </td>
+      </tr>
+      <tr>
+        <th>Transfer is stalled when inactive for:</th>
+        <td>
+          <input type="checkbox" name="queue-stalled-enabled" />
+          <input type="number" name="queue-stalled-minutes" value="{{queue-stalled-minutes}}" class="short queue-stalled-minutes" /> minutes
         </td>
       </tr>
     </table>
