@@ -1,1 +1,1 @@
-window.config = {};
+kettu.config = {};

@@ -1,4 +1,4 @@
-var LinkHelpers = {
+kettu.LinkHelpers = {
   activateLinks: function() {
     this.activateInspectorLink();
     this.activateAddTorrentLink();
@@ -56,7 +56,7 @@ var LinkHelpers = {
   activateCompactViewLink: function() {
     var context = this, redirect_path = '';
     
-    if(transmission.store.get('view_mode') == 'compact') {
+    if(kettu.app.store.get('view_mode') == 'compact') {
       $('#compact_view').addClass('active');
       $('#compact_view').text('Disable Compact View');      
     }

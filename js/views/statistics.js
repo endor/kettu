@@ -1,4 +1,4 @@
-StatisticsView = function(statistics) {
+kettu.StatisticsView = function(statistics) {
   var view = {
     'number_of_torrents': statistics['torrentCount'],
     'uploaded': Math.formatBytes(statistics['current-stats']['uploadedBytes']),
@@ -22,4 +22,4 @@ StatisticsView = function(statistics) {
   }
   
   return view;
-}
+};

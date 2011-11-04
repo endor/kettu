@@ -1,4 +1,4 @@
-TorrentDetails = function(transmission) {
+kettu.TorrentDetails = function(transmission) {
   transmission.get('#/torrent_details', function(context) {
     var active_torrents = $('.torrent.active');
     switch(active_torrents.length) {
@@ -19,16 +19,16 @@ TorrentDetails = function(transmission) {
   
   var accumulate_torrents_and_render_result = function(context, torrents, accumulation) {
     if(torrents.length == 0) {
-      var view = TorrentDetailsView(accumulation);
+      var view = kettu.TorrentDetailsView(accumulation);
       context.render('templates/torrent_details/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view);
-        if(transmission.last_menu_item) { $('#' + transmission.last_menu_item).click(); }
+        if(kettu.app.last_menu_item) { $('#' + kettu.app.last_menu_item).click(); }
       });      
     } else {
-      var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']),
+      var fields = kettu.Torrent({})['fields'].concat(kettu.Torrent({})['info_fields']),
         request = context.build_request('torrent-get', {ids: torrents.shift(), fields: fields});
       context.remote_query(request, function(response) {
-        var torrent = response['torrents'].map( function(row) {return Torrent(row);} )[0];
+        var torrent = response['torrents'].map( function(row) {return kettu.Torrent(row);} )[0];
         accumulation.number_of_torrents += 1;
         accumulation.size += torrent.sizeWhenDone;
         accumulation.status_words.push(torrent.statusStringLocalized());
@@ -48,12 +48,12 @@ TorrentDetails = function(transmission) {
   transmission.get('#/torrent_details/:id', function(context) {
     context.get_and_render_torrent_details = function(id, callback) {
       var context = transmission.context,
-        fields = Torrent({})['fields'].concat(Torrent({})['info_fields']),
+        fields = kettu.Torrent({})['fields'].concat(kettu.Torrent({})['info_fields']),
         request = context.build_request('torrent-get', {ids: id, fields: fields});
 
       context.remote_query(request, function(response) {
-        var torrent = response['torrents'].map( function(row) {return Torrent(row);} )[0],
-          view = TorrentView(torrent, context, context.params['sort_peers']),
+        var torrent = response['torrents'].map( function(row) {return kettu.Torrent(row);} )[0],
+          view = kettu.TorrentView(torrent, context, context.params['sort_peers']),
           template = torrent.hasError() ? 'show_with_errors' : 'show',
           partial = 'templates/torrent_details/file.mustache';
 
@@ -67,7 +67,7 @@ TorrentDetails = function(transmission) {
     
     transmission.context = context;
     transmission.context.get_and_render_torrent_details(id, 'render_torrent_details_in_view');
-    if(transmission.info_interval_id) { clearInterval(transmission.info_interval_id); }
-    transmission.info_interval_id = setInterval("transmission.context.get_and_render_torrent_details(" + id + ", 'update_torrent_details_in_view')", transmission.reloadInterval);
+    if(kettu.app.info_interval_id) { clearInterval(kettu.app.info_interval_id); }
+    kettu.app.info_interval_id = setInterval("kettu.app.context.get_and_render_torrent_details(" + id + ", 'update_torrent_details_in_view')", kettu.app.reloadInterval);
   });  
 };

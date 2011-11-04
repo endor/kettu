@@ -50,7 +50,6 @@ You need to install the [chromedriver](http://code.google.com/p/selenium/downloa
 
 
 ## Todo
-* really need to namespace all variables!
 * maybe have a trash icon where torrents can be dragged and dropped into
 * maybe checkboxes in preferences could be on/off sliders, something with sliders
 * maybe add <audio> to audio files, transforms

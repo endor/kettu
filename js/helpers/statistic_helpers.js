@@ -1,4 +1,4 @@
-var StatisticHelpers = {
+kettu.StatisticHelpers = {
   activate_graph_links: function(context) {
     $('.graph_links a').click(function() {
       var type = $(this).attr('class') + '_graph';
@@ -17,7 +17,7 @@ var StatisticHelpers = {
   up_and_download_graph: function() {
     var graph = {'data': [], 'labels': ''}, i = 2;
     
-    $.each(transmission.store.get('up_and_download_rate'), function() {
+    $.each(kettu.app.store.get('up_and_download_rate'), function() {
       if(i == 0) {
         graph['data'].push((this.up / 1024) + (this.down / 1024));
         i = 2;

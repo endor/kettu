@@ -1,4 +1,4 @@
-Torrent = function(attributes) {
+kettu.Torrent = function(attributes) {
   var torrent = {};
 
   torrent['fields'] = [
@@ -72,7 +72,7 @@ Torrent = function(attributes) {
     var formattedUploadedEver = Math.formatBytes(torrent.uploadedEver);
 
     var uploadingProgress = formattedSizeWhenDone + ", uploaded " + formattedUploadedEver;
-    return uploadingProgress + " (Ratio: " + ViewHelpers.sanitizeNumber(torrent.uploadRatio) + ")";
+    return uploadingProgress + " (Ratio: " + kettu.ViewHelpers.sanitizeNumber(torrent.uploadRatio) + ")";
   };
   torrent.metaDataProgress = function() {
     var percentRetrieved = (Math.floor(torrent.metadataPercentComplete * 10000) / 100).toFixed(1);

@@ -1,4 +1,4 @@
-Statistics = function(transmission) {
+kettu.Statistics = function(transmission) {
   transmission.get('#/statistics', function(context) {
     var request = {
       method: 'session-stats',
@@ -6,7 +6,7 @@ Statistics = function(transmission) {
     }
     
     context.remote_query(request, function(response) {
-      context.render('templates/statistics/index.mustache', StatisticsView(response), function(rendered_view) {
+      context.render('templates/statistics/index.mustache', kettu.StatisticsView(response), function(rendered_view) {
         context.openInfo(rendered_view);
         context.activate_graph_links(context);
       });      

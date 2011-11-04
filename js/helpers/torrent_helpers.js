@@ -1,4 +1,4 @@
-var TorrentHelpers = {
+kettu.TorrentHelpers = {
   build_request: function(method, arguments) {
     return({
       method: method,
@@ -7,10 +7,10 @@ var TorrentHelpers = {
   },
 
   get_and_render_torrents: function(rerender) {
-    var request = { method: 'torrent-get', arguments: { fields: Torrent({})['fields'] } };
+    var request = { method: 'torrent-get', arguments: { fields: kettu.Torrent({})['fields'] } };
     this.remote_query(request, function(response) {
-      transmission.trigger('torrents-refreshed', {
-        torrents: response['torrents'].map( function(row) {return Torrent(row)} ),
+      kettu.app.trigger('torrents-refreshed', {
+        torrents: response['torrents'].map( function(row) {return kettu.Torrent(row)} ),
         rerender: rerender
       });
     });    
@@ -20,7 +20,7 @@ var TorrentHelpers = {
     var context = this;
     
     if(torrent_added) {
-      var request = context.build_request('torrent-get', {fields:Torrent({})['fields']});
+      var request = context.build_request('torrent-get', {fields:kettu.Torrent({})['fields']});
       context.remote_query(request, function(response) {
         context.closeInfo(context);
         var newest = context.get_newest_torrents(context, response);
@@ -30,7 +30,7 @@ var TorrentHelpers = {
           });
         } else {
           context.get_torrent(newest[0].id, function(torrent) {
-            context.render('templates/torrents/new_with_data.mustache', TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
+            context.render('templates/torrents/new_with_data.mustache', kettu.TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
               $.facebox(rendered_view);
               context.initLocations(torrent);
             });          
@@ -39,27 +39,27 @@ var TorrentHelpers = {
       });
       context.redirect('#/torrents');
     } else {
-      transmission.trigger('flash', 'Torrent could not be added.');
+      kettu.app.trigger('flash', 'Torrent could not be added.');
     }
   },
 
   get_torrent: function(id, callback) {
-    var fields = Torrent({})['fields'].concat(Torrent({})['info_fields']),
+    var fields = kettu.Torrent({})['fields'].concat(kettu.Torrent({})['info_fields']),
       request = this.build_request('torrent-get', { ids: id, fields: fields }),
       context = this;
       
     callback = callback || this.render_torrent;
     
     this.remote_query(request, function(response) {
-      callback.call(context, response['torrents'].map( function(row) { return Torrent(row); } )[0]);
+      callback.call(context, response['torrents'].map( function(row) { return kettu.Torrent(row); } )[0]);
     });
   },
   
   render_torrent: function(torrent) {
-    var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
-    this.render('templates/torrents/' + template + '.mustache', TorrentsView(torrent, this), function(rendered_view) {
-      $(transmission.element_selector).find('#' + torrent.id).replaceWith(rendered_view);
-      transmission.trigger('torrent-refreshed', torrent);
+    var template = (kettu.app.view_mode == 'compact') ? 'show_compact' : 'show';
+    this.render('templates/torrents/' + template + '.mustache', kettu.TorrentsView(torrent, this), function(rendered_view) {
+      $(kettu.app.element_selector).find('#' + torrent.id).replaceWith(rendered_view);
+      kettu.app.trigger('torrent-refreshed', torrent);
     });
   },  
   
@@ -67,15 +67,15 @@ var TorrentHelpers = {
     var params = context.params;
     
     if(params['sort'] == 'reverse') {
-      transmission.reverse_sort = !transmission.reverse_sort;
+      kettu.app.reverse_sort = !kettu.app.reverse_sort;
       $('#reverse_link').attr('href', '#/torrents?sort=reverse&random=' + new Date().getTime());
       delete(params['sort']);
     }
 
     $.each([{key: 'view', def: 'normal'}, {key: 'filter', def: 'all'}, {key: 'sort', def: 'name'}], function() {
       var key = this.key, def = this.def;
-      transmission[key + '_mode'] = params[key] || transmission.store.get(key + '_mode') || def;
-      transmission.store.set(key + '_mode', transmission[key + '_mode']);
+      kettu.app[key + '_mode'] = params[key] || kettu.app.store.get(key + '_mode') || def;
+      kettu.app.store.set(key + '_mode', kettu.app[key + '_mode']);
     });
 
     context.update_sort_dropdown();
@@ -87,21 +87,21 @@ var TorrentHelpers = {
   
   clear_all_intervals: function() {
     (['update_settings_interval_id', 'info_interval_id', 'interval_id', 'settings_interval_id']).forEach(function(interval) {
-      if(transmission[interval]) {
-        clearInterval(transmission[interval]);
-        delete(transmission[interval]);
+      if(kettu.app[interval]) {
+        clearInterval(kettu.app[interval]);
+        delete(kettu.app[interval]);
       }
     });
   },
   
   update_sort_dropdown: function() {
-    var sort_mode = transmission.sort_mode.charAt(0).toUpperCase() + transmission.sort_mode.slice(1);
+    var sort_mode = kettu.app.sort_mode.charAt(0).toUpperCase() + kettu.app.sort_mode.slice(1);
     $('#sort_link').text('Sort by ' + (sort_mode || '…'));    
   },
 
   update_filter_list: function() {
     $('#filters a').removeClass('active');
-    $('#filters .' + transmission.filter_mode).addClass('active');
+    $('#filters .' + kettu.app.filter_mode).addClass('active');
   },
   
   submit_add_torrent_form: function(context, paused) {
@@ -120,7 +120,7 @@ var TorrentHelpers = {
   get_newest_torrents: function(context, response) {
     var newest = [];
 
-    $.each(response['torrents'].map(function(row) {return Torrent(row);}), function() {
+    $.each(response['torrents'].map(function(row) {return kettu.Torrent(row);}), function() {
       if((parseInt(this.addedDate, 10) - parseInt((new Date().getTime()).toString().substr(0, 10), 10)) > -2) {
         newest.push(this);
       }
@@ -130,14 +130,14 @@ var TorrentHelpers = {
   },
 
   globalUpAndDownload: function(torrents) {    
-    var rates = transmission.store.get('up_and_download_rate');
+    var rates = kettu.app.store.get('up_and_download_rate');
     var last_rate = rates[rates.length - 1];
-    return Torrent({}).downAndUploadRateString(last_rate.down, last_rate.up);
+    return kettu.Torrent({}).downAndUploadRateString(last_rate.down, last_rate.up);
   },
   
   makeNewTorrent: function(torrent, view) {
-    var template = (transmission.view_mode == 'compact') ? 'show_compact' : 'show';
-    var rendered_view = this.mustache(this.cache(template), TorrentsView(torrent, this));
+    var template = (kettu.app.view_mode == 'compact') ? 'show_compact' : 'show';
+    var rendered_view = this.mustache(this.cache(template), kettu.TorrentsView(torrent, this));
     $('#torrents').append(rendered_view);
     this.updateInfo(torrent);
     rendered_view = null;

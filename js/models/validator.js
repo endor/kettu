@@ -1,6 +1,6 @@
-var Validator = function() {};
+kettu.Validator = function() {};
 
-Validator.prototype = {
+kettu.Validator.prototype = {
   has_errors: function() {
     return this.errors.length > 0;
   },

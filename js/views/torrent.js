@@ -1,4 +1,4 @@
-TorrentView = function(torrent, context, sort_peers) {
+kettu.TorrentView = function(torrent, context, sort_peers) {
   var view = torrent;
   view.sort_peers = sort_peers || 'client';
   
@@ -170,10 +170,10 @@ TorrentView = function(torrent, context, sort_peers) {
   view.loadLocations = function() {
       view.showLocations = false;
 
-      if ($.isArray(config.locations) && config.locations.length > 0) {
-        view.locations = [{name:"Default", path: context.app.settings['download-dir']}];
+      if ($.isArray(kettu.config.locations) && kettu.config.locations.length > 0) {
+        view.locations = [{name:"Default", path: kettu.app.settings['download-dir']}];
 
-        config.locations.forEach(function(location) {
+        kettu.config.locations.forEach(function(location) {
           if (location.path != view.locations[0].path) {
             view.locations.push(location);
           }

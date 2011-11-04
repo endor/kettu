@@ -1,7 +1,7 @@
 describe 'SettingHelpers'
   before_each
     $('body').append(elements(fixture('settings')).get(0));
-    setting_helpers = SettingHelpers;
+    setting_helpers = kettu.SettingHelpers;
   end
   
   after_each

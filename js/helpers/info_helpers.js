@@ -1,10 +1,11 @@
-var InfoHelpers = {
+kettu.InfoHelpers = {
   closeInfo: function() {
-    if(transmission.info_interval_id) { clearInterval(transmission.info_interval_id); }
-    if(transmission.update_settings_interval_id) { clearInterval(transmission.update_settings_interval_id); }
+    if(kettu.app.info_interval_id) { clearInterval(kettu.app.info_interval_id); }
+    if(kettu.app.update_settings_interval_id) { clearInterval(kettu.app.update_settings_interval_id); }
     this.saveLastMenuItem($('.menu-item.active'));
     $('.main').removeClass('info');
     $('#info').hide();
+    this.redirect('#/torrents');
     return false;
   },
 
@@ -14,7 +15,7 @@ var InfoHelpers = {
 
     info.html(view);
     // NOTE: if there's a way in CSS to fix this without using JS, that'd be preferable
-    if(transmission.mobile) {
+    if(kettu.app.mobile) {
       info.css('height', $(document).height());
       info.css('width', $(document).width());
       info.prepend('<div id="buttonbar"><div class="button"><span class="back"></span><a href="#/torrents" class="back">Back</a></div></div>');

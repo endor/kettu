@@ -9,7 +9,7 @@
     
     app.helpers({
       remote_session_id: function() {
-        return transmission.rpc.session_id;
+        return kettu.app.rpc.session_id;
       },
 
       remote_query: function(params, callback) {

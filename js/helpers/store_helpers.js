@@ -1,4 +1,4 @@
-var StoreHelpers = {
+kettu.StoreHelpers = {
   addUpAndDownToStore: function(torrents) {
     var uploadRate = 0.0, downloadRate = 0.0;
     $.each(torrents, function() {
@@ -6,8 +6,8 @@ var StoreHelpers = {
       downloadRate += this.rateDownload;
     });
 
-    if(transmission.store.exists('up_and_download_rate')) {
-      store_data = transmission.store.get('up_and_download_rate');
+    if(kettu.app.store.exists('up_and_download_rate')) {
+      store_data = kettu.app.store.get('up_and_download_rate');
       if(store_data.length > 99) { store_data.shift(); }
       store_data.push({"up": uploadRate, "down": downloadRate});
       data = store_data;
@@ -15,7 +15,7 @@ var StoreHelpers = {
       data = [{"up": uploadRate, "down": downloadRate}];
     }
 
-    transmission.store.set('up_and_download_rate', data);
+    kettu.app.store.set('up_and_download_rate', data);
   }
 };
 

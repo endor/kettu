@@ -1,4 +1,4 @@
-window.config.locations = [
+kettu.config.locations = [
   {name:"Some location", path:"/home/user/folder1"},
   {name:"Another location", path:"/home/user/folder2"},
   {group:"Some group", items: [

@@ -1,10 +1,10 @@
-var ContextMenuHelpers = {
+kettu.ContextMenuHelpers = {
   hideContextMenu: function() {
     $('#context_menu').hide();
   },
   
   activateTapHoldMenu: function() {
-    if(transmission.mobile) {
+    if(kettu.app.mobile) {
       var context = this;
 
       $('.torrent').live('taphold', function(event) {
@@ -33,7 +33,7 @@ var ContextMenuHelpers = {
   },
   
   activateContextMenu: function() {
-    if(!transmission.mobile) {
+    if(!kettu.app.mobile) {
       var context = this;
     
       $('#torrents').contextMenu({

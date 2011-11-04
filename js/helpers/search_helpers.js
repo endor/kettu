@@ -3,7 +3,7 @@ $.expr[":"].containsIgnoreCase = function(el, i, m) {
     return search ? eval("/" + search + "/i").test($(el).text()) : false;
 };
 
-var SearchHelpers = {
+kettu.SearchHelpers = {
   performSearch: function(search_term) {
     if(search_term.length > 0) {
       $('.torrent').hide();

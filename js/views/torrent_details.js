@@ -1,4 +1,4 @@
-TorrentDetailsView = function(accumulation) {
+kettu.TorrentDetailsView = function(accumulation) {
   var view = accumulation;
     
   view.ratio = (view.uploaded / view.downloaded).toFixed(4);

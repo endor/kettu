@@ -1,4 +1,4 @@
-var DraggingHelpers = {
+kettu.DraggingHelpers = {
   handleDragging: function() {
     var context = this,
       torrents = $('#torrents');

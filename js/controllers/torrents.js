@@ -1,10 +1,10 @@
-Torrents = function(transmission) {
+kettu.Torrents = function(transmission) {
   transmission.get('#/torrents', function(context) {
     context.set_and_save_modes(context);
     context.get_and_render_torrents(true);
     context.get_settings();
-    transmission.interval_id = setInterval("transmission.trigger('render_torrents')", transmission.reloadInterval);
-    transmission.settings_interval_id = setInterval("transmission.trigger('render_settings')", (transmission.reloadInterval * 2));
+    kettu.app.interval_id = setInterval("kettu.app.trigger('render_torrents')", kettu.app.reloadInterval);
+    kettu.app.settings_interval_id = setInterval("kettu.app.trigger('render_settings')", (kettu.app.reloadInterval * 2));
   });
   
   transmission.bind('render_torrents', function() {
@@ -35,7 +35,7 @@ Torrents = function(transmission) {
     if(this.params['delete_data']) { request['arguments']['delete-local-data'] = true; }
     
     context.remote_query(request, function(response) {
-      transmission.trigger('flash', 'Torrents removed successfully.');
+      kettu.app.trigger('flash', 'Torrents removed successfully.');
       $.each(ids, function() { $('#' + this).remove(); });
     });
   });
@@ -57,7 +57,7 @@ Torrents = function(transmission) {
     
     context.remote_query(request, function(response) {
       if(request['method'].match(/torrent-set/)) {
-        transmission.trigger('flash', 'Torrent updated successfully.');
+        kettu.app.trigger('flash', 'Torrent updated successfully.');
       } else {
         context.get_torrent(id);
       }
@@ -88,10 +88,10 @@ Torrents = function(transmission) {
   });
   
   transmission.bind('torrents-refreshed', function(e, params) {
-    var sorted_torrents = this.sortTorrents(transmission.sort_mode, params['torrents'], transmission.reverse_sort);
-    var filtered_torrents = this.filterTorrents(transmission.filter_mode, sorted_torrents);
+    var sorted_torrents = this.sortTorrents(kettu.app.sort_mode, params['torrents'], kettu.app.reverse_sort);
+    var filtered_torrents = this.filterTorrents(kettu.app.filter_mode, sorted_torrents);
     this.addUpAndDownToStore(params['torrents']);
-    this.updateViewElements(filtered_torrents, params['rerender'], transmission.settings || {});
+    this.updateViewElements(filtered_torrents, params['rerender'], kettu.app.settings || {});
   });
   
   transmission.bind('torrent-refreshed', function(e, torrent) {

@@ -2,7 +2,8 @@ describe 'TorrentHelpers'
   before_each
     $('body').append(elements(fixture('torrents')).get(0))
     old_torrents = $('.torrent')
-    torrent_helpers = TorrentHelpers
+    torrent_helpers = kettu.TorrentHelpers
+    kettu.app = {}
   end
 
   after_each
@@ -25,24 +26,24 @@ describe 'TorrentHelpers'
     
     it 'should add a new torrent if it came in with the update and is not on the site yet'
       updated_torrents = [
-        Torrent({'id': 1, 'status': 8}),
-        Torrent({'id': 2, 'status': 8}),
-        Torrent({'id': 3, 'status': 8}),
-        Torrent({'id': 4, 'status': 8})
+        kettu.Torrent({'id': 1, 'status': 8}),
+        kettu.Torrent({'id': 2, 'status': 8}),
+        kettu.Torrent({'id': 3, 'status': 8}),
+        kettu.Torrent({'id': 4, 'status': 8})
       ]
       torrent_helpers.updateTorrents(updated_torrents)
       $('#4').get(0).should_not.be_undefined
     end
     
     it 'should remove an old torrent that did not come in with the update but is still on the site'
-      updated_torrents = [Torrent({'id': 2, 'status': 8})]
+      updated_torrents = [kettu.Torrent({'id': 2, 'status': 8})]
       torrent_helpers.updateTorrents(updated_torrents)
       $('#1').get(0).should.be_undefined
     end
     
     it 'should update the torrents\' data'
       updated_torrents = [
-        Torrent({'id': 2, 'status': 8, 'rateUpload': 20000, 'rateDownload': 0})
+        kettu.Torrent({'id': 2, 'status': 8, 'rateUpload': 20000, 'rateDownload': 0})
       ]
       torrent_helpers.updateTorrents(updated_torrents)
       $('.statusString:first').html().should.match(/20\.0 KB\/s/)
@@ -50,7 +51,7 @@ describe 'TorrentHelpers'
     
     it 'should remove the meta status if downloading started'
       updated_torrents = [
-        Torrent({'id': 3, 'status': 4, 'metadataPercentComplete': 1})
+        kettu.Torrent({'id': 3, 'status': 4, 'metadataPercentComplete': 1})
       ]
       torrent_helpers.updateTorrents(updated_torrents)
       $('#3').find('.progressDetails').html().should_not.match(/metadata/)

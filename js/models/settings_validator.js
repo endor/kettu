@@ -1,4 +1,4 @@
-var SettingsValidator = function() {
+kettu.SettingsValidator = function() {
   this.schema = {
     'presence_of': [
       'peer-port', 'alt-speed-down','alt-speed-up', 'dht-enabled', 'download-dir', 
@@ -14,4 +14,4 @@ var SettingsValidator = function() {
   }
 };
 
-SettingsValidator.prototype = Validator.prototype;
+kettu.SettingsValidator.prototype = kettu.Validator.prototype;

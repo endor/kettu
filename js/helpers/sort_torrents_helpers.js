@@ -2,7 +2,7 @@
 // these sort helpers are based heavily on the previous sort helpers by Dave Perrett and Malcolm Jarvis
 //
 
-var SortTorrentsHelpers = {
+kettu.SortTorrentsHelpers = {
   sortTorrents: function(sort_mode, torrents, reverse) {
     var torrent_sort_function = function() {};
     

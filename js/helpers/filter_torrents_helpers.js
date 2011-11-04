@@ -1,7 +1,7 @@
-var FilterTorrentsHelpers = {
+kettu.FilterTorrentsHelpers = {
   filterTorrents: function(filter_mode, torrents) {    
     var filtered_torrents = [];
-    var stati = Torrent({}).stati;
+    var stati = kettu.Torrent({}).stati;
     
     switch(filter_mode) {
       case 'all':

@@ -1,8 +1,8 @@
-TorrentsView = function(torrent, context) {
+kettu.TorrentsView = function(torrent, context) {
   var view = torrent;
   
   view.pauseAndActivateButton = function() {
-    var torrent = Torrent(view);
+    var torrent = kettu.Torrent(view);
     var options = torrent.isActive() ? ['torrent-stop', 'Pause'] : ['torrent-start', 'Activate'];
     this.cache_partial('templates/torrents/pause_and_activate_button.mustache', 'pause_and_activate_button', context);
     return context.mustache(context.cache('pause_and_activate_button'), {

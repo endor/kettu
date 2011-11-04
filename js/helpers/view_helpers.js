@@ -1,4 +1,4 @@
-var ViewHelpers = {
+kettu.ViewHelpers = {
   highlightTorrents: function(torrents, more_torrents) {
     $('#torrents .torrent').removeClass('active');
     torrents.addClass('active');
@@ -16,7 +16,7 @@ var ViewHelpers = {
   
   saveLastMenuItem: function(active_menu_item) {
     if(active_menu_item.length > 0) {
-      transmission.last_menu_item = $(active_menu_item).attr('id');
+      kettu.app.last_menu_item = $(active_menu_item).attr('id');
     }
   },
   
@@ -29,8 +29,8 @@ var ViewHelpers = {
       $('#info .' + item).show();
     });
     $('#info .item').hide();
-    if(transmission.last_menu_item && $('#' + transmission.last_menu_item).length > 0) {
-      $('#' + transmission.last_menu_item).click();
+    if(kettu.app.last_menu_item && $('#' + kettu.app.last_menu_item).length > 0) {
+      $('#' + kettu.app.last_menu_item).click();
     } else {
       $('#info .item:first').show();
       $('#info .menu-item:first').addClass('active');      
@@ -57,7 +57,7 @@ var ViewHelpers = {
     $('#reverse_link').click(function() {
       $(this).toggleClass('reverse');
     });
-    if(transmission.reverse_sort) {
+    if(kettu.app.reverse_sort) {
       $('#reverse_link').addClass('reverse');
     }
   }

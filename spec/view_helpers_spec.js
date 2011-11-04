@@ -1,6 +1,6 @@
 describe 'ViewHelpers'
   before_each
-    view_helpers = ViewHelpers
+    view_helpers = kettu.ViewHelpers
   end
 
   describe 'sanitizeNumber'  

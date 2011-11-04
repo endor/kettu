@@ -1,6 +1,6 @@
 describe 'Validator'
   before_each
-    validator = new Validator()
+    validator = new kettu.Validator()
   end
   
   it 'should have no errors on a valid object'

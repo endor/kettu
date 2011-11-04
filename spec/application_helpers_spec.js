@@ -1,6 +1,6 @@
 describe 'ApplicationHelpers'
   before_each
-    application_helpers = ApplicationHelpers;
+    application_helpers = kettu.ApplicationHelpers;
   end
   
   describe 'hash_diff'

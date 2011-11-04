@@ -1,4 +1,4 @@
-var transmission = $.sammy(function() {
+kettu.app = $.sammy(function() {
   this.use(Sammy.TransmissionRPC);
   this.use(Sammy.Mustache);
   this.use(Sammy.Cache);
@@ -7,26 +7,26 @@ var transmission = $.sammy(function() {
   this.cache_partials = true;
   this.store = new Sammy.Store({name: 'data', type: ['local', 'cookie']});
   
-  this.helpers(ApplicationHelpers);
-  this.helpers(LocationHelpers);
-  this.helpers(ContextMenuHelpers);
-  this.helpers(DraggingHelpers);
-  this.helpers(FilterTorrentsHelpers);
-  this.helpers(InfoHelpers);
-  this.helpers(LinkHelpers);
-  this.helpers(SearchHelpers);
-  this.helpers(SettingHelpers);
-  this.helpers(SortTorrentsHelpers);
-  this.helpers(StatisticHelpers);
-  this.helpers(StoreHelpers);
-  this.helpers(TorrentHelpers);
-  this.helpers(TorrentDetailsHelpers);
-  this.helpers(ViewHelpers);
+  this.helpers(kettu.ApplicationHelpers);
+  this.helpers(kettu.LocationHelpers);
+  this.helpers(kettu.ContextMenuHelpers);
+  this.helpers(kettu.DraggingHelpers);
+  this.helpers(kettu.FilterTorrentsHelpers);
+  this.helpers(kettu.InfoHelpers);
+  this.helpers(kettu.LinkHelpers);
+  this.helpers(kettu.SearchHelpers);
+  this.helpers(kettu.SettingHelpers);
+  this.helpers(kettu.SortTorrentsHelpers);
+  this.helpers(kettu.StatisticHelpers);
+  this.helpers(kettu.StoreHelpers);
+  this.helpers(kettu.TorrentHelpers);
+  this.helpers(kettu.TorrentDetailsHelpers);
+  this.helpers(kettu.ViewHelpers);
   
-  TorrentDetails(this);
-  Torrents(this);
-  Settings(this);
-  Statistics(this);
+  kettu.TorrentDetails(this);
+  kettu.Torrents(this);
+  kettu.Settings(this);
+  kettu.Statistics(this);
   
   this.bind('flash', function(e, message) {
     $('#flash').html(message).show().delay(3000).fadeOut('slow');
@@ -50,13 +50,13 @@ var transmission = $.sammy(function() {
 });
  
 $(function() {
-  transmission.reloadInterval = 2000;
+  kettu.app.reloadInterval = 2000;
   if($(window).width() > 480) {
-    transmission.mobile = false;
-    transmission.run('#/torrents');    
+    kettu.app.mobile = false;
+    kettu.app.run('#/torrents');    
   } else {
-    transmission.mobile = true;
-    transmission.run('#/torrents?view=compact');
+    kettu.app.mobile = true;
+    kettu.app.run('#/torrents?view=compact');
   }
-  transmission.trigger('init');
+  kettu.app.trigger('init');
 });

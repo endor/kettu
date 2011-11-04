@@ -1,20 +1,20 @@
-Settings = function(transmission) {
+kettu.Settings = function(transmission) {
   var original_settings;
   
   transmission.get('#/settings', function(context) {
-    original_settings = transmission.settings || {};
+    original_settings = kettu.app.settings || {};
     
     var hours_partial = 'templates/settings/hours.mustache',
         minutes_partial = 'templates/settings/minutes.mustache';
     
     context.render('templates/settings/index.mustache', original_settings, function(rendered_view) {
       context.openInfo(rendered_view);      
-      transmission.trigger('settings-refreshed');
+      kettu.app.trigger('settings-refreshed');
     }, {hours: hours_partial, minutes: minutes_partial});
   });
   
   updateSettings = function(context) {
-    var differences = context.hash_diff(original_settings, transmission.settings || {}) || [];
+    var differences = context.hash_diff(original_settings, kettu.app.settings || {}) || [];
 
     for(var difference in differences) {
       if(typeof differences[difference] === 'boolean') {
@@ -24,7 +24,7 @@ Settings = function(transmission) {
       }
     }
 
-    original_settings = transmission.settings;
+    original_settings = kettu.app.settings;
   };
   
   transmission.put('#/settings', function(context) {
@@ -34,12 +34,12 @@ Settings = function(transmission) {
     
     if(this.is_speed_limit_mode_update(request['arguments']) || this.setting_arguments_valid(context, request['arguments'])) {
       context.remote_query(request, function(response) {
-        transmission.trigger('flash', context.params.settingsFlash);
+        kettu.app.trigger('flash', context.params.settingsFlash);
         if(context.params['peer-port']) { updatePeerPortDiv(context); }
       });      
     } else {
-      transmission.trigger('flash', 'Settings could not be updated.');
-      transmission.trigger('errors', this.setting_arguments_errors(context));
+      kettu.app.trigger('flash', 'Settings could not be updated.');
+      kettu.app.trigger('errors', this.setting_arguments_errors(context));
     }
   });
 
@@ -62,6 +62,6 @@ Settings = function(transmission) {
     this.menuizeInfo();
     
     if(this.update_settings_interval_id) { clearInterval(this.update_settings_interval_id); }
-    this.update_settings_interval_id = setInterval(updateSettings, (transmission.reloadInterval * 2), this);
+    this.update_settings_interval_id = setInterval(updateSettings, (kettu.app.reloadInterval * 2), this);
   });
 };
