@@ -177,21 +177,17 @@ TorrentView = function(torrent, context, sort_peers) {
 
   view.showLocationCategories = false;
 
-  if (typeof context.app.settings != "undefined") {
-    var locationCategories = [];
+  if (typeof context.app.settings != "undefined" && context.locationCategories.length > 0) {
+    view.locationCategories = [{name:"Default", location: context.app.settings['download-dir']}];
 
-    if (locationCategories.length > 0) {
-      view.locationCategories = [{name:"Default", location: context.app.settings['download-dir']}];
+    $.each(context.locationCategories, function() {
+      if (this.location != view.locationCategories[0].location) {
+        view.locationCategories.push(this);
+      }
+    });
 
-      $.each(locationCategories, function() {
-        if (this.location != view.locationCategories[0].location) {
-          view.locationCategories.push(this);
-        }
-      });
-
-      view.showLocationCategories = true;
-    }
+    view.showLocationCategories = true;
   }
-  
+
   return view;
 };

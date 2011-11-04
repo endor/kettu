@@ -158,7 +158,9 @@
           .script('js/helpers/store_helpers.js')
           .script('js/helpers/torrent_helpers.js')
           .script('js/helpers/torrent_details_helpers.js')
-          .script('js/helpers/view_helpers.js').wait()
+          .script('js/helpers/view_helpers.js')
+          .script('locationCategories.js').wait()
+          .script('js/helpers/frontend_settings_helpers.js').wait()
           .script('js/transmission.js');
 
         } else {

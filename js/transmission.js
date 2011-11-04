@@ -21,6 +21,7 @@ var transmission = $.sammy(function() {
   this.helpers(TorrentHelpers);
   this.helpers(TorrentDetailsHelpers);
   this.helpers(ViewHelpers);
+  this.helpers(FrontendSettings);
   
   TorrentDetails(this);
   Torrents(this);
