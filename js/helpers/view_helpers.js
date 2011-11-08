@@ -6,12 +6,10 @@ kettu.ViewHelpers = {
   },
   
   showErrors: function(errors) {
-    var error_string = '<p>';
-    $.each(errors, function() {
-      error_string += this.field + ': ' + this.message + '<br />';
-    });
-    error_string += '.</p>';
-    $('#errors').html(error_string);
+    var error_string = _.reduce(errors, function(error_string, error) {
+      error_string += error.field + ': ' + error.message + '<br />';
+    }, '<p>');
+    $('#errors').html(error_string + '</p>');
   },
   
   saveLastMenuItem: function(active_menu_item) {

@@ -13,21 +13,19 @@ kettu.Torrent = function(attributes) {
     'pieceCount', 'pieceSize', 'peers', 'fileStats', 'peer-limit', 'downloadLimited',
     'uploadLimit', 'uploadLimited', 'downloadLimit'
   ];
-  $.each(torrent.fields, function() {
-    torrent[this] = attributes[this];
+
+  _.each(_.union(torrent.fields, torrent.info_fields), function(field) {
+    torrent[field] = attributes[field];
   });
-  $.each(torrent.info_fields, function() {
-    torrent[this] = attributes[this];
-  });
-  $.each(['totalSize', 'downloadedEver', 'uploadedEver', 'pieceSize'], function() {
-    var attr = this;
+
+  _.each(['totalSize', 'downloadedEver', 'uploadedEver', 'pieceSize'], function(attr) {
     torrent[attr + 'String'] = function() {
       return Math.formatBytes(torrent[attr]);
-    }
+    };
   });
   
   torrent.secure = function() {
-    return (torrent.isPrivate) ? 'Private Torrent' : 'Public Torrent';
+    return torrent.isPrivate ? 'Private Torrent' : 'Public Torrent';
   };
   torrent.isActive = function() {
     return [torrent.stati['downloading'], torrent.stati['seeding']].indexOf(torrent.status) >= 0;
@@ -42,7 +40,7 @@ kettu.Torrent = function(attributes) {
     return torrent.error > 0;
   };
   torrent.needsMetaData = function() { 
-    return torrent.metadataPercentComplete < 1 
+    return torrent.metadataPercentComplete < 1; 
   };
   torrent.percentDone = function() {
     return Math.formatPercent(torrent.sizeWhenDone, torrent.leftUntilDone);

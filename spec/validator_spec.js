@@ -75,6 +75,7 @@ describe 'Validator'
   end
 
   it 'should validate the numericality of null and throw an error'
+  console.log('iii')
     torrent = {'totalSize': null}
     validator.schema = {
       'numericality_of': 'totalSize'
@@ -82,6 +83,7 @@ describe 'Validator'
     validator.validate(torrent)
     validator.errors[0]['field'].should.eql('totalSize')
     validator.errors[0]['message'].should.eql('is not a valid number')    
+    console.log('iii')
   end
   
   it 'should validate the inclusion of a field'

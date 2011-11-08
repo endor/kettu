@@ -7,7 +7,7 @@ kettu.Validator.prototype = {
   
   validate: function(object) {
     this.errors = [];
-    for(validation in this.schema) {
+    for(var validation in this.schema) {
       switch(validation) {
         case 'presence_of':
           this.validate_presence_of(object, this.schema[validation]);
@@ -24,37 +24,36 @@ kettu.Validator.prototype = {
   
   validate_presence_of: function(object, fields) {
     var context = this;
-    fields = this.arrayfy_fields(fields);
+        fields = this.arrayfy_fields(fields);
 
-    $.each(fields, function() {
-      var field = object[this];
+    _.each(fields, function(field_id) {
+      var field = object[field_id];
       if(typeof(field) == 'undefined') {
-        context.errors.push({'field': this, 'message': context.error_messages['presence_of']})
+        context.errors.push({'field': field_id, 'message': context.error_messages['presence_of']});
       }      
     });
   },
   
   validate_numericality_of: function(object, fields) {
     var context = this;
-    fields = this.arrayfy_fields(fields);
+        fields = this.arrayfy_fields(fields);
 
-    $.each(fields, function() {
-      if(this == '[object Object]') {
-        if(object[this['field']] == undefined) {
-          context.errors.push({'field': this['field'], 'message': context.error_messages['numericality_of']});
+    _.each(fields, function(field_id) {
+      if(field_id == '[object Object]') {
+        if(object[field_id['field']] === undefined) {
+          context.errors.push({'field': field_id['field'], 'message': context.error_messages['numericality_of']});
         } else {
-          var field = object[this['field']].toString();
-          if(!field.match(/^\d+$/) || field > this['max']) {
-            context.errors.push({'field': this['field'], 'message': context.error_messages['numericality_of']});
+          var field = object[field_id['field']].toString();
+          if(!field.match(/^\d+$/) || field > field_id['max']) {
+            context.errors.push({'field': field_id['field'], 'message': context.error_messages['numericality_of']});
           }          
         }
       } else {
-        if(object[this] == undefined) {
-          context.errors.push({'field': this, 'message': context.error_messages['numericality_of']});
+        if(object[field_id] === undefined || object[field_id] === null) {
+          context.errors.push({'field': field_id, 'message': context.error_messages['numericality_of']});
         } else {
-          var field = object[this].toString();
-          if(!field.match(/^\d+$/)) {
-            context.errors.push({'field': this, 'message': context.error_messages['numericality_of']});
+          if(!object[field_id].toString().match(/^\d+$/)) {
+            context.errors.push({'field': field_id, 'message': context.error_messages['numericality_of']});
           }          
         }
       }
@@ -62,25 +61,18 @@ kettu.Validator.prototype = {
   },
   
   validate_inclusion_of: function(object, field) {
-    var content = object[field['field']];
-    var included = false;
-
-    $.each(field['in'], function() {
-      if(this == content) {
-        included = true;
-      }
-    });
+    var content = object[field['field']],
+        included = _.reduce(field['in'], function(included, item) {
+          return included || item == content;
+        }, false);
+    
     if(!included) {
       this.errors.push({'field': field['field'], 'message': this.error_messages['inclusion_of']});
     }
   },
   
   arrayfy_fields: function(fields) {
-    if(!$.isArray(fields)) {
-      return [fields];
-    } else {
-      return fields;
-    }
+    return _.flatten([fields]);
   },
   
   schema: {},

@@ -8,16 +8,16 @@ kettu.FilterTorrentsHelpers = {
         filtered_torrents = torrents;
         break;
       case 'activity':
-        $.each(torrents, function() {
-          if(this.activity()) {
-            filtered_torrents.push(this)
+        _.each(torrents, function(torrent) {
+          if(torrent.activity()) {
+            filtered_torrents.push(torrent);
           }
         });
         break;
       default:
-        $.each(torrents, function() {
-          if(this.status == stati[filter_mode]) {
-            filtered_torrents.push(this);
+        _.each(torrents, function(torrent) {
+          if(torrent.status == stati[filter_mode]) {
+            filtered_torrents.push(torrent);
           }
         });      
         break;
@@ -25,4 +25,4 @@ kettu.FilterTorrentsHelpers = {
 
     return filtered_torrents;
   }
-}
+};

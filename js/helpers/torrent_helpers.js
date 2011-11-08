@@ -70,11 +70,11 @@ kettu.TorrentHelpers = {
     if(params['sort'] == 'reverse') {
       kettu.app.reverse_sort = !kettu.app.reverse_sort;
       $('#reverse_link').attr('href', '#/torrents?sort=reverse&random=' + new Date().getTime());
-      delete(params['sort']);
+      delete params['sort'];
     }
 
-    $.each([{key: 'view', def: 'normal'}, {key: 'filter', def: 'all'}, {key: 'sort', def: 'name'}], function() {
-      var key = this.key, def = this.def;
+    _.each([{key: 'view', def: 'normal'}, {key: 'filter', def: 'all'}, {key: 'sort', def: 'name'}], function(item) {
+      var key = item.key, def = item.def;
       kettu.app[key + '_mode'] = params[key] || context.store.get(key + '_mode') || def;
       context.store.set(key + '_mode', kettu.app[key + '_mode']);
     });
@@ -99,15 +99,12 @@ kettu.TorrentHelpers = {
   },
   
   getNewestTorrents: function(context, response) {
-    var newest = [];
-
-    $.each(response['torrents'].map(function(row) {return kettu.Torrent(row);}), function() {
-      if((parseInt(this.addedDate, 10) - parseInt((new Date().getTime()).toString().substr(0, 10), 10)) > -2) {
-        newest.push(this);
-      }
+    var torrents = _.map(response['torrents'], function(row) { return kettu.Torrent(row); }),
+        now = parseInt(new Date().getTime().toString().substr(0, 10), 10);
+    
+    return _.select(torrents, function(torrent) {
+      return parseInt(torrent.addedDate, 10) - now > -2;
     });
-
-    return newest;
   },
 
   globalUpAndDownload: function(torrents) {    
@@ -140,27 +137,29 @@ kettu.TorrentHelpers = {
   
   addOrUpdateTorrents: function(torrents) {
     var context = this;
-    $.each(torrents, function() {
-      if(! $('#' + this.id.toString()).get(0)) {
-        context.makeNewTorrent(this);
+    _.each(torrents, function(torrent) {
+      if(! $('#' + torrent.id.toString()).get(0)) {
+        context.makeNewTorrent(torrent);
       } else {
-        context.updateTorrent(this);
+        context.updateTorrent(torrent);
       }
     });
   },
   
   removeOldTorrents: function(torrents) {
-    var old_ids = $.map($('.torrent'), function(torrent) {return $(torrent).attr('id');});
-    var new_ids = $.map(torrents, function(torrent) {return torrent.id});
-    $.each(old_ids, function() {
-      if(new_ids.indexOf(parseInt(this)) < 0) {
-        $('#' + this).remove();
+    var old_ids = $.map($('.torrent'), function(torrent) { return $(torrent).attr('id'); });
+    var new_ids = $.map(torrents, function(torrent) { return torrent.id; });
+    
+    _.each(old_ids, function(id) {
+      if(new_ids.indexOf(parseInt(id, 10)) < 0) {
+        $('#' + id).remove();
       }
     });
   },
   
   updateTorrents: function(torrents, rerender) {
     this.cache_partials();
+
     if(torrents && rerender) {
       $('.torrent').remove();
       this.addOrUpdateTorrents(torrents);
@@ -193,14 +192,15 @@ kettu.TorrentHelpers = {
   
   cache_partials: function() {
     var context = this;
-    ['delete_data', 'show', 'show_compact', 'taphold_menu'].forEach(function(partial) {
+    _.each(['delete_data', 'show', 'show_compact', 'taphold_menu'], function(partial) {
       context.cache_partial('templates/torrents/' + partial + '.mustache', partial, context);
     });
   },
   
   formatNextAnnounceTime: function(timestamp) {
-    var now = new Date().getTime();
-    var current = new Date(parseInt(timestamp) * 1000 - now);
+    var now = new Date().getTime(),
+        current = new Date(parseInt(timestamp, 10) * 1000 - now);
+
     if(current) {
       return current.getMinutes() + ' min, ' + current.getSeconds() + ' sec';
     } else {
@@ -216,17 +216,18 @@ kettu.TorrentHelpers = {
         'arguments': {'ids': id}
       };
     } else if(params['location']) {
-      updatable_settings = [
+      var updatable_settings = [
         "bandwidthPriority", "downloadLimit", "downloadLimited",
         "location", "peer-limit", "seedRatioLimit", "seedRatioMode",
         "uploadLimit", "uploadLimited"
       ];
+      
       request = {
         'method': 'torrent-set',
         'arguments': {'ids': id}
-      }
+      };
       
-      updatable_settings.forEach(function(setting) {
+      _.each(updatable_settings, function(setting) {
         if(params.hasOwnProperty(setting)) {          
           request['arguments'][setting] = params[setting] ? true : false;
           if(params[setting] && params[setting].match(/^-?\d+$/)) {
@@ -246,7 +247,7 @@ kettu.TorrentHelpers = {
       request = {
         'method': 'torrent-set',
         'arguments': { 'ids': id, 'files-unwanted': unwanted_files }
-      }
+      };
       if(wanted_files.length > 0) {
         request['arguments']['files-wanted'] = wanted_files;
       }

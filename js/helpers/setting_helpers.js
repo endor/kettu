@@ -75,7 +75,7 @@ kettu.SettingHelpers = {
       "alt-speed-time-end-minutes": (settings['alt-speed-time-end'] % 60)
     };
 
-    for(key in scheduled_times) {
+    for(var key in scheduled_times) {
       $.each($('#info select[name="' + key + '"]').find('option'), function() {
         var $option = $(this);
         
@@ -127,8 +127,7 @@ kettu.SettingHelpers = {
     ];
     var hash = {};
 
-    $.each(updatable_settings, function() {
-      var setting = this;
+    _.each(updatable_settings, function(setting) {
       hash[setting] = params[setting] ? true : false;
       if(params[setting] && params[setting].match(/^\d+$/)) {
         hash[setting] = parseInt(params[setting], 10);

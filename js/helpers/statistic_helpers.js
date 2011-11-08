@@ -17,9 +17,9 @@ kettu.StatisticHelpers = {
   up_and_download_graph: function() {
     var graph = {'data': [], 'labels': ''}, i = 2;
     
-    $.each(this.store.get('up_and_download_rate'), function() {
-      if(i == 0) {
-        graph['data'].push((this.up / 1024) + (this.down / 1024));
+    _.each(this.store.get('up_and_download_rate'), function(rate) {
+      if(i === 0) {
+        graph['data'].push((rate.up / 1024) + (rate.down / 1024));
         i = 2;
       } else {
         i -= 1;
@@ -36,7 +36,7 @@ kettu.StatisticHelpers = {
         leftgutter = 10,
         bottomgutter = 30,
         topgutter = 20,
-        colorhue = .6 || Math.random(),
+        colorhue = 0.6 || Math.random(),
         color = "#bbbbbb",
         r = Raphael(holder, width, height),
         txt = {font: '12px Fontin-Sans, Arial', fill: "#fff"},
@@ -45,10 +45,10 @@ kettu.StatisticHelpers = {
         X = (width - leftgutter) / graph['data'].length,
         max = Math.max.apply(Math, graph['data']),
         Y = (height - bottomgutter - topgutter) / (max || 1);
-    r.drawGrid(leftgutter + X * .5, topgutter, width - leftgutter - X, height - topgutter - bottomgutter, 10, 10, "#888888");
+    r.drawGrid(leftgutter + X * 0.5, topgutter, width - leftgutter - X, height - topgutter - bottomgutter, 10, 10, "#888888");
     
     var path = r.path().attr({stroke: color, "stroke-width": 4, "stroke-linejoin": "round"}),
-        bgp = r.path().attr({stroke: "none", opacity: .3, fill: color}).moveTo(leftgutter + X * .5, height - bottomgutter),
+        bgp = r.path().attr({stroke: "none", opacity: 0.3, fill: color}).moveTo(leftgutter + X * 0.5, height - bottomgutter),
         frame = r.rect(10, 10, 100, 40, 5).attr({fill: "#000", stroke: "#474747", "stroke-width": 2}).hide(),
         label = [],
         is_label_visible = false,
@@ -58,10 +58,10 @@ kettu.StatisticHelpers = {
     
     for(var i = 0, ii = graph['data'].length; i < ii; i++) {
         var y = Math.round(height - bottomgutter - Y * graph['data'][i]),
-            x = Math.round(leftgutter + X * (i + .5)),
+            x = Math.round(leftgutter + X * (i + 0.5)),
             t = r.text(x, height - 6, graph['data'][i]).attr(txt).toBack();
-        bgp[i == 0 ? "lineTo" : "cplineTo"](x, y, 10);
-        path[i == 0 ? "moveTo" : "cplineTo"](x, y, 10);
+        bgp[i === 0 ? "lineTo" : "cplineTo"](x, y, 10);
+        path[i === 0 ? "moveTo" : "cplineTo"](x, y, 10);
         var dot = r.circle(x, y, 5).attr({fill: color, stroke: "#000"});
         blanket.push(r.rect(leftgutter + X * i, 0, X, height - bottomgutter).attr({stroke: "none", fill: "#fff", opacity: 0}));
         var rect = blanket[blanket.length - 1];
@@ -93,4 +93,4 @@ kettu.StatisticHelpers = {
     label[0].toFront();
     blanket.toFront();
   }
-}
+};

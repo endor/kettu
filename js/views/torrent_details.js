@@ -3,11 +3,13 @@ kettu.TorrentDetailsView = function(accumulation) {
     
   view.ratio = (view.uploaded / view.downloaded).toFixed(4);
   view.percent_done = Math.formatPercent(view.size, view.left_until_done);
-  $.each(['size', 'downloaded', 'uploaded', 'rate_download', 'rate_upload'], function() {
-    view[this] = Math.formatBytes(view[this]);
+  
+  _.each(['size', 'downloaded', 'uploaded', 'rate_download', 'rate_upload'], function(item) {
+    view[item] = Math.formatBytes(view[item]);
   });
-  $.each(['status_words', 'secure'], function() {
-    view[this] = $.uniq(view[this]);
+  
+  _.each(['status_words', 'secure'], function(item) {
+    view[item] = $.uniq(view[item]);
   });
   
   view.status_words = view.status_words.join('/');
@@ -16,4 +18,4 @@ kettu.TorrentDetailsView = function(accumulation) {
   view.rate_upload = view.rate_upload + '/s';
   
   return view;
-}
+};

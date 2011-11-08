@@ -3,7 +3,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.sort_peers = sort_peers || 'client';
   
   view.formatTime = function(timestamp) {
-    var current = new Date(parseInt(timestamp) * 1000);
+    var current = new Date(parseInt(timestamp, 10) * 1000);
     if(current) {
       var date = (current.getMonth() + 1) + '/' + current.getDate() + '/' + current.getFullYear();
       var time = current.getHours() + ':' + (current.getMinutes() < 10 ? '0' + current.getMinutes() : current.getMinutes());
@@ -15,30 +15,28 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   
   view.addFormattedTimes = function() {
     if(view.trackerStats !== undefined) {
-      var i = 0;
-      $.each(view.trackerStats, function() {
-        view.trackerStats[i]['lastAnnounceTimeFormatted'] = view.formatTime(this.lastAnnounceTime);
-        view.trackerStats[i]['nextAnnounceTimeFormatted'] = context.formatNextAnnounceTime(this.nextAnnounceTime);
-        view.trackerStats[i]['lastScrapeTimeFormatted'] = view.formatTime(this.lastScrapeTime);
+      _.each(view.trackerStats, function(stat, i) {
+        view.trackerStats[i]['lastAnnounceTimeFormatted'] = view.formatTime(stat.lastAnnounceTime);
+        view.trackerStats[i]['nextAnnounceTimeFormatted'] = context.formatNextAnnounceTime(stat.nextAnnounceTime);
+        view.trackerStats[i]['lastScrapeTimeFormatted'] = view.formatTime(stat.lastScrapeTime);
         view.trackerStats[i]['lastScrapeDidNotSucceed'] = !view.lastScrapeSucceeded;
         view.trackerStats[i]['lastAnnounceDidNotSucceed'] = !view.lastAnnounceSucceeded;
-        i += 1;
       });      
     }    
   };
   
   view.addFormattedSizes = function() {
     if(view.files !== undefined) {
-      $.each(view.files, function() {
-        this.lengthFormatted = Math.formatBytes(this['length']);
-        this.percentDone = Math.formatPercent(this['length'], this['length'] - this.bytesCompleted);
+      _.each(view.files, function(file) {
+        file.lengthFormatted = Math.formatBytes(file['length']);
+        file.percentDone = Math.formatPercent(file['length'], file['length'] - file.bytesCompleted);
       });
     }
     if(view.peers !== undefined) {
-      $.each(view.peers, function() {
-        this.uploadFormatted = this['rateToPeer'] !== 0 ? Math.formatBytes(this['rateToPeer']) : '';
-        this.downloadFormatted = this['rateToClient'] !== 0? Math.formatBytes(this['rateToClient']) : '';
-        this.percentDone = Math.formatPercent(100, 100 - (this['progress'] * 100));
+      _.each(view.peers, function(peer) {
+        peer.uploadFormatted = peer['rateToPeer'] !== 0 ? Math.formatBytes(peer['rateToPeer']) : '';
+        peer.downloadFormatted = peer['rateToClient'] !== 0? Math.formatBytes(peer['rateToClient']) : '';
+        peer.percentDone = Math.formatPercent(100, 100 - (peer['progress'] * 100));
       });      
     }
     view.rateDownloadFormatted = Math.formatBytes(view.rateDownload) + '/s';
@@ -81,12 +79,12 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   
   view.addIdsToFiles = function() {
     if(view.files) {
-      $.each(view.files, function() {
-        var id = view.files.indexOf(this)
-        var disabled = view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0;
-        this['id'] = 'file_' + id;
-        this['wanted'] = (view.fileStats[id].wanted || disabled) ? ' checked="checked"' : '';
-        this['disabled'] = disabled ? ' disabled="disabled"' : '';
+      _.each(view.files, function(file) {
+        var id = view.files.indexOf(file);
+        var disabled = view.files[id]['length'] - view.files[id]['bytesCompleted'] === 0;
+        file['id'] = 'file_' + id;
+        file['wanted'] = (view.fileStats[id].wanted || disabled) ? ' checked="checked"' : '';
+        file['disabled'] = disabled ? ' disabled="disabled"' : '';
       });
       if(view.files.length == 1) {
         view.files[0]['disabled'] = ' disabled="disabled"';
@@ -101,42 +99,42 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
     var i = -1;
     
     if(view.files) {
-      $.each(view.files, function() {
-        var name = this['name'].split('/');
+      _.each(view.files, function(file) {
+        var name = file['name'].split('/');
         if(name.length > 1) { name.shift(); }
         if(name.length == 1) {
-          this['name'] = name.join('/');
+          file['name'] = name.join('/');
           view.folderless_files.push(this);
         } else {
           var folder = name.shift();
-          this['name'] = name.join('/');
+          file['name'] = name.join('/');
           
           if(view.folders[i] && view.folders[i].name == folder) {
-            view.folders[i].files.push(this);
-            view.folders[i].lengthFormatted += this.length;
-            view.folders[i].bytesCompleted += this.bytesCompleted;
+            view.folders[i].files.push(file);
+            view.folders[i].lengthFormatted += file.length;
+            view.folders[i].bytesCompleted += file.bytesCompleted;
           } else {
             view.folders.push({
               name: folder,
-              files: [this],
-              lengthFormatted: this.length,
-              bytesCompleted: this.bytesCompleted
+              files: [file],
+              lengthFormatted: file.length,
+              bytesCompleted: file.bytesCompleted
             });
             i += 1;
           }
         }
       });
-      $.each(view.folders, function() {
-        this.percentDone = Math.formatPercent(this.lengthFormatted, this.lengthFormatted - this.bytesCompleted);
-        this.lengthFormatted = Math.formatBytes(this.lengthFormatted);
+      _.each(view.folders, function(folder) {
+        folder.percentDone = Math.formatPercent(folder.lengthFormatted, folder.lengthFormatted - folder.bytesCompleted);
+        folder.lengthFormatted = Math.formatBytes(folder.lengthFormatted);
       });
     }
   };
   
   view.addPriorityStringToFiles = function() {
-    $.each(view.fileStats, function() {
-      var id = view.fileStats.indexOf(this);
-      switch(this.priority) {
+    _.each(view.fileStats, function(stat) {
+      var id = view.fileStats.indexOf(stat);
+      switch(stat.priority) {
         case 0:
           view.files[id]['priorityArrow'] = 'normal';
           break;
@@ -147,7 +145,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
           view.files[id]['priorityArrow'] = 'down';
           break;
       }
-      if(view.files[id]['length'] - view.files[id]['bytesCompleted'] == 0) {
+      if(view.files[id]['length'] - view.files[id]['bytesCompleted'] === 0) {
         view.files[id]['priorityArrow'] = 'done';
       }
     });
@@ -158,10 +156,10 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
     view.uploadRatio = context.sanitizeNumber(view.uploadRatio);
     if(view.trackerStats !== undefined) {
       var i = 0;
-      $.each(view.trackerStats, function() {
-        view.trackerStats[i]['seederCount'] = context.sanitizeNumber(this.seederCount);
-        view.trackerStats[i]['leecherCount'] = context.sanitizeNumber(this.leecherCount);
-        view.trackerStats[i]['downloadCount'] = context.sanitizeNumber(this.downloadCount);
+      _.each(view.trackerStats, function(stat) {
+        view.trackerStats[i]['seederCount'] = context.sanitizeNumber(stat.seederCount);
+        view.trackerStats[i]['leecherCount'] = context.sanitizeNumber(stat.leecherCount);
+        view.trackerStats[i]['downloadCount'] = context.sanitizeNumber(stat.downloadCount);
         i += 1;
       });
     }
@@ -170,10 +168,10 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.loadLocations = function() {
       view.showLocations = false;
 
-      if ($.isArray(kettu.config.locations) && kettu.config.locations.length > 0) {
+      if (_.isArray(kettu.config.locations) && kettu.config.locations.length > 0) {
         view.locations = [{name:"Default", path: kettu.app.settings['download-dir']}];
 
-        kettu.config.locations.forEach(function(location) {
+        _.each(kettu.config.locations, function(location) {
           if (location.path != view.locations[0].path) {
             view.locations.push(location);
           }

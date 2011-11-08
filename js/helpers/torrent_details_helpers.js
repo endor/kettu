@@ -14,13 +14,17 @@ kettu.TorrentDetailsHelpers = {
   
   update_torrent_details_in_view: function(context, rendered_view) {
     rendered_view = $('<div>' + rendered_view + '</div>');
-    $.each(['.activity', '.trackers', '.peers'], function() {
-      $('#info ' + this.toString()).html(rendered_view.find(this.toString()).html());
+    
+    _.each(['.activity', '.trackers', '.peers'], function(clazz) {
+      $('#info ' + clazz).html(rendered_view.find(clazz).html());
     });
+    
     $.each(rendered_view.find('.file'), function() {
       $('#info #' + $(this).attr('id')).siblings('.percent_done').html($(this).siblings('.percent_done').html());
     });
+    
     context.startCountDownOnNextAnnounce();
+    
     if(context.params['sort_peers']) { $('#menu-item-peers').click(); }
   }
-}
+};
