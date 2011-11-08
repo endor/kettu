@@ -6,16 +6,6 @@ kettu.TorrentHelpers = {
     });
   },
 
-  get_and_render_torrents: function(rerender) {
-    var request = { method: 'torrent-get', arguments: { fields: kettu.Torrent({})['fields'] } };
-    this.remote_query(request, function(response) {
-      kettu.app.trigger('torrents-refreshed', {
-        torrents: response['torrents'].map( function(row) {return kettu.Torrent(row)} ),
-        rerender: rerender
-      });
-    });    
-  },
-
   render_config_for_new_torrents: function(torrent_added) {
     var context = this;
     
@@ -59,7 +49,7 @@ kettu.TorrentHelpers = {
     var template = (kettu.app.view_mode == 'compact') ? 'show_compact' : 'show';
     this.render('templates/torrents/' + template + '.mustache', kettu.TorrentsView(torrent, this), function(rendered_view) {
       $(kettu.app.element_selector).find('#' + torrent.id).replaceWith(rendered_view);
-      kettu.app.trigger('torrent-refreshed', torrent);
+      kettu.app.trigger('refreshed-torrent', torrent);
     });
   },  
   

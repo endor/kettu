@@ -156,12 +156,12 @@ kettu.SettingHelpers = {
     
     if(params['protocolHandlerEnabled'] && !this.store.exists('protocolHandlerEnabled')) {
       this.store.set('protocolHandlerEnabled', true);
-      window.navigator.registerProtocolHandler('magnet', this.baseUrl() + '#/torrents/add?url=%s', "Transmission Web");
+      window.navigator.registerProtocolHandler('magnet', baseUrl + '#/torrents/add?url=%s', "Transmission Web");
     }
     
     if(params['contentHandlerEnabled'] && !this.store.exists('contentHandlerEnabled')) {
       this.store.set('contentHandlerEnabled', true);
-      window.navigator.registerContentHandler("application/x-bittorrent", this.baseUrl() + '#/torrents/add?url=%s', "Transmission Web");
+      window.navigator.registerContentHandler("application/x-bittorrent", baseUrl + '#/torrents/add?url=%s', "Transmission Web");
     }
   },
   
@@ -171,12 +171,7 @@ kettu.SettingHelpers = {
       this.store.set('torrentReloadInterval', kettu.app.reloadInterval);
 
       clearInterval(kettu.app.interval_id);
-      kettu.app.interval_id = setInterval("kettu.app.trigger('render-torrents')", kettu.app.reloadInterval);
+      kettu.app.interval_id = setInterval("kettu.app.trigger('get-torrents')", kettu.app.reloadInterval);
     }
-  },
-  
-  getSettings: function() {
-    var request = { method: 'session-get', arguments: {} };
-    this.remote_query(request, function(new_settings) { kettu.app.settings = new_settings; });
   }
 };

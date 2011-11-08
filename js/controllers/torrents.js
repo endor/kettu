@@ -1,14 +1,10 @@
 kettu.Torrents = function(transmission) {
   transmission.get('#/torrents', function(context) {
     context.set_and_save_modes(context);
-    context.get_and_render_torrents(true);
-    context.getSettings();
-    kettu.app.interval_id = setInterval("kettu.app.trigger('render-torrents')", kettu.app.reloadInterval);
-    kettu.app.settings_interval_id = setInterval("kettu.app.trigger('render-settings')", (kettu.app.reloadInterval * 2));
-  });
-  
-  transmission.bind('render-torrents', function() {
-    this.get_and_render_torrents(false);
+    kettu.app.trigger('get-torrents', {rerender: true});
+    kettu.app.interval_id = setInterval("kettu.app.trigger('get-torrents')", kettu.app.reloadInterval);
+    kettu.app.trigger('get-settings');
+    kettu.app.settings_interval_id = setInterval("kettu.app.trigger('get-settings')", (kettu.app.reloadInterval * 2));
   });
     
   transmission.get('#/torrents/new', function(context) {
@@ -83,14 +79,24 @@ kettu.Torrents = function(transmission) {
     });
   });
   
-  transmission.bind('torrents-refreshed', function(e, params) {
+  transmission.bind('get-torrents', function(e, params) {
+    var request = { method: 'torrent-get', arguments: { fields: kettu.Torrent({})['fields'] } };
+    this.remote_query(request, function(response) {
+      kettu.app.trigger('refreshed-torrents', {
+        torrents: response['torrents'].map(function(row) { return kettu.Torrent(row); }),
+        rerender: params && params.rerender
+      });
+    });
+  });
+  
+  transmission.bind('refreshed-torrents', function(e, params) {
     var sorted_torrents = this.sortTorrents(kettu.app.sort_mode, params['torrents'], kettu.app.reverse_sort);
     var filtered_torrents = this.filterTorrents(kettu.app.filter_mode, sorted_torrents);
     this.addUpAndDownToStore(params['torrents']);
     this.updateViewElements(filtered_torrents, params['rerender'], kettu.app.settings || {});
   });
   
-  transmission.bind('torrent-refreshed', function(e, torrent) {
+  transmission.bind('refreshed-torrent', function(e, torrent) {
     this.updateInfo(torrent);
   });
 };

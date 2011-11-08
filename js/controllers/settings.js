@@ -31,10 +31,17 @@ kettu.Settings = function(transmission) {
     }
   });
   
-  transmission.bind('render-settings', function() {
-    this.getSettings();
+  transmission.bind('get-settings', function() {
+    var request = { method: 'session-get', arguments: {} };
+    this.remote_query(request, function(new_settings) {
+      kettu.app.settings = new_settings;
+      kettu.app.trigger('refreshed-settings');
+    });
+  });
+  
+  transmission.bind('refreshed-settings', function() {
     if(this.infoIsOpen() && this.infoDisplaysSettings()) {
-      this.updateSettings();      
-    }
+      this.updateSettings();
+    }    
   });
 };
