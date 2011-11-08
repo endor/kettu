@@ -1,3 +1,5 @@
+kettu.store = new Sammy.Store({name: 'data', type: ['local', 'cookie']});
+
 kettu.app = $.sammy(function() {
   this.use(Sammy.TransmissionRPC);
   this.use(Sammy.Mustache);
@@ -5,8 +7,10 @@ kettu.app = $.sammy(function() {
   
   this.element_selector = 'body';
   this.cache_partials = true;
-  this.store = new Sammy.Store({name: 'data', type: ['local', 'cookie']});
-  
+
+  this.helpers({
+    store: kettu.store
+  });
   this.helpers(kettu.ApplicationHelpers);
   this.helpers(kettu.LocationHelpers);
   this.helpers(kettu.ContextMenuHelpers);
@@ -50,7 +54,8 @@ kettu.app = $.sammy(function() {
 });
  
 $(function() {
-  kettu.app.reloadInterval = 2000;
+  kettu.app.reloadInterval = kettu.store.get('torrentReloadInterval') || 2000;
+  kettu.store.set('torrentReloadInterval', kettu.app.reloadInterval);
   if($(window).width() > 480) {
     kettu.app.mobile = false;
     kettu.app.run('#/torrents');    

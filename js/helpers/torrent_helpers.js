@@ -9,6 +9,7 @@ kettu.TorrentHelpers = {
   get_and_render_torrents: function(rerender) {
     var request = { method: 'torrent-get', arguments: { fields: kettu.Torrent({})['fields'] } };
     this.remote_query(request, function(response) {
+      console.log(new Date().getSeconds());
       kettu.app.trigger('torrents-refreshed', {
         torrents: response['torrents'].map( function(row) {return kettu.Torrent(row)} ),
         rerender: rerender
@@ -74,8 +75,8 @@ kettu.TorrentHelpers = {
 
     $.each([{key: 'view', def: 'normal'}, {key: 'filter', def: 'all'}, {key: 'sort', def: 'name'}], function() {
       var key = this.key, def = this.def;
-      kettu.app[key + '_mode'] = params[key] || kettu.app.store.get(key + '_mode') || def;
-      kettu.app.store.set(key + '_mode', kettu.app[key + '_mode']);
+      kettu.app[key + '_mode'] = params[key] || context.store.get(key + '_mode') || def;
+      context.store.set(key + '_mode', kettu.app[key + '_mode']);
     });
 
     context.update_sort_dropdown();
@@ -130,7 +131,7 @@ kettu.TorrentHelpers = {
   },
 
   globalUpAndDownload: function(torrents) {    
-    var rates = kettu.app.store.get('up_and_download_rate');
+    var rates = this.store.get('up_and_download_rate');
     var last_rate = rates[rates.length - 1];
     return kettu.Torrent({}).downAndUploadRateString(last_rate.down, last_rate.up);
   },

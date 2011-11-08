@@ -2,6 +2,8 @@ kettu.SettingHelpers = {
   validator: new kettu.SettingsValidator(),
   
   updateSettingsCheckboxes: function(settings) {
+    var context = this;
+    
     $.each($('#info').find('input[type=checkbox]'), function() {
       var checkbox = $(this),
         name = checkbox.attr('name');
@@ -9,7 +11,7 @@ kettu.SettingHelpers = {
       if(settings[name]) { checkbox.attr('checked', true); }
       
       ['protocol-handler-enabled', 'content-handler-enabled'].forEach(function(element) {
-        if(name == element && kettu.app.store.exists(element)) {
+        if(name == element && context.store.exists(element)) {
           checkbox.attr('disabled', true);
           checkbox.attr('checked', true);
         }
@@ -71,7 +73,7 @@ kettu.SettingHelpers = {
     if(params['alt-speed-enabled']) {
       var speedLimitModeEnabled = params['alt-speed-enabled'] == "true";
       params.settingsFlash = 'Speed Limit Mode ' + (speedLimitModeEnabled ? 'enabled.' : 'disabled.');
-      kettu.app.store.set('speed_limit_mode', (speedLimitModeEnabled ? 'enabled' : 'disabled'));
+      this.store.set('speed_limit_mode', (speedLimitModeEnabled ? 'enabled' : 'disabled'));
       return context.speed_limit_mode_hash(params['alt-speed-enabled']);
     } else {
       params.settingsFlash = 'Settings updated successfully.';
@@ -119,15 +121,25 @@ kettu.SettingHelpers = {
     return hours * 60 + minutes;
   },
   
-  manage_handlers: function(context, params) {
-    if(params['protocol-handler-enabled'] && !kettu.app.store.exists('protocol-handler-enabled')) {
-      kettu.app.store.set('protocol-handler-enabled', true);
-      window.navigator.registerProtocolHandler('magnet', context.base_url() + '#/torrents/add?url=%s', "Transmission Web");
+  manage_handlers: function(params) {
+    if(params['protocol-handler-enabled'] && !this.store.exists('protocol-handler-enabled')) {
+      this.store.set('protocol-handler-enabled', true);
+      window.navigator.registerProtocolHandler('magnet', this.base_url() + '#/torrents/add?url=%s', "Transmission Web");
     }
     
-    if(params['content-handler-enabled'] && !kettu.app.store.exists('content-handler-enabled')) {
-      kettu.app.store.set('content-handler-enabled', true);
-      window.navigator.registerContentHandler("application/x-bittorrent", context.base_url() + '#/torrents/add?url=%s', "Transmission Web");
+    if(params['content-handler-enabled'] && !this.store.exists('content-handler-enabled')) {
+      this.store.set('content-handler-enabled', true);
+      window.navigator.registerContentHandler("application/x-bittorrent", this.base_url() + '#/torrents/add?url=%s', "Transmission Web");
+    }
+  },
+  
+  manage_reload_interval: function(params) {
+    if(params['torrentReloadInterval']) {
+      kettu.app.reloadInterval = parseInt(params['torrentReloadInterval'], 10) * 1000;
+      this.store.set('torrentReloadInterval', kettu.app.reloadInterval);
+
+      clearInterval(kettu.app.interval_id);
+      kettu.app.interval_id = setInterval("kettu.app.trigger('render_torrents')", kettu.app.reloadInterval);
     }
   },
   

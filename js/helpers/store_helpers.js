@@ -6,8 +6,8 @@ kettu.StoreHelpers = {
       downloadRate += this.rateDownload;
     });
 
-    if(kettu.app.store.exists('up_and_download_rate')) {
-      store_data = kettu.app.store.get('up_and_download_rate');
+    if(this.store.exists('up_and_download_rate')) {
+      store_data = this.store.get('up_and_download_rate');
       if(store_data.length > 99) { store_data.shift(); }
       store_data.push({"up": uploadRate, "down": downloadRate});
       data = store_data;
@@ -15,7 +15,7 @@ kettu.StoreHelpers = {
       data = [{"up": uploadRate, "down": downloadRate}];
     }
 
-    kettu.app.store.set('up_and_download_rate', data);
+    this.store.set('up_and_download_rate', data);
   }
 };
 

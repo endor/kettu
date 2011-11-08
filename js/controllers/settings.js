@@ -3,6 +3,7 @@ kettu.Settings = function(transmission) {
   
   transmission.get('#/settings', function(context) {
     original_settings = kettu.app.settings || {};
+    $.extend(original_settings, {torrentReloadInterval: context.store.get('torrentReloadInterval') / 1000});
     
     var hours_partial = 'templates/settings/hours.mustache',
         minutes_partial = 'templates/settings/minutes.mustache';
@@ -30,7 +31,8 @@ kettu.Settings = function(transmission) {
   transmission.put('#/settings', function(context) {
     var request = { method: 'session-set', arguments: this.prepare_arguments(context, this.params) };
 
-    this.manage_handlers(context, this.params);
+    this.manage_handlers(this.params);
+    this.manage_reload_interval(this.params);
     
     if(this.is_speed_limit_mode_update(request['arguments']) || this.setting_arguments_valid(context, request['arguments'])) {
       context.remote_query(request, function(response) {

@@ -47,9 +47,3 @@ There are [jspecs](https://github.com/visionmedia/jspec) in `/spec` which you ca
 
 ### Acceptance Tests
 You need to install the [chromedriver](http://code.google.com/p/selenium/downloads/list). Then there are [capybara](https://github.com/jnicklas/capybara) tests in `features`. You will just need to type `cucumber features/<feature>`.
-
-
-## Todo
-* maybe have a trash icon where torrents can be dragged and dropped into
-* maybe checkboxes in preferences could be on/off sliders, something with sliders
-* maybe add <audio> to audio files, transforms
