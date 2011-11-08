@@ -18,8 +18,8 @@ describe 'FilterTorrentsHelpers'
   it 'should filter by paused'
     var torrents = [
       kettu.Torrent({'id': '1', 'name': 'Zelda', 'status': 4}),
-      kettu.Torrent({'id': '2', 'name': 'Alpha', 'status': 16}),
-      kettu.Torrent({'id': '3', 'name': 'Manfred', 'status': 8})
+      kettu.Torrent({'id': '2', 'name': 'Alpha', 'status': 0}),
+      kettu.Torrent({'id': '3', 'name': 'Manfred', 'status': 6})
     ]
     var filtered_torrents = filter_helpers.filterTorrents('paused', torrents)
     filtered_torrents[0].id.should.eql('2')
@@ -29,8 +29,8 @@ describe 'FilterTorrentsHelpers'
   it 'should filter by downloading'
     var torrents = [
       kettu.Torrent({'id': '1', 'name': 'Zelda', 'status': 4}),
-      kettu.Torrent({'id': '2', 'name': 'Alpha', 'status': 16}),
-      kettu.Torrent({'id': '3', 'name': 'Manfred', 'status': 8})
+      kettu.Torrent({'id': '2', 'name': 'Alpha', 'status': 0}),
+      kettu.Torrent({'id': '3', 'name': 'Manfred', 'status': 6})
     ]
     var filtered_torrents = filter_helpers.filterTorrents('downloading', torrents)
     filtered_torrents[0].id.should.eql('1')
@@ -40,8 +40,8 @@ describe 'FilterTorrentsHelpers'
   it 'should filter by seeding'
     var torrents = [
       kettu.Torrent({'id': '1', 'name': 'Zelda', 'status': 4}),
-      kettu.Torrent({'id': '2', 'name': 'Alpha', 'status': 16}),
-      kettu.Torrent({'id': '3', 'name': 'Manfred', 'status': 8})
+      kettu.Torrent({'id': '2', 'name': 'Alpha', 'status': 0}),
+      kettu.Torrent({'id': '3', 'name': 'Manfred', 'status': 6})
     ]
     var filtered_torrents = filter_helpers.filterTorrents('seeding', torrents)
     filtered_torrents[0].id.should.eql('3')

@@ -9,7 +9,6 @@ kettu.TorrentHelpers = {
   get_and_render_torrents: function(rerender) {
     var request = { method: 'torrent-get', arguments: { fields: kettu.Torrent({})['fields'] } };
     this.remote_query(request, function(response) {
-      console.log(new Date().getSeconds());
       kettu.app.trigger('torrents-refreshed', {
         torrents: response['torrents'].map( function(row) {return kettu.Torrent(row)} ),
         rerender: rerender

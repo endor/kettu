@@ -43,7 +43,7 @@ describe 'TorrentHelpers'
     
     it 'should update the torrents\' data'
       updated_torrents = [
-        kettu.Torrent({'id': 2, 'status': 8, 'rateUpload': 20000, 'rateDownload': 0})
+        kettu.Torrent({'id': 2, 'status': 6, 'rateUpload': 20000, 'rateDownload': 0})
       ]
       torrent_helpers.updateTorrents(updated_torrents)
       $('.statusString:first').html().should.match(/20\.0 KB\/s/)

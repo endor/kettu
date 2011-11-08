@@ -30,7 +30,7 @@ kettu.Torrent = function(attributes) {
     return (torrent.isPrivate) ? 'Private Torrent' : 'Public Torrent';
   };
   torrent.isActive = function() {
-    return (torrent.status & (torrent.stati['downloading'] | torrent.stati['seeding'])) > 0;
+    return [torrent.stati['downloading'], torrent.stati['seeding']].indexOf(torrent.status) >= 0;
   };
   torrent.isDoneDownloading = function() {
     return torrent.status === torrent.stati['seeding'] || torrent.leftUntilDone === 0;
