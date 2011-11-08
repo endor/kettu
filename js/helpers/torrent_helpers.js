@@ -86,7 +86,7 @@ kettu.TorrentHelpers = {
   },
   
   clear_all_intervals: function() {
-    (['update_settings_interval_id', 'info_interval_id', 'interval_id', 'settings_interval_id']).forEach(function(interval) {
+    (['info_interval_id', 'interval_id', 'settings_interval_id']).forEach(function(interval) {
       if(kettu.app[interval]) {
         clearInterval(kettu.app[interval]);
         delete(kettu.app[interval]);

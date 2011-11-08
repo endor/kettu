@@ -1,7 +1,6 @@
 kettu.InfoHelpers = {
   closeInfo: function() {
     if(kettu.app.info_interval_id) { clearInterval(kettu.app.info_interval_id); }
-    if(kettu.app.update_settings_interval_id) { clearInterval(kettu.app.update_settings_interval_id); }
     this.saveLastMenuItem($('.menu-item.active'));
     $('.main').removeClass('info');
     $('#info').hide();
@@ -9,7 +8,7 @@ kettu.InfoHelpers = {
     return false;
   },
 
-  openInfo: function(view) {
+  openInfo: function(view, clazz) {
     var info = $('#info'),
       context = this;
 
@@ -29,10 +28,16 @@ kettu.InfoHelpers = {
     info.show();
     $('.main').addClass('info');
     this.menuizeInfo();
+
+    if(clazz) { info.addClass(clazz); }
   },
 
   infoIsOpen: function() {
     return $('.main').hasClass('info');
+  },
+  
+  infoDisplaysSettings: function() {
+    return $('#info').hasClass('settings');
   },
 
   handleDoubleClickOnTorrent: function(torrent) {

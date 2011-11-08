@@ -1,69 +1,40 @@
 kettu.Settings = function(transmission) {
-  var original_settings;
-  
   transmission.get('#/settings', function(context) {
-    original_settings = kettu.app.settings || {};
-    $.extend(original_settings, {torrentReloadInterval: context.store.get('torrentReloadInterval') / 1000});
+    kettu.app.originalSettings = kettu.app.settings || {};
+
+    var allSettings = context.extendWithLocalSettings(kettu.app.originalSettings),
+        hoursPartial = 'templates/settings/hours.mustache',
+        minutesPartial = 'templates/settings/minutes.mustache';
     
-    var hours_partial = 'templates/settings/hours.mustache',
-        minutes_partial = 'templates/settings/minutes.mustache';
-    
-    context.render('templates/settings/index.mustache', original_settings, function(rendered_view) {
-      context.openInfo(rendered_view);      
-      kettu.app.trigger('settings-refreshed');
-    }, {hours: hours_partial, minutes: minutes_partial});
+    context.render('templates/settings/index.mustache', allSettings, function(rendered_view) {
+      context.openInfo(rendered_view, 'settings');
+      context.updateSettingsCheckboxes(kettu.app.originalSettings);
+      context.updateSettingsSelects(kettu.app.originalSettings);
+      context.menuizeInfo();
+    }, {hours: hoursPartial, minutes: minutesPartial});
   });
   
-  updateSettings = function(context) {
-    var differences = context.hash_diff(original_settings, kettu.app.settings || {}) || [];
-
-    for(var difference in differences) {
-      if(typeof differences[difference] === 'boolean') {
-        $('.' + difference).attr('checked', differences[difference]);
-      } else {
-        $('.' + difference).val(differences[difference]);
-      }
-    }
-
-    original_settings = kettu.app.settings;
-  };
-  
   transmission.put('#/settings', function(context) {
-    var request = { method: 'session-set', arguments: this.prepare_arguments(context, this.params) };
-
-    this.manage_handlers(this.params);
-    this.manage_reload_interval(this.params);
+    var request = { method: 'session-set', arguments: context.prepareArguments(context, context.params) };
     
-    if(this.is_speed_limit_mode_update(request['arguments']) || this.setting_arguments_valid(context, request['arguments'])) {
+    context.manageHandlers(context.params);
+    context.manageReloadInterval(context.params);
+    
+    if(context.isSpeedLimitModeUpdate(request['arguments']) || context.settingArgumentsValid(context, request['arguments'])) {
       context.remote_query(request, function(response) {
         kettu.app.trigger('flash', context.params.settingsFlash);
-        if(context.params['peer-port']) { updatePeerPortDiv(context); }
+        if(context.params['peer-port']) { context.updatePeerPortDiv(); }
       });      
     } else {
       kettu.app.trigger('flash', 'Settings could not be updated.');
-      kettu.app.trigger('errors', this.setting_arguments_errors(context));
+      kettu.app.trigger('errors', context.settingArgumentsErrors(context));
     }
   });
-
-  updatePeerPortDiv = function(context) {
-    $('#port-open').addClass('waiting').show();
-    var request = { 'method': 'port-test', 'arguments': {} };
-    context.remote_query(request, function(response) {
-      $('#port-open').removeClass('waiting');
-      if(response['port-is-open']) {
-        $('#port-open').addClass('active');
-      } else {
-        $('#port-open').removeClass('active');
-      }
-    });
-  };
   
-  transmission.bind('settings-refreshed', function() {
-    this.updateSettingsCheckboxes(original_settings);
-    this.updateSettingsSelects(original_settings);
-    this.menuizeInfo();
-    
-    if(this.update_settings_interval_id) { clearInterval(this.update_settings_interval_id); }
-    this.update_settings_interval_id = setInterval(updateSettings, (kettu.app.reloadInterval * 2), this);
+  transmission.bind('render-settings', function() {
+    this.getSettings();
+    if(this.infoIsOpen() && this.infoDisplaysSettings()) {
+      this.updateSettings();      
+    }
   });
 };

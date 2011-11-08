@@ -32,7 +32,8 @@
       <tr>
         <th>Enable Protocol Handler (magnet:):</th>
         <td>
-          <input type="checkbox" name="protocol-handler-enabled" class="protocol-handler-enabled" /><br />
+          <input type="checkbox" name="protocolHandlerEnabled" class="protocolHandlerEnabled" {{#protocolHandlerEnabled}}checked="checked" disabled="disabled"{{/protocolHandlerEnabled}} />
+          <br />
           <span class="hint">This is a feature not all browsers may support yet.
             Once enabled, you can only disable this in your browser settings.</span>
         </td>
@@ -40,7 +41,8 @@
       <tr>
         <th>Enable Content Handler (.torrent):</th>
         <td>
-          <input type="checkbox" name="content-handler-enabled" class="content-handler-enabled" /><br />
+          <input type="checkbox" name="contentHandlerEnabled" class="contentHandlerEnabled" {{#contentHandlerEnabled}}checked="checked" disabled="disabled"{{/contentHandlerEnabled}} />
+          <br />
           <span class="hint">This is a feature not all browsers may support yet.
             Once enabled, you can only disable this in your browser settings.</span>
         </td>

@@ -1,41 +1,69 @@
 kettu.SettingHelpers = {
   validator: new kettu.SettingsValidator(),
+
+  updatePeerPortDiv: function() {
+    $('#port-open').addClass('waiting').show();
+    
+    var request = { 'method': 'port-test', 'arguments': {} };
+    this.remote_query(request, function(response) {
+      $('#port-open').removeClass('waiting');
+      $('#port-open').toggleClass('active', !!response['port-is-open']);
+    });
+  },
+
+  updateSettings: function() {
+    var differences = this.hash_diff(kettu.app.originalSettings, kettu.app.settings || {}) || [];
+
+    for(var difference in differences) {
+      if(typeof differences[difference] === 'boolean') {
+        $('.' + difference).attr('checked', differences[difference]);
+      } else {
+        $('.' + difference).val(differences[difference]);
+      }
+    }
+
+    kettu.app.originalSettings = kettu.app.settings;
+  },
+
+  extendWithLocalSettings: function(settings) {
+    return $.extend(settings, {
+      torrentReloadInterval: this.store.get('torrentReloadInterval') / 1000,
+      protocolHandlerEnabled: this.store.get('protocolHandlerEnabled'),
+      contentHandlerEnabled: this.store.get('contentHandlerEnabled')
+    });
+  },
   
   updateSettingsCheckboxes: function(settings) {
-    var context = this;
+    var handlers = ['protocolHandlerEnabled', 'contentHandlerEnabled'];
     
-    $.each($('#info').find('input[type=checkbox]'), function() {
-      var checkbox = $(this),
-        name = checkbox.attr('name');
+    $.each($('#info input[type=checkbox]'), function() {
+      var $checkbox = $(this),
+          name = $checkbox.attr('name');
 
-      if(settings[name]) { checkbox.attr('checked', true); }
-      
-      ['protocol-handler-enabled', 'content-handler-enabled'].forEach(function(element) {
-        if(name == element && context.store.exists(element)) {
-          checkbox.attr('disabled', true);
-          checkbox.attr('checked', true);
-        }
-      });
+      if(settings[name]) { $checkbox.attr('checked', true); }      
     });
     
-    $('#info input, #info select').change(function(event) {
-      if($(this).attr('name') == 'protocol-handler-enabled' || $(this).attr('name') == 'content-handler-enabled') {
-        $(this).attr('disabled', 'disabled');
-        $(this).attr('checked', 'checked');
-      }
+    $('#info input, #info select').change(function() {
       $(this).parents('form').trigger('submit');
+      
+      if(handlers.indexOf($(this).attr('name')) >= 0) {
+        $(this).attr('disabled', 'disabled');
+      }
+      
       return false;
     });
   },
   
   updateSettingsSelects: function(settings) {
-    $.each($('#info').find('select'), function() {
-      var name = $(this).attr('name');
-      var value = settings[name];
+    $.each($('#info select'), function() {
+      var $select = $(this),
+          value = settings[$select.attr('name')];
       
-      $.each($(this).find('option'), function() {
-        if($(this).val() == value) {
-          $(this).attr('selected', 'selected');
+      $.each($select.find('option'), function() {
+        var $option = $(this);
+        
+        if($option.val() == value) {
+          $option.attr('selected', 'selected');
         }
       });
     });
@@ -49,43 +77,45 @@ kettu.SettingHelpers = {
 
     for(key in scheduled_times) {
       $.each($('#info select[name="' + key + '"]').find('option'), function() {
-        if($(this).val() == scheduled_times[key]) {
-          $(this).attr('selected', 'selected');
+        var $option = $(this);
+        
+        if($option.val() == scheduled_times[key]) {
+          $option.attr('selected', 'selected');
         }
       });
     }
   },
 
-  setting_arguments_valid: function(context, setting_arguments) {
+  settingArgumentsValid: function(context, setting_arguments) {
     context.validator.validate(setting_arguments);
     return ! context.validator.has_errors();
   },
   
-  setting_arguments_errors: function(context) {
+  settingArgumentsErrors: function(context) {
     return context.validator.errors;
   },
   
-  is_speed_limit_mode_update: function(params) {
+  isSpeedLimitModeUpdate: function(params) {
     return (params['alt-speed-enabled'] !== undefined);
   },
   
-  prepare_arguments: function(context, params) {
+  prepareArguments: function(context, params) {
     if(params['alt-speed-enabled']) {
       var speedLimitModeEnabled = params['alt-speed-enabled'] == "true";
       params.settingsFlash = 'Speed Limit Mode ' + (speedLimitModeEnabled ? 'enabled.' : 'disabled.');
       this.store.set('speed_limit_mode', (speedLimitModeEnabled ? 'enabled' : 'disabled'));
-      return context.speed_limit_mode_hash(params['alt-speed-enabled']);
+      return context.speedLimitModeHash(params['alt-speed-enabled']);
     } else {
       params.settingsFlash = 'Settings updated successfully.';
-      return context.arguments_hash(params);
+      return context.argumentsHash(params);
     }
   },
   
-  speed_limit_mode_hash: function(speed_limit_mode) {
+  speedLimitModeHash: function(speed_limit_mode) {
     return { 'alt-speed-enabled': (speed_limit_mode == "true") ? true : false };
   },
   
-  arguments_hash: function(params, updatable_settings) {
+  argumentsHash: function(params, updatable_settings) {
     updatable_settings = updatable_settings || [
       'dht-enabled', 'pex-enabled', 'speed-limit-up', 'speed-limit-up-enabled', 'speed-limit-down',
       'speed-limit-down-enabled', 'peer-port', 'download-dir', 'alt-speed-down', 'alt-speed-up',
@@ -121,33 +151,31 @@ kettu.SettingHelpers = {
     return hours * 60 + minutes;
   },
   
-  manage_handlers: function(params) {
-    if(params['protocol-handler-enabled'] && !this.store.exists('protocol-handler-enabled')) {
-      this.store.set('protocol-handler-enabled', true);
-      window.navigator.registerProtocolHandler('magnet', this.base_url() + '#/torrents/add?url=%s', "Transmission Web");
+  manageHandlers: function(params) {
+    var baseUrl = window.location.href.match(/^([^#]+)#.+$/)[1];
+    
+    if(params['protocolHandlerEnabled'] && !this.store.exists('protocolHandlerEnabled')) {
+      this.store.set('protocolHandlerEnabled', true);
+      window.navigator.registerProtocolHandler('magnet', this.baseUrl() + '#/torrents/add?url=%s', "Transmission Web");
     }
     
-    if(params['content-handler-enabled'] && !this.store.exists('content-handler-enabled')) {
-      this.store.set('content-handler-enabled', true);
-      window.navigator.registerContentHandler("application/x-bittorrent", this.base_url() + '#/torrents/add?url=%s', "Transmission Web");
+    if(params['contentHandlerEnabled'] && !this.store.exists('contentHandlerEnabled')) {
+      this.store.set('contentHandlerEnabled', true);
+      window.navigator.registerContentHandler("application/x-bittorrent", this.baseUrl() + '#/torrents/add?url=%s', "Transmission Web");
     }
   },
   
-  manage_reload_interval: function(params) {
+  manageReloadInterval: function(params) {
     if(params['torrentReloadInterval']) {
       kettu.app.reloadInterval = parseInt(params['torrentReloadInterval'], 10) * 1000;
       this.store.set('torrentReloadInterval', kettu.app.reloadInterval);
 
       clearInterval(kettu.app.interval_id);
-      kettu.app.interval_id = setInterval("kettu.app.trigger('render_torrents')", kettu.app.reloadInterval);
+      kettu.app.interval_id = setInterval("kettu.app.trigger('render-torrents')", kettu.app.reloadInterval);
     }
   },
   
-  base_url: function() { 
-    return window.location.href.match(/^([^#]+)#.+$/)[1];
-  },
-  
-  get_settings: function() {
+  getSettings: function() {
     var request = { method: 'session-get', arguments: {} };
     this.remote_query(request, function(new_settings) { kettu.app.settings = new_settings; });
   }

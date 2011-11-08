@@ -2,19 +2,15 @@ kettu.Torrents = function(transmission) {
   transmission.get('#/torrents', function(context) {
     context.set_and_save_modes(context);
     context.get_and_render_torrents(true);
-    context.get_settings();
-    kettu.app.interval_id = setInterval("kettu.app.trigger('render_torrents')", kettu.app.reloadInterval);
-    kettu.app.settings_interval_id = setInterval("kettu.app.trigger('render_settings')", (kettu.app.reloadInterval * 2));
+    context.getSettings();
+    kettu.app.interval_id = setInterval("kettu.app.trigger('render-torrents')", kettu.app.reloadInterval);
+    kettu.app.settings_interval_id = setInterval("kettu.app.trigger('render-settings')", (kettu.app.reloadInterval * 2));
   });
   
-  transmission.bind('render_torrents', function() {
+  transmission.bind('render-torrents', function() {
     this.get_and_render_torrents(false);
   });
-  
-  transmission.bind('render_settings', function() {
-    this.get_settings();
-  });
-  
+    
   transmission.get('#/torrents/new', function(context) {
     this.render('templates/torrents/new.mustache', {}, function(rendered_view) {
       context.openInfo(rendered_view);
