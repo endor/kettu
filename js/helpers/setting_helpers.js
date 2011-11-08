@@ -170,8 +170,8 @@ kettu.SettingHelpers = {
       kettu.app.reloadInterval = parseInt(params['torrentReloadInterval'], 10) * 1000;
       this.store.set('torrentReloadInterval', kettu.app.reloadInterval);
 
-      clearInterval(kettu.app.interval_id);
-      kettu.app.interval_id = setInterval("kettu.app.trigger('get-torrents')", kettu.app.reloadInterval);
+      clearInterval(kettu.app.torrents_interval_id);
+      kettu.app.torrents_interval_id = setInterval("kettu.app.trigger('get-torrents')", kettu.app.reloadInterval);
     }
   }
 };

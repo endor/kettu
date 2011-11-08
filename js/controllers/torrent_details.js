@@ -26,7 +26,7 @@ kettu.TorrentDetails = function(transmission) {
       });      
     } else {
       var fields = kettu.Torrent({})['fields'].concat(kettu.Torrent({})['info_fields']),
-        request = context.build_request('torrent-get', {ids: torrents.shift(), fields: fields});
+        request = context.buildRequest('torrent-get', {ids: torrents.shift(), fields: fields});
       context.remote_query(request, function(response) {
         var torrent = response['torrents'].map( function(row) {return kettu.Torrent(row);} )[0];
         accumulation.number_of_torrents += 1;
@@ -49,7 +49,7 @@ kettu.TorrentDetails = function(transmission) {
     context.get_and_render_torrent_details = function(id, callback) {
       var context = transmission.context,
         fields = kettu.Torrent({})['fields'].concat(kettu.Torrent({})['info_fields']),
-        request = context.build_request('torrent-get', {ids: id, fields: fields});
+        request = context.buildRequest('torrent-get', {ids: id, fields: fields});
 
       context.remote_query(request, function(response) {
         var torrent = response['torrents'].map( function(row) {return kettu.Torrent(row);} )[0],
