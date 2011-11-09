@@ -21,7 +21,7 @@ kettu.Settings = function(transmission) {
     context.manageReloadInterval(context.params);
     
     if(context.isSpeedLimitModeUpdate(request['arguments']) || context.settingArgumentsValid(context, request['arguments'])) {
-      context.remote_query(request, function(response) {
+      context.remoteQuery(request, function(response) {
         kettu.app.trigger('flash', context.params.settingsFlash);
         if(context.params['peer-port']) { context.updatePeerPortDiv(); }
       });      
@@ -33,7 +33,7 @@ kettu.Settings = function(transmission) {
   
   transmission.bind('get-settings', function() {
     var request = { method: 'session-get', arguments: {} };
-    this.remote_query(request, function(new_settings) {
+    this.remoteQuery(request, function(new_settings) {
       kettu.app.settings = new_settings;
       kettu.app.trigger('refreshed-settings');
     });

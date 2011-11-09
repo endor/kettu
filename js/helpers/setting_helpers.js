@@ -5,14 +5,14 @@ kettu.SettingHelpers = {
     $('#port-open').addClass('waiting').show();
     
     var request = { 'method': 'port-test', 'arguments': {} };
-    this.remote_query(request, function(response) {
+    this.remoteQuery(request, function(response) {
       $('#port-open').removeClass('waiting');
       $('#port-open').toggleClass('active', !!response['port-is-open']);
     });
   },
 
   updateSettings: function() {
-    var differences = this.hash_diff(kettu.app.originalSettings, kettu.app.settings || {}) || [];
+    var differences = this.hashDiff(kettu.app.originalSettings, kettu.app.settings || {}) || [];
 
     for(var difference in differences) {
       if(typeof differences[difference] === 'boolean') {

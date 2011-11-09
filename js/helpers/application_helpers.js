@@ -1,5 +1,5 @@
 kettu.ApplicationHelpers = {
-  cache_partial: function(template, partial, context) {
+  cachePartial: function(template, partial, context) {
     if(!context.cache(partial)) {
       $.ajax({async: false, url: template, success: function(response) {
         context.cache(partial, response);
@@ -19,7 +19,7 @@ kettu.ApplicationHelpers = {
     });
   },
   
-  hash_diff: function(hash1, hash2) {
+  hashDiff: function(hash1, hash2) {
     var diff = {}, different = false;
     
     for(key in hash1) {

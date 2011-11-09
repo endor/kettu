@@ -5,7 +5,7 @@ describe 'TorrentsView'
       stop_form             = $(forms.get(0))
       start_form            = $(forms.get(1))
       context               = {}
-      context.cache_partial = function() {}
+      context.cachePartial  = function() {}
       context.cache         = function() { return fixture('pause_and_activate_button.mustache'); }
       context.mustache      = function(template, view) {return Sammy.MustacheOriginal.to_html(template, view);}
       torrents_view         = kettu.TorrentsView({}, context)

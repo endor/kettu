@@ -8,11 +8,11 @@
     };
     
     app.helpers({
-      remote_session_id: function() {
+      remoteSessionId: function() {
         return kettu.app.rpc.session_id;
       },
 
-      remote_query: function(params, callback) {
+      remoteQuery: function(params, callback) {
         var context = this,
           rpc = context.app.rpc;
         $.ajax({
@@ -34,7 +34,7 @@
           error: function(xhr, ajaxOptions, thrownError) {
             rpc.session_id = xhr.getResponseHeader('X-Transmission-Session-Id');
             if(xhr.status === 409 && rpc.session_id.length > 0) {
-              context.remote_query(params, callback);
+              context.remoteQuery(params, callback);
             } else {
               Sammy.log('RPC Connection Failure.');
               Sammy.log(xhr.responseText);            

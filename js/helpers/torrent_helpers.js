@@ -22,7 +22,7 @@ kettu.TorrentHelpers = {
     
     if(torrent_added) {
       var request = context.buildRequest('torrent-get', {fields:kettu.Torrent({})['fields']});
-      context.remote_query(request, function(response) {
+      context.remoteQuery(request, function(response) {
         context.closeInfo(context);
         var newest = context.getNewestTorrents(context, response);
         if(newest.length > 1) {
@@ -51,7 +51,7 @@ kettu.TorrentHelpers = {
       
     callback = callback || this.renderTorrent;
 
-    this.remote_query(request, function(response) {
+    this.remoteQuery(request, function(response) {
       callback.call(context, response['torrents'].map( function(row) { return kettu.Torrent(row); } )[0]);
     });
   },
@@ -89,7 +89,7 @@ kettu.TorrentHelpers = {
     $('#add_torrent_form').ajaxSubmit({
   	  url: '/transmission/upload?paused=' + paused,
   	  type: 'POST',
-  	  data: { 'X-Transmission-Session-Id' : context.remote_session_id() },
+  	  data: { 'X-Transmission-Session-Id' : context.remoteSessionId() },
   	  dataType: 'xml',
       iframe: true,
   	  success: function(response) {
@@ -147,8 +147,8 @@ kettu.TorrentHelpers = {
   },
   
   removeOldTorrents: function(torrents) {
-    var old_ids = $.map($('.torrent'), function(torrent) { return $(torrent).attr('id'); });
-    var new_ids = $.map(torrents, function(torrent) { return torrent.id; });
+    var old_ids = $.map($('.torrent'), function(torrent) { return $(torrent).attr('id'); }),
+        new_ids = $.map(torrents, function(torrent) { return torrent.id; });
     
     _.each(old_ids, function(id) {
       if(new_ids.indexOf(parseInt(id, 10)) < 0) {
@@ -158,7 +158,7 @@ kettu.TorrentHelpers = {
   },
   
   updateTorrents: function(torrents, rerender) {
-    this.cache_partials();
+    this.cachePartials();
 
     if(torrents && rerender) {
       $('.torrent').remove();
@@ -190,10 +190,10 @@ kettu.TorrentHelpers = {
     $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
   },
   
-  cache_partials: function() {
+  cachePartials: function() {
     var context = this;
     _.each(['delete_data', 'show', 'show_compact', 'taphold_menu'], function(partial) {
-      context.cache_partial('templates/torrents/' + partial + '.mustache', partial, context);
+      context.cachePartial('templates/torrents/' + partial + '.mustache', partial, context);
     });
   },
   

@@ -5,10 +5,10 @@ kettu.Statistics = function(transmission) {
       arguments: {fields: ['current-stats', 'torrentCount', 'cumulative-stats']}
     }
     
-    context.remote_query(request, function(response) {
+    context.remoteQuery(request, function(response) {
       context.render('templates/statistics/index.mustache', kettu.StatisticsView(response), function(rendered_view) {
         context.openInfo(rendered_view);
-        context.activate_graph_links(context);
+        context.activateGraphLinks(context);
       });      
     });
   });

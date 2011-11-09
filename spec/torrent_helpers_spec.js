@@ -16,7 +16,7 @@ describe 'TorrentHelpers'
       torrent_helpers.templates['show'] = fixture('show.mustache')
       torrent_helpers.templates['pause_and_activate_button'] = fixture('pause_and_activate_button.mustache')
       torrent_helpers.cache = function(partial) { return this.templates[partial]; }
-      torrent_helpers.cache_partial = function() {}
+      torrent_helpers.cachePartial = function() {}
       torrent_helpers.updateInfo = function() {}
       torrent_helpers.clearCache = function() {}
       torrent_helpers.mustache = function(template, view) {return Sammy.MustacheOriginal.to_html(template, view);}

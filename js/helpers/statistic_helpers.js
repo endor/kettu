@@ -1,5 +1,5 @@
 kettu.StatisticHelpers = {
-  activate_graph_links: function(context) {
+  activateGraphLinks: function(context) {
     $('.graph_links a').click(function() {
       var type = $(this).attr('class') + '_graph';
       var graph = context[type].apply();
@@ -7,14 +7,14 @@ kettu.StatisticHelpers = {
       context.render('templates/statistics/' + type + '.mustache', {}, function(rendered_view) {
         $.facebox(rendered_view);
         $('#facebox').addClass('graph');
-        context.draw_graph(type, graph);
+        context.drawGraph(type, graph);
       });
       
       return false;      
     });
   },
   
-  up_and_download_graph: function() {
+  upAndDownloadGraph: function() {
     var graph = {'data': [], 'labels': ''}, i = 2;
     
     _.each(this.store.get('up_and_download_rate'), function(rate) {
@@ -30,7 +30,7 @@ kettu.StatisticHelpers = {
     return graph;
   },
   
-  draw_graph: function(holder, graph) {
+  drawGraph: function(holder, graph) {
     var width = 800,
         height = 300,
         leftgutter = 10,
