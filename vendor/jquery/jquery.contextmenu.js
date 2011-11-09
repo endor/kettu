@@ -2,17 +2,8 @@
   $.fn.contextMenu = function(options) {
     var menu = $(options.menu);
 
-    menu.click(function(event) {
-      event.stopPropagation();
-    });
-
     $(this).bind('contextmenu', function(event) {
       if(options.onContextMenu) { options.onContextMenu(event); }
-
-      menu.find('li').hover(
-        function() { $(this).addClass('hover'); },
-        function() { $(this).removeClass('hover'); }
-      );
 
       var callback = function() {
           menu.hide();

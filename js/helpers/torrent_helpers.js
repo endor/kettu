@@ -210,6 +210,7 @@ kettu.TorrentHelpers = {
   
   parseRequestFromPutParams: function(params, id) {
     var request;
+
     if(params['method']) {
       request = {
         'method': params['method'],
@@ -238,19 +239,42 @@ kettu.TorrentHelpers = {
         }
       });
     } else {
-      var wanted_files = $.map($('.file:checked'), function(file) {
+      var files = {};
+      
+      files.wanted = $.map($('.file:checked'), function(file) {
         return parseInt($(file).attr('name').split('_')[1], 10);
       });
-      var unwanted_files = $.map($('.file:not(:checked)'), function(file) {
+      
+      files.unwanted = $.map($('.file:not(:checked)'), function(file) {
         return parseInt($(file).attr('name').split('_')[1], 10);
       });
+      
+      files.high = [], files.low = [], files.normal = [];
+      $.each($('.priority_file'), function(idx, priority) {
+        var $priority = $(priority),
+            id = parseInt($priority.attr('data-id').split('_')[1], 10);
+
+        if($priority.val() == "up") {
+          files.high.push(id);
+        } else if($priority.val() == "down") {
+          files.low.push(id);
+        } else {
+          files.normal.push(id);
+        }
+      });
+
       request = {
         'method': 'torrent-set',
-        'arguments': { 'ids': id, 'files-unwanted': unwanted_files }
+        'arguments': { 'ids': id, 'files-unwanted': files.unwanted }
       };
-      if(wanted_files.length > 0) {
-        request['arguments']['files-wanted'] = wanted_files;
+      if(files.wanted.length > 0) {
+        request['arguments']['files-wanted'] = files.wanted;
       }
+      _.each(['high', 'low', 'normal'], function(priority) {
+        if(files[priority].length > 0) {
+          request['arguments']['priority-' + priority] = files[priority];
+        }
+      });
     }
     return request; 
   }

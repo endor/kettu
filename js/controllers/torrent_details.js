@@ -45,10 +45,10 @@ kettu.TorrentDetails = function(transmission) {
     var context = this,
         view = kettu.TorrentView(params.torrent, context, context.params['sort_peers']),
         template = params.torrent.hasError() ? 'show_with_errors' : 'show',
-        partial = 'templates/torrent_details/file.mustache';
+        file_partial = 'templates/torrent_details/file.mustache';
 
     context.render('templates/torrent_details/' + template + '.mustache', view, function(rendered_view) {
       context[params.callback].call(context, rendered_view, params.torrent);
-    }, {file: partial});
+    }, {file: file_partial});
   });
 };

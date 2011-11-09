@@ -80,12 +80,14 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.addIdsToFiles = function() {
     if(view.files) {
       _.each(view.files, function(file) {
-        var id = view.files.indexOf(file);
-        var disabled = view.files[id]['length'] - view.files[id]['bytesCompleted'] === 0;
+        var id = view.files.indexOf(file),
+            disabled = view.files[id]['length'] - view.files[id]['bytesCompleted'] === 0;
+        
         file['id'] = 'file_' + id;
         file['wanted'] = (view.fileStats[id].wanted || disabled) ? ' checked="checked"' : '';
         file['disabled'] = disabled ? ' disabled="disabled"' : '';
       });
+      
       if(view.files.length == 1) {
         view.files[0]['disabled'] = ' disabled="disabled"';
         view.files[0]['wanted'] = ' checked="checked"';
@@ -158,18 +160,11 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   
   view.addPriorityStringToFiles = function() {
     _.each(view.fileStats, function(stat) {
-      var id = view.fileStats.indexOf(stat);
-      switch(stat.priority) {
-        case 0:
-          view.files[id]['priorityArrow'] = 'normal';
-          break;
-        case 1:
-          view.files[id]['priorityArrow'] = 'up';
-          break;
-        case -1:
-          view.files[id]['priorityArrow'] = 'down';
-          break;
-      }
+      var id = view.fileStats.indexOf(stat),
+          arrows = {'0': 'normal', '1': 'up', '-1': 'down'};
+      
+      view.files[id]['priorityArrow'] = arrows[stat.priority.toString()];
+      
       if(view.files[id]['length'] - view.files[id]['bytesCompleted'] === 0) {
         view.files[id]['priorityArrow'] = 'done';
       }

@@ -9,6 +9,7 @@ kettu.TorrentDetailsHelpers = {
     this.startCountDownOnNextAnnounce();
     this.activateInfoInputs(torrent);
     this.activateFileInputs();
+    this.activatePrioritySelects();
     if(this.params['sort_peers']) { $('#menu-item-peers').click(); }
   },
   

@@ -50,6 +50,7 @@ img.priority.compact {
 .file_info img.priority.compact, .folder_info img.priority.compact {
   float: right;
   margin: 5px;
+  cursor: pointer;
 }
 
 .file_info:nth-child(even) {
@@ -72,3 +73,6 @@ img.priority.compact {
   padding-left: 5px;
 }
 
+.torrent {
+  cursor: pointer;
+}
