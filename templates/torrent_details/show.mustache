@@ -142,9 +142,6 @@
 </div>
 
 <div class="item files">
-  {{#show_select_all}}
-    <a href="#" class="select_all">Select All</a> | <a href="#" class="deselect_all">Deselect All</a>
-  {{/show_select_all}}
   <form action="#/torrents/{{id}}" method="PUT" class="file_form">
     <ul class="content files">
       {{#folderless_files}}
@@ -153,6 +150,7 @@
       
       {{#folders}}
         <li>
+          <input type="checkbox" name="{{name}}" id="{{name}}" class="folder-check"{{wanted}}{{disabled}} />
           <a href="#" class="folder">
             <img src="css/images/arrow_right.png" class="arrow" /> {{name}}
           </a><br />
@@ -166,6 +164,9 @@
       {{/folders}}
     </ul>
   </form>
+  {{#show_select_all}}
+    <a href="#" class="select_all">Select All</a> | <a href="#" class="deselect_all">Deselect All</a>
+  {{/show_select_all}}
 </div>
 
 <div class="item preferences">

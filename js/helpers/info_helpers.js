@@ -147,17 +147,19 @@ kettu.InfoHelpers = {
     });
     $('#info .files .select_all').click(function() {
       $('#info .file:not(:disabled)').attr('checked', true);
+      $('#info .folder-check:not(:disabled)').attr('checked', true);
       $('#info .files form').submit();
       return false;
     });
     $('#info .files .deselect_all').click(function() {
-      $('#info .file:not(:disabled)').attr('checked', false);
+      $('#info .file:not(:disabled)').removeAttr('checked');
+      $('#info .folder-check:not(:disabled)').removeAttr('checked');
       $('#info .files form').submit();
       return false;
     });
     $('#info .folder').click(function() {
       $(this).nextAll('.files_in_folders:first').slideToggle();
-      var arrow = $(this).find('.arrow');
+      var arrow = $(this).parent().find('.arrow');
       if(arrow.attr('src').match(/right/)) {
         arrow.attr('src', 'css/images/arrow_down.png');
       } else {
@@ -165,13 +167,22 @@ kettu.InfoHelpers = {
       }
       return false;
     });
+    $('#info .folder-check').click(function() {
+      if($(this).is(':checked')) {
+        $(this).siblings('.files_in_folders').find('input.file').attr('checked', 'checked');        
+      } else {
+        $(this).siblings('.files_in_folders').find('input.file').removeAttr('checked');
+      }
+      $('#info .files form').submit();
+      return true;
+    });
   },
   
   startCountDownOnNextAnnounce: function() {
     var context = this;
     var timer = setInterval(function() {
-      var timestamp = $('.countdown').attr('data-timestamp');
-      var formatted = context.formatNextAnnounceTime(timestamp);
+      var timestamp = $('.countdown').attr('data-timestamp'),
+          formatted = context.formatNextAnnounceTime(timestamp);
       
       if(formatted.match(/59 min/)) {
         clearInterval(timer);

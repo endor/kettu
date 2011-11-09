@@ -96,19 +96,23 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.folderizeFiles = function() {
     view.folderless_files = [];
     view.folders = [];
-    var i = -1;
 
     if(view.files) {
       _.each(view.files, function(file) {
-        var name = file['name'].split('/');
-        if(name.length > 1) { name.shift(); }
+        var name = file['name'].split('/'),
+            i = view.folders.length;
+
+        if(name.length > 1) {
+          name.shift(); 
+        }
+        
         if(name.length == 1) {
           file['name'] = name.join('/');
           view.folderless_files.push(file);
         } else {
           var folder = name.shift();
           file['name'] = name.join('/');
-          
+
           if(view.folders[i] && view.folders[i].name == folder) {
             view.folders[i].files.push(file);
             view.folders[i].lengthFormatted += file.length;
@@ -120,13 +124,18 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
               lengthFormatted: file.length,
               bytesCompleted: file.bytesCompleted
             });
-            i += 1;
           }
         }
       });
+
       _.each(view.folders, function(folder) {
+        var wantedFiles = _.select(folder.files, function(file) { return !_.isEmpty(file.wanted); }).length,
+            completeFiles = _.select(folder.files, function(file) { return !_.isEmpty(file.disabled); }).length;
+        
         folder.percentDone = Math.formatPercent(folder.lengthFormatted, folder.lengthFormatted - folder.bytesCompleted);
         folder.lengthFormatted = Math.formatBytes(folder.lengthFormatted);
+        folder.wanted = wantedFiles > 0 ? ' checked="checked"' : '';
+        folder.disabled = completeFiles === folder.files.length ? ' disabled="disabled"' : '';
       });
     }
   };
