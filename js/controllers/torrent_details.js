@@ -5,7 +5,7 @@ kettu.TorrentDetails = function(transmission) {
     switch(active_torrents.length) {
       case 0:
         context.render('templates/torrent_details/no_torrents_selected.mustache', {}, function(view) {
-          context.openInfo(view);
+          context.openInfo(view, 'details');
         });
         break;
       case 1:

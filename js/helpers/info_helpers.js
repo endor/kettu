@@ -4,13 +4,14 @@ kettu.InfoHelpers = {
     this.saveLastMenuItem($('.menu-item.active'));
     $('.main').removeClass('info');
     $('#info').hide();
+    $('.info_nav a').removeClass('active');
     this.redirect('#/torrents');
     return false;
   },
 
   openInfo: function(view, clazz) {
     var info = $('#info'),
-      context = this;
+        context = this;
 
     info.html(view);
     // NOTE: if there's a way in CSS to fix this without using JS, that'd be preferable
@@ -28,6 +29,9 @@ kettu.InfoHelpers = {
     info.show();
     $('.main').addClass('info');
     this.menuizeInfo();
+
+    $('.info_nav a').removeClass('active');
+    $('.info_nav a.' + clazz + '-link').addClass('active');
 
     if(clazz) { info.addClass(clazz); }
   },

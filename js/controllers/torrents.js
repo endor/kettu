@@ -13,7 +13,7 @@ kettu.Torrents = function(transmission) {
     
   transmission.get('#/torrents/new', function(context) {
     this.render('templates/torrents/new.mustache', {}, function(rendered_view) {
-      context.openInfo(rendered_view);
+      context.openInfo(rendered_view, 'new');
     });
   });
   

@@ -97,14 +97,14 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
     view.folderless_files = [];
     view.folders = [];
     var i = -1;
-    
+
     if(view.files) {
       _.each(view.files, function(file) {
         var name = file['name'].split('/');
         if(name.length > 1) { name.shift(); }
         if(name.length == 1) {
           file['name'] = name.join('/');
-          view.folderless_files.push(this);
+          view.folderless_files.push(file);
         } else {
           var folder = name.shift();
           file['name'] = name.join('/');

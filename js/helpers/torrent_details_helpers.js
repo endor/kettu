@@ -5,7 +5,7 @@ kettu.TorrentDetailsHelpers = {
   },
   
   renderTorrentDetailsInView: function(rendered_view, torrent) {
-    this.openInfo(rendered_view);
+    this.openInfo(rendered_view, 'details');
     this.startCountDownOnNextAnnounce();
     this.activateInfoInputs(torrent);
     this.activateFileInputs();
@@ -34,7 +34,7 @@ kettu.TorrentDetailsHelpers = {
     if(torrents.length === 0) {
       var view = kettu.TorrentDetailsView(accumulation);
       context.render('templates/torrent_details/index.mustache', view, function(rendered_view) {
-        context.openInfo(rendered_view);
+        context.openInfo(rendered_view, 'details');
         if(kettu.app.last_menu_item) { $('#' + kettu.app.last_menu_item).click(); }
       });      
     } else {
