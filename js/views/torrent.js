@@ -127,17 +127,33 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
           }
         }
       });
-
-      _.each(view.folders, function(folder) {
-        var wantedFiles = _.select(folder.files, function(file) { return !_.isEmpty(file.wanted); }).length,
-            completeFiles = _.select(folder.files, function(file) { return !_.isEmpty(file.disabled); }).length;
-        
-        folder.percentDone = Math.formatPercent(folder.lengthFormatted, folder.lengthFormatted - folder.bytesCompleted);
-        folder.lengthFormatted = Math.formatBytes(folder.lengthFormatted);
-        folder.wanted = wantedFiles > 0 ? ' checked="checked"' : '';
-        folder.disabled = completeFiles === folder.files.length ? ' disabled="disabled"' : '';
-      });
     }
+  };
+  
+  view.formatFolders = function() {
+    _.each(view.folders, function(folder) {
+      var wantedFiles = 0, completeFiles = 0, highPriorityFiles = 0, lowPriorityFiles = 0;
+      
+      _.each(folder.files, function(file) {
+        if(!_.isEmpty(file.wanted)) { wantedFiles += 1; }
+        if(!_.isEmpty(file.disabled)) { completeFiles += 1; }
+        if(file.priorityArrow == "up") { highPriorityFiles += 1; }
+        if(file.priorityArrow == "down") { lowPriorityFiles += 1; }
+      });
+      
+      folder.percentDone = Math.formatPercent(folder.lengthFormatted, folder.lengthFormatted - folder.bytesCompleted);
+      folder.lengthFormatted = Math.formatBytes(folder.lengthFormatted);
+      folder.wanted = wantedFiles > 0 ? ' checked="checked"' : '';
+      folder.disabled = completeFiles === folder.files.length ? ' disabled="disabled"' : '';
+      
+      if(highPriorityFiles === folder.files.length) {
+        folder.priorityArrow = "up";
+      } else if(lowPriorityFiles === folder.files.length) {
+        folder.priorityArrow = "down";
+      } else {
+        folder.priorityArrow = "normal";
+      }
+    });
   };
   
   view.addPriorityStringToFiles = function() {
@@ -197,6 +213,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.sanitizeNumbers();
   view.addIdsToFiles();
   view.folderizeFiles();
+  view.formatFolders();
   view.loadLocations();
 
   return view;

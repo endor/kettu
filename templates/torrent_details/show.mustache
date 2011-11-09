@@ -149,11 +149,13 @@
       {{/folderless_files}}
       
       {{#folders}}
-        <li>
-          <input type="checkbox" name="{{name}}" id="{{name}}" class="folder-check"{{wanted}}{{disabled}} />
+        <li class="folder_info">
           <a href="#" class="folder">
             <img src="css/images/arrow_right.png" class="arrow" /> {{name}}
-          </a><br />
+          </a>
+          <img src="css/images/priority_{{priorityArrow}}_small.png" class="priority compact" />
+          <input type="checkbox" name="{{name}}" id="{{name}}" class="folder-check"{{wanted}}{{disabled}} />
+          <br />
           <span class="percent_done">{{percentDone}}% of {{lengthFormatted}}</span>
           <ul class="files_in_folders">
             {{#files}}

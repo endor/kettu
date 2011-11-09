@@ -47,14 +47,28 @@ img.priority.compact {
   padding: 0px;
 }
 
-.file_info img.priority.compact {
+.file_info img.priority.compact, .folder_info img.priority.compact {
   float: right;
+  margin: 5px;
 }
 
 .file_info:nth-child(even) {
   background-color: #F9F9F9;
 }
 
+.file_info span {
+  margin-left: 20px;
+}
+
+.files input.file {
+  float: right;
+}
+
+.files input.folder-check {
+  float: right;
+}
+
 #context_menu .delete .facebox_link {
   padding-left: 5px;
 }
+
