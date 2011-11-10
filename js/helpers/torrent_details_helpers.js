@@ -20,8 +20,21 @@ kettu.TorrentDetailsHelpers = {
       $('#info ' + clazz).html(rendered_view.find(clazz).html());
     });
     
+    var updateFields = function(checkbox, field) {
+      checkbox.siblings('.percent_done').html($(field).siblings('.percent_done').html());
+      checkbox.siblings('.priority_hidden').replaceWith($(field).siblings('.priority_hidden'));
+      checkbox.siblings('img.priority').attr('src', $(field).siblings('img.priority').attr('src'));
+      checkbox.attr('checked', $(field).attr('checked'));      
+    };
+    
     $.each(rendered_view.find('.file'), function(idx, file) {
-      $('#info #' + $(file).attr('id')).siblings('.percent_done').html($(file).siblings('.percent_done').html());
+      var checkbox = $('#info #' + $(file).attr('id'));
+      updateFields(checkbox, file);
+    });
+    
+    $.each(rendered_view.find('.folder-check'), function(idx, folder) {
+      var checkbox = $('#info .folder-check[name="' + $(folder).attr('name') + '"]');
+      updateFields(checkbox, folder);
     });
     
     this.startCountDownOnNextAnnounce();
