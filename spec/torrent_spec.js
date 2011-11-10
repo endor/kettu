@@ -1,44 +1,44 @@
 describe 'Torrent'
   describe 'isActive'
     it 'should be true when the torrent is seeding'
-      var seeding = kettu.Torrent({}).stati['seeding'];
+      var seeding = kettu.Torrent.stati['seeding'];
       kettu.Torrent({status: seeding}).isActive().should.be_true;
     end
     
     it 'should be true when the torrent is downloading'
-      var downloading = kettu.Torrent({}).stati['downloading'];
+      var downloading = kettu.Torrent.stati['downloading'];
       kettu.Torrent({status: downloading}).isActive().should.be_true;
     end
     
     it 'should be false when the torrent is waiting for check'
-      var waiting_for_check = kettu.Torrent({}).stati['waiting_to_check'];
+      var waiting_for_check = kettu.Torrent.stati['waiting_to_check'];
       kettu.Torrent({status: waiting_for_check}).isActive().should.be_false;
     end
     
     it 'should be false when the torrent is checking'
-      var checking = kettu.Torrent({}).stati['checking'];
+      var checking = kettu.Torrent.stati['checking'];
       kettu.Torrent({status: checking}).isActive().should.be_false;
     end
     
     it 'should be false when the torrent is paused'
-      var paused = kettu.Torrent({}).stati['paused'];
+      var paused = kettu.Torrent.stati['paused'];
       kettu.Torrent({status: paused}).isActive().should.be_false;
     end
   end
   
   describe 'isDoneDownloading'
     it 'should be true when the status is seeding even if leftUntilDone is great than 0'
-      var seeding = kettu.Torrent({}).stati['seeding'];
+      var seeding = kettu.Torrent.stati['seeding'];
       kettu.Torrent({status: seeding, leftUntilDone: 1000}).isDoneDownloading().should.be_true;
     end
     
     it 'should be true when leftUntilDone is 0'
-      var paused = kettu.Torrent({}).stati['paused'];
+      var paused = kettu.Torrent.stati['paused'];
       kettu.Torrent({status: paused, leftUntilDone: 0}).isDoneDownloading().should.be_true;
     end
     
     it 'should be true when leftUntilDone is 0'
-      var paused = kettu.Torrent({}).stati['paused'];
+      var paused = kettu.Torrent.stati['paused'];
       kettu.Torrent({status: paused, leftUntilDone: 1000}).isDoneDownloading().should.be_false;
     end
   end
@@ -91,48 +91,48 @@ describe 'Torrent'
   
   describe 'statusString'
     it 'should contain a human readable status'
-      kettu.Torrent({status: kettu.Torrent({}).stati['checking']}).statusString().should.match(/Verifying local data/);
+      kettu.Torrent({status: kettu.Torrent.stati['checking']}).statusString().should.match(/Verifying local data/);
     end
     
     it 'should contain the up and download speed'
-      var torrent = kettu.Torrent({status: kettu.Torrent({}).stati['downloading'], rateUpload: 10000, rateDownload: 10000, leftUntilDone: 10});
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['downloading'], rateUpload: 10000, rateDownload: 10000, leftUntilDone: 10});
       torrent.statusString().should.match(/DL: 10.0 KB\/s, UL: 10.0 KB\/s/);
     end
     
     it 'should not contain the download speed when torrent is seeding'
-      var torrent = kettu.Torrent({status: kettu.Torrent({}).stati['seeding'], rateUpload: 10000, rateDownload: 10000});
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['seeding'], rateUpload: 10000, rateDownload: 10000});
       torrent.statusString().should_not.match(/DL: 10.0 KB\/s/);
     end
     
     it 'should not contain up and download speed when torrent is not active'
-      var torrent = kettu.Torrent({status: kettu.Torrent({}).stati['paused'], rateUpload: 10000, rateDownload: 10000});
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['paused'], rateUpload: 10000, rateDownload: 10000});
       torrent.statusString().should_not.match(/DL: 10.0 KB\/s, UL: 10.0 KB\/s/);
     end
   end
   
   describe 'progressBar'
     it 'should add class downloading if it\'s a downloading torrent'
-      var torrent = kettu.Torrent({status: kettu.Torrent({}).stati['downloading'], metadataPercentComplete: 1});
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['downloading'], metadataPercentComplete: 1});
       torrent.progressBar().should.match(/downloading/);
     end
 
     it 'should add class uploading if it\'s a seeding torrent'
-      var torrent = kettu.Torrent({status: kettu.Torrent({}).stati['seeding'], metadataPercentComplete: 1});
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['seeding'], metadataPercentComplete: 1});
       torrent.progressBar().should.match(/uploading/);
     end
     
     it 'should add class paused if it\'s a paused torrent'
-      var torrent = kettu.Torrent({status: kettu.Torrent({}).stati['paused'], metadataPercentComplete: 1});
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['paused'], metadataPercentComplete: 1});
       torrent.progressBar().should.match(/paused/);
     end
     
     it 'should add class meta if it\'s a torrent retrieving meta data'
-      var torrent = kettu.Torrent({status: kettu.Torrent({}).stati['downloading'], metadataPercentComplete: 0});
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['downloading'], metadataPercentComplete: 0});
       torrent.progressBar().should.match(/meta/);
     end
     
     it 'should fill the whole progressbar if it\'s retrieving meta data'
-      var torrent = kettu.Torrent({status: kettu.Torrent({}).stati['downloading'], metadataPercentComplete: 0});
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['downloading'], metadataPercentComplete: 0});
       torrent.progressBar().should.match(/100%/);
     end
   end

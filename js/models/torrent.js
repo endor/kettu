@@ -1,5 +1,5 @@
 kettu.Torrent = function(attributes) {
-  var torrent = {};
+  var torrent = {}, stati = kettu.Torrent.stati;
 
   torrent['fields'] = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
@@ -28,10 +28,10 @@ kettu.Torrent = function(attributes) {
     return torrent.isPrivate ? 'Private Torrent' : 'Public Torrent';
   };
   torrent.isActive = function() {
-    return [torrent.stati['downloading'], torrent.stati['seeding']].indexOf(torrent.status) >= 0;
+    return [stati['downloading'], stati['seeding']].indexOf(torrent.status) >= 0;
   };
   torrent.isDoneDownloading = function() {
-    return torrent.status === torrent.stati['seeding'] || torrent.leftUntilDone === 0;
+    return torrent.status === stati['seeding'] || torrent.leftUntilDone === 0;
   };
   torrent.isVerifying = function() {
     return torrent.status == 1 || torrent.status == 2;
@@ -109,13 +109,13 @@ kettu.Torrent = function(attributes) {
   torrent.statusStringLocalized = function(status) {
     var localized_stati = {};
     
-    localized_stati[torrent.stati['paused']] = 'Paused';
-    localized_stati[torrent.stati['waiting_to_check']] = 'Waiting to verify';
-    localized_stati[torrent.stati['checking']] = 'Verifying local data';
-    localized_stati[torrent.stati['downloading']] = 'Downloading';
-    localized_stati[torrent.stati['waiting_to_download']] = 'Waiting to download';
-    localized_stati[torrent.stati['waiting_to_seed']] = 'Waiting to seed';
-    localized_stati[torrent.stati['seeding']] = 'Seeding';
+    localized_stati[stati['paused']] = 'Paused';
+    localized_stati[stati['waiting_to_check']] = 'Waiting to verify';
+    localized_stati[stati['checking']] = 'Verifying local data';
+    localized_stati[stati['downloading']] = 'Downloading';
+    localized_stati[stati['waiting_to_download']] = 'Waiting to download';
+    localized_stati[stati['waiting_to_seed']] = 'Waiting to seed';
+    localized_stati[stati['seeding']] = 'Seeding';
 
     return localized_stati[this['status']] ? localized_stati[this['status']] : 'Error';
   };
@@ -138,8 +138,8 @@ kettu.Torrent = function(attributes) {
     return currentStatus;
   };
   torrent.statusWord = function() {
-    for(var i in torrent.stati) {
-      if(torrent.stati[i] == torrent.status) { return i; }
+    for(var i in stati) {
+      if(stati[i] == torrent.status) { return i; }
     }
   };
   torrent.uploadRateString = function(uploadRate) {
@@ -151,16 +151,16 @@ kettu.Torrent = function(attributes) {
   torrent.activity = function() {
     return torrent.rateDownload + torrent.rateUpload;
   };
-  
-  torrent['stati'] = {
-    'paused': 0,
-    'waiting_to_check': 1,
-    'checking': 2,
-    'waiting_to_download': 3,
-    'downloading': 4,
-    'waiting_to_seed': 5,
-    'seeding': 6
-  };
 	
   return torrent;
+};
+
+kettu.Torrent.stati = {
+  'paused': 0,
+  'waiting_to_check': 1,
+  'checking': 2,
+  'waiting_to_download': 3,
+  'downloading': 4,
+  'waiting_to_seed': 5,
+  'seeding': 6
 };
