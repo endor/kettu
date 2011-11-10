@@ -184,6 +184,8 @@ kettu.InfoHelpers = {
           hiddenPriority = $(this).siblings('input.priority_hidden:first'),
           newPriority;
 
+      if(hiddenPriority.val() == 'done') { return false; }
+
       var callback = function() {
           menu.hide();
           menu.find('a').unbind('click');
@@ -197,7 +199,7 @@ kettu.InfoHelpers = {
       menu.find('a').click(function(evt) {
         evt.preventDefault();
         newPriority = $(this).attr('data-priority');
-        
+
         if(hiddenPriority.hasClass('priority_file')) {
           hiddenPriority.val(newPriority);
         } else if(hiddenPriority.hasClass('priority_folder')) {

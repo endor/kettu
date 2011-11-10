@@ -37,19 +37,11 @@ ul#sorts {
 }
 
 img.priority {
-  margin: 0px;
-  margin-left: 10px;
-  padding: 0px;
-}
-
-img.priority.compact {
-  margin: 0px;
-  padding: 0px;
-}
-
-.file_info img.priority.compact, .folder_info img.priority.compact {
   float: right;
-  margin: 5px;
+  margin: 5px;  
+}
+
+img.priority.up, img.priority.normal, img.priority.down {
   cursor: pointer;
 }
 
