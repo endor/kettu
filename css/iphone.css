@@ -5,6 +5,8 @@ body {
   color: #444;
   background: url("images/kettu_bg.png") repeat-y 50% 0;
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -221,6 +223,8 @@ nav ul.icon_nav li a:hover {
   -o-transition-timing-function: linear, ease-in;
   font-size: 16px;
   position: relative;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .torrent h3 {
@@ -318,6 +322,14 @@ nav ul.icon_nav li a:hover {
 .torrent .statusString {
   clear: both;
   color: #999;
+}
+
+.torrent .statusString.error {
+  color: red;
+  border: 0px;
+  padding: 0px;
+  background-color: white;
+  margin: 0px;
 }
 
 .torrent .progressDetails {
@@ -990,4 +1002,8 @@ ul#sorts li a {
 #install-wrapper em {
   color: #fff;
   white-space: nowrap;
+}
+
+.mobile-error {
+  color: #8a1f11;
 }

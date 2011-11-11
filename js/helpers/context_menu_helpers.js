@@ -7,8 +7,10 @@ kettu.ContextMenuHelpers = {
     if(kettu.app.mobile) {
       var context = this;
 
-      $('.torrent').live('taphold', function(event) {
+      $('.torrent').live('swipeleft', function(event) {
         var torrent = $(this);
+        
+        $('#taphold_menu').remove();
 
         if($('.torrent.active').length === 0) {
           context.highlightTorrents(torrent);
@@ -26,6 +28,15 @@ kettu.ContextMenuHelpers = {
           $('li.delete').live('click', function(event) {
             $('#taphold_menu').html($('#delete_form').html());
             event.preventDefault();
+          });
+          
+          $('.inspector').unbind('click');
+          $('.inspector').tap(function() {
+            context.redirect('#/torrent_details/' + data.id);
+          });
+          
+          $(document).one('tap', function() {
+            $('#taphold_menu').remove();
           });
         });
       });      

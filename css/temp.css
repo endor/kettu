@@ -10,6 +10,10 @@
   margin: 0px;
 }
 
+.compact .statusString.error {
+  margin-left: 65px;
+}
+
 .files_in_folders {
   display: none;
   margin-left: 10px;
@@ -67,4 +71,10 @@ img.priority.up, img.priority.normal, img.priority.down {
 
 .torrent {
   cursor: pointer;
+}
+
+.torrent.error {
+  border: 0px;
+  border-bottom: solid 1px #dddddd;
+  color: #444444;  
 }

@@ -1,4 +1,4 @@
-<li id="{{id}}" class="torrent {{statusWord}} compact" data-tracker="{{firstTracker}}">
+<li id="{{id}}" class="torrent {{statusWord}} {{mobileError}} compact" data-tracker="{{firstTracker}}">
   <div class="progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all">
     {{{progressBar}}} 
   </div>
@@ -9,8 +9,19 @@
     {{/showPriorityArrow}}
   </div>
   
-  <div class="statusString{{errorClass}}">{{statusString}}</div>
-  <div class="buttons">
-    <div class="pauseAndActivateButton">{{{pauseAndActivateButton}}}</div>
-  </div>    
+  {{^hasError}}
+    <div class="statusString{{errorClass}}">{{statusString}}</div>
+    <div class="buttons">
+      <div class="pauseAndActivateButton">{{{pauseAndActivateButton}}}</div>
+    </div>    
+  {{/hasError}}
+  
+  {{#hasError}}
+    <div class="buttons">
+      <div class="pauseAndActivateButton">{{{pauseAndActivateButton}}}</div>
+    </div>
+    {{^isMobile}}
+      <div class="statusString{{errorClass}}">{{statusString}}</div>
+    {{/isMobile}}
+  {{/hasError}}
 </li>

@@ -25,13 +25,21 @@ kettu.TorrentsView = function(torrent, context) {
     return view.hasError() ? ' error' : '';
   };
   
+  view.isMobile = function() {
+    return !!kettu.app.mobile;
+  };
+  
+  view.mobileError = function() {
+    return (view.isMobile() && view.hasError()) ? 'mobile-error' : '';
+  };
+  
   view.showPriorityArrow = function() {
     return torrent.bandwidthPriority != 0;
-  }
+  };
   
   view.priorityArrow = function() {
     return torrent.bandwidthPriority == 1 ? 'up' : 'down';
-  }
+  };
   
   view.cachePartial = context.cachePartial;
 
