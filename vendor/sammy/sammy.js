@@ -1182,6 +1182,7 @@
       path  = $form.attr('action');
       verb  = this._getFormVerb($form);
       this.log('_checkFormSubmission', $form, path, verb);
+
       if (verb === 'get') {
         this.setLocation(path + '?' + this._serializeFormParams($form));
         returned = false;

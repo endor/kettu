@@ -50,7 +50,7 @@ kettu.Torrents = function(transmission) {
   transmission.put('#/torrents/:id', function(context) {
     var id = parseInt(context.params['id'], 10),
         request = context.parseRequestFromPutParams(context.params, id);
-    
+
     context.remoteQuery(request, function(response) {
       if(request['method'].match(/torrent-set/)) {
         kettu.app.trigger('flash', 'Torrent updated successfully.');

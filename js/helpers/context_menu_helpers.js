@@ -10,6 +10,7 @@ kettu.ContextMenuHelpers = {
       $('.torrent').live('swipeleft', function(event) {
         var torrent = $(this);
         
+        event.preventDefault();
         $('#taphold_menu').remove();
 
         if($('.torrent.active').length === 0) {
@@ -35,8 +36,13 @@ kettu.ContextMenuHelpers = {
             context.redirect('#/torrent_details/' + data.id);
           });
           
+          $('#taphold_menu input[type="submit"]').tap(function(evt) {
+            $(this).parents('form:first').submit();
+            evt.preventDefault();
+          });
+          
           $(document).one('tap', function() {
-            $('#taphold_menu').remove();
+            $('#taphold_menu').remove();  
           });
         });
       });      
