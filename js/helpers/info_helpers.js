@@ -61,39 +61,41 @@ kettu.InfoHelpers = {
   
   // NOTE: make this smaller and more readable
   handleClickOnTorrent: function(torrent) {
-    var context = this;
-    $('#' + torrent.id).click(function(e) {
-      // NOTE: safari does not stop propagation on a context menu event, that means
-      //       a click event is fired also
-      if($('#context_menu').is(':visible')) { $('#context_menu').hide(); return false; }
-      
-      if(e.shiftKey && $('.torrent.active').length >= 1) {
-        var first_index = $('.torrent.active:first').index();
-        var last_index = $('.torrent').index($(this));
+    if(!kettu.app.mobile) {
+      var context = this;
+      $('#' + torrent.id).click(function(e) {
+        // NOTE: safari does not stop propagation on a context menu event, that means
+        //       a click event is fired also
+        if($('#context_menu').is(':visible')) { $('#context_menu').hide(); return false; }
 
-        if(first_index > last_index) {
-          first_index = last_index;
-          last_index = $('.torrent.active:last').index();
+        if(e.shiftKey && $('.torrent.active').length >= 1) {
+          var first_index = $('.torrent.active:first').index();
+          var last_index = $('.torrent').index($(this));
+
+          if(first_index > last_index) {
+            first_index = last_index;
+            last_index = $('.torrent.active:last').index();
+          }
+
+          var torrents = $('.torrent:lt(' + (last_index + 1) + ')');
+          if(first_index > 0) { torrents = torrents.filter(':gt(' + (first_index - 1) + ')'); }
+
+          context.highlightTorrents(torrents);
+          if(context.infoIsOpen()) { context.redirect('#/torrent_details'); }
+          $('#search').focus();          
+        } else if(e.metaKey && $('.torrent.active').length >= 1) {
+          $(this).toggleClass('active');
+          if(context.infoIsOpen()) { context.redirect('#/torrent_details'); }
+        } else {
+          context.highlightTorrents($(this));
+          if(context.infoIsOpen()) {
+            context.saveLastMenuItem($('.menu-item.active'));
+            window.location = '#/torrent_details/' + $(this).attr('id');
+            // NOTE: a redirect seems to interfere with our double click handling here
+          }        
         }
-
-        var torrents = $('.torrent:lt(' + (last_index + 1) + ')');
-        if(first_index > 0) { torrents = torrents.filter(':gt(' + (first_index - 1) + ')'); }
-
-        context.highlightTorrents(torrents);
-        if(context.infoIsOpen()) { context.redirect('#/torrent_details'); }
-        $('#search').focus();          
-      } else if(e.metaKey && $('.torrent.active').length >= 1) {
-        $(this).toggleClass('active');
-        if(context.infoIsOpen()) { context.redirect('#/torrent_details'); }
-      } else {
-        context.highlightTorrents($(this));
-        if(context.infoIsOpen()) {
-          context.saveLastMenuItem($('.menu-item.active'));
-          window.location = '#/torrent_details/' + $(this).attr('id');
-          // NOTE: a redirect seems to interfere with our double click handling here
-        }        
-      }
-    });
+      });      
+    }
   },
 
   updateInfo: function(torrent) {

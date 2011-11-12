@@ -1,12 +1,13 @@
 body {
   margin: 0px;
   padding: 0px;
-  font-size: 62.5%; /* 10px */
+  font-size: 10px;
   color: #444;
   background: url("images/kettu_bg.png") repeat-y 50% 0;
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   overflow-x: hidden;
-  width: 100%;
+  overflow-y: visible;
+  width: 320px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,58 +34,14 @@ h3 {
   display: none;
 }
 
-/* structure */
 header, 
 footer {
-  position: fixed;
-  height: 2em;
-  width: 100%;
-  line-height: 2;
-  z-index: 10;
-}
-
-header {
   display: none;
 }
 
 .container {
-/*  margin-top: 30px;*/
-  overflow: visible;
-}
-
-footer {
-  display: none;
-  background-color: #555;
-  border-top: 1px solid #555;
-  border-bottom: 1px solid #999;
-  left: 0;
-  right: 0;
-  top: 0;
-  position: fixed;
-  box-shadow: 0 -10px 10px rgba(0,0,0,.1);
-  -webkit-box-shadow: 0 -10px 10px rgba(0,0,0,.1);
-  -moz-box-shadow: 0 -10px 10px rgba(0,0,0,.1);
-  height: 30px;
-}
-
-footer nav {
-  margin: 0 auto;
-  padding: 0;
-}
-
-footer nav ul {
-  margin: 0;
-  padding: 0;
-}
-
-/* bottom navigation */
-nav ul {
-  list-style: none;
-}
-nav ul li {
-  display: inline;
-  list-style: none;
-  height: 30px;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 #add_a_torrent {
@@ -95,105 +52,9 @@ nav ul li {
   display: none;
 }
 
-nav ul li a {
-  height: 30px;
-  font-size: 13px;
-  float: left;
-  display: block;
-  color: #DDD;
-  text-shadow: 1px 1px 1px #000;
-  text-decoration: none;
-  text-align: center;
-  padding: 0 2em;
-  border-right: 1px solid #444;
-  border-left: 1px solid #666;
-  -webkit-transition-property: color, background-color;
-  -webkit-transition-duration: 0.4s, 0.1s;
-  -webkit-transition-timing-function: linear, ease-in;
-  -moz-transition-property: color, background-color;
-  -moz-transition-duration: 0.4s, 0.1s;
-  -moz-transition-timing-function: linear, ease-in;
-  -o-transition-property: color, background-color;
-  -o-transition-duration: 0.4s, 0.1s;
-  -o-transition-timing-function: linear, ease-in;
-}
-nav ul li a.active,
-nav ul li a:focus,
-nav ul li a:hover {
-  color: #FFF;
-  background-color: #333;
-  border-right: 1px solid #111;
-  border-left: 1px solid #777;
-  outline: none;
-}
 
-/* bottom nav, toggles info window */
-.info_nav {
-}
-
-/* bottom nav, toggles compact view and speed limit mode */
-.icon_nav {
-  display: none; 
-}
-
-nav ul.icon_nav li a {
-  width: 40px;
-  padding: 0;
-  text-indent: -9999px;
-  background-image: url(images/kettu_icons.png);
-  background-repeat: no-repeat;
-}
-
-nav ul.icon_nav li a.active,
-nav ul.icon_nav li a:focus,
-nav ul.icon_nav li a:hover {
-
-}
-
-/* icons for bottom nav */
-#compact_view {
-  background-position: -32px 0;
-}
-
-#compact_view.active,
-#compact_view:hover,
-#compact_view:focus {
-  background-position: -32px -41px;
-}
-
-#speed_limit_mode {
-  background-position: 10px 0;
-}
-
-#speed_limit_mode.active,
-#speed_limit_mode:hover,
-#speed_limit_mode:focus {
-  background-position: 10px -41px;
-}
-
-#start_all {
-  background-position: -145px 0;
-}
-
-#stop_all {
-  background-position: -115px 0;
-}
-
-
-/* flash */
 #flash {
   display: none;
-  position: fixed;
-  top: 1em;
-  right: 1em;
-  padding: 1em;
-  font-weight: bold;
-  color: #FFF;
-  background-color: #444;
-  background-color: rgba(0,0,0,0.7);
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
 }
 
 #globalUpAndDownload {
@@ -202,16 +63,14 @@ nav ul.icon_nav li a:hover {
 
 .torrent:nth-child(odd) {
   background-color: #FFF;
-  overflow: hidden;
 }
 
 .torrent:nth-child(even) {
   background-color: #FAFAFA;
-  overflow: hidden;
 }
 
 .torrent {
-  height: 40px;
+  height: 45px;
   -webkit-transition-property: background;
   -webkit-transition-duration: 0.4s, 0.1s;
   -webkit-transition-timing-function: linear, ease-in;
@@ -223,8 +82,8 @@ nav ul.icon_nav li a:hover {
   -o-transition-timing-function: linear, ease-in;
   font-size: 16px;
   position: relative;
-  overflow-x: hidden;
-  width: 100%;
+  overflow: hidden;
+  width: 320px;
 }
 
 .torrent h3 {
@@ -275,43 +134,15 @@ nav ul.icon_nav li a:hover {
   background: url(jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x;
 }
 
-/* torrent control buttons */
 .buttons {
-  display: none;
+  float: right;
+  margin-right: 15px;
 }
 
 .buttons form {
   display: inline;
 }
 
-.buttons input[type='submit'],
-.buttons a {
-  float: left;
-  display: block;
-  width: 15px;
-  height: 15px;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.buttons .pauseAndActivateButton {
-  float: left;
-  display: block;
-  margin-right: 1em;
-  color: transparent;
-  background-color: transparent;
-  border: 0;
-}
-
-.pauseAndActivateButton.paused {
-  background: transparent url(images/control_play.png) no-repeat;
-}
-
-.pauseAndActivateButton.downloading, .pauseAndActivateButton.seeding {
-  background: transparent url(images/control_pause.png) no-repeat;
-}
 
 .deleteButton {
   color: transparent;
@@ -338,164 +169,36 @@ nav ul.icon_nav li a:hover {
   color: #555;
 }
 
-/* filterbar */
+.compact .progressbar {
+  width: 300px;
+  position: absolute;
+  bottom: 3px;
+}
+
+.compact .name {
+  float: left;
+  width: 220px;
+  height: 21px;
+  overflow: hidden;
+}
+
+.compact .statusString {
+  display: none;
+}
+
+
+.ui-btn-up-d {
+  padding: 5px;
+}
+
+
+
+
+
 #filterbar {
   display: none;
 }
 
-#filterbar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#filterbar > ul {
-  display: inline-block;
-}
-
-#filterbar ul li {
-  display: block;
-  float: left;
-  list-style: none;
-}
-
-
-/* sorts dropdown menu */
-.sorts_dropdown {
-  padding-left: 310px;
-}
-
-.sorts_dropdown > a {
-  width: 80px;
-  margin: 0;
-  padding: 0;
-  display: block;
-}
-
-.sorts_dropdown > a:hover,
-.sorts_dropdown > a:active,
-.sorts_dropdown > a:focus {
-  background: 0;
-}
-
-ul#sorts {
-  width: 100px;
-  position: absolute;
-  display: block;
-/*  display: none; */
-  background-color: #FFF;
-  background-color: rgba(255,255,255,.9);
-  padding: 0px;
-  border: 1px solid #BBB;
-  list-style-type: none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,.1);
-  -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1);
-  -moz-box-shadow: 0 0 5px rgba(0,0,0,.1);
-}
-
-ul#sorts li {
-  display: block;
-  float: none;
-  padding: 0;
-  border-bottom: solid 1px #DDD;
-}
-ul#sorts li:hover {
-  background-color: #CCC;
-}
-ul#sorts li a {
-  display: block;
-  cursor: pointer;
-}
-
-#filterbar a {
-  display: inline-block;
-  margin-right: 4px;
-  padding: 0 .6em;
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  color: #444;
-  text-decoration: none;
-}
-
-#filterbar a:focus,
-#filterbar a:hover,
-#filterbar a.active {
-  color: #FFF;
-  text-shadow: 1px 1px 2px #000;
-  background-color: #CCC;
-  outline: none;
-}
-
-#filterbar a.active {
-  background-color: #999;
-}
-
-#filterbar #filter_sort_links {
-  width: 730px;
-  float: left;
-}
-
-#filterbar a#sort_link {
-  background: none;
-  width: 95px;
-}
-
-#filterbar a#sort_link:hover,
-#filterbar a#sort_link:active,
-#filterbar a#sort_link:focus {
-  color: #000;
-  text-shadow: none;
-}
-
-
-#filterbar #search_filter {
-  width: 140px;
-  float: right;
-  text-align: right;
-  padding: 0;
-  margin: 0;
-}
-
-#filterbar input {
-  margin: 0;
-  padding: 3px 10px;
-  border: 1px solid #999;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  font-size: 1em;
-}
-
-#filterbar input:focus {
-  outline: none;
-}
-
-/* reverse link, triangle */
-#reverse_link {
-  width: 12px;
-  padding: 0;
-  text-indent: -9999px;
-  background-image: url(images/kettu_icons.png);
-  background-repeat: no-repeat;
-  background-position: -100px 2px;
-}
-
-#reverse_link.reverse {
-  background-position: -77px 2px;
-}
-
-#reverse_link.active,
-#reverse_link:hover,
-#reverse_link:focus {
-  background-position-y: -40px;
-}
-
-
-/* torrents list */
 #torrents {
   width: 100% !important;  
   padding: 0px;
@@ -504,7 +207,8 @@ ul#sorts li a {
 
 .main {
   position: relative;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .main.info {
@@ -516,9 +220,10 @@ ul#sorts li a {
   width: 550px !important;
   min-height: 10px;
   float: left;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
-/* torrents list container */
+
 
 #torrents li {
   display: block;
@@ -529,7 +234,6 @@ ul#sorts li a {
   padding: 3px 10px;
 }
 
-/* info */
 #info {
   float: left;
   padding: 5px;
@@ -777,29 +481,19 @@ ul#sorts li a {
   overflow: hidden;
 }
 
-.progressbar {
-  width: 92%;
-}
-
 .ui-progressbar {
   margin: 4px 4px 4px 0;
 }
 
-/* compact view */
-.compact .progressbar {
-  width: 300px;
-  display: inline-block;
-  position: absolute;
-  bottom: 3px;
-}
 
-.compact .name {
-  display: inline-block;  
-}
 
-.compact .statusString {
-  display: inline-block;
-}
+
+
+
+
+
+
+
 
 #data {
   display: none;
@@ -814,67 +508,11 @@ ul#sorts li a {
   font-size: 80%;
 }
 
-/* context menu */
+
 #context_menu {
   display: none;
-  position: absolute;
-  z-index: 1000;
-  background-color: #FFF;
-  background-color: rgba(255,255,255,.8);
-  padding: 0px;
-  border: 1px solid #BBB;
-  list-style-type: none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,.1);
-  -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1);
-  -moz-box-shadow: 0 0 5px rgba(0,0,0,.1);
 }
 
-#context_menu li {
-  text-align: center;
-  border-bottom: solid 1px #DDD;
-  padding: 0;
-}
-
-#context_menu li.hover {
-  background-color: #CCC;
-}
-
-#context_menu li form {
-  display: inline;
-  margin: 0;
-  padding: 0;
-}
-
-#context_menu li input[type='submit'],
-#context_menu li a {
-  width: auto;
-  display: block;
-  margin: 0 auto;
-  padding: 5px 20px;
-  border: 0;
-  cursor: pointer;
-  text-align: center;
-  background: none;
-  color: #444;
-  text-decoration: none;
-  outline: none;
-  position: relative;
-  overflow: visible; /* removes extra side padding in IE */
-  font-size: 1em;
-}
-
-#context_menu li input[type='submit']:hover,
-#context_menu li input[type='submit']:focus,
-#context_menu li input[type='submit']:active,
-#context_menu li a:hover,
-#context_menu li a:focus,
-#context_menu li a:active {
-  color: #FFF;
-  text-shadow: 1px 1px 2px #000;
-}
 
 #taphold_menu {
   width: 100%;

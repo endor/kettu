@@ -55,7 +55,9 @@ kettu.Torrents = function(transmission) {
       if(request['method'].match(/torrent-set/)) {
         kettu.app.trigger('flash', 'Torrent updated successfully.');
       } else {
-        context.getTorrent(id);
+        setTimeout(function(id, context) {
+          context.getTorrent(id);
+        }, 200, id, context);
       }
     });
     

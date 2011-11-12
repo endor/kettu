@@ -1,23 +1,4 @@
 <ul id="taphold_menu">
-  <li><a href="#" class="inspector">Inspector</a></li>
-  {{#not_paused}}
-  <li class="pause">                                                          
-    <form action="#/torrents" method="PUT">                                   
-      <input type="hidden" name="ids" class="ids" value="{{id}}" />                 
-      <input type="hidden" name="method" value="torrent-stop" />              
-      <input type="submit" value="Pause" />                                   
-    </form>                                                                   
-  </li>
-  {{/not_paused}}
-  {{#paused}}
-    <li class="activate">                                                       
-      <form action="#/torrents" method="PUT">                                   
-        <input type="hidden" name="ids" class="ids" value="{{id}}" />                 
-        <input type="hidden" name="method" value="torrent-start" />             
-        <input type="submit" value="Resume" />                                  
-      </form>
-    </li>
-  {{/paused}}
   <li class="delete">                                                         
     <a href="#delete_form" class="delete_link">Delete</a>                    
     <ul id="delete_form" class="facebox_div">

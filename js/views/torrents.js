@@ -3,7 +3,7 @@ kettu.TorrentsView = function(torrent, context) {
   
   view.pauseAndActivateButton = function() {
     var torrent = kettu.Torrent(view);
-    var options = torrent.isActive() ? ['torrent-stop', 'Pause'] : ['torrent-start', 'Activate'];
+    var options = torrent.isActive() ? ['torrent-stop', 'Pause'] : ['torrent-start', 'Resume'];
     this.cachePartial('templates/torrents/pause_and_activate_button.mustache', 'pause_and_activate_button', context);
     return context.mustache(context.cache('pause_and_activate_button'), {
       'id': torrent.id,
@@ -42,6 +42,10 @@ kettu.TorrentsView = function(torrent, context) {
   };
   
   view.cachePartial = context.cachePartial;
+  
+  if(kettu.app.mobile) {
+    view.name = view.name.substr(0, 20) + '&hellip;';
+  }
 
   return view;
 };

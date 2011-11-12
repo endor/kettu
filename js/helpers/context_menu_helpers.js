@@ -1,3 +1,8 @@
+var stopEvent = function(event) {
+  event.stopPropagation();
+  event.preventDefault();  
+};
+
 kettu.ContextMenuHelpers = {
   hideContextMenu: function() {
     $('#context_menu').hide();
@@ -7,10 +12,23 @@ kettu.ContextMenuHelpers = {
     if(kettu.app.mobile) {
       var context = this;
 
+      $('.pauseAndActivateButton').live('click', function(event) {
+        stopEvent(event);
+        $(this).parents('form:first').submit();
+      });
+
+      var redirectToTorrent = function(event) {
+        stopEvent(event);
+        context.redirect('#/torrent_details/' + $(this).attr('id'));        
+      };
+      
+      $('.torrent').live('click', redirectToTorrent);
+      
       $('.torrent').live('swipeleft', function(event) {
+        stopEvent(event);
+
         var torrent = $(this);
         
-        event.preventDefault();
         $('#taphold_menu').remove();
 
         if($('.torrent.active').length === 0) {
@@ -26,24 +44,14 @@ kettu.ContextMenuHelpers = {
         context.render('templates/torrents/taphold_menu.mustache', data, function(rendered_view) {
           torrent.append(rendered_view);
           
-          var callback = function() {
-            $(this).parents('form:first').submit();
-          };
-          
           $('.delete_link').tap(function(event) {
+            stopEvent(event);
             $('#taphold_menu').html($('#delete_form').html());
-            $('.torrent_delete_form input[type="submit"]').tap(callback);
-            event.preventDefault();
-            event.stopPropagation();
+            $('.torrent_delete_form input[type="submit"]').tap(function() {
+              $(this).parents('form:first').submit();
+            });
           });
-          
-          $('.inspector').unbind('click');
-          $('.inspector').tap(function() {
-            context.redirect('#/torrent_details/' + data.id);
-          });
-          
-          $('#taphold_menu input[type="submit"]').tap(callback);
-          
+
           $(document).one('tap', function() {
             $('#taphold_menu').remove();  
           });
