@@ -192,7 +192,7 @@ kettu.TorrentHelpers = {
   
   cachePartials: function() {
     var context = this;
-    _.each(['delete_data', 'show', 'show_compact', 'taphold_menu'], function(partial) {
+    _.each(['delete_data', 'show', 'show_compact'], function(partial) {
       context.cachePartial('templates/torrents/' + partial + '.mustache', partial, context);
     });
   },

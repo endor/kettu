@@ -9,7 +9,8 @@ kettu.TorrentsView = function(torrent, context) {
       'id': torrent.id,
       'method': options[0],
       'button': options[1],
-      'css_class': torrent.statusWord()
+      'css_class': torrent.statusWord(),
+      'isMobile': !!kettu.app.mobile
     });    
   };
 

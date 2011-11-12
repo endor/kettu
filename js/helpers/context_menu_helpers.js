@@ -26,35 +26,21 @@ kettu.ContextMenuHelpers = {
       
       $('.torrent').live('swipeleft', function(event) {
         stopEvent(event);
-
+        
         var torrent = $(this);
-        
-        $('#taphold_menu').remove();
 
-        if($('.torrent.active').length === 0) {
-          context.highlightTorrents(torrent);
-        }
-        
-        var data = {
-          id: torrent.attr('id'),
-          paused: torrent.hasClass('paused'),
-          not_paused: !torrent.hasClass('paused')
-        };
-        
-        context.render('templates/torrents/taphold_menu.mustache', data, function(rendered_view) {
-          torrent.append(rendered_view);
-          
-          $('.delete_link').tap(function(event) {
+        torrent.find('.pauseAndActivateButtonForm').hide();
+        torrent.find('.torrent_delete_form').
+          show().
+          find('[type="submit"]').tap(function(event) {
             stopEvent(event);
-            $('#taphold_menu').html($('#delete_form').html());
-            $('.torrent_delete_form input[type="submit"]').tap(function() {
-              $(this).parents('form:first').submit();
-            });
+            $(this).parents('form:first').submit();
           });
 
-          $(document).one('tap', function() {
-            $('#taphold_menu').remove();  
-          });
+        $(document).one('tap', function(event) {
+          stopEvent(event);
+          torrent.find('.pauseAndActivateButtonForm').show();
+          torrent.find('.torrent_delete_form').hide();              
         });
       });      
     }
