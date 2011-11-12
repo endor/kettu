@@ -26,9 +26,15 @@ kettu.ContextMenuHelpers = {
         context.render('templates/torrents/taphold_menu.mustache', data, function(rendered_view) {
           torrent.append(rendered_view);
           
-          $('li.delete').live('click', function(event) {
+          var callback = function() {
+            $(this).parents('form:first').submit();
+          };
+          
+          $('.delete_link').tap(function(event) {
             $('#taphold_menu').html($('#delete_form').html());
+            $('.torrent_delete_form input[type="submit"]').tap(callback);
             event.preventDefault();
+            event.stopPropagation();
           });
           
           $('.inspector').unbind('click');
@@ -36,10 +42,7 @@ kettu.ContextMenuHelpers = {
             context.redirect('#/torrent_details/' + data.id);
           });
           
-          $('#taphold_menu input[type="submit"]').tap(function(evt) {
-            $(this).parents('form:first').submit();
-            evt.preventDefault();
-          });
+          $('#taphold_menu input[type="submit"]').tap(callback);
           
           $(document).one('tap', function() {
             $('#taphold_menu').remove();  
