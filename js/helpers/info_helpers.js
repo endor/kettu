@@ -18,11 +18,6 @@ kettu.InfoHelpers = {
     if(kettu.app.mobile) {
       info.css('height', $(document).height());
       info.css('width', $(document).width());
-      info.prepend('<div id="buttonbar"><div class="button"><span class="back"></span><a href="#/torrents" class="back">Back</a></div></div>');
-      info.find('.back').click(function() {
-        context.closeInfo();
-        context.redirect('#/torrents');
-      });
     } else {
       info.css('left', ($(window).width() / 2) - ($('#container').width() / 2) + 550);
     }

@@ -19,7 +19,14 @@ kettu.ContextMenuHelpers = {
 
       var redirectToTorrent = function(event) {
         stopEvent(event);
-        context.redirect('#/torrent_details/' + $(this).attr('id'));        
+        context.redirect('#/torrent_details/' + $(this).attr('id'));
+        $('#mobile-header a').
+          show().
+          click(function() {
+            $(this).hide();
+            context.closeInfo();
+            context.redirect('#/torrents');
+          });        
       };
       
       $('.torrent').live('click', redirectToTorrent);

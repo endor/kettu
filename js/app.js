@@ -60,6 +60,7 @@ $(function() {
     kettu.app.mobile = false;
     kettu.app.run('#/torrents');    
   } else {
+    $.mobile.touchOverflowEnabled = true;
     kettu.app.mobile = true;
     kettu.app.run('#/torrents?view=compact');
   }

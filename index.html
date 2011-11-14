@@ -59,7 +59,12 @@
       </header>
 
       <div id="container" class="container">    
-        <div class="main info">
+        <div class="main info" data-role="page">
+          <div data-role="header" data-position="fixed" id="mobile-header" data-theme="c">
+          	<a href="#/torrents" data-icon="arrow-l" data-theme="c">Back</a>
+          	<h1>Transmission</h1>
+          </div>
+          
           <div class="torrents_container">
             <ul id="torrents"></ul>
           </div>
@@ -80,6 +85,9 @@
               <a href="#" data-priority="down"><img src="css/images/priority_down_small.png" /></a>
             </li>
           </ul>
+
+          <!-- <div data-role="footer" id="mobile-footer" data-position="fixed" data-theme="c">
+          </div> -->
         </div>
       </div>   
 
