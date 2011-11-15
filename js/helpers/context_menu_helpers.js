@@ -11,6 +11,7 @@ kettu.ContextMenuHelpers = {
   activateTapHoldMenu: function() {
     if(kettu.app.mobile) {
       var context = this;
+      var y = 0;
 
       $('.pauseAndActivateButton').live('click', function(event) {
         stopEvent(event);
@@ -19,6 +20,7 @@ kettu.ContextMenuHelpers = {
 
       var redirectToTorrent = function(event) {
         stopEvent(event);
+        y = $(this).position().top;
         context.redirect('#/torrent_details/' + $(this).attr('id'));
         $('#mobile-header a').
           show().
@@ -26,7 +28,9 @@ kettu.ContextMenuHelpers = {
             $(this).hide();
             context.closeInfo();
             context.redirect('#/torrents');
-          });        
+            $.mobile.silentScroll(y);
+          });
+        $.mobile.silentScroll(0);
       };
       
       $('.torrent').live('click', redirectToTorrent);
