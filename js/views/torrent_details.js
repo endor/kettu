@@ -17,5 +17,7 @@ kettu.TorrentDetailsView = function(accumulation) {
   view.rate_download = view.rate_download + '/s';
   view.rate_upload = view.rate_upload + '/s';
   
+  view.isMobile = kettu.app.mobile;
+  
   return view;
 };

@@ -427,43 +427,38 @@ footer {
   display: block;
 }
 
+#info #menu-item-trackers {
+  display: none;
+}
+
 #info nav {
-  padding: 5px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: -5px;
+  margin-left: -10px;
 }
 
 #info .menu {
   padding: 0px;
   margin: 0px;
   overflow: hidden;
-  border-top: 0px;
-  border-bottom: 0px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  background-color: #F2F2F2;
+  border-bottom: 1px solid #DFDFDF;
 }
 
 #info .menu li {
   float: left;
-  margin: 0;
-  padding: 0;
-  padding-left: 3px;
-  padding-right: 3px;
+  margin: 0px;
+  padding: 0px;
 }
 
-#info #menu-item-trackers {
-  display: none;
-}
-
-#info nav ul.menu li a {
+#info .menu li a {
   font-size: 14px;
   line-height: 2em;
-  padding: 0 0.3em;
-  border: 0px;
-  border-bottom: 1px solid #DFDFDF;
+  padding: 1.2em;
   text-shadow: 1px 1px 1px #FFF;
   background-color: #F2F2F2;
+  text-decoration: none;
+  color: #444;
 }
 
 #info nav ul.menu li a.active,
@@ -471,11 +466,7 @@ footer {
 #info nav ul.menu li a:hover {
   color: #000;
   text-shadow: 1px 1px 1px #FFF;
-  background-color: #F8F8F8;
-}
-
-#info .menu li a.active {
-  border-bottom: 1px solid #F8F8F8;
+  background-color: #FAFAFA;
 }
 
 #info .percent_done {
@@ -491,14 +482,6 @@ footer {
 #pie_chart {
   margin-left: 30px;
   margin-top: 30px;
-}
-
-.menu-item {
-  text-decoration: none;
-  color: #DDD;
-}
-.menu-item.active {
-  color: #FFF;
 }
 
 .progress {

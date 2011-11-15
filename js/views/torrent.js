@@ -210,6 +210,8 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.folderizeFiles();
   view.formatFolders();
   view.loadLocations();
+  
+  view.isMobile = kettu.app.mobile;
 
   return view;
 };
