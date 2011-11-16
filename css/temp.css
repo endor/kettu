@@ -2,17 +2,6 @@
   list-style-type: none;
 }
 
-.statusString.error {
-  color: red;
-  border: 0px;
-  padding: 0px;
-  background-color: white;
-  margin: 0px;
-}
-
-.compact .statusString.error {
-  margin-left: 65px;
-}
 
 .files_in_folders {
   display: none;

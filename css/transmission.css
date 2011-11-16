@@ -296,12 +296,6 @@ nav ul.icon_nav li a:hover {
   background: transparent url(images/control_eject.png) no-repeat;
 }
 
-
-.torrent .statusString {
-  clear: both;
-  color: #999;
-}
-
 .torrent .progressDetails {
   margin: 0px;
   padding: 0px;  
@@ -500,8 +494,31 @@ ul#sorts li a {
   padding: 6px 30px;
   border-bottom: solid 1px #DDD;
 }
+
 #torrents li.compact {
-padding: 3px 30px;
+  padding: 3px 30px;
+}
+
+#torrents img.priority {
+  float: none;
+  padding: 0px;
+  margin: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#torrents .statusString {
+  display: inline-block;
+  clear: both;
+  color: #999;
+}
+
+#torrents .statusString.error {
+  color: red;
+  border: 0px;
+  padding: 0px;
+  background-color: white;
+  margin: 0px;
 }
 
 /* info */
@@ -711,10 +728,6 @@ padding: 3px 30px;
 
 .compact .name {
   display: inline-block;  
-}
-
-.compact .statusString {
-  display: inline-block;
 }
 
 #data {
