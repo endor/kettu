@@ -2,19 +2,19 @@
   
   Sammy.TransmissionRPC = function(app) {
 
-    app.rpc = {
-      'url': '/transmission/rpc',
-      'session_id': ''
+    var rpc = {
+      url: '/transmission/rpc',
+      session_id: ''
     };
     
     app.helpers({
       remoteSessionId: function() {
-        return kettu.app.rpc.session_id;
+        return rpc.session_id;
       },
 
       remoteQuery: function(params, callback) {
-        var context = this,
-          rpc = context.app.rpc;
+        var context = this;
+        
         $.ajax({
           type: 'POST',
           url: rpc.url,
