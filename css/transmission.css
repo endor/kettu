@@ -598,8 +598,12 @@ ul#sorts li a {
   width: 250px;
 }
 
-#info td.long {
-  width: 82px;
+#info .content th {
+  width: 150px;
+}
+
+#info .peers .content th {
+  width: 275px;
 }
 
 #info #port-open {

@@ -136,14 +136,14 @@
     <h3>Normal mode</h3>
     <table class="content">
       <tr>
-        <th>Speed Limit Download:</th>
+        <th>Download:</th>
         <td>
           <input type="checkbox" name="speed-limit-down-enabled" /> 
           <input type="number" name="speed-limit-down" value="{{speed-limit-down}}" class="short speed-limit-down" /> KB/s
         </td>
       </tr>
       <tr>
-        <th>Speed Limit Upload:</th>
+        <th>Upload:</th>
         <td>
           <input type="checkbox" name="speed-limit-up-enabled" /> 
           <input type="number" name="speed-limit-up" value="{{speed-limit-up}}" class="short speed-limit-up" /> KB/s
@@ -153,28 +153,25 @@
     <h3>Speed Limit Mode</h3>
     <table class="content">
       <tr>
-        <th>Speed Limit Download:</th>
+        <th>Download:</th>
         <td>
           <input type="number" name="alt-speed-down" value="{{alt-speed-down}}" class="short alt-speed-down" /> KB/s
         </td>
       </tr>
       <tr>
-        <th>Speed Limit Upload:</th>
+        <th>Upload:</th>
         <td>
           <input type="number" name="alt-speed-up" value="{{alt-speed-up}}" class="short alt-speed-up" /> KB/s
         </td>
       </tr>
-    </table>
-    <h3>Scheduled Speed Limit</h3>
-    <table class="content">
       <tr>
-        <th>Scheduled Speed Limit:</th>
+        <th>Schedule Speed Limit:</th>
         <td>
           <input type="checkbox" name="alt-speed-time-enabled" /> 
         </td>
       </tr>
       <tr>
-        <th>Scheduled Speed Limit Begin:</th>
+        <th>From:</th>
         <td>
           <select name="alt-speed-time-begin-hours">
             {{>hours}}
@@ -185,7 +182,7 @@
         </td>
       </tr>
       <tr>
-        <th>Scheduled Speed Limit End:</th>
+        <th>To:</th>
         <td>
           <select name="alt-speed-time-end-hours">
             {{>hours}}
@@ -196,7 +193,7 @@
         </td>
       </tr>
       <tr>
-        <th>Scheduled Speed Limit Day:</th>
+        <th>Day:</th>
         <td>
           <select name="alt-speed-time-day">
             <option value="127">Every day</option>
