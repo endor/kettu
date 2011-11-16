@@ -3,6 +3,8 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.sort_peers = sort_peers || 'client';
   
   view.formatTime = function(timestamp) {
+    if(timestamp === 0) { return 'N/A'; }
+    
     var current = new Date(parseInt(timestamp, 10) * 1000);
     if(current) {
       var date = (current.getMonth() + 1) + '/' + current.getDate() + '/' + current.getFullYear();
@@ -10,7 +12,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
       return date + ' ' + time;      
     } else {
       return timestamp;
-    }
+    }      
   };
   
   view.addFormattedTimes = function() {
@@ -182,6 +184,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
         view.trackerStats[i]['downloadCount'] = context.sanitizeNumber(stat.downloadCount);
         i += 1;
       });
+      view.trackerStats = view.trackerStats.slice(0, 2);
     }
   };
   

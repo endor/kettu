@@ -198,6 +198,8 @@ kettu.TorrentHelpers = {
   },
   
   formatNextAnnounceTime: function(timestamp) {
+    if(timestamp === 0 || timestamp === '0') { return 'not scheduled'; }
+    
     var now = new Date().getTime(),
         current = new Date(parseInt(timestamp, 10) * 1000 - now);
 

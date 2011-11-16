@@ -606,6 +606,11 @@ ul#sorts li a {
   width: 275px;
 }
 
+#info .trackers h4 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
 #info #port-open {
   margin-top: 3px;
   width: 13px;
