@@ -25,13 +25,14 @@ kettu.ViewHelpers = {
       var item = $(this).attr('data-item');
       $('#info .item').hide();
       $('#info .' + item).show();
+      $('#info .blocklist').toggle(item === 'peers');
     });
     $('#info .item').hide();
     if(kettu.app.last_menu_item && $('#' + kettu.app.last_menu_item).length > 0) {
       $('#' + kettu.app.last_menu_item).click();
     } else {
       $('#info .item:first').show();
-      $('#info .menu-item:first').addClass('active');      
+      $('#info .menu-item:first').addClass('active');
     }
   },
   

@@ -100,7 +100,7 @@ kettu.InfoHelpers = {
   },
   
   activateInfoInputs: function(torrent) {
-    $('#info input').change(function() {
+    $('#info input:not(.dont_update_parent)').change(function() {
       $(this).parents('form:first').trigger('submit');
       return false;
     });

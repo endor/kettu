@@ -228,8 +228,36 @@
         <td><input type="checkbox" name="lpd-enabled" class="lpd-enabled" /></td>
       </tr>
     </table>
+    
+    <h3>Blocklist</h3>
+    <table class="content">
+      <tr>
+        <th>Prevent peers in blocklist from connecting:</th>
+        <td><input type="checkbox" name="blocklist-enabled" class="blocklist-enabled" /></td>
+      </tr>
+      <tr>
+        <th>Blocklist URL:</th>
+        <td><input type="text" name="blocklist-url" class="blocklist-url" /></td>
+      </tr>
+    </table>
   </div>
 </form>
+
+<div class="blocklist">
+  <h3>Number of rules in blocklist</h3>
+  <table class="content">
+    <tr>
+      <th>
+        <form method="PUT" action="#/blocklist">
+          <input type="submit" value="Update" class="dont_update_parent" />
+        </form>        
+      </th>
+      <td class="number">
+        0
+      </td>
+    </tr>
+  </table>  
+</div>
 
 <div id="version">
   Transmission Version: {{version}}

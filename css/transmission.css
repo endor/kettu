@@ -611,6 +611,10 @@ ul#sorts li a {
   margin-bottom: 5px;
 }
 
+#info .blocklist {
+  display: none;
+}
+
 #info #port-open {
   margin-top: 3px;
   width: 13px;

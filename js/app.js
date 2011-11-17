@@ -31,6 +31,7 @@ kettu.app = $.sammy(function() {
   kettu.Torrents(this);
   kettu.Settings(this);
   kettu.Statistics(this);
+  kettu.Blocklist(this);
   
   this.bind('flash', function(e, message) {
     $('#flash').html(message).show().delay(3000).fadeOut('slow');

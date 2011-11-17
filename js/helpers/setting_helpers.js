@@ -123,7 +123,7 @@ kettu.SettingHelpers = {
       'lpd-enabled', 'alt-speed-time-enabled', 'alt-speed-time-day', 'seedRatioLimited',
       'seedRatioLimit', 'idle-seeding-limit-enabled', 'idle-seeding-limit',
       'download-queue-enabled', 'download-queue-size', 'seed-queue-enabled', 'seed-queue-size',
-      'queue-stalled-enabled', 'queue-stalled-minutes'
+      'queue-stalled-enabled', 'queue-stalled-minutes', 'blocklist-enabled', 'blocklist-url'
     ];
     var hash = {};
 
