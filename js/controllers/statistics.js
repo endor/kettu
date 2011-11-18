@@ -8,7 +8,6 @@ kettu.Statistics = function(transmission) {
     context.remoteQuery(request, function(response) {
       context.render('templates/statistics/index.mustache', kettu.StatisticsView(response), function(rendered_view) {
         context.openInfo(rendered_view, 'statistics');
-        context.activateGraphLinks(context);
       });      
     });
   });
