@@ -1,13 +1,12 @@
 kettu.StatisticHelpers = {
   activateGraphLinks: function(context) {
     $('.graph_links a').click(function() {
-      var type = $(this).attr('class') + '_graph';
-      var graph = context[type].apply();
+      var graph = context.upAndDownloadGraph();
 
-      context.render('templates/statistics/' + type + '.mustache', {}, function(rendered_view) {
+      context.render('templates/statistics/up_and_download_graph.mustache', {}, function(rendered_view) {
         $.facebox(rendered_view);
         $('#facebox').addClass('graph');
-        context.drawGraph(type, graph);
+        context.drawGraph('up_and_download_graph', graph);
       });
       
       return false;      
