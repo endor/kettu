@@ -96,6 +96,15 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
       }
     }
   };
+
+  var joinFileName = function(name) {
+      name = name.join('/');
+      if(name.length > 27) {
+          return name.substr(0, 23) + '&hellip;' + name.substr(-3, 3);
+      } else {
+          return name;
+      }
+  };
   
   view.folderizeFiles = function() {
     view.folderless_files = [];
@@ -103,21 +112,21 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
 
     if(view.files) {
       _.each(view.files, function(file) {
-        var name = file['name'].split('/'),
-            i = view.folders.length;
+        var name = file['name'].split('/');
+        var i = view.folders.length;
 
         if(name.length > 1) {
           name.shift(); 
         }
         
-        if(name.length == 1) {
-          file['name'] = name.join('/');
+        if(name.length === 1) {
+          file['name'] = joinFileName(name);
           view.folderless_files.push(file);
         } else {
           var folder = name.shift();
-          file['name'] = name.join('/');
+          file['name'] = joinFileName(name);
 
-          if(view.folders[i] && view.folders[i].name == folder) {
+          if(view.folders[i] && view.folders[i].name === folder) {
             view.folders[i].files.push(file);
             view.folders[i].lengthFormatted += file.length;
             view.folders[i].bytesCompleted += file.bytesCompleted;
@@ -215,6 +224,10 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.loadLocations();
   
   view.isMobile = kettu.app.mobile;
+  
+  if(kettu.app.mobile) {
+    view.name = view.name.substr(0, 27) + '&hellip;';
+  }
 
   return view;
 };

@@ -23,10 +23,12 @@
       <th>Pieces:</th>
       <td>{{pieceCount}}, {{pieceSizeString}}</td>
     </tr>
-    <tr>
-      <th>Hash:</th>
-      <td>{{hashString}}</td>
-    </tr>
+    {{^isMobile}}
+      <tr>
+        <th>Hash:</th>
+        <td>{{hashString}}</td>
+      </tr>
+    {{/isMobile}}
     <tr>
       <th>Secure:</th>
       <td>{{secure}}</td>
