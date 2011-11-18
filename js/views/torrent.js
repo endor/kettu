@@ -227,6 +227,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   
   if(kettu.app.mobile) {
     view.name = view.name.substr(0, 27) + '&hellip;';
+    view.comment = view.comment.substr(0, 33) + '&hellip;';
   }
 
   return view;
