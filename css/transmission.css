@@ -524,6 +524,7 @@ ul#sorts li a {
 /* info */
 #info {
   width: 379px;
+  height: 500px;
   float: left;
   padding: 1em 10px 1.5em 10px;
   background-color: #FAFAFA;
