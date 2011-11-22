@@ -529,11 +529,12 @@ ul#sorts li a {
   background-color: #FAFAFA;
   display: none;
   border-left: 1px solid #DDD;
-  overflow: auto;
   position: fixed;
   top: 140px;
   right: 0px;
+  overflow: auto;
 }
+
 
 #info table {
   width: auto;
