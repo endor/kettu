@@ -98,7 +98,6 @@ kettu.Torrents = function(transmission) {
   transmission.bind('refreshed-torrents', function(e, params) {
     var sorted_torrents = this.sortTorrents(kettu.app.sort_mode, params['torrents'], kettu.app.reverse_sort);
     var filtered_torrents = this.filterTorrents(kettu.app.filter_mode, sorted_torrents);
-    this.addUpAndDownToStore(params['torrents']);
     this.updateViewElements(filtered_torrents, params['rerender'], kettu.app.settings || {});
   });
   

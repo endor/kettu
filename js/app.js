@@ -21,8 +21,6 @@ kettu.app = $.sammy(function() {
   this.helpers(kettu.SearchHelpers);
   this.helpers(kettu.SettingHelpers);
   this.helpers(kettu.SortTorrentsHelpers);
-  this.helpers(kettu.StatisticHelpers);
-  this.helpers(kettu.StoreHelpers);
   this.helpers(kettu.TorrentHelpers);
   this.helpers(kettu.TorrentDetailsHelpers);
   this.helpers(kettu.ViewHelpers);

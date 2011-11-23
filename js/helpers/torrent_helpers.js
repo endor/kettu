@@ -109,7 +109,12 @@ kettu.TorrentHelpers = {
 
   globalUpAndDownload: function(torrents) {    
     var rates = this.store.get('up_and_download_rate');
-    var last_rate = rates[rates.length - 1];
+    var last_rate = {up: 0, down: 0};
+    
+    if(rates) {
+        last_rate = rates[rates.length - 1];
+    }
+    
     return kettu.Torrent({}).downAndUploadRateString(last_rate.down, last_rate.up);
   },
   
