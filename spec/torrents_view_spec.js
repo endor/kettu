@@ -8,7 +8,8 @@ describe 'TorrentsView'
       context.cachePartial  = function() {}
       context.cache         = function() { return fixture('pause_and_activate_button.mustache'); }
       context.mustache      = function(template, view) {return Sammy.MustacheOriginal.to_html(template, view);}
-      torrents_view         = kettu.TorrentsView({}, context)
+      context.shorten = kettu.ApplicationHelpers.shorten;
+      torrents_view         = kettu.TorrentsView({name: 'abc'}, context)
     end
     
     it 'should return a form to pause the torrent if the torrent is active'

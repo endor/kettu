@@ -1,10 +1,11 @@
 describe 'TorrentView'
   before_each
-    context               = {sanitizeNumber: function() {}}
-    context.formatNextAnnounceTime = function() {}
-    torrent_view          = kettu.TorrentView({'trackerStats': [], 'files': [], 'peers': [], 'fileStats': []}, context)
-    timestamp             = "1265737984"
-    day                   = (new Date()).getTimezoneOffset()/60 < -6 ? 10 : 9
+    ctx = {sanitizeNumber: function() {}}
+    ctx.formatNextAnnounceTime = function() {}
+    ctx.shorten = kettu.ApplicationHelpers.shorten;
+    torrent_view = kettu.TorrentView({trackerStats: [], files: [], peers: [], fileStats: [], name: '', comment: ''}, ctx)
+    timestamp = "1265737984"
+    day = (new Date()).getTimezoneOffset()/60 < -6 ? 10 : 9
   end
 
   describe 'addFormattedTimes'
@@ -167,6 +168,32 @@ describe 'TorrentView'
       torrent_view.fileStats[0] = {'wanted': false}
       torrent_view.addIdsToFiles()
       torrent_view.files[0].wanted.should.eql(' checked="checked"')
+    end
+  end
+  
+  describe 'make strings shorter so they work in the mobile version'
+    it 'should make the strings shorter if it\'s the mobile version and the string is too long'
+      kettu.app.mobile = true
+      torrent_view = kettu.TorrentView({comment: '1234567890123456789012345678901234567890',
+                                        trackerStats: [], files: [], name: 'abc',
+                                        peers: [], fileStats: []}, ctx)
+      torrent_view.comment.should.eql('123456789012345678901234567890123&hellip;')
+    end
+    
+    it 'should not make the strings shorter if it\'s not the mobile version'
+      kettu.app.mobile = false
+      torrent_view = kettu.TorrentView({comment: '1234567890123456789012345678901234567890',
+                                        trackerStats: [], files: [], name: 'abc',
+                                        peers: [], fileStats: []}, ctx)
+      torrent_view.comment.should.eql('1234567890123456789012345678901234567890')
+    end
+    
+    it 'should not make the strings shorter if they aren\'t too long'
+      kettu.app.mobile = true
+      torrent_view = kettu.TorrentView({comment: '1234567890',
+                                        trackerStats: [], files: [], name: 'abc',
+                                        peers: [], fileStats: []}, ctx)
+      torrent_view.comment.should.eql('1234567890')
     end
   end
 end

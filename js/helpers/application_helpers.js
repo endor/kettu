@@ -30,5 +30,13 @@ kettu.ApplicationHelpers = {
     }
     
     return different ? diff : false;
+  },
+  
+  shorten: function(string, lng) {
+    if(string.length > lng) {
+      return string.substr(0, lng) + '&hellip;';
+    } else {
+      return string;
+    }
   }
 }
