@@ -831,3 +831,68 @@ ul#sorts li a {
 #mobile-header, #mobile-footer, .ui-loader {
   display: none;
 }
+
+
+#update_torrent .files {
+  list-style-type: none;
+}
+
+ul#sorts {
+  display: none;
+}
+
+.arrow {
+  margin-left: 5px;
+  margin-right: 3px;
+}
+
+.files a {
+  text-decoration: none;
+}
+
+.priority_choice {
+  display: none;
+}
+
+.percent_done {
+  margin-left: 20px;
+}
+
+img.priority {
+  float: right;
+  margin: 5px;  
+}
+
+img.priority.up, img.priority.normal, img.priority.down {
+  cursor: pointer;
+}
+
+.file_info:nth-child(even) {
+  background-color: #F9F9F9;
+}
+
+.file_info span {
+  margin-left: 20px;
+}
+
+.files input.file {
+  float: right;
+}
+
+.files input.folder-check {
+  float: right;
+}
+
+#context_menu .delete .facebox_link {
+  padding-left: 5px;
+}
+
+.torrent {
+  cursor: pointer;
+}
+
+.torrent.error {
+  border: 0px;
+  border-bottom: solid 1px #dddddd;
+  color: #444444;  
+}
