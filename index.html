@@ -58,11 +58,12 @@
         </div>      
       </header>
 
-      <div id="container" class="container">    
+      <div id="container" class="container">        
         <div class="main info" data-role="page">
           <div data-role="header" data-position="fixed" id="mobile-header" data-theme="c">
-          	<a href="#/torrents" data-icon="arrow-l" data-theme="c">Back</a>
+          	<a href="#/torrents" data-icon="arrow-l" data-theme="c" class="back">Back</a>
           	<h1>Transmission</h1>
+          	<a href="#" data-icon="gear" data-theme="c" class="gear">More</a>
           </div>
           
           <div class="torrents_container">
@@ -88,14 +89,25 @@
 
           <!-- <div data-role="footer" id="mobile-footer" data-position="fixed" data-theme="c"></div> -->
         </div>
-      </div>   
+        
+        <div id="gear_menu" style="display: none" class="ui-body-c ui-overlay-c ui-dialog">
+          <div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c">
+            <a href="#/settings" class="link ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
+              Preferences
+            </a>
+            <a href="#" class="cancel ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
+              Cancel
+            </a>
+          </div>
+        </div>
+      </div>
 
       <form action="#/settings" method="PUT" id="speed_limit_mode_form">
         <input type="hidden" name="alt-speed-enabled" value="true" />
       </form>
 
       <footer>
-        <nav id="footer">        
+        <nav id="footer">
           <ul class="icon_nav">
             <li><a href="#" id="compact_view" title="Compact View">Enable Compact View</a></li>
             <li><a href="#" id="speed_limit_mode" title="Speed Limit Mode">Enable Speed Limit Mode</a></li>

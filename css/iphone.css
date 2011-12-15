@@ -191,7 +191,7 @@ footer {
   font-size: 20px;
 }
 
-#mobile-header a {
+#mobile-header .back {
   display: none;
 }
 
@@ -199,18 +199,19 @@ footer {
   padding: 5px;
 }
 
-.buttons .torrent_delete_form input {
-  color: #8a1f11;
-  background-color: red !important;
-  
-  background-image: -webkit-linear-gradient(top, #ec4a0b, #ad390c) !important;
-  background-image:    -moz-linear-gradient(top, #ec4a0b, #ad390c) !important;
-  background-image:     -ms-linear-gradient(top, #ec4a0b, #ad390c) !important;
-  background-image:      -o-linear-gradient(top, #ec4a0b, #ad390c) !important;
-  background-image:         linear-gradient(top, #ec4a0b, #ad390c) !important;  
+#gear_menu .ui-btn-up-c, #gear_menu .ui-btn-up-a {
+  padding: 10px;
 }
 
+.buttons .torrent_delete_form input {
+  color: #8a1f11;
+}
 
+#gear_menu {
+  margin-top: 80px;
+  margin-left: 20px;
+  width: 280px;
+}
 
 
 

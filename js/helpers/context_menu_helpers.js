@@ -3,6 +3,17 @@ var stopEvent = function(event) {
   event.preventDefault();  
 };
 
+var showBackButton = function(context, y) {
+    $('#mobile-header .back').
+      show().
+      click(function() {
+        $(this).hide();
+        context.closeInfo();
+        context.redirect('#/torrents');
+        $.mobile.silentScroll(y);
+      });
+};
+
 kettu.ContextMenuHelpers = {
   hideContextMenu: function() {
     $('#context_menu').hide();
@@ -13,6 +24,24 @@ kettu.ContextMenuHelpers = {
       var context = this;
       var y = 0;
 
+      $('#mobile-header .gear').live('click', function(event) {
+          stopEvent(event);
+          y = $(this).position().top;
+          $('#gear_menu').show();
+          $.mobile.silentScroll(0);
+          
+          $('#gear_menu .cancel').click(function() {
+              $('#gear_menu').hide();
+              $.mobile.silentScroll(y);
+          });
+          
+          $('#gear_menu .link').click(function() {
+              $('#gear_menu').hide();
+              context.redirect($(this).attr('href'));
+              showBackButton(context, y);
+          });
+      });
+      
       $('.pauseAndActivateButton').live('click', function(event) {
         stopEvent(event);
         $(this).parents('form:first').submit();
@@ -22,14 +51,7 @@ kettu.ContextMenuHelpers = {
         stopEvent(event);
         y = $(this).position().top;
         context.redirect('#/torrent_details/' + $(this).attr('id'));
-        $('#mobile-header a').
-          show().
-          click(function() {
-            $(this).hide();
-            context.closeInfo();
-            context.redirect('#/torrents');
-            $.mobile.silentScroll(y);
-          });
+        showBackButton(context, y);
         $.mobile.silentScroll(0);
       };
       
