@@ -199,7 +199,7 @@ footer {
   padding: 5px;
 }
 
-#gear_menu .ui-btn-up-c, #gear_menu .ui-btn-up-a {
+#gear_menu a {
   padding: 10px;
 }
 

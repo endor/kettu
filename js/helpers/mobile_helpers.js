@@ -3,11 +3,16 @@ var stopEvent = function(event) {
   event.preventDefault();  
 };
 
+deactivateLinks = function() {
+  $('a, input').removeClass('ui-btn-active');
+};
+
 var showBackButton = function(context, y) {
   $('#mobile-header .back').
     show().
     click(function() {
       $(this).hide();
+      deactivateLinks();
       context.closeInfo();
       context.redirect('#/torrents');
       $.mobile.silentScroll(y);
@@ -29,18 +34,21 @@ kettu.MobileHelpers = {
       
       $('#gear_menu .cancel').click(function(event) {
         stopEvent(event);
+        deactivateLinks();
         $('#gear_menu').hide();
         $.mobile.silentScroll(y);
       });
 
       $('#gear_menu .settings').click(function(event) {
         stopEvent(event);
+        deactivateLinks();
         $('#gear_menu').hide();
         context.redirect($(this).attr('href'));
         showBackButton(context, y);
       });
       
       $('#gear_menu .start_all, #gear_menu .stop_all').click(function() {
+        deactivateLinks();
         $('#gear_menu').hide();
       });
 
@@ -51,9 +59,8 @@ kettu.MobileHelpers = {
 
       $('.torrent').live('click', function(event) {
         stopEvent(event);
-        
+        deactivateLinks();
         y = $(this).position().top;
-        
         context.redirect('#/torrent_details/' + $(this).attr('id'));
         showBackButton(context, y);
         $.mobile.silentScroll(0);
