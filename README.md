@@ -1,6 +1,6 @@
 # kettu
 Port of http://github.com/kjg/derailleur and the original Transmission Web Client  
-using [jquery](http://jquery.com), [sammy](http://github.com/quirkey/sammy) and [mustache.js](http://github.com/janl/mustache.js).
+using [jquery](http://jquery.com), [sammy.js](http://github.com/quirkey/sammy) and [mustache.js](http://github.com/janl/mustache.js).
 
 By Frank Prößdorf <fp@notjusthosting.com>.
 
@@ -33,17 +33,3 @@ In the current (pre-v2.0) nightlies on the mac, you can simply drop kettu in the
 
 #### Locations
 kettu supports the easy selection of a predefined location to download your torrents to. Put locations into the  `config/location.js` configuration file. See `config/locations.js.example` for an example.
-
-## Goals
-* Usage should be as simple as possible
-* Try out new features that older browsers may not support
-* Keep the code clean
-* Write tests for everything
-
-## Tests
-
-### Unit Tests
-There are [jspecs](https://github.com/visionmedia/jspec) in `/spec` which you can run by opening the `index.html` file within the spec directory.
-
-### Acceptance Tests
-You need to install the [chromedriver](http://code.google.com/p/selenium/downloads/list). Then there are [capybara](https://github.com/jnicklas/capybara) tests in `features`. You will just need to type `cucumber features/<feature>`.
