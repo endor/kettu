@@ -21,23 +21,29 @@ kettu.MobileHelpers = {
       var y = 0;
 
       $('#mobile-header .gear').live('click', function(event) {
+        stopEvent(event);
+        
+        y = $(this).position().top;
+        
+        $('#gear_menu').show();
+        $.mobile.silentScroll(0);
+
+        $('#gear_menu .cancel').click(function(event) {
           stopEvent(event);
-          
-          y = $(this).position().top;
-          
-          $('#gear_menu').show();
-          $.mobile.silentScroll(0);
+          $('#gear_menu').hide();
+          $.mobile.silentScroll(y);
+        });
 
-          $('#gear_menu .cancel').click(function() {
-              $('#gear_menu').hide();
-              $.mobile.silentScroll(y);
-          });
-
-          $('#gear_menu .link').click(function() {
-              $('#gear_menu').hide();
-              context.redirect($(this).attr('href'));
-              showBackButton(context, y);
-          });
+        $('#gear_menu .settings').click(function(event) {
+          stopEvent(event);
+          $('#gear_menu').hide();
+          context.redirect($(this).attr('href'));
+          showBackButton(context, y);
+        });
+        
+        $('#gear_menu .start_all, #gear_menu .stop_all').click(function() {
+          $('#gear_menu').hide();
+        });
       });
 
       $('.pauseAndActivateButton').live('click', function(event) {
