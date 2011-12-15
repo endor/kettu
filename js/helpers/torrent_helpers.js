@@ -107,15 +107,14 @@ kettu.TorrentHelpers = {
     });
   },
 
-  globalUpAndDownload: function(torrents) {    
-    var rates = this.store.get('up_and_download_rate');
-    var last_rate = {up: 0, down: 0};
-    
-    if(rates) {
-        last_rate = rates[rates.length - 1];
-    }
-    
-    return kettu.Torrent({}).downAndUploadRateString(last_rate.down, last_rate.up);
+  globalUpAndDownload: function(torrents) {
+    var uploadRate = 0.0, downloadRate = 0.0;
+    _.each(torrents, function(torrent) {
+      uploadRate += torrent.rateUpload;
+      downloadRate += torrent.rateDownload;
+    });
+        
+    return kettu.Torrent({}).downAndUploadRateString(downloadRate, uploadRate);
   },
   
   makeNewTorrent: function(torrent, view) {
