@@ -15,7 +15,7 @@ kettu.LinkHelpers = {
     $('.inspector').live('click', function() {
       if(context.infoIsOpen() && (window.location.hash.match(/\/torrents\/\d+/) ||
           window.location.hash.match(/\/torrent_details/))) {
-        context.closeInfo(context);
+        context.closeInfo();
       } else {
         context.redirect('#/torrent_details');
       }      
@@ -27,7 +27,7 @@ kettu.LinkHelpers = {
     var context = this;
     $('#add_a_torrent').click(function() {
       if(context.infoIsOpen() && window.location.hash.match('/torrents/new')) {
-        context.closeInfo(context);
+        context.closeInfo();
       } else {
         window.location.hash = '/torrents/new';
       }
@@ -100,7 +100,7 @@ kettu.LinkHelpers = {
     var context = this;
     $('#settings').click(function() {
       if(context.infoIsOpen() && window.location.hash.match('/settings')) {
-        context.closeInfo(context);
+        context.closeInfo();
       } else {
         context.redirect('#/settings');
       }
@@ -112,7 +112,7 @@ kettu.LinkHelpers = {
     var context = this;
     $('#statistics').click(function() {
       if(context.infoIsOpen() && window.location.hash.match('/statistics')) {
-        context.closeInfo(context);
+        context.closeInfo();
       } else {
         context.redirect('#/statistics');
       }

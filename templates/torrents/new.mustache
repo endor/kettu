@@ -1,6 +1,9 @@
 <h2>Add Torrent</h2>
 
-<p>Please {{^isMobile}}upload the torrent or {{/isMobile}}provide a URL where the torrent can be found.</p>
+<p>
+  Please {{^isMobile}}upload the torrent or {{/isMobile}}provide a URL where the torrent can be found.
+  {{#isMobile}}The torrent will be started right away.{{/isMobile}}
+</p>
 
 <form method="POST" action="#/torrents" enctype="multipart/form-data" id="add_torrent_form">
   {{^isMobile}}

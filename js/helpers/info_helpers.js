@@ -1,6 +1,7 @@
 kettu.InfoHelpers = {
   closeInfo: function() {
     if(kettu.app.info_interval_id) { clearInterval(kettu.app.info_interval_id); }
+    if(kettu.app.mobile) { $('#mobile-header .back').hide(); }
     this.saveLastMenuItem($('.menu-item.active'));
     $('.main').removeClass('info');
     $('#info').hide();
@@ -43,7 +44,7 @@ kettu.InfoHelpers = {
     var context = this;
     $('#' + torrent.id).dblclick(function(event) {
       if(context.infoIsOpen()) {
-        context.closeInfo(context);
+        context.closeInfo();
       } else {
         var active_torrent = $('.torrent.active');
         if(active_torrent.length > 0) {
@@ -232,7 +233,7 @@ kettu.InfoHelpers = {
       if(formatted.match(/59 min/)) {
         clearInterval(timer);
         context.saveLastMenuItem($('.menu-item.active'));
-        context.closeInfo(context);
+        context.closeInfo();
         context.openInfo();
       } else {
         $('.countdown').text(formatted);

@@ -23,7 +23,7 @@ kettu.TorrentHelpers = {
     if(torrent_added) {
       var request = context.buildRequest('torrent-get', {fields:kettu.Torrent({})['fields']});
       context.remoteQuery(request, function(response) {
-        context.closeInfo(context);
+        context.closeInfo();
         var newest = context.getNewestTorrents(context, response);
         if(newest.length > 1) {
           context.render('templates/torrents/new_multiple.mustache', {torrents: newest}, function(rendered_view) {
@@ -126,8 +126,17 @@ kettu.TorrentHelpers = {
   },
   
   updateStatus: function(old_torrent, torrent) {
-    old_torrent.removeClass('downloading').removeClass('seeding').removeClass('paused').addClass(torrent.statusWord());
-    old_torrent.find('input.pauseAndActivateButton').removeClass('downloading').removeClass('seeding').removeClass('paused').addClass(torrent.statusWord());
+    old_torrent.removeClass('downloading seeding paused').addClass(torrent.statusWord());
+    old_torrent.find('input.pauseAndActivateButton').removeClass('downloading seeding paused').addClass(torrent.statusWord());
+    if(kettu.app.mobile) {
+      if(torrent.statusWord() === 'paused') {
+        old_torrent.find('input.pauseAndActivateButton').val('Resume');
+        old_torrent.find('input[name="method"]').val('torrent-start');
+      } else {
+        old_torrent.find('input.pauseAndActivateButton').val('Pause');
+        old_torrent.find('input[name="method"]').val('torrent-stop');
+      }
+    }
   },
   
   updateTorrent: function(torrent) {

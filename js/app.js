@@ -46,7 +46,7 @@ kettu.app = $.sammy(function() {
     this.activateLinks();
     this.activateSearch(this);
     this.activateSortSelect(this);
-    this.closeInfo(this);
+    this.closeInfo();
     this.configureFacebox();
     this.handleDragging();
     this.hideContextMenu();

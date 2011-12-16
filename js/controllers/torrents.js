@@ -38,9 +38,14 @@ kettu.Torrents = function(transmission) {
   
   transmission.post('#/torrents', function(context) {
     if(this.params['url'].length > 0) {
-      var request = context.buildRequest('torrent-add', { filename: this.params['url'], paused: true });
+      var request = context.buildRequest('torrent-add', { filename: this.params['url'], paused: !kettu.app.mobile });
       context.remoteQuery(request, function(response) {
-        context.renderConfigForNewTorrents(response['torrent-added']);
+        if(kettu.app.mobile) {
+          kettu.app.trigger('flash', 'Torrent added successfully.');
+          context.closeInfo();
+        } else {
+          context.renderConfigForNewTorrents(response['torrent-added']);
+        }
       });      
     } else {
       context.submitAddTorrentForm(context, true);
