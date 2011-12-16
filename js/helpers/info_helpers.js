@@ -29,7 +29,7 @@ kettu.InfoHelpers = {
     $('.info_nav a').removeClass('active');
     $('.info_nav a.' + clazz + '-link').addClass('active');
 
-    if(clazz) { info.addClass(clazz); }
+    if(clazz) { info.removeClass().addClass(clazz); }
   },
 
   infoIsOpen: function() {

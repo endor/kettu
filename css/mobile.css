@@ -462,6 +462,11 @@ footer {
   color: #444;
 }
 
+#info.settings .menu li a {
+  font-size: 12px;
+  padding: 0.9em;  
+}
+
 #info nav ul.menu li a.active,
 #info nav ul.menu li a:focus,
 #info nav ul.menu li a:hover {
