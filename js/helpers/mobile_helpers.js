@@ -29,8 +29,10 @@
         $('#mobile-header .gear').click(function(event) {
           stopEvent(event);
           y = $(this).position().top;
-          $('#gear_menu').show();
-          $.mobile.silentScroll(0);
+          $('body').animate({scrollTop: '0px'}, 500, function() {
+            $('body').clearQueue();
+            $('#gear_menu').slideDown();
+          });
         });
       
         $('#gear_menu .cancel').click(function(event) {

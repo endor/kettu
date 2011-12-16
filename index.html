@@ -152,7 +152,7 @@
       var app = document.getElementById('app');
       var install = document.getElementById('install');
       
-      if(navigator.standalone === undefined || !!navigator.standalone) {
+      // if(navigator.standalone === undefined || !!navigator.standalone) {
         
         app.style.display = "block";
         install.style.display = "none";
@@ -204,12 +204,12 @@
           .script('config/locations.js').wait()
           .script('js/app.js');
 
-      } else {
-        
-        app.style.display = "none";
-        install.style.display = "block";
-        
-      }
+      // } else {
+      //   
+      //   app.style.display = "none";
+      //   install.style.display = "block";
+      //   
+      // }
     </script>
   </body>  
 </html>
