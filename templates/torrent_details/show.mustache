@@ -33,6 +33,12 @@
       <th>Secure:</th>
       <td>{{secure}}</td>
     </tr>
+    {{#isMobile}}
+    <tr>
+      <th>ETA:</th>
+      <td class="eta">{{etaString}}</td>
+    </tr>
+    {{/isMobile}}
     <tr>
       <th>Comment:</th>
       <td>{{comment}}</td>
@@ -45,7 +51,7 @@
       <th>Date:</th>
       <td>{{created_at}}</td>
     </tr>
-  </table> 
+  </table>
 </div>
 
 <div class="item activity">
@@ -154,7 +160,7 @@
       {{#folderless_files}}
         {{>file}}
       {{/folderless_files}}
-      
+
       {{#folders}}
         <li class="folder_info">
           <a href="#" class="folder">
@@ -233,18 +239,18 @@
           </select>
           <input type="number" name="seedRatioLimit" value="{{seedRatioLimit}}" class="short seedRatioLimit" />
         </td>
-      </tr>   
+      </tr>
       <tr>
         <th>Limit Download</th>
         <td>
-          <input type="checkbox" name="downloadLimited" /> 
+          <input type="checkbox" name="downloadLimited" />
           <input type="number" name="downloadLimit" value="{{downloadLimit}}" class="short" /> KB/s
         </td>
-      </tr>   
+      </tr>
       <tr>
         <th>Limit Upload</th>
         <td>
-          <input type="checkbox" name="uploadLimited" /> 
+          <input type="checkbox" name="uploadLimited" />
           <input type="number" name="uploadLimit" value="{{uploadLimit}}" class="short" /> KB/s
         </td>
       </tr>
@@ -252,6 +258,6 @@
         <th>Maximum Connections</th>
         <td><input type="number" name="peer-limit" value="{{peer-limit}}" class="short" /></td>
       </tr>
-    </table>    
+    </table>
   </form>
 </div>

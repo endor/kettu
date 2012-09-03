@@ -2,7 +2,6 @@ require 'rubygems'
 require File.dirname(__FILE__) + '/testapp'
 
 require 'cucumber/formatter/unicode'
-require 'cucumber/web/tableish'
 require 'capybara/cucumber'
 require 'capybara/session'
 
@@ -25,7 +24,7 @@ def patiently(&block)
     cycles += 1
     sleep 0.1
     if cycles < 10
-      retry 
+      retry
     else
       raise e
     end

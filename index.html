@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="./css/jquery/mobile.css" media="only screen and (max-device-width: 480px)" />
     <link rel="stylesheet" type="text/css" href="./css/screen.css" />
     <link rel="stylesheet" type="text/css" href="./css/transmission.css" media="screen and (min-device-width: 481px)" />
-    <link rel="stylesheet" type="text/css" href="./css/temp.css" media="screen and (min-device-width: 481px)" />
     <link rel="stylesheet" type="text/css" href="css/mobile.css" media="only screen and (max-device-width: 480px)" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="icon" type="image/ico" href="favicon.ico" />
@@ -32,7 +31,7 @@
                 <li><a href="#/torrents?filter=all" class="all">All</a></li>
                 <li><a href="#/torrents?filter=downloading" class="downloading">Downloading</a></li>
                 <li><a href="#/torrents?filter=seeding" class="seeding">Seeding</a></li>
-                <li><a href="#/torrents?filter=paused" class="paused">Paused</a></li>   
+                <li><a href="#/torrents?filter=paused" class="paused">Paused</a></li>
                 <li><a href="#/torrents?filter=activity" class="activity">Activity</a></li>
               </ul>
             </li>
@@ -48,24 +47,24 @@
               </ul>
             </li>
             <li>
-              <a href="#/torrents?sort=reverse" id="reverse_link" title="Reverse Order">Reverse Order</a> 
+              <a href="#/torrents?sort=reverse" id="reverse_link" title="Reverse Order">Reverse Order</a>
             </li>
           </ul>
 
           <div id="search_filter">
             <input type="search" placeholder="Filter" id="search" />
           </div>
-        </div>      
+        </div>
       </header>
 
-      <div id="container" class="container">        
+      <div id="container" class="container">
         <div class="main info" data-role="page">
           <div data-role="header" data-position="fixed" id="mobile-header" data-theme="c">
-          	<a href="#/torrents" data-icon="arrow-l" data-theme="c" class="back">Back</a>
-          	<h1>Transmission</h1>
-          	<a href="#" data-icon="gear" data-theme="c" class="gear">More</a>
+            <a href="#/torrents" data-icon="arrow-l" data-theme="c" class="back">Back</a>
+            <h1>Transmission</h1>
+            <a href="#" data-icon="gear" data-theme="c" class="gear">More</a>
           </div>
-          
+
           <div class="torrents_container">
             <ul id="torrents"></ul>
           </div>
@@ -74,7 +73,7 @@
 
           <ul id="context_menu">
           </ul>
-          
+
           <ul id="selectPriority" style="display: none">
             <li>
               <a href="#" data-priority="up"><img src="css/images/priority_up_small.png" /></a>
@@ -89,7 +88,7 @@
 
           <!-- <div data-role="footer" id="mobile-footer" data-position="fixed" data-theme="c"></div> -->
         </div>
-        
+
         <div id="gear_menu" style="display: none" class="ui-body-c ui-overlay-c ui-dialog">
           <div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c">
             <a href="#/torrents/new" class="add_a_torrent ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
@@ -130,13 +129,13 @@
             <li><a href="#" id="statistics" class="statistics-link">Statistics</a></li>
             <li><a href="#" id="settings" class="settings-link">Preferences</a></li>
           </ul>
-        </nav>      
-      </footer>      
+        </nav>
+      </footer>
     </div>
-    
+
     <div id="install">
       <header>&nbsp;</header>
-      
+
       <h1>kettu</h1>
       <h2>A web interface to the transmission bittorrent client.</h2>
 
@@ -145,20 +144,20 @@
           and choose <em>Add to Home Screen</em>.</p>
       </div>
     </div>
-    
+
     <script type="text/javascript" src="vendor/lab/lab.js"></script>
     <script type="text/javascript">
 
       var app = document.getElementById('app');
       var install = document.getElementById('install');
-      
+
       // if(navigator.standalone === undefined || !!navigator.standalone) {
-        
+
         app.style.display = "block";
         install.style.display = "none";
-        
+
         window.kettu = {};
-        
+
         $LAB
           .script('vendor/underscore/underscore.js')
           .script('vendor/jquery/jquery.js').wait()
@@ -205,11 +204,11 @@
           .script('js/app.js');
 
       // } else {
-      //   
+      //
       //   app.style.display = "none";
       //   install.style.display = "block";
-      //   
+      //
       // }
     </script>
-  </body>  
+  </body>
 </html>

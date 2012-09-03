@@ -3,7 +3,7 @@ require 'sinatra'
 require 'json'
 
 set :static, true
-set :public, File.dirname(__FILE__) + '/../../'
+set :public_folder, File.dirname(__FILE__) + '/../../'
 
 get '/' do
   redirect "/index.html"
@@ -18,7 +18,7 @@ post '/transmission/rpc' do
       f << params.to_s
     end
   end
-  
+
   file_name = params.keys.first.match(/ids/) ? "singular" : "plural"
   File.read(File.dirname(__FILE__) + "/#{file_name}.json")
 end
