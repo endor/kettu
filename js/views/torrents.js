@@ -30,6 +30,10 @@ kettu.TorrentsView = function(torrent, context) {
     return !!kettu.app.mobile;
   };
   
+  view.paused = function() {
+    return view.statusWord() === 'paused';
+  };
+
   view.mobileError = function() {
     return (view.isMobile() && view.hasError()) ? 'mobile-error' : '';
   };

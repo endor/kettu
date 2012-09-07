@@ -6,16 +6,20 @@
 
     <div class="buttons">
       <div class="pauseAndActivateButton">{{{pauseAndActivateButton}}}</div>
-    </div>    
+    </div>
+
+    {{^paused}}
+      <div class="statusString{{errorClass}}">{{statusString}}</div>
+    {{/paused}}
 
     <div class="progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all">
-      {{{progressBar}}} 
-    </div>  
+      {{{progressBar}}}
+    </div>
   {{/isMobile}}
-  
+
   {{^isMobile}}
     <div class="progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all">
-      {{{progressBar}}} 
+      {{{progressBar}}}
     </div>
     <div class="name">
       {{name}}
@@ -28,7 +32,7 @@
       <div class="statusString{{errorClass}}">{{statusString}}</div>
       <div class="buttons">
         <div class="pauseAndActivateButton">{{{pauseAndActivateButton}}}</div>
-      </div>    
+      </div>
     {{/hasError}}
 
     {{#hasError}}

@@ -34,7 +34,7 @@ h3 {
   display: none;
 }
 
-header, 
+header,
 footer {
   display: none;
 }
@@ -70,7 +70,7 @@ footer {
 }
 
 .torrent {
-  height: 45px;
+  height: 67px;
   -webkit-transition-property: background;
   -webkit-transition-duration: 0.4s, 0.1s;
   -webkit-transition-timing-function: linear, ease-in;
@@ -84,6 +84,10 @@ footer {
   position: relative;
   overflow: hidden;
   width: 320px;
+}
+
+.torrent.paused {
+  height: 45px;
 }
 
 .torrent h3 {
@@ -100,35 +104,35 @@ footer {
 }
 
 .torrent .ui-widget-header-uploading {
-  border: 1px solid #AAA; 
+  border: 1px solid #AAA;
   color: #444;
   font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-soft_60_4ca20b_1x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-waiting_to_check {
-  border: 1px solid #AAA; 
+  border: 1px solid #AAA;
   color: #444;
   font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-soft_44_444444_1x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-downloading, .torrent .ui-widget-header-checking {
-  border: 1px solid #AAA; 
+  border: 1px solid #AAA;
   color: #444;
   font-weight: bold;
-  background: url(jquery/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) repeat-x;  
+  background: url(jquery/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-meta {
-  border: 1px solid #AAA; 
+  border: 1px solid #AAA;
   color: #444;
   font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-hard_75_f5f5b5_1x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-paused {
-  border: 1px solid #AAA; 
+  border: 1px solid #AAA;
   color: #444;
   font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x;
@@ -147,6 +151,11 @@ footer {
 .torrent .statusString {
   clear: both;
   color: #999;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 3px;
+  margin-top: -8px;
 }
 
 .torrent .statusString.error {
@@ -158,8 +167,9 @@ footer {
 }
 
 .torrent .progressDetails {
+  display: none;
   margin: 0px;
-  padding: 0px;  
+  padding: 0px;
   color: #555;
 }
 
@@ -174,14 +184,8 @@ footer {
   width: 220px;
   height: 21px;
   overflow: hidden;
+  margin-bottom: 0;
 }
-
-.compact .statusString {
-  display: none;
-}
-
-
-
 
 #mobile-header {
   height: 45px;
@@ -226,7 +230,7 @@ footer {
 }
 
 #torrents {
-  width: 100% !important;  
+  width: 100% !important;
   padding: 0px;
 }
 
@@ -464,7 +468,7 @@ footer {
 
 #info.settings .menu li a {
   font-size: 12px;
-  padding: 0.9em;  
+  padding: 0.9em;
 }
 
 #info nav ul.menu li a.active,
@@ -555,7 +559,7 @@ footer {
   display: inline-block;
   width: 24px; height: 22px;
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAUCAYAAAB4d5a9AAACSklEQVR42rWVS6gSYRSAf6/Xq+JjE3oTHwRCMdCNcCFiYCIKGT7CRUkbceGqja1s0UJIUFCRcJe7QKMyIhcWLhTCTWT5wFpom5RQFF9tNB9MR5psut1R0vrgwHAO/N/Pzzln0C5wudz90WgU1Ol0ZxEFFosF7QSHw0HD4fB5vV5/4/F4zvw3SafTeYr/oBoOhy9SSHYDJI/wX3wOBAKX/pAYDIYDimCazWa+XC7fQyQUCgUDaucgNFA3wHO9xn9n5PP5riECq9WKECSLRJQgKqSoNRqNuxKJBPF4PORyuc5nMpnwbDZ7D7Uhvp5v2WzWKZPJkFarBQkF1Wo1IRaLT0ml0v1CoXAPUl/xv6RWq91xu920lWQ8Hn/y+/1XvF6vHuKySCSiC4VC5nQ6fYHvxu2VpNfrvUMkWCwWyuVy/h0FH4vFomol6ff7RT6ff4AIHA4HBukJviWtVuulUqk8NBqNiFKSz+cDOInJZFKqVCqRVCp100AQiUSuz+fz0nFBu92+j2EYEwEmk+lkydHRER1u8pY4/EM8Hr+hUqno6Bg0Gg11u13ynEyj0egtEJDn5GQJ9P9pSA0hl1er1aJ1Ew+SnxP/JRgMXiVKmyU2mw2DZ8hqNBrRhgWJoCtfLbs1FApdYDAYyG63H+4BGyVwuDQWi2FoA2w2m55MJp16vV62FKTTaSdc7gF809ZLtiSRSJjgmFmz2Xy8FFJKlv+HbSXlcvkZDoDkIaVkMBiUBAIBj7klsHqebJQsFosp9HdrW2D9jKkl/xAqyXclKZal9PCS9QAAAABJRU5ErkJggg==');
-}  
+}
 
 #install h1 {
   color: #444;

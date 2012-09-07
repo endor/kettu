@@ -54,9 +54,11 @@ kettu.app = $.sammy(function() {
 });
  
 $(function() {
+  window.localStorage.clear();
+
   kettu.app.reloadInterval = kettu.store.get('torrentReloadInterval') || 2000;
   kettu.store.set('torrentReloadInterval', kettu.app.reloadInterval);
-  
+
   if($(window).width() > 480) {
     kettu.app.mobile = false;
     kettu.app.run('#/torrents');    

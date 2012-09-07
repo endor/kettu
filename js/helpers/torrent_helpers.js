@@ -62,7 +62,7 @@ kettu.TorrentHelpers = {
       $(kettu.app.element_selector).find('#' + torrent.id).replaceWith(rendered_view);
       kettu.app.trigger('refreshed-torrent', torrent);
     });
-  },  
+  },
   
   setAndSaveModes: function(context) {
     var params = context.params;
@@ -132,9 +132,11 @@ kettu.TorrentHelpers = {
       if(torrent.statusWord() === 'paused') {
         old_torrent.find('input.pauseAndActivateButton').val('Resume');
         old_torrent.find('input[name="method"]').val('torrent-start');
+        old_torrent.find('.statusString').hide();
       } else {
         old_torrent.find('input.pauseAndActivateButton').val('Pause');
         old_torrent.find('input[name="method"]').val('torrent-stop');
+        old_torrent.find('.statusString').show();
       }
     }
   },

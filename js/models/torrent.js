@@ -94,7 +94,7 @@ kettu.Torrent = function(attributes) {
     }
     
     // NOTE: creating the progressbar via $('<div></div>').progressbar({}); seems to lead to a memory leak in safari
-    
+
     var progressBar = '<div class="ui-progressbar-value ui-widget-header-' + status + ' ui-corner-left" style="width: ' + value + '%; "></div>';
 
     return progressBar;
@@ -134,6 +134,9 @@ kettu.Torrent = function(attributes) {
     }
     if(torrent.isVerifying()) {
       currentStatus += ' - ' + (torrent.recheckProgress * 100).toFixed(2) + '%';
+    }
+    if(kettu.app.mobile && currentStatus.match(/ - /)) {
+      currentStatus = currentStatus.split(' - ')[1];
     }
     return currentStatus;
   };
