@@ -1,5 +1,3 @@
-kettu.store = new Sammy.Store({name: 'data', type: ['local', 'cookie']});
-
 kettu.app = $.sammy(function() {
   this.use(Sammy.TransmissionRPC);
   this.use(Sammy.Mustache);
@@ -52,11 +50,9 @@ kettu.app = $.sammy(function() {
     this.hideContextMenu();
   });
 });
- 
-$(function() {
-  window.localStorage.clear();
 
-  kettu.app.reloadInterval = kettu.store.get('torrentReloadInterval') || 2000;
+$(function() {
+  kettu.app.reloadInterval = kettu.store.get('torrentReloadInterval') || kettu.config.reloadInterval || 2000;
   kettu.store.set('torrentReloadInterval', kettu.app.reloadInterval);
 
   if($(window).width() > 480) {
@@ -67,6 +63,6 @@ $(function() {
     kettu.app.mobile = true;
     kettu.app.run('#/torrents?view=compact');
   }
-  
+
   kettu.app.trigger('init');
 });
