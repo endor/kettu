@@ -117,7 +117,7 @@ kettu.Torrent = function(attributes) {
     localized_stati[stati['waiting_to_seed']] = 'Waiting to seed';
     localized_stati[stati['seeding']] = 'Seeding';
 
-    return localized_stati[this['status']] ? localized_stati[this['status']] : 'Error';
+    return localized_stati[this['status']] ? localized_stati[this['status']] : 'Unknown status';
   };
   torrent.statusString = function() {
     var currentStatus = torrent.statusStringLocalized(torrent.status);
