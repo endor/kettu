@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>kettu</title>
+    <link rel="stylesheet" href="vendor/mocha/mocha.css" />
+  </head>
+
+  <body>
+    <div id="stage" style="display: none">
+      <div id="app">
+        <header>
+          <div id="flash"></div>
+
+          <div id="globalUpAndDownload"></div>
+
+          <div id="filterbar">
+
+            <ul id="filter_sort_links">
+              <li>
+                <ul id="filters">
+                  <li><a href="#/torrents?filter=all" class="all">All</a></li>
+                  <li><a href="#/torrents?filter=downloading" class="downloading">Downloading</a></li>
+                  <li><a href="#/torrents?filter=seeding" class="seeding">Seeding</a></li>
+                  <li><a href="#/torrents?filter=paused" class="paused">Paused</a></li>
+                  <li><a href="#/torrents?filter=activity" class="activity">Activity</a></li>
+                </ul>
+              </li>
+              <li class="sorts_dropdown">
+                <a href="#" title="Sort by …" id="sort_link">Sort by …</a>
+                <ul id="sorts">
+                  <li><a href="#/torrents?sort=activity" class="activity">Sort by Activity</a></li>
+                  <li><a href="#/torrents?sort=age" class="age">Sort by Age</a></li>
+                  <li><a href="#/torrents?sort=name" class="name">Sort by Name</a></li>
+                  <li><a href="#/torrents?sort=progress" class="progress">Sort by Progress</a></li>
+                  <li><a href="#/torrents?sort=queue" class="queue">Sort by Queue</a></li>
+                  <li><a href="#/torrents?sort=state" class="state">Sort by State</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#/torrents?sort=reverse" id="reverse_link" title="Reverse Order">Reverse Order</a>
+              </li>
+            </ul>
+
+            <div id="search_filter">
+              <input type="search" placeholder="Filter" id="search" />
+            </div>
+          </div>
+        </header>
+
+        <div id="container" class="container">
+          <div class="main info" data-role="page">
+            <div data-role="header" data-position="fixed" id="mobile-header" data-theme="c">
+              <a href="#/torrents" data-icon="arrow-l" data-theme="c" class="back">Back</a>
+              <h1>Transmission</h1>
+              <a href="#" data-icon="gear" data-theme="c" class="gear">More</a>
+            </div>
+
+            <div class="torrents_container">
+              <ul id="torrents"></ul>
+            </div>
+
+            <div id="info"></div>
+
+            <ul id="context_menu">
+            </ul>
+
+            <ul id="selectPriority" style="display: none">
+              <li>
+                <a href="#" data-priority="up"><img src="css/images/priority_up_small.png" /></a>
+              </li>
+              <li>
+                <a href="#" data-priority="normal"><img src="css/images/priority_normal_small.png" /></a>
+              </li>
+              <li>
+                <a href="#" data-priority="down"><img src="css/images/priority_down_small.png" /></a>
+              </li>
+            </ul>
+
+            <!-- <div data-role="footer" id="mobile-footer" data-position="fixed" data-theme="c"></div> -->
+          </div>
+
+          <div id="gear_menu" style="display: none" class="ui-body-c ui-overlay-c ui-dialog">
+            <div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c">
+              <a href="#/torrents/new" class="add_a_torrent ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
+                Add a Torrent
+              </a>
+              <a href="#/settings" class="settings ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
+                Preferences
+              </a>
+              <a href="#" class="start_all ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
+                Start All
+              </a>
+              <a href="#" class="stop_all ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
+                Stop All
+              </a>
+              <a href="#" class="cancel ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
+                Cancel
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <form action="#/settings" method="PUT" id="speed_limit_mode_form">
+          <input type="hidden" name="alt-speed-enabled" value="true" />
+        </form>
+
+        <footer>
+          <nav id="footer">
+            <ul class="icon_nav">
+              <li><a href="#" id="compact_view" title="Compact View">Enable Compact View</a></li>
+              <li><a href="#" id="speed_limit_mode" title="Speed Limit Mode">Enable Speed Limit Mode</a></li>
+              <li><a href="#" id="start_all" class="start_all" title="Start All">Start All</a></li>
+              <li><a href="#" id="stop_all" class="stop_all" title="Stop All">Stop All</a></li>
+            </ul>
+
+            <ul class="info_nav">
+              <li><a href="#" class="inspector details-link">Inspector</a></li>
+              <li><a href="#" id="add_a_torrent" class="new-link">Add Torrent</a></li>
+              <li><a href="#" id="statistics" class="statistics-link">Statistics</a></li>
+              <li><a href="#" id="settings" class="settings-link">Preferences</a></li>
+            </ul>
+          </nav>
+        </footer>
+      </div>
+    </div>
+
+    <div id="mocha"></div>
+
+    <script type="text/javascript" src="vendor/lab/lab.js"></script>
+    <script type="text/javascript">
+      window.kettu = {};
+
+      $LAB
+        .script('../vendor/mocha/expect.js')
+        .script('../vendor/mocha/mocha.js')
+        .wait(function() {
+          mocha.setup({
+            ui: 'bdd',
+            ignoreLeaks: true,
+            timeout: 4000
+          })
+        })
+        .script('../vendor/underscore/underscore.js')
+        .script('../vendor/jquery/jquery.js').wait()
+        .script('../vendor/jquery/jquery.mobile.js')
+        .script('../vendor/jquery/jquery.ui.js')
+        .script('../vendor/jquery/jquery.form.js')
+        .script('../vendor/jquery/jquery.uniq.js')
+        .script('../vendor/jquery/jquery.contextmenu.js')
+        .script('../vendor/jquery/facebox.js')
+        .script('../vendor/sammy/sammy.js').wait()
+        .script('../vendor/sammy/sammy.json.js')
+        .script('../vendor/sammy/sammy.storage.js')
+        .script('../vendor/sammy/sammy.mustache.js')
+        .script('../js/rpc.js').wait()
+        .script('../js/controllers/settings.js')
+        .script('../js/controllers/statistics.js')
+        .script('../js/controllers/torrents.js')
+        .script('../js/controllers/torrent_details.js')
+        .script('../js/controllers/blocklist.js')
+        .script('../js/models/torrent.js')
+        .script('../js/models/validator.js')
+        .script('../js/models/settings_validator.js')
+        .script('../js/views/statistics.js')
+        .script('../js/views/torrent.js')
+        .script('../js/views/torrents.js')
+        .script('../js/views/torrent_details.js')
+        .script('../js/helpers/application_helpers.js')
+        .script('../js/helpers/mobile_helpers.js')
+        .script('../js/helpers/location_helpers.js')
+        .script('../js/helpers/context_menu_helpers.js')
+        .script('../js/helpers/dragging_helpers.js')
+        .script('../js/helpers/filter_torrents_helpers.js')
+        .script('../js/helpers/info_helpers.js')
+        .script('../js/helpers/link_helpers.js')
+        .script('../js/helpers/math_helpers.js')
+        .script('../js/helpers/search_helpers.js')
+        .script('../js/helpers/setting_helpers.js')
+        .script('../js/helpers/sort_torrents_helpers.js')
+        .script('../js/helpers/torrent_helpers.js')
+        .script('../js/helpers/torrent_details_helpers.js')
+        .script('../js/helpers/view_helpers.js')
+        .script('../config/config.js').wait()
+        .script('../config/locations.js').wait()
+        .script('../vendor/mocha/helpers.js').wait(function() {
+          kettu.helpers.setup();
+        })
+        .script('../config/store.js').wait(function() {
+          kettu.helpers.setupStore();
+        })
+        .script('../js/app.js').wait()
+        .script('features/torrents_spec.js')
+        .script('features/torrent_info_spec.js').wait(function() {
+          after(function() {
+            kettu.app.get('#/', function() {});
+            window.location.href = '#/';
+          });
+          mocha.run();
+        });
+    </script>
+  </body>
+</html>
