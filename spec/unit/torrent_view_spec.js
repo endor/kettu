@@ -1,3 +1,5 @@
+/*global describe, it, kettu*/
+
 describe("TorrentView", function() {
   var ctx,
       torrent_view,
@@ -18,14 +20,14 @@ describe("TorrentView", function() {
       torrent_view.trackerStats[0] = {};
       torrent_view.trackerStats[0]['lastAnnounceTime'] = timestamp;
       torrent_view.addFormattedTimes();
-      expect(torrent_view.trackerStats[0].lastAnnounceTimeFormatted).toMatch(new RegExp("2/" + day + "/2010 \\d+:53"));
+      expect(torrent_view.trackerStats[0].lastAnnounceTimeFormatted).to.match(new RegExp("2/" + day + "/2010 \\d+:53"));
     });
     
     it("should add a formatted time for lastScrapeTime", function() {
       torrent_view.trackerStats[0] = {};
       torrent_view.trackerStats[0]['lastScrapeTime'] = timestamp;
       torrent_view.addFormattedTimes();
-      expect(torrent_view.trackerStats[0].lastScrapeTimeFormatted).toMatch(new RegExp("2/" + day + "/2010 \\d+:53"));
+      expect(torrent_view.trackerStats[0].lastScrapeTimeFormatted).to.match(new RegExp("2/" + day + "/2010 \\d+:53"));
     });
   });
   
@@ -35,13 +37,13 @@ describe("TorrentView", function() {
         torrent_view.files[0] = {};
         torrent_view.files[0]['length'] = 2048;
         torrent_view.addFormattedSizes();
-        expect(torrent_view.files[0].lengthFormatted).toEqual('2.0 KB');
+        expect(torrent_view.files[0].lengthFormatted).to.equal('2.0 KB');
       });
     
       it("should add a percent done value", function() {
         torrent_view.files[0] = {'length': 2048, 'bytesCompleted': 512};
         torrent_view.addFormattedSizes();
-        expect(torrent_view.files[0].percentDone).toEqual(25);
+        expect(torrent_view.files[0].percentDone).to.equal(25);
       });
     });
     
@@ -49,25 +51,25 @@ describe("TorrentView", function() {
       it("should add a percent done value", function() {
         torrent_view.peers[0] = {'progress': 0.7};
         torrent_view.addFormattedSizes();
-        expect(torrent_view.peers[0].percentDone).toEqual(70);
+        expect(torrent_view.peers[0].percentDone).to.equal(70);
       });
       
       it("should add a formatted upload value", function() {
         torrent_view.peers[0] = {'rateToPeer': 20};
         torrent_view.addFormattedSizes();
-        expect(torrent_view.peers[0].uploadFormatted).toEqual('20 bytes');
+        expect(torrent_view.peers[0].uploadFormatted).to.equal('20 bytes');
       });
       
       it("should add an empty string if upload value is 0", function() {
         torrent_view.peers[0] = {'rateToPeer': 0};
         torrent_view.addFormattedSizes();
-        expect(torrent_view.peers[0].uploadFormatted).toEqual('');
+        expect(torrent_view.peers[0].uploadFormatted).to.equal('');
       });
       
       it("should add a formatted download value", function() {
         torrent_view.peers[0] = {'rateToClient': 20};
         torrent_view.addFormattedSizes();
-        expect(torrent_view.peers[0].downloadFormatted).toEqual('20 bytes');
+        expect(torrent_view.peers[0].downloadFormatted).to.equal('20 bytes');
       });
     });
   });
@@ -86,41 +88,41 @@ describe("TorrentView", function() {
     it("should sort by client", function() {
       torrent_view.sort_peers = 'client';
       torrent_view.sortPeers();
-      expect(torrent_view.peers[0].clientName).toEqual('Beluge');
-      expect(torrent_view.peers[1].clientName).toEqual('BitComet');
-      expect(torrent_view.peers[2].clientName).toEqual('rtorrent');
-      expect(torrent_view.peers[3].clientName).toEqual('Transmission');
-      expect(torrent_view.peers[4].clientName).toEqual('Vuze');
+      expect(torrent_view.peers[0].clientName).to.equal('Beluge');
+      expect(torrent_view.peers[1].clientName).to.equal('BitComet');
+      expect(torrent_view.peers[2].clientName).to.equal('rtorrent');
+      expect(torrent_view.peers[3].clientName).to.equal('Transmission');
+      expect(torrent_view.peers[4].clientName).to.equal('Vuze');
     });
     
     it("should sort by percent", function() {
       torrent_view.sort_peers = 'percent';
       torrent_view.sortPeers();
-      expect(torrent_view.peers[0].clientName).toEqual('BitComet');
-      expect(torrent_view.peers[1].clientName).toEqual('rtorrent');
-      expect(torrent_view.peers[2].clientName).toEqual('Beluge');
-      expect(torrent_view.peers[3].clientName).toEqual('Vuze');
-      expect(torrent_view.peers[4].clientName).toEqual('Transmission');
+      expect(torrent_view.peers[0].clientName).to.equal('BitComet');
+      expect(torrent_view.peers[1].clientName).to.equal('rtorrent');
+      expect(torrent_view.peers[2].clientName).to.equal('Beluge');
+      expect(torrent_view.peers[3].clientName).to.equal('Vuze');
+      expect(torrent_view.peers[4].clientName).to.equal('Transmission');
     });
     
     it("should sort by upload", function() {
       torrent_view.sort_peers = 'upload';
       torrent_view.sortPeers();
-      expect(torrent_view.peers[0].clientName).toEqual('Beluge');
-      expect(torrent_view.peers[1].clientName).toEqual('Vuze');
-      expect(torrent_view.peers[2].clientName).toEqual('rtorrent');
-      expect(torrent_view.peers[3].clientName).toEqual('BitComet');
-      expect(torrent_view.peers[4].clientName).toEqual('Transmission');
+      expect(torrent_view.peers[0].clientName).to.equal('Beluge');
+      expect(torrent_view.peers[1].clientName).to.equal('Vuze');
+      expect(torrent_view.peers[2].clientName).to.equal('rtorrent');
+      expect(torrent_view.peers[3].clientName).to.equal('BitComet');
+      expect(torrent_view.peers[4].clientName).to.equal('Transmission');
     });
     
     it("should sort by download", function() {
       torrent_view.sort_peers = 'download';
       torrent_view.sortPeers();
-      expect(torrent_view.peers[0].clientName).toEqual('Transmission');
-      expect(torrent_view.peers[1].clientName).toEqual('Beluge');
-      expect(torrent_view.peers[2].clientName).toEqual('Vuze');
-      expect(torrent_view.peers[3].clientName).toEqual('rtorrent');
-      expect(torrent_view.peers[4].clientName).toEqual('BitComet');
+      expect(torrent_view.peers[0].clientName).to.equal('Transmission');
+      expect(torrent_view.peers[1].clientName).to.equal('Beluge');
+      expect(torrent_view.peers[2].clientName).to.equal('Vuze');
+      expect(torrent_view.peers[3].clientName).to.equal('rtorrent');
+      expect(torrent_view.peers[4].clientName).to.equal('BitComet');
     });
   });
 
@@ -129,28 +131,28 @@ describe("TorrentView", function() {
       torrent_view.files[0] = {};
       torrent_view.fileStats[0] = {};
       torrent_view.addIdsToFiles();
-      expect(torrent_view.files[0].id).toEqual('file_0');
+      expect(torrent_view.files[0].id).to.equal('file_0');
     });
     
     it("should add wanted if the file is wanted", function() {
       torrent_view.files = [{}, {}];
       torrent_view.fileStats = [{'wanted': true}, {}];
       torrent_view.addIdsToFiles();
-      expect(torrent_view.files[0].wanted).toEqual(' checked="checked"');
+      expect(torrent_view.files[0].wanted).to.equal(' checked="checked"');
     });
     
     it("should not add wanted if the file is not wanted", function() {
       torrent_view.files = [{}, {}];
       torrent_view.fileStats = [{'wanted': false}, {}];
       torrent_view.addIdsToFiles();
-      expect(torrent_view.files[0].wanted).toNotEqual(' checked="checked"');
+      expect(torrent_view.files[0].wanted).not.to.equal(' checked="checked"');
     });
     
     it("should add disabled if the file is done downloading", function() {
       torrent_view.files[0] = {'length': 200, 'bytesCompleted': 200};
       torrent_view.fileStats[0] = {};
       torrent_view.addIdsToFiles();
-      expect(torrent_view.files[0].disabled).toEqual(' disabled="disabled"');
+      expect(torrent_view.files[0].disabled).to.equal(' disabled="disabled"');
     });
     
     it("should not add disabled if the file is not done downloading", function() {
@@ -158,21 +160,21 @@ describe("TorrentView", function() {
       torrent_view.files[1] = {};
       torrent_view.fileStats = [{}, {}];
       torrent_view.addIdsToFiles();
-      expect(torrent_view.files[0].disabled).toNotEqual(' disabled="disabled"');
+      expect(torrent_view.files[0].disabled).not.to.equal(' disabled="disabled"');
     });
     
     it("should add disabled if there is only one file", function() {
       torrent_view.files[0] = {'length': 200, 'bytesCompleted': 100};
       torrent_view.fileStats = [{}];
       torrent_view.addIdsToFiles();
-      expect(torrent_view.files[0].disabled).toEqual(' disabled="disabled"');
+      expect(torrent_view.files[0].disabled).to.equal(' disabled="disabled"');
     });
     
     it("should add wanted if the file is wanted", function() {
       torrent_view.files[0] = {};
       torrent_view.fileStats[0] = {'wanted': false};
       torrent_view.addIdsToFiles();
-      expect(torrent_view.files[0].wanted).toEqual(' checked="checked"');
+      expect(torrent_view.files[0].wanted).to.equal(' checked="checked"');
     });
   });
   
@@ -182,7 +184,7 @@ describe("TorrentView", function() {
       torrent_view = kettu.TorrentView({comment: '1234567890123456789012345678901234567890',
                                         trackerStats: [], files: [], name: 'abc',
                                         peers: [], fileStats: []}, ctx)
-      expect(torrent_view.comment).toEqual('123456789012345678901234567890123&hellip;')
+      expect(torrent_view.comment).to.equal('123456789012345678901234567890123&hellip;')
     });
     
     it("should not make the strings shorter if it's not the mobile version", function() {
@@ -190,7 +192,7 @@ describe("TorrentView", function() {
       torrent_view = kettu.TorrentView({comment: '1234567890123456789012345678901234567890',
                                         trackerStats: [], files: [], name: 'abc',
                                         peers: [], fileStats: []}, ctx)
-      expect(torrent_view.comment).toEqual('1234567890123456789012345678901234567890')
+      expect(torrent_view.comment).to.equal('1234567890123456789012345678901234567890')
     });
     
     it("should not make the strings shorter if they aren't too long", function() {
@@ -198,7 +200,7 @@ describe("TorrentView", function() {
       torrent_view = kettu.TorrentView({comment: '1234567890',
                                         trackerStats: [], files: [], name: 'abc',
                                         peers: [], fileStats: []}, ctx)
-      expect(torrent_view.comment).toEqual('1234567890')
+      expect(torrent_view.comment).to.equal('1234567890')
     });
   });
 });

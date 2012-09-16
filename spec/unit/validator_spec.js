@@ -1,3 +1,5 @@
+/*global describe, it, kettu*/
+
 describe("Validator", function() {
   var validator;
   
@@ -13,7 +15,7 @@ describe("Validator", function() {
       'inclusion_of': {'field': 'status', 'in': [1, 2, 4, 8, 16]}
     };
     validator.validate(torrent);
-    expect(validator.errors).toEqual([]);
+    expect(validator.errors).to.have.length(0);
   });
   
   it("should validate the presence of a single field", function() {
@@ -22,8 +24,8 @@ describe("Validator", function() {
       'presence_of': 'name'
     };
     validator.validate(torrent);
-    expect(validator.errors[0]['field']).toEqual('name');
-    expect(validator.errors[0]['message']).toEqual('should not be empty');
+    expect(validator.errors[0]['field']).to.equal('name');
+    expect(validator.errors[0]['message']).to.equal('should not be empty');
   });
   
   it("should validate the presence of multiple fields", function() {
@@ -32,8 +34,8 @@ describe("Validator", function() {
       'presence_of': ['name', 'status']
     };
     validator.validate(torrent);
-    expect(validator.errors[0]['field']).toEqual('name');
-    expect(validator.errors[1]['field']).toEqual('status');
+    expect(validator.errors[0]['field']).to.equal('name');
+    expect(validator.errors[1]['field']).to.equal('status');
   });
   
   it("should validate the numericality of a field", function() {
@@ -42,8 +44,8 @@ describe("Validator", function() {
       'numericality_of': 'totalSize'
     };
     validator.validate(torrent);
-    expect(validator.errors[0]['field']).toEqual('totalSize')
-    expect(validator.errors[0]['message']).toEqual('is not a valid number')
+    expect(validator.errors[0]['field']).to.equal('totalSize')
+    expect(validator.errors[0]['message']).to.equal('is not a valid number')
   });
   
   it("should validate the max value of a numeric field", function() {
@@ -52,8 +54,8 @@ describe("Validator", function() {
       'numericality_of': {'field': 'totalSize', 'max': 99}
     };
     validator.validate(torrent);
-    expect(validator.errors[0]['field']).toEqual('totalSize');
-    expect(validator.errors[0]['message']).toEqual('is not a valid number');
+    expect(validator.errors[0]['field']).to.equal('totalSize');
+    expect(validator.errors[0]['message']).to.equal('is not a valid number');
   });
   
   it("should validate the numericality of multiple fields", function() {
@@ -62,8 +64,8 @@ describe("Validator", function() {
       'numericality_of': ['totalSize', 'status']
     };
     validator.validate(torrent);
-    expect(validator.errors[0]['field']).toEqual('totalSize');
-    expect(validator.errors[1]['field']).toEqual('status');
+    expect(validator.errors[0]['field']).to.equal('totalSize');
+    expect(validator.errors[1]['field']).to.equal('status');
   });
   
   it("should validate the numericality of a missing field and throw an error", function() {
@@ -72,8 +74,8 @@ describe("Validator", function() {
       'numericality_of': 'totalSize'
     };
     validator.validate(torrent);
-    expect(validator.errors[0]['field']).toEqual('totalSize');
-    expect(validator.errors[0]['message']).toEqual('is not a valid number');
+    expect(validator.errors[0]['field']).to.equal('totalSize');
+    expect(validator.errors[0]['message']).to.equal('is not a valid number');
   });
 
   it("should validate the numericality of null and throw an error", function() {
@@ -82,8 +84,8 @@ describe("Validator", function() {
       'numericality_of': 'totalSize'
     };
     validator.validate(torrent);
-    expect(validator.errors[0]['field']).toEqual('totalSize')
-    expect(validator.errors[0]['message']).toEqual('is not a valid number')    
+    expect(validator.errors[0]['field']).to.equal('totalSize')
+    expect(validator.errors[0]['message']).to.equal('is not a valid number')    
   });
   
   it("should validate the inclusion of a field", function() {
@@ -92,7 +94,7 @@ describe("Validator", function() {
       'inclusion_of': {'field': 'encryption', 'in': ['required', 'preferred', 'tolerated']}
     };
     validator.validate(torrent);
-    expect(validator.errors[0]['field']).toEqual('encryption');
-    expect(validator.errors[0]['message']).toEqual('is not in the list of a valid values');
+    expect(validator.errors[0]['field']).to.equal('encryption');
+    expect(validator.errors[0]['message']).to.equal('is not in the list of a valid values');
   });
 });

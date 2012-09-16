@@ -193,7 +193,16 @@
         .script('spec/integration/torrent_info_spec.js')
         .script('spec/integration/sort_and_filter_torrents_spec.js')
         .script('spec/integration/search_spec.js')
-        .script('spec/integration/settings_spec.js').wait(function() {
+        .script('spec/integration/settings_spec.js')
+        .script('spec/unit/application_helpers_spec.js')
+        .script('spec/unit/filter_torrents_helpers_spec.js')
+        .script('spec/unit/setting_helpers_spec.js')
+        .script('spec/unit/sort_torrents_helpers_spec.js')
+        .script('spec/unit/torrent_helpers_spec.js')
+        .script('spec/unit/view_helpers_spec.js')
+        .script('spec/unit/torrent_spec.js')
+        .script('spec/unit/torrent_view_spec.js')
+        .script('spec/unit/validator_spec.js').wait(function() {
           after(function() {
             kettu.app.get('#/', function() {});
             window.location.href = '#/';
