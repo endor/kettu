@@ -9,7 +9,7 @@ kettu.TorrentDetailsView = function(accumulation) {
   });
   
   _.each(['status_words', 'secure'], function(item) {
-    view[item] = $.uniq(view[item]);
+    view[item] = _.uniq(view[item]);
   });
   
   view.status_words = view.status_words.join('/');
