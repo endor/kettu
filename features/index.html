@@ -191,7 +191,8 @@
         .script('../js/app.js').wait()
         .script('features/torrents_spec.js')
         .script('features/torrent_info_spec.js')
-        .script('features/sort_and_filter_torrents_spec.js').wait(function() {
+        .script('features/sort_and_filter_torrents_spec.js')
+        .script('features/search_spec.js').wait(function() {
           after(function() {
             kettu.app.get('#/', function() {});
             window.location.href = '#/';
