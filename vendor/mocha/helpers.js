@@ -54,6 +54,10 @@
         } else {
           var data = JSON.parse(options.data);
 
+          if(data["method"] !== "torrent-get") {
+            window.lastRequest = options;
+          }
+
           if(data["arguments"]["ids"]) {
             var _torrents = _.select(torrents, function(_torrent) {
               return _torrent.id === data["arguments"]["ids"];
