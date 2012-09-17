@@ -1,4 +1,4 @@
-describe('torrent info', function() {
+describe('sort and filter torrents', function() {
   it('filters torrents', function(done) {
     kettu.helpers.createTorrents([
       ["Mutant Ninja Turtles", {id: 1, status: "4"}],
