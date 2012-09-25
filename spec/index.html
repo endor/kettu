@@ -187,7 +187,9 @@
         .script('config/store.js').wait(function() {
           kettu.helpers.setupStore();
         })
-        .script('js/app.js').wait()
+        .script('js/app.js').wait(function() {
+          kettu.app.get('#/', function() {});          
+        })
         .script('spec/integration/torrents_spec.js')
         .script('spec/integration/torrent_info_spec.js')
         .script('spec/integration/sort_and_filter_torrents_spec.js')
@@ -203,7 +205,6 @@
         .script('spec/unit/torrent_view_spec.js')
         .script('spec/unit/validator_spec.js').wait(function() {
           after(function() {
-            kettu.app.get('#/', function() {});
             window.location.href = '#/';
           });
           mocha.run();
