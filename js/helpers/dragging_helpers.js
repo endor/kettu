@@ -1,3 +1,5 @@
+/*global kettu*/
+
 kettu.DraggingHelpers = {
   handleDragging: function() {
     var context = this,

@@ -1,3 +1,5 @@
+/*global kettu*/
+
 // 
 // these sort helpers are based heavily on the previous sort helpers by Dave Perrett and Malcolm Jarvis
 //
@@ -55,4 +57,4 @@ kettu.SortTorrentsHelpers = {
     
     return torrents;
   }
-}
+};

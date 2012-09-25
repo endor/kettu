@@ -1,3 +1,5 @@
+/*global kettu*/
+
 kettu.TorrentsView = function(torrent, context) {
   var view = torrent;
   
@@ -39,7 +41,7 @@ kettu.TorrentsView = function(torrent, context) {
   };
   
   view.showPriorityArrow = function() {
-    return torrent.bandwidthPriority != 0;
+    return torrent.bandwidthPriority !== 0;
   };
   
   view.priorityArrow = function() {

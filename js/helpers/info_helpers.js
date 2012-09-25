@@ -1,3 +1,5 @@
+/*global kettu*/
+
 kettu.InfoHelpers = {
   closeInfo: function() {
     if(kettu.app.info_interval_id) { clearInterval(kettu.app.info_interval_id); }

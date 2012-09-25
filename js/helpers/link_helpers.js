@@ -1,3 +1,5 @@
+/*global kettu*/
+
 kettu.LinkHelpers = {
   activateLinks: function() {
     this.activateInspectorLink();
@@ -89,7 +91,7 @@ kettu.LinkHelpers = {
           });
           
           evt.preventDefault();
-        }
+        };
       };
     
     $('.start_all').click(start_stop_all({paused: true}, 'activate'));    

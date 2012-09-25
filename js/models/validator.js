@@ -1,3 +1,5 @@
+/*global kettu, _*/
+
 kettu.Validator = function() {};
 
 kettu.Validator.prototype = {

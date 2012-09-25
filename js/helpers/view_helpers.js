@@ -1,3 +1,5 @@
+/*global kettu, _*/
+
 kettu.ViewHelpers = {
   highlightTorrents: function(torrents, more_torrents) {
     $('#torrents .torrent').removeClass('active');

@@ -1,3 +1,5 @@
+/*global kettu, _*/
+
 kettu.TorrentView = function(torrent, context, sort_peers) {
   var view = torrent;
   view.sort_peers = sort_peers || 'client';

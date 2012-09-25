@@ -1,3 +1,5 @@
+/*global kettu, _*/
+
 kettu.TorrentDetailsHelpers = {
   emptyAccumulationHash: function() {
     return {number_of_torrents: 0, size: 0, status_words: [], downloaded: 0, uploaded: 0, ratio: 0, secure: [],

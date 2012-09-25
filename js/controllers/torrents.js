@@ -1,14 +1,20 @@
+/*global kettu, _*/
+
 kettu.Torrents = function(transmission) {
   transmission.get('#/torrents', function(context) {
     context.setAndSaveModes(context);
     
     if(kettu.app.torrents_interval_id) { clearInterval(kettu.app.torrents_interval_id); }
     kettu.app.trigger('get-torrents', {rerender: true});
-    kettu.app.torrents_interval_id = setInterval("kettu.app.trigger('get-torrents')", kettu.app.reloadInterval);
+    kettu.app.torrents_interval_id = setInterval(function() {
+      kettu.app.trigger('get-torrents');
+    }, kettu.app.reloadInterval);
     
     if(kettu.app.settings_interval_id) { clearInterval(kettu.app.settings_interval_id); }
     kettu.app.trigger('get-settings');
-    kettu.app.settings_interval_id = setInterval("kettu.app.trigger('get-settings')", (kettu.app.reloadInterval * 2));
+    kettu.app.settings_interval_id = setInterval(function() {
+      kettu.app.trigger('get-settings');
+    }, (kettu.app.reloadInterval * 2));
   });
     
   transmission.get('#/torrents/new', function(context) {

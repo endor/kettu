@@ -1,3 +1,5 @@
+/*global kettu, _*/
+
 kettu.Torrent = function(attributes) {
   var torrent = {}, stati = kettu.Torrent.stati;
 

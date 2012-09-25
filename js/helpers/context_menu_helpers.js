@@ -1,3 +1,5 @@
+/*global kettu*/
+
 kettu.ContextMenuHelpers = {
   hideContextMenu: function() {
     $('#context_menu').hide();

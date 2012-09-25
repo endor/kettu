@@ -1,3 +1,5 @@
+/*global kettu, _*/
+
 kettu.FilterTorrentsHelpers = {
   filterTorrents: function(filter_mode, torrents) {    
     var filtered_torrents = [];

@@ -1,3 +1,5 @@
+/*global kettu, _*/
+
 kettu.TorrentDetails = function(transmission) {
   transmission.get('#/torrent_details', function(context) {
     var active_torrents = $('.torrent.active');

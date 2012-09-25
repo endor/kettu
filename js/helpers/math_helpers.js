@@ -51,7 +51,7 @@ Math.formatBytes = function(bytes) {
   size = Math.roundWithPrecision(size, precision);
 
   // Add the decimal if this is an integer
-  if ((size % 1) == 0 && unit != 'bytes') {
+  if ((size % 1) === 0 && unit != 'bytes') {
     size = size + '.0';
   }
 
@@ -66,26 +66,26 @@ Math.formatBytes = function(bytes) {
  */
 Math.formatSeconds = function(seconds)
 {
-  var result, days, hours, minutes, seconds;
+  var result, days, hours, minutes;
 
   days = Math.floor(seconds / 86400);
   hours = Math.floor((seconds % 86400) / 3600);
   minutes = Math.floor((seconds % 3600) / 60);
   seconds = Math.floor((seconds % 3600) % 60);
 
-  if (days > 0 && hours == 0){
+  if (days > 0 && hours === 0){
     result = days + ' ' + 'days';
   }
   else if (days > 0 && hours > 0){
     result = days + ' ' + 'days' + ' ' + hours + ' ' + 'hr';
   }
-  else if (hours > 0 && minutes == 0){
+  else if (hours > 0 && minutes === 0){
     result = hours + ' ' + 'hr';
   }
   else if (hours > 0 && minutes > 0){
     result = hours + ' ' + 'hr' + ' ' + minutes + ' ' + 'min';
   }
-  else if (minutes > 0 && seconds == 0){
+  else if (minutes > 0 && seconds === 0){
     result = minutes + ' ' + 'min';
   }
   else if (minutes > 0 && seconds > 0){
@@ -123,7 +123,7 @@ Math.ratio = function(numerator, denominator) {
 
 	if(isNaN(result)) { result = 0; }
 	if(result=="Infinity") { result = "&infin;"; }
-	if((result % 1) == 0) { result += '.00'; }
+	if((result % 1) === 0) { result += '.00'; }
 
 	return result;
 };
@@ -137,7 +137,7 @@ Math.ratio = function(numerator, denominator) {
  */
 Math.formatPercent = function(total, left_until_done) {
   if(!total) { return 0; }
-  if(!left_until_done && left_until_done != 0) { return 0; }
+  if(!left_until_done && left_until_done !== 0) { return 0; }
   
   return Math.floor( ((total - left_until_done) / total) * 10000 ) / 100;
-}
+};

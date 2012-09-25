@@ -1,3 +1,5 @@
+/*global kettu, _*/
+
 kettu.SettingHelpers = {
   validator: new kettu.SettingsValidator(),
 
@@ -170,7 +172,9 @@ kettu.SettingHelpers = {
       this.store.set('torrentReloadInterval', kettu.app.reloadInterval);
 
       clearInterval(kettu.app.torrents_interval_id);
-      kettu.app.torrents_interval_id = setInterval("kettu.app.trigger('get-torrents')", kettu.app.reloadInterval);
+      kettu.app.torrents_interval_id = setInterval(function() {
+        kettu.app.trigger('get-torrents');
+      }, kettu.app.reloadInterval);
     }
   }
 };

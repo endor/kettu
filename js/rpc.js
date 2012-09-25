@@ -1,3 +1,5 @@
+/*global Sammy*/
+
 (function($) {
   
   Sammy.TransmissionRPC = function(app) {

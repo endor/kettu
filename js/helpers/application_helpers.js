@@ -1,10 +1,12 @@
+/*global kettu*/
+
 kettu.ApplicationHelpers = {
   cachePartial: function(template, partial, context) {
     if(!context.cache(partial)) {
       $.ajax({async: false, url: template, success: function(response) {
         context.cache(partial, response);
       }});
-    };
+    }
   },
   
   configureFacebox: function() {
@@ -22,7 +24,7 @@ kettu.ApplicationHelpers = {
   hashDiff: function(hash1, hash2) {
     var diff = {}, different = false;
     
-    for(key in hash1) {
+    for(var key in hash1) {
       if(hash1[key] != hash2[key]) {
         diff[key] = hash2[key];
         different = true;
@@ -39,4 +41,4 @@ kettu.ApplicationHelpers = {
       return string;
     }
   }
-}
+};
