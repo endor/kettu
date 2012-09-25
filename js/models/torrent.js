@@ -4,15 +4,15 @@ kettu.Torrent = function(attributes) {
   var torrent = {}, stati = kettu.Torrent.stati;
 
   torrent['fields'] = [
-    'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 
+    'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 'haveUnchecked',
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
     'addedDate', 'trackerStats', 'error', 'errorString', 'recheckProgress', 'bandwidthPriority',
     'seedRatioMode', 'seedRatioLimit'
   ];
   torrent['info_fields'] = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
-    'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
-    'pieceCount', 'pieceSize', 'peers', 'fileStats', 'peer-limit', 'downloadLimited',
+    'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files', 'pieceCount',
+    'pieceSize', 'peers', 'fileStats', 'peer-limit', 'downloadLimited',
     'uploadLimit', 'uploadLimited', 'downloadLimit', 'corruptEver'
   ];
 
@@ -20,11 +20,13 @@ kettu.Torrent = function(attributes) {
     torrent[field] = attributes[field];
   });
 
-  _.each(['totalSize', 'downloadedEver', 'uploadedEver', 'pieceSize', 'corruptEver'], function(attr) {
+  var byteFields = ['totalSize', 'downloadedEver', 'uploadedEver', 'pieceSize',
+    'corruptEver', 'sizeWhenDone'];
+  _.each(byteFields, function(attr) {
     torrent[attr + 'String'] = function() {
       return Math.formatBytes(torrent[attr]);
     };
-  });
+  });  
   
   torrent.secure = function() {
     return torrent.isPrivate ? 'Private Torrent' : 'Public Torrent';
@@ -62,16 +64,16 @@ kettu.Torrent = function(attributes) {
     return progressDetails;
   };
   torrent.downloadingProgress = function() {
-    var formattedSizeDownloaded = Math.formatBytes(torrent.sizeWhenDone - torrent.leftUntilDone);
-    var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone);
+    var formattedSizeDownloaded = Math.formatBytes(torrent.sizeWhenDone - torrent.leftUntilDone),
+        formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone);
 
     return (formattedSizeDownloaded + " of " + formattedSizeWhenDone + " (" + torrent.percentDone() + "%)");
   };
   torrent.uploadingProgress = function() {
-    var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone);
-    var formattedUploadedEver = Math.formatBytes(torrent.uploadedEver);
+    var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone),
+        formattedUploadedEver = Math.formatBytes(torrent.uploadedEver),
+        uploadingProgress = formattedSizeWhenDone + ", uploaded " + formattedUploadedEver;
 
-    var uploadingProgress = formattedSizeWhenDone + ", uploaded " + formattedUploadedEver;
     return uploadingProgress + " (Ratio: " + kettu.ViewHelpers.sanitizeNumber(torrent.uploadRatio) + ")";
   };
   torrent.metaDataProgress = function() {
@@ -156,7 +158,11 @@ kettu.Torrent = function(attributes) {
   torrent.activity = function() {
     return torrent.rateDownload + torrent.rateUpload;
   };
-	
+  torrent.haveString = function() {
+    return Math.formatBytes(torrent.haveValid + torrent.haveUnchecked) +
+      ' (' + Math.formatBytes(torrent.haveValid) + ' verified)';
+  };
+
   return torrent;
 };
 
