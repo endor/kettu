@@ -11,14 +11,14 @@ kettu.Torrent = function(attributes) {
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'haveString', 'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files',
     'pieceCount', 'pieceSize', 'peers', 'fileStats', 'peer-limit', 'downloadLimited',
-    'uploadLimit', 'uploadLimited', 'downloadLimit'
+    'uploadLimit', 'uploadLimited', 'downloadLimit', 'corruptEver'
   ];
 
   _.each(_.union(torrent.fields, torrent.info_fields), function(field) {
     torrent[field] = attributes[field];
   });
 
-  _.each(['totalSize', 'downloadedEver', 'uploadedEver', 'pieceSize'], function(attr) {
+  _.each(['totalSize', 'downloadedEver', 'uploadedEver', 'pieceSize', 'corruptEver'], function(attr) {
     torrent[attr + 'String'] = function() {
       return Math.formatBytes(torrent[attr]);
     };

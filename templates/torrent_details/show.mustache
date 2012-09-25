@@ -70,7 +70,12 @@
     </tr>
     <tr>
       <th>Downloaded:</th>
-      <td>{{downloadedEverString}}</td>
+      <td>
+        {{downloadedEverString}}
+        {{#corruptEver}}
+          ({{corruptEverString}} corrupt)
+        {{/corruptEver}}
+      </td>
     </tr>
     <tr>
       <th>Uploaded:</th>

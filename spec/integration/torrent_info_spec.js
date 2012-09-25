@@ -206,4 +206,27 @@ describe('torrent info', function() {
       }, 50);
     });
   });
+  
+  it('displays corrupt download data', function(done) {
+    kettu.helpers.createTorrent('Mutant Ninja Turtles', {
+      "downloadedEver": 2048,
+      "corruptEver": 1024
+    });
+
+    kettu.helpers.waitForReload(function() {
+      $('.torrent:first').click();
+      $('.inspector').click();
+      setTimeout(function() {
+        $('#menu-item-activity').click();
+        setTimeout(function() {
+          expect($('#info .item.activity').html()).to.match(/2\.0 KB\s+\(1\.0 KB corrupt\)/);
+          
+          $('.inspector').click();
+          setTimeout(function() {
+            done();
+          }, 50);
+        }, 50);
+      }, 50);
+    });
+  });
 });
