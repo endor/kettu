@@ -8,6 +8,14 @@
     $('a, input').removeClass('ui-btn-active');
   };
 
+  var scrollTop = function(y) {
+    setTimeout(function() {
+      $('#device').css('height', '200px');
+      $(window).scrollTop(y);
+      $('#device').css('height', '0px');  
+    }, 200);
+  };
+
   var showBackButton = function(context, y) {
     $('#mobile-header .back').
       show().
@@ -16,7 +24,7 @@
         deactivateLinks();
         context.closeInfo();
         context.redirect('#/torrents');
-        $.mobile.silentScroll(y);
+        scrollTop(y);
       });
   };
 
@@ -28,18 +36,13 @@
 
         $('#mobile-header .gear').click(function(event) {
           stopEvent(event);
-          y = $(this).position().top;
-          $('body').animate({scrollTop: '0px'}, 500, function() {
-            $('body').clearQueue();
-            $('#gear_menu').slideDown();
-          });
+          $('#gear_menu').slideDown('slow');            
         });
       
         $('#gear_menu .cancel').click(function(event) {
           stopEvent(event);
           deactivateLinks();
-          $('#gear_menu').hide();
-          $.mobile.silentScroll(y);
+          $('#gear_menu').slideUp('slow');
         });
 
         $('#gear_menu .settings, #gear_menu .add_a_torrent').click(function(event) {
@@ -66,7 +69,7 @@
           y = $(this).position().top;
           context.redirect('#/torrent_details/' + $(this).attr('id'));
           showBackButton(context, y);
-          $.mobile.silentScroll(0);
+          scrollTop(0);
         });
 
         $('.torrent').live('swipeleft', function(event) {

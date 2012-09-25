@@ -58,11 +58,23 @@
       </header>
 
       <div id="container" class="container">
-        <div class="main info" data-role="page">
-          <div data-role="header" data-position="fixed" id="mobile-header" data-theme="c">
-            <a href="#/torrents" data-icon="arrow-l" data-theme="c" class="back">Back</a>
-            <h1>Transmission</h1>
-            <a href="#" data-icon="gear" data-theme="c" class="gear">More</a>
+        <div class="main info ui-mobile-touch-overflow ui-native-fixed">
+          <div id="mobile-header" class="ui-header ui-header-fixed ui-bar ui-bar-c">
+            <a href="#" class="back ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-c">
+              <span class="ui-btn-inner ui-btn-corner-all">
+                <span class="ui-btn-text">Back</span>
+                <span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span>
+              </span>
+            </a>
+
+            <h1 class="ui-title">Transmission</h1>
+
+            <a href="#" class="gear ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-c">
+              <span class="ui-btn-inner ui-btn-corner-all">
+                <span class="ui-btn-text">More</span>
+                <span class="ui-icon ui-icon-gear ui-icon-shadow">&nbsp;</span>
+              </span>
+            </a>
           </div>
 
           <div class="torrents_container">
@@ -85,11 +97,9 @@
               <a href="#" data-priority="down"><img src="css/images/priority_down_small.png" /></a>
             </li>
           </ul>
-
-          <!-- <div data-role="footer" id="mobile-footer" data-position="fixed" data-theme="c"></div> -->
         </div>
 
-        <div id="gear_menu" style="display: none" class="ui-body-c ui-overlay-c ui-dialog">
+        <div id="gear_menu" style="display: none">
           <div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c">
             <a href="#/torrents/new" class="add_a_torrent ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
               Add a Torrent
@@ -161,7 +171,6 @@
         $LAB
           .script('vendor/underscore/underscore.js')
           .script('vendor/jquery/jquery.js').wait()
-          .script('vendor/jquery/jquery.mobile.js')
           .script('vendor/jquery/jquery.ui.js')
           .script('vendor/jquery/jquery.form.js')
           .script('vendor/jquery/jquery.contextmenu.js')
@@ -205,12 +214,14 @@
           .script('js/app.js');
 
       } else {
-      
+
         app.style.display = "none";
         install.style.display = "block";
-      
+
       }
 
     </script>
+
+    <div id="device"></div>
   </body>
 </html>

@@ -52,8 +52,6 @@ kettu.app = $.sammy(function() {
 });
 
 $(function() {
-  $.mobile.ajaxEnabled = false;
-
   kettu.app.reloadInterval = kettu.store.get('torrentReloadInterval') || kettu.config.reloadInterval || 2000;
   kettu.store.set('torrentReloadInterval', kettu.app.reloadInterval);
 
@@ -61,7 +59,6 @@ $(function() {
     kettu.app.mobile = false;
     kettu.app.run('#/torrents');    
   } else {
-    $.mobile.touchOverflowEnabled = true;
     kettu.app.mobile = true;
     kettu.app.run('#/torrents?view=compact');
   }
