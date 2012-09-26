@@ -24,7 +24,7 @@
       var context = this;
 
       if(torrent_added) {
-        var request = context.buildRequest('torrent-get', {fields:kettu.Torrent({})['fields']});
+        var request = context.buildRequest('torrent-get', {fields: kettu.Torrent.fields});
         context.remoteQuery(request, function(response) {
           context.closeInfo();
           var newest = context.getNewestTorrents(context, response);
@@ -48,7 +48,7 @@
     },
 
     getTorrent: function(id, callback) {
-      var fields = kettu.Torrent({})['fields'].concat(kettu.Torrent({})['info_fields']),
+      var fields = kettu.Torrent.fields.concat(kettu.Torrent.infoFields),
         request = this.buildRequest('torrent-get', { ids: id, fields: fields }),
         context = this;
 

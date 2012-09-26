@@ -54,7 +54,7 @@ kettu.TorrentDetailsHelpers = {
         if(kettu.app.last_menu_item) { $('#' + kettu.app.last_menu_item).click(); }
       });      
     } else {
-      var fields = kettu.Torrent({})['fields'].concat(kettu.Torrent({})['info_fields']),
+      var fields = kettu.Torrent.fields.concat(kettu.Torrent.infoFields),
         request = context.buildRequest('torrent-get', {ids: torrents.shift(), fields: fields});
       context.remoteQuery(request, function(response) {
         var torrent = response['torrents'].map( function(row) {return kettu.Torrent(row);} )[0];

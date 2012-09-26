@@ -34,7 +34,7 @@ kettu.TorrentDetails = function(transmission) {
   
   transmission.bind('get-torrent-details', function(e, params) {
     var context = this,
-        fields = _.union(kettu.Torrent({})['fields'], kettu.Torrent({})['info_fields']),
+        fields = _.union(kettu.Torrent.fields, kettu.Torrent.infoFields),
         request = context.buildRequest('torrent-get', {ids: params.id, fields: fields});
 
     context.remoteQuery(request, function(response) {
