@@ -36,7 +36,7 @@ kettu.ApplicationHelpers = {
   
   shorten: function(string, lng) {
     if(string.length > lng) {
-      return string.substr(0, lng) + '&hellip;';
+      return string.substr(0, lng) + '…';
     } else {
       return string;
     }
