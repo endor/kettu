@@ -184,7 +184,7 @@ describe("TorrentView", function() {
       torrent_view = kettu.TorrentView({comment: '1234567890123456789012345678901234567890',
                                         trackerStats: [], files: [], name: 'abc',
                                         peers: [], fileStats: []}, ctx)
-      expect(torrent_view.comment).to.equal('123456789012345678901234567890123&hellip;')
+      expect(torrent_view.comment).to.equal('123456789012345678901234567890123…')
     });
     
     it("should not make the strings shorter if it's not the mobile version", function() {

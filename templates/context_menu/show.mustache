@@ -13,7 +13,7 @@
       <input type="hidden" name="ids" class="ids" value="{{ids}}" />
       <input type="hidden" name="method" value="torrent-start" />
       <input type="submit" value="Resume" />
-    </form>            
+    </form>
   </li>
 {{/paused}}
 <li class="verify">
@@ -21,8 +21,15 @@
     <input type="hidden" name="ids" class="ids" value="{{ids}}" />
     <input type="hidden" name="method" value="torrent-verify" />
     <input type="submit" value="Verify" />
-  </form>            
-</li>          
+  </form>
+</li>
+<li class="reannounce">
+  <form action="#/torrents" method="PUT">
+    <input type="hidden" name="ids" class="ids" value="{{ids}}" />
+    <input type="hidden" name="method" value="torrent-reannounce" />
+    <input type="submit" value="Ask tracker for more peers" />
+  </form>
+</li>
 <li class="delete">
   <a href="#delete_form" class="facebox_link">Delete</a>
   <div id="delete_form" class="facebox_div">
@@ -36,12 +43,12 @@
       <form method="DELETE" action="#/torrents" class="torrent_delete_form">
         <input type="hidden" name="ids" class="ids" value="{{ids}}" />
         <input type="submit" value="Delete" />
-      </form>      
+      </form>
       <form method="DELETE" action="#/torrents" class="torrent_delete_form">
         <input type="hidden" name="ids" class="ids" value="{{ids}}" />
         <input type="hidden" value="true" name="delete_data" />
         <input type="submit" value="Delete with data" />
-      </form>        
+      </form>
     </div>
     <br class="clear" />
   </div>
