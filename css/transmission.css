@@ -897,3 +897,9 @@ img.priority.up, img.priority.normal, img.priority.down {
   display: inline-block;
   overflow: scroll;
 }
+
+.message {
+  margin: 0;
+  max-height: 300px;
+  overflow: auto;
+}
