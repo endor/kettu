@@ -18,7 +18,7 @@ kettu.TorrentDetailsHelpers = {
   updateTorrentDetailsInView: function(rendered_view) {
     rendered_view = $('<div>' + rendered_view + '</div>');
 
-    _.each(['.activity', '.trackers', '.peers', '.eta'], function(clazz) {
+    _.each(['.activity', '.trackers', '.peers'], function(clazz) {
       $('#info ' + clazz).html(rendered_view.find(clazz).html());
     });
 
