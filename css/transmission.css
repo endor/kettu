@@ -879,3 +879,10 @@ img.priority.up, img.priority.normal, img.priority.down {
   border-bottom: solid 1px #dddddd;
   color: #444444;
 }
+
+.file_name {
+  width: 80%;
+  white-space: nowrap;
+  display: inline-block;
+  overflow: scroll;
+}

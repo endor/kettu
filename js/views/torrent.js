@@ -103,22 +103,18 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   };
 
   var joinFileName = function(name) {
-      name = name.join('/');
-      if(name.length > 27) {
-          return name.substr(0, 23) + '&hellip;' + name.substr(-3, 3);
-      } else {
-          return name;
-      }
+      return name.join('/');
   };
 
   view.folderizeFiles = function() {
     view.folderless_files = [];
     view.folders = [];
 
+    view.files.sort(function(f1, f2) { return f1['name'].localeCompare(f2['name']) });
     if(view.files) {
       _.each(view.files, function(file) {
         var name = file['name'].split('/');
-        var i = view.folders.length;
+        var i = view.folders.length - 1;
 
         if(name.length > 1) {
           name.shift();
@@ -131,7 +127,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
           var folder = name.shift();
           file['name'] = joinFileName(name);
 
-          if(view.folders[i] && view.folders[i].name === folder) {
+          if(i >= 0 && view.folders[i].name === folder) {
             view.folders[i].files.push(file);
             view.folders[i].lengthFormatted += file.length;
             view.folders[i].bytesCompleted += file.bytesCompleted;
@@ -168,6 +164,8 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
         folder.priorityArrow = "up";
       } else if(lowPriorityFiles === folder.files.length) {
         folder.priorityArrow = "down";
+      } else if(folder.percentDone === 100) {
+        folder.priorityArrow = "done";
       } else {
         folder.priorityArrow = "normal";
       }
@@ -181,7 +179,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
 
       view.files[id]['priorityArrow'] = arrows[stat.priority.toString()];
 
-      if(view.files[id]['length'] - view.files[id]['bytesCompleted'] === 0) {
+      if(view.files[id]['length'] === view.files[id]['bytesCompleted']) {
         view.files[id]['priorityArrow'] = 'done';
       }
     });
