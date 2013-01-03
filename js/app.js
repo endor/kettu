@@ -65,13 +65,17 @@ kettu.app = $.sammy(function() {
     this.handleDragging();
     this.hideContextMenu();
 
-    // Allow Cmd/Ctrl+A to select all, Cmd/Ctrl+Backspace to delete
+    // Allow Cmd/Ctrl+A to select all, Cmd/Ctrl+Backspace to delete, Cmd/Ctrl+Alt+Backspace to delete all finished
     $(document).bind('keydown', function(e) {
       if(e.metaKey && e.which == 65) {  // Note: e.metaKey will also be true if the Ctrl key is pressed
         $('.torrent').addClass('active');
         if(kettu.InfoHelpers.infoIsOpen()) { kettu.app.trigger('refresh-details'); };
         return false;
       } else if(e.metaKey && e.which == 8) {
+        if(e.altKey) {
+          $('.torrent').removeClass('active');
+          $('.torrent.finished').addClass('active');
+        }
         if($('.torrent.active').length > 0) {
           kettu.app.trigger('create-delete-facebox');
           return false;

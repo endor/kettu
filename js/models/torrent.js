@@ -41,8 +41,14 @@
     torrent.isVerifying = function() {
       return torrent.isChecking() || torrent.isWaitingToCheck();
     };
+    torrent.isFinished = function() {
+      return torrent.isDoneDownloading() && torrent.isPaused();
+    };
     torrent.hasError = function() {
       return torrent.error > 0;
+    };
+    torrent.hasTrackerError = function() {
+      return torrent.error > 0 && torrent.error < 3;
     };
     torrent.needsMetaData = function() {
       return torrent.metadataPercentComplete < 1;
@@ -59,7 +65,10 @@
         if(torrent.isActive()) { progressDetails += ' - ' + torrent.etaString(); }
       } else {
         progressDetails = torrent.uploadingProgress();
-        if(torrent.seedRatioMode == 1) { progressDetails += ' - ' + torrent.etaString(); }
+        if(torrent.isActive()) {
+          if(torrent.seedRatioMode == 1 ||
+            (torrent.seedRatioMode == 0 && kettu.app.settings.seedRatioLimited)) { progressDetails += ' - ' + torrent.etaString(); }
+        }
       }
 
       return progressDetails;
@@ -91,23 +100,25 @@
     torrent.progressBar = function() {
       var status, value = torrent.percentDone();
 
-      if(torrent.isActive() && torrent.needsMetaData()) {
-        status = 'meta';
-        value = 100;
-      } else if(torrent.isVerifying()) {
-        status = 'verifying';
-      } else if(torrent.isActive() && !torrent.isDoneDownloading()) {
-        status = 'downloading';
-      } else if(torrent.isActive() && torrent.isDoneDownloading()) {
-        if(torrent.seedRatioMode == 1) { value = torrent.uploadRatio/torrent.seedRatioLimit * 100; }
-        status = 'uploading';
-      } else {
-        status = 'paused';
+      status = torrent.statusWord();
+      if(status == 'meta') { value = torrent.metadataPercentComplete * 100; }
+      else if(status == 'seeding' || status == 'finished') {
+        if (torrent.seedRatioMode == 0) {
+          if (kettu.app.settings.seedRatioLimited) {
+            value = torrent.uploadRatio/kettu.app.settings.seedRatioLimit * 100;
+          }
+        } else if(torrent.seedRatioMode == 1) {
+          value = torrent.uploadRatio/torrent.seedRatioLimit * 100;
+        }
+      } else if(status == 'verifying') {
+        value = torrent.recheckProgress * 100;
       }
+
+      if(value > 100) value = 100; // value can be greater than 100 e.g. if the torrent has an upload ratio greater than the limit
 
       // NOTE: creating the progressbar via $('<div></div>').progressbar({}); seems to lead to a memory leak in safari
 
-      var progressBar = '<div class="ui-progressbar-value ui-widget-header-' + status + ' ui-corner-left" style="width: ' + value + '%; "></div>';
+      var progressBar = '<div class="ui-progressbar-value ui-widget-header-' + status + ' ui-corner-all" style="width: ' + value + '%; "></div>';
 
       return progressBar;
     };
@@ -115,7 +126,7 @@
       if(torrent.eta < 0) {
         return "remaining time unknown";
       } else {
-        return Math.formatSeconds(torrent.eta) + ' ' + 'remaining';
+        return Math.formatSeconds(torrent.eta) + ' remaining';
       }
     };
     torrent.statusStringLocalized = function(status) {
@@ -133,29 +144,39 @@
     };
     torrent.statusString = function() {
       var currentStatus = torrent.statusStringLocalized(torrent.status);
-      if(torrent.isActive()) {
+      if(torrent.isActive() && !torrent.needsMetaData()) {
         currentStatus += ' - ';
-        if(torrent.isDoneDownloading()) {
-          currentStatus += torrent.uploadRateString(torrent.rateUpload);
+        if(kettu.app.mobile) {
+          currentStatus += torrent.etaString();
         } else {
-          currentStatus += torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
+          if(torrent.isDoneDownloading()) {
+            currentStatus += torrent.uploadRateString(torrent.rateUpload);
+          } else {
+            currentStatus += torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
+          }
         }
+      } else if (torrent.isFinished()) {
+        currentStatus = 'Finished';
       }
       if(torrent.hasError()) {
-        currentStatus = 'Tracker returned an error: ' + torrent.errorString + '.';
+        currentStatus = torrent.errorString + '.';
+        if(torrent.hasTrackerError()) { currentStatus = 'Tracker returned error: ' + currentStatus; }
       }
       if(torrent.isVerifying()) {
-        currentStatus += ' - ' + (torrent.recheckProgress * 100).toFixed(2) + '%';
-      }
-      if(kettu.app.mobile && currentStatus.match(/ - /)) {
-        currentStatus = currentStatus.split(' - ')[1];
+        currentStatus += ' - ' + (torrent.recheckProgress * 100).toFixed(2) + '% verified';
+        if(kettu.app.mobile && currentStatus.match(/ - /)) {
+          currentStatus = currentStatus.split(' - ')[1];
+        }
       }
       return currentStatus;
     };
     torrent.statusWord = function() {
-      for(var i in stati) {
-        if(stati[i] == torrent.status) { return i; }
-      }
+      if(torrent.isActive() && torrent.needsMetaData()) { return 'meta'; }
+      else if(torrent.isVerifying()) { return 'verifying'; }
+      else if(torrent.isDownloading()) { return 'downloading'; }
+      else if(torrent.isSeeding()) { return 'seeding'; }
+      else if(torrent.isFinished()) { return 'finished'; }
+      return 'paused';
     };
     torrent.uploadRateString = function(uploadRate) {
       return 'UL: ' + Math.formatBytes(uploadRate) + '/s';

@@ -33,7 +33,7 @@ kettu.TorrentsView = function(torrent, context) {
   };
 
   view.paused = function() {
-    return view.statusWord() === 'paused';
+    return view.statusWord() === 'paused' || view.statusWord() === 'finished';
   };
 
   view.mobileError = function() {

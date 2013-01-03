@@ -64,7 +64,7 @@ kettu.TorrentDetailsHelpers = {
         var torrent = response['torrents'].map( function(row) {return kettu.Torrent(row);} )[0];
         accumulation.number_of_torrents += 1;
         accumulation.size += torrent.sizeWhenDone;
-        accumulation.status_words.push(torrent.statusStringLocalized());
+        accumulation.status_words.push(torrent.statusWord());
         accumulation.secure.push(torrent.secure());
         accumulation.downloaded += (torrent.sizeWhenDone - torrent.leftUntilDone);
         accumulation.uploaded += torrent.uploadedEver;

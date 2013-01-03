@@ -218,7 +218,7 @@ nav ul.icon_nav li a:hover {
   text-shadow: 1px 1px 10px #FFF;
 }
 
-.torrent .ui-widget-header-uploading {
+.torrent .ui-widget-header-seeding {
   background: url(jquery/images/ui-bg_highlight-soft_60_4ca20b_1x100.png) repeat-x;
 }
 
@@ -236,6 +236,10 @@ nav ul.icon_nav li a:hover {
 
 .torrent .ui-widget-header-paused {
   background: url(jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x;
+}
+
+.torrent .ui-widget-header-finished {
+  background: #555;
 }
 
 /* torrent control buttons */
@@ -269,7 +273,7 @@ nav ul.icon_nav li a:hover {
   border: 0;
 }
 
-.pauseAndActivateButton.paused {
+.pauseAndActivateButton.paused, .pauseAndActivateButton.finished {
   background: transparent url(images/control_play.png) no-repeat;
 }
 
@@ -687,6 +691,10 @@ ul#sorts li a {
 
 #info .preferences td {
   width: 100%;
+}
+
+#info .status_word {
+  text-transform: capitalize;
 }
 
 .files_in_folders {

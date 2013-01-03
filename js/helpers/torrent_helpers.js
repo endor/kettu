@@ -152,7 +152,7 @@
       old_torrent.removeClass('downloading seeding paused').addClass(torrent.statusWord());
       old_torrent.find('input.pauseAndActivateButton').removeClass('downloading seeding paused').addClass(torrent.statusWord());
       if(kettu.app.mobile) {
-        if(torrent.statusWord() === 'paused') {
+        if(torrent.statusWord() === 'paused' || torrent.statusWord() === 'finished') {
           old_torrent.find('input.pauseAndActivateButton').val('Resume');
           old_torrent.find('input[name="method"]').val('torrent-start');
           old_torrent.find('.statusString').hide();
