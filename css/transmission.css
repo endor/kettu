@@ -208,6 +208,10 @@ nav ul.icon_nav li a:hover {
   -o-transition-timing-function: linear, ease-in;
 }
 
+.torrent.ui-selecting {
+  background-color: #F0F0F0;
+}
+
 .torrent.active {
   background-color: #E7E7E7 !important;
   color: #000;
@@ -878,6 +882,13 @@ img.priority.up, img.priority.normal, img.priority.down {
   border: 0px;
   border-bottom: solid 1px #dddddd;
   color: #444444;
+}
+
+.ui-selectable-helper {
+  position: absolute;
+  z-index: 100;
+  border:1px solid rgba(180, 180, 180, 0.6);
+  background-color: rgba(200, 200, 200, 0.4);
 }
 
 .file_name {

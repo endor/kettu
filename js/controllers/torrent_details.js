@@ -14,8 +14,7 @@ kettu.TorrentDetails = function(transmission) {
         context.redirect('#/torrent_details/' + active_torrents.attr('id'));
         break;
       default:
-        var ids = $.map(active_torrents, function(torrent) { return parseInt($(torrent).attr('id'), 10); });
-        context.accumulateTorrentsAndRenderResult(ids, context.emptyAccumulationHash());
+        kettu.app.trigger('refresh-torrent-details');
         break;
     }
   });
@@ -44,13 +43,23 @@ kettu.TorrentDetails = function(transmission) {
   });
 
   transmission.bind('refresh-torrent-details', function(e, params) {
-    var context = this,
-        view = kettu.TorrentView(params.torrent, context, context.params['sort_peers']),
-        template = params.torrent.hasError() ? 'show_with_errors' : 'show',
-        file_partial = 'templates/torrent_details/file.mustache';
+    var context = this;
 
-    context.render('templates/torrent_details/' + template + '.mustache', view, function(rendered_view) {
-      context[params.callback].call(context, rendered_view, params.torrent);
-    }, {file: file_partial});
+    var active_torrents = $('.torrent.active');
+    if(active_torrents.length > 1) {
+      if(context.infoIsOpen() && context.infoDisplaysInspector()) {
+        context.saveLastMenuItem($('.menu-item.active'));
+        var ids = $.map($('.torrent.active'), function(torrent) { return parseInt($(torrent).attr('id'), 10); });
+        context.accumulateTorrentsAndRenderResult(ids, context.emptyAccumulationHash());
+      }
+    } else {
+      var view = kettu.TorrentView(params.torrent, context, context.params['sort_peers']),
+          template = params.torrent.hasError() ? 'show_with_errors' : 'show',
+          file_partial = 'templates/torrent_details/file.mustache';
+
+      context.render('templates/torrent_details/' + template + '.mustache', view, function(rendered_view) {
+        context[params.callback].call(context, rendered_view, params.torrent);
+      }, {file: file_partial});
+    }
   });
 };

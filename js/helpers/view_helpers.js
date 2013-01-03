@@ -31,7 +31,9 @@ kettu.ViewHelpers = {
     });
     $('#info .item').hide();
     if(kettu.app.last_menu_item && $('#' + kettu.app.last_menu_item).length > 0) {
+      var contextMenuWasOpen = this.contextMenuIsOpen();
       $('#' + kettu.app.last_menu_item).click();
+      if(contextMenuWasOpen) { this.reactivateContextMenu(); }
     } else {
       $('#info .item:first').show();
       $('#info .menu-item:first').addClass('active');

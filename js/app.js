@@ -13,7 +13,6 @@ kettu.app = $.sammy(function() {
   this.helpers(kettu.MobileHelpers);
   this.helpers(kettu.LocationHelpers);
   this.helpers(kettu.ContextMenuHelpers);
-  this.helpers(kettu.DraggingHelpers);
   this.helpers(kettu.FilterTorrentsHelpers);
   this.helpers(kettu.InfoHelpers);
   this.helpers(kettu.LinkHelpers);
@@ -38,10 +37,6 @@ kettu.app = $.sammy(function() {
     this.showErrors(errors);
   });
 
-  this.bind('refresh-details', function() {
-    this.redirect('#/torrent_details');
-  });
-
   this.bind('create-delete-facebox', function() {
     var active_torrents = $('.torrent.active'),
       data = {
@@ -62,14 +57,13 @@ kettu.app = $.sammy(function() {
     this.activateSortSelect(this);
     this.closeInfo();
     this.configureFacebox();
-    this.handleDragging();
     this.hideContextMenu();
 
     // Allow Cmd/Ctrl+A to select all, Cmd/Ctrl+Backspace to delete, Cmd/Ctrl+Alt+Backspace to delete all finished
     $(document).bind('keydown', function(e) {
       if(e.metaKey && e.which == 65) {  // Note: e.metaKey will also be true if the Ctrl key is pressed
         $('.torrent').addClass('active');
-        if(kettu.InfoHelpers.infoIsOpen()) { kettu.app.trigger('refresh-details'); };
+        if(kettu.InfoHelpers.infoIsOpen()) { kettu.app.trigger('refresh-torrent-details'); };
         return false;
       } else if(e.metaKey && e.which == 8) {
         if(e.altKey) {
@@ -83,6 +77,14 @@ kettu.app = $.sammy(function() {
       }
       return true;
     });
+
+    if(!kettu.app.mobile) {
+      $("#torrents").selectable({distance: 1}); // Setting distance to non-zero allows our custom single-click and double-click behavior
+      $("#torrents").bind("selectablestop", function(event, ui) {
+        $('#context_menu').hide();
+        kettu.app.trigger('refresh-torrent-details');
+      });
+    };
   });
 });
 
