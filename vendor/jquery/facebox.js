@@ -108,10 +108,7 @@
       $('#facebox .body').children().hide().end().
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
 
-      $('#facebox').css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	$(window).width() / 2 - 205
-      }).show()
+      $('#facebox').show()
 
       $(document).bind('keydown.facebox', function(e) {
         if (e.keyCode == 27) $.facebox.close()

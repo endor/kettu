@@ -11,6 +11,7 @@ kettu.ApplicationHelpers = {
 
   configureFacebox: function() {
     $(document).bind('reveal.facebox', function() {
+      $('#context_menu').hide();
       $('#facebox form').submit(function() {
         $(document).trigger('close.facebox');
         return true;

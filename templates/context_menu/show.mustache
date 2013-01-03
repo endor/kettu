@@ -35,8 +35,10 @@
   <div id="delete_form" class="facebox_div">
     <img src="css/images/junk.png" class="image" />
     <p class="message">
-      Are you sure, you want to delete the following torrents?<br /><br />
-      {{{names}}}
+      Are you sure you want to delete the following torrents?<br /><br />
+      {{#names}}
+        {{.}}<br />
+      {{/names}}
     </p>
     <br class="clear" />
     <div class="facebox_buttons">

@@ -19,7 +19,7 @@ kettu.ContextMenuHelpers = {
           var active_torrents = $('.torrent.active'),
             data = {
               ids: $.map(active_torrents, function(torrent) { return $(torrent).attr('id'); }).join(','),
-              names: $.map(active_torrents, function(torrent) { return $(torrent).find('.name').text(); }).join('<br />'),
+              names: $.map(active_torrents, function(torrent) { return $(torrent).find('.name').text() }),
               deselect_all: $('.torrent').length === active_torrents.length,
               paused: active_torrents.length === $('.torrent.active.paused').length,
               not_paused: $('.torrent.active.paused').length === 0
