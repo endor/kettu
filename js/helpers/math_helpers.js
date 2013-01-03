@@ -5,7 +5,7 @@
 
 /*
  *   Converts file & folder byte size values to more
- *   readable values (bytes, KB, MB, GB or TB).
+ *   readable values (B, KB, MB, GB or TB).
  *
  *   @param integer bytes
  *   @returns string
@@ -14,46 +14,36 @@ Math.formatBytes = function(bytes) {
   var size, unit;
 
   // Terabytes (TB).
-  if ( bytes >= 1099511627776 ) {
-    size = bytes / 1099511627776;
+  if ( bytes >= 1000000000000 ) {
+    size = bytes / 1000000000000;
     unit = 'TB';
   }
 
   // Gigabytes (GB).
-  else if ( bytes >= 1073741824 ) {
-    size = bytes / 1073741824;
+  else if ( bytes >= 1000000000 ) {
+    size = bytes / 1000000000;
     unit = 'GB';
   }
 
   // Megabytes (MB).
-  else if ( bytes >= 1048576 ) {
-    size = bytes / 1048576;
+  else if ( bytes >= 1000000 ) {
+    size = bytes / 1000000;
     unit = 'MB';
   }
 
   // Kilobytes (KB).
-  else if ( bytes >= 1024 ) {
-    size = bytes / 1024;
+  else if ( bytes >= 1000 ) {
+    size = bytes / 1000;
     unit = 'KB';
   }
 
   // The file is less than one KB
   else {
     size = bytes;
-    unit = 'bytes';
+    unit = 'B';
   }
 
-  // Single-digit numbers have greater precision
-  var precision = 1;
-  if (size < 10) {
-    precision = 2;
-  }
-  size = Math.roundWithPrecision(size, precision);
-
-  // Add the decimal if this is an integer
-  if ((size % 1) === 0 && unit != 'bytes') {
-    size = size + '.0';
-  }
+  if (size != 0) { size = size.toPrecision(3); }
 
   return size + ' ' + unit;
 };
@@ -66,7 +56,7 @@ Math.formatBytes = function(bytes) {
  */
 Math.formatSeconds = function(seconds)
 {
-  var result, days, hours, minutes;
+  var result, days, hours, minutes, seconds;
 
   days = Math.floor(seconds / 86400);
   hours = Math.floor((seconds % 86400) / 3600);
@@ -138,6 +128,7 @@ Math.ratio = function(numerator, denominator) {
 Math.formatPercent = function(total, left_until_done) {
   if(!total) { return 0; }
   if(!left_until_done && left_until_done !== 0) { return 0; }
+  if (left_until_done === 0) return 100;
 
-  return Math.floor( ((total - left_until_done) / total) * 10000 ) / 100;
-};
+  return ((total - left_until_done) * 100 / total).toFixed(1);
+}

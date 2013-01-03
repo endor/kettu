@@ -45,6 +45,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
     }
     view.rateDownloadFormatted = Math.formatBytes(view.rateDownload) + '/s';
     view.rateUploadFormatted = Math.formatBytes(view.rateUpload) + '/s';
+    view.uploadRatio = view.uploadRatio.toPrecision(3);
   };
 
   view.sortPeers = function() {

@@ -14,13 +14,13 @@ kettu.StatisticsView = function(statistics) {
   if(statistics['current-stats']['downloadedBytes'] === 0) {
     view['ratio'] = statistics['current-stats']['uploadedBytes'] === 0 ? 'N/A' : 'Infinity';
   } else {
-    view['ratio'] = (statistics['current-stats']['uploadedBytes'] / statistics['current-stats']['downloadedBytes']).toFixed(4);
+    view['ratio'] = (statistics['current-stats']['uploadedBytes'] / statistics['current-stats']['downloadedBytes']).toPrecision(3);
   }
 
   if(statistics['cumulative-stats']['downloadedBytes'] === 0) {
     view['ratio_total'] = statistics['cumulative-stats']['uploadedBytes'] === 0 ? 'N/A' : 'Infinity';
   } else {
-    view['ratio_total'] = (statistics['cumulative-stats']['uploadedBytes'] / statistics['cumulative-stats']['downloadedBytes']).toFixed(4);
+    view['ratio_total'] = (statistics['cumulative-stats']['uploadedBytes'] / statistics['cumulative-stats']['downloadedBytes']).toPrecision(3);
   }
 
   return view;

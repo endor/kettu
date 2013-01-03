@@ -3,7 +3,7 @@
 kettu.TorrentDetailsView = function(accumulation) {
   var view = accumulation;
 
-  view.ratio = (view.uploaded / view.downloaded).toFixed(4);
+  view.ratio = (view.uploaded / view.downloaded).toPrecision(3);
   view.percent_done = Math.formatPercent(view.size, view.left_until_done);
 
   _.each(['size', 'downloaded', 'uploaded', 'rate_download', 'rate_upload'], function(item) {

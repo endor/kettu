@@ -72,13 +72,20 @@
     };
     torrent.uploadingProgress = function() {
       var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone),
-          formattedUploadedEver = Math.formatBytes(torrent.uploadedEver),
-          uploadingProgress = formattedSizeWhenDone + ", uploaded " + formattedUploadedEver;
+          formattedUploadedEver = Math.formatBytes(torrent.uploadedEver);
 
-      return uploadingProgress + " (Ratio: " + kettu.ViewHelpers.sanitizeNumber(torrent.uploadRatio) + ")";
+      var uploadingProgress = "Downloaded " + formattedSizeWhenDone + ", uploaded " + formattedUploadedEver;
+      var formattedUploadRatio;
+      if (torrent.uploadRatio >= 0) {
+        formattedUploadRatio = torrent.uploadRatio.toPrecision(3);
+        if (formattedUploadRatio < 0.1) { formattedUploadRatio = (+formattedUploadRatio).toFixed(3); }
+      } else {
+        formattedUploadRatio = kettu.ViewHelpers.sanitizeNumber(torrent.uploadRatio);
+      }
+      return uploadingProgress + " (Ratio: " + formattedUploadRatio + ")";
     };
     torrent.metaDataProgress = function() {
-      var percentRetrieved = (Math.floor(torrent.metadataPercentComplete * 10000) / 100).toFixed(1);
+      var percentRetrieved = (torrent.metadataPercentComplete * 100).toFixed(1);
       return "Magnetized transfer - retrieving metadata (" + percentRetrieved + "%)";
     };
     torrent.progressBar = function() {
@@ -151,10 +158,10 @@
       }
     };
     torrent.uploadRateString = function(uploadRate) {
-      return 'UL: ' + (uploadRate / 1000).toFixed(1) + ' KB/s';
+      return 'UL: ' + Math.formatBytes(uploadRate) + '/s';
     };
     torrent.downAndUploadRateString = function(downloadRate, uploadRate) {
-      return 'DL: ' + (downloadRate / 1000).toFixed(1) + ' KB/s, ' + torrent.uploadRateString(uploadRate);
+      return 'DL: ' + Math.formatBytes(downloadRate) + '/s, ' + torrent.uploadRateString(uploadRate);
     };
     torrent.activity = function() {
       return torrent.rateDownload + torrent.rateUpload;
