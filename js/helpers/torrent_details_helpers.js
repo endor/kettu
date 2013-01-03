@@ -51,7 +51,11 @@ kettu.TorrentDetailsHelpers = {
       var view = kettu.TorrentDetailsView(accumulation);
       context.render('templates/torrent_details/index.mustache', view, function(rendered_view) {
         context.openInfo(rendered_view, 'details');
-        if(kettu.app.last_menu_item) { $('#' + kettu.app.last_menu_item).click(); }
+        if(kettu.app.last_menu_item) {
+          var contextMenuWasOpen = context.contextMenuIsOpen();
+          $('#' + kettu.app.last_menu_item).click();
+          if(contextMenuWasOpen) context.reactivateContextMenu();
+        }
       });
     } else {
       var fields = kettu.Torrent.fields.concat(kettu.Torrent.infoFields),

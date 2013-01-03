@@ -456,7 +456,6 @@ ul#sorts li a {
 }
 
 .main {
-  position: relative;
   overflow: visible;
 }
 
@@ -782,11 +781,10 @@ ul#sorts li a {
 #selectPriority li a {
   width: auto;
   display: block;
-  margin: 0 auto;
-  padding: 5px 20px;
+  padding: 5px 10px;
   border: 0;
   cursor: pointer;
-  text-align: center;
+  text-align: left;
   background: none;
   color: #444;
   text-decoration: none;

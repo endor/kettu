@@ -20,8 +20,8 @@
       });
 
       menu.css({
-        left: event.pageX - 170,
-        top: event.pageY - 150
+        left: event.pageX,
+        top: event.pageY
       }).show();
 
       $(document).one('click', callback);

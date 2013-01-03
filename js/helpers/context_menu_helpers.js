@@ -5,6 +5,10 @@ kettu.ContextMenuHelpers = {
     $('#context_menu').hide();
   },
 
+  contextMenuIsOpen: function() {
+    return $('#context_menu').is(':visible');
+  },
+
   activateContextMenu: function() {
     if(!kettu.app.mobile) {
       var context = this;
@@ -12,8 +16,12 @@ kettu.ContextMenuHelpers = {
       $('#torrents').contextMenu({
         menu: '#context_menu',
         onContextMenu: function(event) {
-          if($('.torrent.active').length === 0) {
-            context.highlightTorrents($(event.target).closest('.torrent'));
+          kettu.app.context_menu_target = $(event.target);
+          // Highlight element under cursor if it isn't active
+          if (!$(event.target).closest('.torrent').hasClass('active')) {
+            var torrentToHighlight = $(event.target).closest('.torrent');
+            context.highlightTorrents(torrentToHighlight);
+            if (context.infoIsOpen() && context.infoDisplaysInspector()) { context.redirect('#/torrent_details/' + torrentToHighlight.attr('id')); }
           }
 
           var active_torrents = $('.torrent.active'),
@@ -38,5 +46,9 @@ kettu.ContextMenuHelpers = {
         }
       });
     }
+  },
+
+  reactivateContextMenu: function() {
+    if(kettu.app.context_menu_target) { kettu.app.context_menu_target.trigger('contextmenu'); }
   }
 };
