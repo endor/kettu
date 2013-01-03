@@ -864,10 +864,6 @@ img.priority.up, img.priority.normal, img.priority.down {
   float: right;
 }
 
-#context_menu .delete .facebox_link {
-  padding-left: 5px;
-}
-
 .torrent {
   cursor: pointer;
 }

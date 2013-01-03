@@ -34,7 +34,6 @@ kettu.ContextMenuHelpers = {
             $('#context_menu .deselect_all_link').click(function() {
               $('.torrent').removeClass('active');
             });
-            $('#context_menu .facebox_link').facebox();
           });
         }
       });

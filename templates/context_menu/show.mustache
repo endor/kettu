@@ -31,29 +31,7 @@
   </form>
 </li>
 <li class="delete">
-  <a href="#delete_form" class="facebox_link">Delete</a>
-  <div id="delete_form" class="facebox_div">
-    <img src="css/images/junk.png" class="image" />
-    <p class="message">
-      Are you sure you want to delete the following torrents?<br /><br />
-      {{#names}}
-        {{.}}<br />
-      {{/names}}
-    </p>
-    <br class="clear" />
-    <div class="facebox_buttons">
-      <form method="DELETE" action="#/torrents" class="torrent_delete_form">
-        <input type="hidden" name="ids" class="ids" value="{{ids}}" />
-        <input type="submit" value="Delete" />
-      </form>
-      <form method="DELETE" action="#/torrents" class="torrent_delete_form">
-        <input type="hidden" name="ids" class="ids" value="{{ids}}" />
-        <input type="hidden" value="true" name="delete_data" />
-        <input type="submit" value="Delete with data" />
-      </form>
-    </div>
-    <br class="clear" />
-  </div>
+  <a onclick="kettu.app.trigger('create-delete-facebox');">Delete</a>
 </li>
 
 {{#deselect_all}}

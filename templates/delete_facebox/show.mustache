@@ -1,0 +1,20 @@
+<img src="css/images/junk.png" class="image" />
+<p class="message">
+  Are you sure you want to delete the following torrents?<br /><br />
+  {{#names}}
+    {{.}}<br />
+  {{/names}}
+</p>
+<br class="clear" />
+<div class="facebox_buttons">
+  <form method="DELETE" action="#/torrents" class="torrent_delete_form">
+    <input type="hidden" name="ids" class="ids" value="{{ids}}" />
+    <input type="submit" value="Delete" />
+  </form>      
+  <form method="DELETE" action="#/torrents" class="torrent_delete_form">
+    <input type="hidden" name="ids" class="ids" value="{{ids}}" />
+    <input type="hidden" value="true" name="delete_data" />
+    <input type="submit" value="Delete with data" />
+  </form>        
+</div>
+<br class="clear" />

@@ -38,6 +38,22 @@ kettu.app = $.sammy(function() {
     this.showErrors(errors);
   });
 
+  this.bind('refresh-details', function() {
+    this.redirect('#/torrent_details');
+  });
+
+  this.bind('create-delete-facebox', function() {
+    var active_torrents = $('.torrent.active'),
+      data = {
+        ids: $.map(active_torrents, function(torrent) { return $(torrent).attr('id'); }).join(','),
+        names: $.map(active_torrents, function(torrent) { return $(torrent).find('.name').text() }),
+      };
+
+    this.render('templates/delete_facebox/show.mustache', data, function(rendered_view) {
+      jQuery.facebox(rendered_view);
+    });
+  });
+
   this.bind('init', function() {
     this.activateMobileButtons();
     this.activateContextMenu();
@@ -48,6 +64,21 @@ kettu.app = $.sammy(function() {
     this.configureFacebox();
     this.handleDragging();
     this.hideContextMenu();
+
+    // Allow Cmd/Ctrl+A to select all, Cmd/Ctrl+Backspace to delete
+    $(document).bind('keydown', function(e) {
+      if(e.metaKey && e.which == 65) {  // Note: e.metaKey will also be true if the Ctrl key is pressed
+        $('.torrent').addClass('active');
+        if(kettu.InfoHelpers.infoIsOpen()) { kettu.app.trigger('refresh-details'); };
+        return false;
+      } else if(e.metaKey && e.which == 8) {
+        if($('.torrent.active').length > 0) {
+          kettu.app.trigger('create-delete-facebox');
+          return false;
+        }
+      }
+      return true;
+    });
   });
 });
 
