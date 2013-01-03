@@ -212,43 +212,29 @@ nav ul.icon_nav li a:hover {
   background-color: #E7E7E7 !important;
   color: #000;
 }
+
 .torrent.active h3 {
   color: #000;
   text-shadow: 1px 1px 10px #FFF;
 }
 
 .torrent .ui-widget-header-uploading {
-  border: 1px solid #AAA;
-  color: #444;
-  font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-soft_60_4ca20b_1x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-verifying {
-  border: 1px solid #AAA;
-  color: #444;
-  font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-soft_44_444444_1x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-downloading {
-  border: 1px solid #AAA;
-  color: #444;
-  font-weight: bold;
   background: url(jquery/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-meta {
-  border: 1px solid #AAA;
-  color: #444;
-  font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-hard_75_f5f5b5_1x100.png) repeat-x;
 }
 
 .torrent .ui-widget-header-paused {
-  border: 1px solid #AAA;
-  color: #444;
-  font-weight: bold;
   background: url(jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) repeat-x;
 }
 
