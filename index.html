@@ -161,7 +161,7 @@
       var app = document.getElementById('app');
       var install = document.getElementById('install');
 
-      if(navigator.standalone === undefined || !!navigator.standalone) {
+      if(window.innerWidth > 480 || (navigator.standalone === undefined || !!navigator.standalone)) {
 
         app.style.display = "block";
         install.style.display = "none";
