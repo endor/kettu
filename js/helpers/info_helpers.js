@@ -22,6 +22,10 @@ kettu.InfoHelpers = {
       info.css('height', $(document).height());
       info.css('width', $(document).width());
     } else {
+       // We minus 2 * footer's height, once for the actual footer, and the
+       // second time for the info box's padding, since it works out that the
+       // top and bottom padding (2em) == footer's height.
+      info.css('height', $(document).height() - $("header").height() - $("footer").height() * 2);
       info.css('left', ($(window).width() / 2) - ($('#container').width() / 2) + 550);
     }
     info.show();
