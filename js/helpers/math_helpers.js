@@ -128,7 +128,7 @@ Math.ratio = function(numerator, denominator) {
 Math.formatPercent = function(total, left_until_done) {
   if(!total) { return 0; }
   if(!left_until_done && left_until_done !== 0) { return 0; }
-  if (left_until_done === 0) return 100;
+  if (left_until_done === 0) { return 100; }
 
   return Number((Math.floor((total - left_until_done) * 10000 / total) / 100).toFixed(2));
 }

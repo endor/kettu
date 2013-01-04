@@ -81,10 +81,10 @@
     };
     torrent.uploadingProgress = function() {
       var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone),
-          formattedUploadedEver = Math.formatBytes(torrent.uploadedEver);
+          formattedUploadedEver = Math.formatBytes(torrent.uploadedEver),
+          uploadingProgress = "Downloaded " + formattedSizeWhenDone + ", uploaded " + formattedUploadedEver,
+          formattedUploadRatio;
 
-      var uploadingProgress = "Downloaded " + formattedSizeWhenDone + ", uploaded " + formattedUploadedEver;
-      var formattedUploadRatio;
       if (torrent.uploadRatio >= 0) {
         formattedUploadRatio = torrent.uploadRatio.toPrecision(3);
         if (formattedUploadRatio < 0.1) { formattedUploadRatio = (+formattedUploadRatio).toFixed(3); }
@@ -103,8 +103,8 @@
       status = torrent.statusWord();
       if(status == 'meta') { value = torrent.metadataPercentComplete * 100; }
       else if(status == 'seeding' || status == 'finished') {
-        if (torrent.seedRatioMode == 0) {
-          if (kettu.app.settings.seedRatioLimited) {
+        if(torrent.seedRatioMode === 0) {
+          if(kettu.app.settings.seedRatioLimited) {
             value = torrent.uploadRatio/kettu.app.settings.seedRatioLimit * 100;
           }
         } else if(torrent.seedRatioMode == 1) {
@@ -114,7 +114,7 @@
         value = torrent.recheckProgress * 100;
       }
 
-      if(value > 100) value = 100; // value can be greater than 100 e.g. if the torrent has an upload ratio greater than the limit
+      if(value > 100) { value = 100; } // value can be greater than 100 e.g. if the torrent has an upload ratio greater than the limit
 
       // NOTE: creating the progressbar via $('<div></div>').progressbar({}); seems to lead to a memory leak in safari
 
