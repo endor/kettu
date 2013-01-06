@@ -42,7 +42,7 @@
       return torrent.isChecking() || torrent.isWaitingToCheck();
     };
     torrent.isFinished = function() {
-      return torrent.isDoneDownloading() && torrent.isPaused();
+      return !torrent.needsMetaData() && torrent.isDoneDownloading() && torrent.isPaused();
     };
     torrent.hasError = function() {
       return torrent.error > 0;
