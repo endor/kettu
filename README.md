@@ -13,6 +13,8 @@ kettu osaa monta asiaa.
 * kastigar for adding predefined locations.
 * currency.io for their easy way of adding the app to the homescreen.
 
+## Screenshot
+![Screenshot](screenshot-1.png)
 
 ## Usage
 You can use kettu instead of the original web client to remotely administrate your transmission application.
