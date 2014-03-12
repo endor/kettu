@@ -3,7 +3,7 @@
 (function() {
   var updateSortDropdown = function() {
     var sort_mode = kettu.app.sort_mode.charAt(0).toUpperCase() + kettu.app.sort_mode.slice(1);
-    $('#sort_link').text('Sort by ' + (sort_mode || '…'));    
+    $('#sort_link').text('Sort by ' + (sort_mode || '…'));
   };
 
   var updateFilterList = function() {
@@ -37,7 +37,7 @@
               context.render('templates/torrents/new_with_data.mustache', kettu.TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
                 $.facebox(rendered_view);
                 context.initLocations(torrent);
-              });          
+              });
             });
           }
         });
@@ -88,17 +88,37 @@
       $('.torrent').show();
     },
 
+    addTorrent: function(context, request) {
+      context.remoteQuery(request, function(response) {
+        if(kettu.app.mobile) {
+          kettu.app.trigger('flash', 'Torrent added successfully.');
+          context.closeInfo();
+        } else {
+          context.renderConfigForNewTorrents(response['torrent-added']);
+        }
+      });
+    },
+
     submitAddTorrentForm: function(context, paused) {
-      $('#add_torrent_form').ajaxSubmit({
-    	  url: '/transmission/upload?paused=' + paused,
-    	  type: 'POST',
-    	  data: { 'X-Transmission-Session-Id' : context.remoteSessionId() },
-    	  dataType: 'xml',
-        iframe: true,
-    	  success: function(response) {
-    	    context.renderConfigForNewTorrents(JSON.parse($(response).children(':first').text()).success);
-    	  }
-  	});  
+      _.each($('[name="torrent_files[]"]').get(0).files, function(file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var contents = e.target.result,
+              key = "base64,",
+              index = contents.indexOf(key);
+
+          if (index > -1) {
+            var metainfo = contents.substring(index + key.length);
+            var request = context.buildRequest('torrent-add', {
+              paused: true,
+              metainfo: metainfo
+            });
+
+            context.addTorrent(context, request);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     },
 
     getNewestTorrents: function(context, response) {
@@ -196,7 +216,7 @@
         form.find('input:first').attr('value', 'false');
       } else {
         $('#speed_limit_mode').removeClass('active').text('Enable Speed Limit Mode');
-        form.find('input:first').attr('value', 'true');      
+        form.find('input:first').attr('value', 'true');
       }
 
       context.speed_limit_mode_enabled = speed_limit_mode_enabled;
@@ -249,7 +269,7 @@
         };
 
         _.each(updatable_settings, function(setting) {
-          if(params.hasOwnProperty(setting)) {          
+          if(params.hasOwnProperty(setting)) {
             request['arguments'][setting] = params[setting] ? true : false;
             if(params[setting] && params[setting].match(/^-?\d+$/)) {
               request['arguments'][setting] = parseInt(params[setting], 10);
@@ -299,7 +319,7 @@
           }
         });
       }
-      return request; 
+      return request;
     }
   };
 })();
