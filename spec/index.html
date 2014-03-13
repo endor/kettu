@@ -22,7 +22,7 @@
                   <li><a href="#/torrents?filter=downloading" class="downloading">Downloading</a></li>
                   <li><a href="#/torrents?filter=seeding" class="seeding">Seeding</a></li>
                   <li><a href="#/torrents?filter=paused" class="paused">Paused</a></li>
-                  <li><a href="#/torrents?filter=activity" class="activity">Activity</a></li>
+                  <li><a href="#/torrents?filter=activity" class="activity">Active</a></li>
                 </ul>
               </li>
               <li class="sorts_dropdown">
@@ -188,7 +188,7 @@
           kettu.helpers.setupStore();
         })
         .script('js/app.js').wait(function() {
-          kettu.app.get('#/', function() {});          
+          kettu.app.get('#/', function() {});
         })
         .script('spec/integration/torrents_spec.js')
         .script('spec/integration/torrent_info_spec.js')
