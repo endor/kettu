@@ -93,15 +93,15 @@
         _.extend({}, torrent, {name: name}, options)
       ];
     },
-    
+
     updateTorrent: function(options) {
       torrents[0] = _.extend(torrents[0], options);
     },
-    
+
     createTorrents: function(_torrents) {
       torrents = _.map(_torrents, function(_torrent) {
         return _.extend({}, torrent, {name: _torrent[0]}, _torrent[1] || {});
       });
     }
-  };  
+  };
 })();

@@ -37,7 +37,7 @@ kettu.InfoHelpers = {
   infoIsOpen: function() {
     return $('.main').hasClass('info');
   },
-  
+
   infoDisplaysSettings: function() {
     return $('#info').hasClass('settings');
   },
@@ -51,12 +51,12 @@ kettu.InfoHelpers = {
         var active_torrent = $('.torrent.active');
         if(active_torrent.length > 0) {
           context.redirect('#/torrent_details/' + active_torrent.attr('id'));
-        }        
+        }
       }
       event.preventDefault();
     });
   },
-  
+
   // NOTE: make this smaller and more readable
   handleClickOnTorrent: function(torrent) {
     if(!kettu.app.mobile) {
@@ -80,7 +80,7 @@ kettu.InfoHelpers = {
 
           context.highlightTorrents(torrents);
           if(context.infoIsOpen()) { context.redirect('#/torrent_details'); }
-          $('#search').focus();          
+          $('#search').focus();
         } else if(e.metaKey && $('.torrent.active').length >= 1) {
           $(this).toggleClass('active');
           if(context.infoIsOpen()) { context.redirect('#/torrent_details'); }
@@ -90,9 +90,9 @@ kettu.InfoHelpers = {
             context.saveLastMenuItem($('.menu-item.active'));
             window.location = '#/torrent_details/' + $(this).attr('id');
             // NOTE: a redirect seems to interfere with our double click handling here
-          }        
+          }
         }
-      });      
+      });
     }
   },
 
@@ -101,7 +101,7 @@ kettu.InfoHelpers = {
     this.handleClickOnTorrent(torrent);
     this.handleDoubleClickOnTorrent(torrent);
   },
-  
+
   activateInfoInputs: function(torrent) {
     $('#info input:not(.dont_update_parent)').change(function() {
       $(this).parents('form:first').trigger('submit');
@@ -121,10 +121,10 @@ kettu.InfoHelpers = {
           $('#info .seedRatioLimit').hide();
         }
       }
-      
+
       return false;
     });
-    
+
     $('#info .bandwidthPriority').val(torrent.bandwidthPriority);
     $('#info .seedRatioMode').val(torrent.seedRatioMode);
 
@@ -169,7 +169,7 @@ kettu.InfoHelpers = {
     });
     $('#info .folder-check').click(function() {
       if($(this).is(':checked')) {
-        $(this).siblings('.files_in_folders').find('input.file').attr('checked', 'checked');        
+        $(this).siblings('.files_in_folders').find('input.file').attr('checked', 'checked');
       } else {
         $(this).siblings('.files_in_folders').find('input.file').removeAttr('checked');
       }
@@ -177,7 +177,7 @@ kettu.InfoHelpers = {
       return true;
     });
   },
-  
+
   activatePrioritySelects: function() {
     $('img.priority').click(function(event) {
       var menu = $('#selectPriority'),
@@ -190,12 +190,12 @@ kettu.InfoHelpers = {
           menu.hide();
           menu.find('a').unbind('click');
           menu.find('form').unbind('submit');
-          return true;          
+          return true;
       };
-      
+
       $(document).one('click', callback);
       menu.find('form').submit(callback);
-      
+
       menu.find('a').click(function(evt) {
         evt.preventDefault();
         newPriority = $(this).attr('data-priority');
@@ -206,13 +206,13 @@ kettu.InfoHelpers = {
           var files = hiddenPriority.siblings('.files_in_folders');
           files.find('.priority_file').val(newPriority);
           files.find('img.priority').attr('src', 'css/images/priority_' + newPriority + '_small.png');
-          hiddenPriority.val(newPriority);          
+          hiddenPriority.val(newPriority);
         }
 
         hiddenPriority.parents('form:first').submit();
-        hiddenPriority.siblings('img.priority').attr('src', 'css/images/priority_' + newPriority + '_small.png');          
+        hiddenPriority.siblings('img.priority').attr('src', 'css/images/priority_' + newPriority + '_small.png');
       });
-      
+
       $(document).keyup(function(event) {
         if(event.keyCode === 27) { callback(); }
       });
@@ -221,17 +221,17 @@ kettu.InfoHelpers = {
         left: event.pageX - 170,
         top: event.pageY - 150
       }).show();
-      
+
       event.stopPropagation();
     });
   },
-  
+
   startCountDownOnNextAnnounce: function() {
     var context = this;
     var timer = setInterval(function() {
       var timestamp = $('.countdown').attr('data-timestamp'),
           formatted = context.formatNextAnnounceTime(timestamp);
-      
+
       if(formatted.match(/59 min/)) {
         clearInterval(timer);
         context.saveLastMenuItem($('.menu-item.active'));

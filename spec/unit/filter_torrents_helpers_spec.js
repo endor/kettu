@@ -2,7 +2,7 @@
 
 describe("FilterTorrentsHelpers", function() {
   var filter_helpers = kettu.FilterTorrentsHelpers;
-  
+
   it("should not filter if filter is all", function() {
     var torrents = [
       kettu.Torrent({'id': '1', 'name': 'Zelda'}),
@@ -14,7 +14,7 @@ describe("FilterTorrentsHelpers", function() {
     expect(filtered_torrents[1].id).to.equal('2');
     expect(filtered_torrents[2].id).to.equal('3');
   });
-  
+
   it("should filter by paused", function() {
     var torrents = [
       kettu.Torrent({'id': '1', 'name': 'Zelda', 'status': 4}),
@@ -25,7 +25,7 @@ describe("FilterTorrentsHelpers", function() {
     expect(filtered_torrents[0].id).to.equal('2');
     expect(filtered_torrents.length).to.equal(1);
   });
-  
+
   it("should filter by downloading", function() {
     var torrents = [
       kettu.Torrent({'id': '1', 'name': 'Zelda', 'status': 4}),
@@ -36,7 +36,7 @@ describe("FilterTorrentsHelpers", function() {
     expect(filtered_torrents[0].id).to.equal('1');
     expect(filtered_torrents.length).to.equal(1);
   });
-  
+
   it("should filter by seeding", function() {
     var torrents = [
       kettu.Torrent({'id': '1', 'name': 'Zelda', 'status': 4}),

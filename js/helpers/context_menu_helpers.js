@@ -4,11 +4,11 @@ kettu.ContextMenuHelpers = {
   hideContextMenu: function() {
     $('#context_menu').hide();
   },
-  
+
   activateContextMenu: function() {
     if(!kettu.app.mobile) {
       var context = this;
-    
+
       $('#torrents').contextMenu({
         menu: '#context_menu',
         onContextMenu: function(event) {
@@ -24,7 +24,7 @@ kettu.ContextMenuHelpers = {
               paused: active_torrents.length === $('.torrent.active.paused').length,
               not_paused: $('.torrent.active.paused').length === 0
             };
-        
+
           context.render('templates/context_menu/show.mustache', data, function(rendered_view) {
             $('#context_menu').html('').append(rendered_view);
 
@@ -35,7 +35,7 @@ kettu.ContextMenuHelpers = {
               $('.torrent').removeClass('active');
             });
             $('#context_menu .facebox_link').facebox();
-          });        
+          });
         }
       });
     }

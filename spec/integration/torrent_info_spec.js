@@ -18,7 +18,7 @@ describe('torrent info', function() {
       }, 50);
     });
   });
-  
+
   it('opens the torrent info on clicking on inspector', function(done) {
     kettu.helpers.createTorrent('Mutant Ninja Turtles', {downloadDir: "/downloads"});
 
@@ -36,9 +36,9 @@ describe('torrent info', function() {
           }, 50);
         }, 50);
       }, 50);
-    });    
+    });
   });
-  
+
   it('shows a warning when opening the inspector without any torrents selected', function(done) {
     kettu.helpers.createTorrent('Mutant Ninja Turtles', {downloadDir: "/downloads"});
 
@@ -51,9 +51,9 @@ describe('torrent info', function() {
           done();
         }, 50);
       }, 50);
-    });    
+    });
   });
-  
+
   it('updates the info when double clicking on one torrent and then clicking on another', function(done) {
     kettu.helpers.createTorrents([
       ["Mutant Ninja Turtles", {id: 1, downloadDir: "/downloads"}],
@@ -78,7 +78,7 @@ describe('torrent info', function() {
           }, 100);
         }, 50);
       }, 50);
-    });    
+    });
   });
 
   it('displays tracker information', function(done) {
@@ -103,9 +103,9 @@ describe('torrent info', function() {
         $('#menu-item-trackers').click();
         setTimeout(function() {
           expect($('.trackers').html()).to.match(/my\.tracker\.com\:1234/);
-          expect($('.trackers').html()).to.match(/2\/22\/2010\ 10\:22/);          
+          expect($('.trackers').html()).to.match(/2\/22\/2010\ 10\:22/);
           expect($('.trackers').html()).to.match(/(29|30) min, (\d+) sec/);
-          
+
           $('.inspector').click();
           setTimeout(function() {
             done();
@@ -116,7 +116,7 @@ describe('torrent info', function() {
   });
 
   it('displays file information', function(done) {
-    kettu.helpers.createTorrent('Mutant Ninja Turtles', {      
+    kettu.helpers.createTorrent('Mutant Ninja Turtles', {
       "files": [
         {"key": "1", "bytesCompleted": "6", "length": "12", "name": "README.md"},
         {"key": "2", "bytesCompleted": "0", "length": "0", "name": "INSTALL.md"}
@@ -137,7 +137,7 @@ describe('torrent info', function() {
           expect($('.files').html()).to.match(/50\%/);
           expect($('#file_0').is(':checked')).to.be(false);
           expect($('#file_1').is(':checked')).to.be(true);
-          
+
           $('.inspector').click();
           setTimeout(function() {
             done();
@@ -146,7 +146,7 @@ describe('torrent info', function() {
       }, 50);
     });
   });
-  
+
   it('displays peer information', function(done) {
     kettu.helpers.createTorrent('Mutant Ninja Turtles', {
       "peers": [
@@ -162,14 +162,14 @@ describe('torrent info', function() {
         setTimeout(function() {
           expect($('.peers').html()).to.match(/1\.2\.3\.4/);
           expect($('.peers').html()).to.match(/Transmission Rocks/);
-          
+
           $('.inspector').click();
           setTimeout(function() {
             done();
           }, 50);
         }, 50);
       }, 50);
-    });    
+    });
   });
 
   it('updates itself', function(done) {
@@ -186,13 +186,13 @@ describe('torrent info', function() {
         $('#menu-item-peers').click();
         setTimeout(function() {
           expect($('.peers').html()).to.match(/1\.2\.3\.4/);
-          
+
           kettu.helpers.updateTorrent({
             "peers": [
               {"address": "6.7.8.9", "clientName": "Elephant", "rateToClient": 0, "rateToPeer": 0, "progress": 0}
             ]
           });
-          
+
           kettu.helpers.waitForReload(function() {
             expect($('.peers').html()).to.match(/6\.7\.8\.9/);
             expect($('.peers').html()).to.match(/Elephant/);
@@ -201,12 +201,12 @@ describe('torrent info', function() {
             setTimeout(function() {
               done();
             }, 50);
-          });          
+          });
         }, 50);
       }, 50);
     });
   });
-  
+
   it('displays corrupt download data', function(done) {
     kettu.helpers.createTorrent('Mutant Ninja Turtles', {
       "downloadedEver": 2048,
@@ -220,7 +220,7 @@ describe('torrent info', function() {
         $('#menu-item-activity').click();
         setTimeout(function() {
           expect($('#info .item.activity').html()).to.match(/2\.0 KB\s+\(1\.0 KB corrupt\)/);
-          
+
           $('.inspector').click();
           setTimeout(function() {
             done();

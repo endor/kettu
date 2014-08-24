@@ -2,7 +2,7 @@
 
 describe("TorrentHelpers", function() {
   var torrent_helpers = kettu.TorrentHelpers;
-  
+
   describe("formatNextAnnounceTime", function() {
     it("should return a formatted time for the given nextAnnounceTime", function() {
       var in_fifteen_minutes = new Date().getTime() + 900000;

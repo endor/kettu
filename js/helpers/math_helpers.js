@@ -138,6 +138,6 @@ Math.ratio = function(numerator, denominator) {
 Math.formatPercent = function(total, left_until_done) {
   if(!total) { return 0; }
   if(!left_until_done && left_until_done !== 0) { return 0; }
-  
+
   return Math.floor( ((total - left_until_done) / total) * 10000 ) / 100;
 };

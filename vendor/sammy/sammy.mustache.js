@@ -77,9 +77,9 @@
   //                 context.partials = {hello_friend: partial};
   //                 context.name = context.params.name;
   //                 context.friend = context.params.friend;
-  //      
+  //
   //                 // render the template and pass it through mustache
-  //                 context.partial('mytemplate.ms');                 
+  //                 context.partial('mytemplate.ms');
   //               });
   //         });
   //       });

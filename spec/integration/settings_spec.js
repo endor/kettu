@@ -9,9 +9,9 @@ describe('settings', function() {
       setTimeout(function() {
         var data = JSON.parse(window.lastRequest.data);
         expect(data["arguments"]["alt-speed-enabled"]).to.be(false);
-        
+
         done();
-      }, 50);      
+      }, 50);
     }, 50);
   });
 });

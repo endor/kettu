@@ -10,7 +10,7 @@
   kettu.Torrent = function(attributes) {
     var torrent = {},
         stati = kettu.Torrent.stati,
-        byteFields = ['totalSize', 'downloadedEver', 'uploadedEver', 
+        byteFields = ['totalSize', 'downloadedEver', 'uploadedEver',
           'pieceSize', 'corruptEver', 'sizeWhenDone'];
 
     _.each(_.union(kettu.Torrent.fields, kettu.Torrent.infoFields), function(field) {
@@ -22,7 +22,7 @@
         };
       }
     });
-  
+
     _.each(stati, function(status, name) {
       torrent['is' + capitalize(name)] = function() {
         return torrent.status == status;
@@ -44,8 +44,8 @@
     torrent.hasError = function() {
       return torrent.error > 0;
     };
-    torrent.needsMetaData = function() { 
-      return torrent.metadataPercentComplete < 1; 
+    torrent.needsMetaData = function() {
+      return torrent.metadataPercentComplete < 1;
     };
     torrent.percentDone = function() {
       return Math.formatPercent(torrent.sizeWhenDone, torrent.leftUntilDone);
@@ -83,7 +83,7 @@
     };
     torrent.progressBar = function() {
       var status, value = torrent.percentDone();
-    
+
       if(torrent.isActive() && torrent.needsMetaData()) {
         status = 'meta';
         value = 100;
@@ -97,7 +97,7 @@
       } else {
         status = 'paused';
       }
-    
+
       // NOTE: creating the progressbar via $('<div></div>').progressbar({}); seems to lead to a memory leak in safari
 
       var progressBar = '<div class="ui-progressbar-value ui-widget-header-' + status + ' ui-corner-left" style="width: ' + value + '%; "></div>';
@@ -113,7 +113,7 @@
     };
     torrent.statusStringLocalized = function(status) {
       var localized_stati = {};
-    
+
       localized_stati[stati['paused']] = 'Paused';
       localized_stati[stati['waiting_to_check']] = 'Waiting to verify';
       localized_stati[stati['checking']] = 'Verifying local data';
@@ -176,14 +176,14 @@
     'waiting_to_seed': 5,
     'seeding': 6
   };
-  
+
   kettu.Torrent.fields = [
     'id', 'name', 'status', 'totalSize', 'sizeWhenDone', 'haveValid', 'leftUntilDone', 'haveUnchecked',
     'eta', 'uploadedEver', 'uploadRatio', 'rateDownload', 'rateUpload', 'metadataPercentComplete',
     'addedDate', 'trackerStats', 'error', 'errorString', 'recheckProgress', 'bandwidthPriority',
     'seedRatioMode', 'seedRatioLimit'
   ];
-  
+
   kettu.Torrent.infoFields = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files', 'pieceCount',

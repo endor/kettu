@@ -2,7 +2,7 @@ kettu.app = $.sammy(function() {
   this.use(Sammy.TransmissionRPC);
   this.use(Sammy.Mustache);
   this.use(Sammy.Cache);
-  
+
   this.element_selector = 'body';
   this.cache_partials = true;
 
@@ -23,21 +23,21 @@ kettu.app = $.sammy(function() {
   this.helpers(kettu.TorrentHelpers);
   this.helpers(kettu.TorrentDetailsHelpers);
   this.helpers(kettu.ViewHelpers);
-  
+
   kettu.TorrentDetails(this);
   kettu.Torrents(this);
   kettu.Settings(this);
   kettu.Statistics(this);
   kettu.Blocklist(this);
-  
+
   this.bind('flash', function(e, message) {
     $('#flash').html(message).show().delay(3000).fadeOut('slow');
   });
-  
+
   this.bind('errors', function(e, errors) {
     this.showErrors(errors);
   });
-  
+
   this.bind('init', function() {
     this.activateMobileButtons();
     this.activateContextMenu();
@@ -57,7 +57,7 @@ $(function() {
 
   if($(window).width() > 480) {
     kettu.app.mobile = false;
-    kettu.app.run('#/torrents');    
+    kettu.app.run('#/torrents');
   } else {
     kettu.app.mobile = true;
     kettu.app.run('#/torrents?view=compact');

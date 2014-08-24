@@ -10,7 +10,7 @@ kettu.StatisticsView = function(statistics) {
     'time_active': Math.formatSeconds(statistics['current-stats']['secondsActive']),
     'time_active_total': Math.formatSeconds(statistics['cumulative-stats']['secondsActive'])
   };
-  
+
   if(statistics['current-stats']['downloadedBytes'] === 0) {
     view['ratio'] = statistics['current-stats']['uploadedBytes'] === 0 ? 'N/A' : 'Infinity';
   } else {
@@ -22,6 +22,6 @@ kettu.StatisticsView = function(statistics) {
   } else {
     view['ratio_total'] = (statistics['cumulative-stats']['uploadedBytes'] / statistics['cumulative-stats']['downloadedBytes']).toFixed(4);
   }
-  
+
   return view;
 };

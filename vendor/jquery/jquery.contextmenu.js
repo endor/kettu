@@ -7,9 +7,9 @@
 
       var callback = function() {
           menu.hide();
-          return true;          
+          return true;
       };
-      
+
       menu.find('form').submit(callback);
       menu.find('a').click(callback);
 
@@ -18,17 +18,17 @@
             callback();
         }
       });
-			
+
       menu.css({
         left: event.pageX - 170,
         top: event.pageY - 150
       }).show();
 
       $(document).one('click', callback);
-      
+
       return false;
     });
-      
+
     return this;
   };
 })(jQuery);

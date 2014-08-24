@@ -1,14 +1,14 @@
 /*global Sammy*/
 
 (function($) {
-  
+
   Sammy.TransmissionRPC = function(app) {
 
     var rpc = {
       url: '/transmission/rpc',
       session_id: ''
     };
-    
+
     app.helpers({
       remoteSessionId: function() {
         return rpc.session_id;
@@ -16,7 +16,7 @@
 
       remoteQuery: function(params, callback) {
         var context = this;
-        
+
         $.ajax({
           type: 'POST',
           url: rpc.url,
@@ -39,7 +39,7 @@
               context.remoteQuery(params, callback);
             } else {
               Sammy.log('RPC Connection Failure.');
-              Sammy.log(xhr.responseText);            
+              Sammy.log(xhr.responseText);
             }
           }
         });
@@ -47,5 +47,5 @@
     });
 
   };
-  
+
 })(jQuery);

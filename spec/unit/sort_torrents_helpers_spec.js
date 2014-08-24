@@ -2,7 +2,7 @@
 
 describe("SortTorrentsHelpers", function() {
   var sort_helpers = kettu.SortTorrentsHelpers;
-  
+
   it("should be sortable by name", function() {
     var torrents = [
       kettu.Torrent({'id': '1', 'name': 'Zelda'}),
@@ -14,7 +14,7 @@ describe("SortTorrentsHelpers", function() {
     expect(sorted_torrents[1].id).to.equal('3');
     expect(sorted_torrents[2].id).to.equal('1');
   });
-  
+
   it("should be sortable by activity", function() {
     var torrents = [
       kettu.Torrent({'id': '1', 'rateDownload': 0, 'rateUpload': 0}),
@@ -76,7 +76,7 @@ describe("SortTorrentsHelpers", function() {
     expect(sorted_torrents[1].id).to.equal('3');
     expect(sorted_torrents[2].id).to.equal('1');
   });
-  
+
   it("should sort reverse if reverse is true", function() {
     var torrents = [
       kettu.Torrent({'id': '1', 'rateDownload': 0, 'rateUpload': 0}),
@@ -88,7 +88,7 @@ describe("SortTorrentsHelpers", function() {
     expect(sorted_torrents[1].id).to.equal('3');
     expect(sorted_torrents[2].id).to.equal('1');
   });
-  
+
   it("should not sort reverse if reverse if false", function() {
     var torrents = [
       kettu.Torrent({'id': '1', 'rateDownload': 0, 'rateUpload': 0}),

@@ -14,20 +14,20 @@ kettu.DraggingHelpers = {
   		//       maybe there's a faster way to do this?
       torrents.mousemove(function(event) {
         context.closest_torrent.addClass('active');
-        
+
         var y1 = context.original_position;
         var y2 = $(event.target).closest('.torrent').position().top;
 
     		if(y2 < y1) { var tmp = y1; y1 = y2; y2 = tmp; }
-        
+
         $('.torrent:visible').each(function() {
-          var position = $(this).position();          
+          var position = $(this).position();
           if(position.top < y2 && position.top > y1) {
             $(this).addClass('active');
           }
         });
       });
-      
+
       event.preventDefault();
     });
 
@@ -36,7 +36,7 @@ kettu.DraggingHelpers = {
       context.closest_torrent = null;
       context.original_position = null;
     };
-    
+
     $('body').mouseup(unbindMouseMove);
     torrents.mouseup(unbindMouseMove);
   }

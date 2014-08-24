@@ -6,11 +6,11 @@ kettu.Statistics = function(transmission) {
       method: 'session-stats',
       arguments: {fields: ['current-stats', 'torrentCount', 'cumulative-stats']}
     };
-    
+
     context.remoteQuery(request, function(response) {
       context.render('templates/statistics/index.mustache', kettu.StatisticsView(response), function(rendered_view) {
         context.openInfo(rendered_view, 'statistics');
-      });      
+      });
     });
   });
 };

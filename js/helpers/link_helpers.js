@@ -10,21 +10,21 @@ kettu.LinkHelpers = {
     this.activateCompactViewLink();
     this.activateStartAndStopAllLink();
   },
-  
+
   activateInspectorLink: function() {
     var context = this;
-    
+
     $('.inspector').live('click', function() {
       if(context.infoIsOpen() && (window.location.hash.match(/\/torrents\/\d+/) ||
           window.location.hash.match(/\/torrent_details/))) {
         context.closeInfo();
       } else {
         context.redirect('#/torrent_details');
-      }      
+      }
       return false;
     });
   },
-  
+
   activateAddTorrentLink: function() {
     var context = this;
     $('#add_a_torrent').click(function() {
@@ -60,9 +60,9 @@ kettu.LinkHelpers = {
 
     if(this.store.get('view_mode') == 'compact') {
       $('#compact_view').addClass('active');
-      $('#compact_view').text('Disable Compact View');      
+      $('#compact_view').text('Disable Compact View');
     }
-    
+
     $('#compact_view').click(function() {
       if($(this).hasClass('active')) {
         $(this).removeClass('active');
@@ -77,7 +77,7 @@ kettu.LinkHelpers = {
       return false;
     });
   },
-  
+
   activateStartAndStopAllLink: function() {
     var context = this,
       start_stop_all = function(data, clazz) {
@@ -89,15 +89,15 @@ kettu.LinkHelpers = {
             $('#context_menu .' + clazz + ' form .ids').val(selected_ids);
             $('#context_menu .' + clazz + ' form').submit();
           });
-          
+
           evt.preventDefault();
         };
       };
-    
-    $('.start_all').click(start_stop_all({paused: true}, 'activate'));    
+
+    $('.start_all').click(start_stop_all({paused: true}, 'activate'));
     $('.stop_all').click(start_stop_all({not_paused: true}, 'pause'));
   },
-  
+
   activateSettingsLink: function() {
     var context = this;
     $('#settings').click(function() {

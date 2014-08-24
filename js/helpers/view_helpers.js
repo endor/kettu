@@ -6,20 +6,20 @@ kettu.ViewHelpers = {
     torrents.addClass('active');
     if(more_torrents) { more_torrents.addClass('active'); }
   },
-  
+
   showErrors: function(errors) {
     var error_string = _.reduce(errors, function(error_string, error) {
       error_string += error.field + ': ' + error.message + '<br />';
     }, '<p>');
     $('#errors').html(error_string + '</p>');
   },
-  
+
   saveLastMenuItem: function(active_menu_item) {
     if(active_menu_item.length > 0) {
       kettu.app.last_menu_item = $(active_menu_item).attr('id');
     }
   },
-  
+
   menuizeInfo: function() {
     $('#info .menu-item').click(function() {
       $('#info .menu-item').removeClass('active');
@@ -37,7 +37,7 @@ kettu.ViewHelpers = {
       $('#info .menu-item:first').addClass('active');
     }
   },
-  
+
   sanitizeNumber: function(number) {
     if(number >= 0) {
       return number;
@@ -47,7 +47,7 @@ kettu.ViewHelpers = {
       return 'Infinity';
     }
   },
-  
+
   activateSortSelect: function(context) {
     $('#sort_link').click(function() {
       $('#sorts').slideToggle();

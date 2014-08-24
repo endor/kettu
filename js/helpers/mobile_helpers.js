@@ -3,7 +3,7 @@
 (function() {
   var stopEvent = function(event) {
     event.stopPropagation();
-    event.preventDefault();  
+    event.preventDefault();
   };
 
   var deactivateLinks = function() {
@@ -14,7 +14,7 @@
     setTimeout(function() {
       $('#device').css('height', '200px');
       $(window).scrollTop(y);
-      $('#device').css('height', '0px');  
+      $('#device').css('height', '0px');
     }, 200);
   };
 
@@ -38,9 +38,9 @@
 
         $('#mobile-header .gear').click(function(event) {
           stopEvent(event);
-          $('#gear_menu').slideDown('slow');            
+          $('#gear_menu').slideDown('slow');
         });
-      
+
         $('#gear_menu .cancel').click(function(event) {
           stopEvent(event);
           deactivateLinks();
@@ -54,7 +54,7 @@
           context.redirect($(this).attr('href'));
           showBackButton(context, y);
         });
-      
+
         $('#gear_menu .start_all, #gear_menu .stop_all').click(function() {
           deactivateLinks();
           $('#gear_menu').hide();
@@ -90,9 +90,9 @@
           $(document).one('tap', function(event) {
             stopEvent(event);
             torrent.find('.pauseAndActivateButtonForm').show();
-            torrent.find('.torrent_delete_form').hide();              
+            torrent.find('.torrent_delete_form').hide();
           });
-        });      
+        });
       }
     }
   };

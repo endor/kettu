@@ -65,7 +65,7 @@
 
         var name = $flags[i]
           , assertion = new Assertion(this.obj, name, this)
-  
+
         if ('function' == typeof Assertion.prototype[name]) {
           // clone the function, make sure we dont touch the prot reference
           var old = this[name];
@@ -149,7 +149,7 @@
     if ('object' == typeof fn && not) {
       // in the presence of a matcher, ensure the `not` only applies to
       // the matching.
-      this.flags.not = false; 
+      this.flags.not = false;
     }
 
     var name = this.obj.name || 'fn';
@@ -220,7 +220,7 @@
   };
 
   /**
-   * Assert within start to finish (inclusive). 
+   * Assert within start to finish (inclusive).
    *
    * @param {Number} start
    * @param {Number} finish
@@ -299,7 +299,7 @@
       , 'expected ' + i(this.obj) + ' to be above ' + n);
     return this;
   };
-  
+
   /**
    * Assert string value matches _regexp_.
    *
@@ -360,13 +360,13 @@
       } catch (e) {
         hasProp = undefined !== this.obj[name]
       }
-      
+
       this.assert(
           hasProp
         , 'expected ' + i(this.obj) + ' to have a property ' + i(name)
         , 'expected ' + i(this.obj) + ' to not have a property ' + i(name));
     }
-    
+
     if (undefined !== val) {
       this.assert(
           val === this.obj[name]
@@ -799,9 +799,9 @@
 
   expect.eql = function eql (actual, expected) {
     // 7.1. All identical values are equivalent, as determined by ===.
-    if (actual === expected) { 
+    if (actual === expected) {
       return true;
-    } else if ('undefined' != typeof Buffer 
+    } else if ('undefined' != typeof Buffer
         && Buffer.isBuffer(actual) && Buffer.isBuffer(expected)) {
       if (actual.length != expected.length) return false;
 

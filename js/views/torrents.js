@@ -2,7 +2,7 @@
 
 kettu.TorrentsView = function(torrent, context) {
   var view = torrent;
-  
+
   view.pauseAndActivateButton = function() {
     var torrent = kettu.Torrent(view);
     var options = torrent.isActive() ? ['torrent-stop', 'Pause'] : ['torrent-start', 'Resume'];
@@ -13,7 +13,7 @@ kettu.TorrentsView = function(torrent, context) {
       'button': options[1],
       'css_class': torrent.statusWord(),
       'isMobile': !!kettu.app.mobile
-    });    
+    });
   };
 
   view.firstTracker = function() {
@@ -23,15 +23,15 @@ kettu.TorrentsView = function(torrent, context) {
       return '';
     }
   };
-  
+
   view.errorClass = function() {
     return view.hasError() ? ' error' : '';
   };
-  
+
   view.isMobile = function() {
     return !!kettu.app.mobile;
   };
-  
+
   view.paused = function() {
     return view.statusWord() === 'paused';
   };
@@ -39,17 +39,17 @@ kettu.TorrentsView = function(torrent, context) {
   view.mobileError = function() {
     return (view.isMobile() && view.hasError()) ? 'mobile-error' : '';
   };
-  
+
   view.showPriorityArrow = function() {
     return torrent.bandwidthPriority !== 0;
   };
-  
+
   view.priorityArrow = function() {
     return torrent.bandwidthPriority == 1 ? 'up' : 'down';
   };
-  
+
   view.cachePartial = context.cachePartial;
-  
+
   if(kettu.app.mobile) {
     view.name = context.shorten(view.name, 20);
   }

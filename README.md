@@ -1,5 +1,5 @@
 # kettu
-Port of http://github.com/kjg/derailleur and the original Transmission Web Client  
+Port of http://github.com/kjg/derailleur and the original Transmission Web Client
 using [jquery](http://jquery.com), [sammy.js](http://github.com/quirkey/sammy) and [mustache.js](http://github.com/janl/mustache.js).
 
 By Frank Prößdorf <fp@notjusthosting.com>.

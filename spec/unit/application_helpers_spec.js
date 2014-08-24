@@ -10,7 +10,7 @@ describe("ApplicationHelpers", function() {
       expect(differences['b']).to.equal('blub');
       expect(differences['c']).to.be(true);
     });
-    
+
     it("should return an empty hash if there are no differences", function() {
       var differences = application_helpers.hashDiff({a: 1, b: 'string', c: false}, {a: 1, b: 'string', c: false});
       expect(differences).to.be(false);

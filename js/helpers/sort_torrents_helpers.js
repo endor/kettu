@@ -1,13 +1,13 @@
 /*global kettu*/
 
-// 
+//
 // these sort helpers are based heavily on the previous sort helpers by Dave Perrett and Malcolm Jarvis
 //
 
 kettu.SortTorrentsHelpers = {
   sortTorrents: function(sort_mode, torrents, reverse) {
     var torrentSortFunction = function() {};
-    
+
     switch(sort_mode) {
       case 'name':
         torrentSortFunction = function(a, b) {
@@ -33,7 +33,7 @@ kettu.SortTorrentsHelpers = {
           } else {
            var a_ratio = Math.ratio(a.uploadedEver, a.downloadedEver);
            var b_ratio = Math.ratio(b.uploadedEver, b.downloadedEver);
-           return a_ratio - b_ratio;            
+           return a_ratio - b_ratio;
           }
         };
         break;
@@ -48,13 +48,13 @@ kettu.SortTorrentsHelpers = {
         };
         break;
     }
-    
+
     torrents.sort(torrentSortFunction);
-    
+
     if(reverse) {
       torrents.reverse();
     }
-    
+
     return torrents;
   }
 };
