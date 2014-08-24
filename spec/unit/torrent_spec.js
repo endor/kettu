@@ -133,9 +133,9 @@ describe("Torrent", function() {
       expect(torrent.progressBar()).to.match(/meta/);
     });
 
-    it("should fill the whole progressbar if it's retrieving meta data", function() {
-      var torrent = kettu.Torrent({status: kettu.Torrent.stati['downloading'], metadataPercentComplete: 0});
-      expect(torrent.progressBar()).to.match(/100%/);
+    it("should fill the progressbar the same percentage as the metadata retrieved", function() {
+      var torrent = kettu.Torrent({status: kettu.Torrent.stati['downloading'], metadataPercentComplete: 0.32});
+      expect(torrent.progressBar()).to.match(/32%/);
     });
   });
 });
