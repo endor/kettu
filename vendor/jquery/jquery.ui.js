@@ -78,7 +78,7 @@ this.valueDiv.remove();b.Widget.prototype.destroy.apply(this,arguments)},value:f
 _valueMin:function(){return 0},_valueMax:function(){return 100},_refreshValue:function(){var a=this.value();this.valueDiv[a===this._valueMax()?"addClass":"removeClass"]("ui-corner-right").width(a+"%");this.element.attr("aria-valuenow",a)}});b.extend(b.ui.progressbar,{version:"1.8.1"})})(jQuery);
 ;/*! jQuery UI Selectable 1.8.23
 * Copyright (c) 2012 AUTHORS.txt; Licensed MIT, GPL
-* 
+*
 * This is downloaded from the website, but with one change - all references to
 * 'ui-selected' have been changed to 'active'.
 */

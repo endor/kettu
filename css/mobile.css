@@ -85,7 +85,7 @@ footer {
   overflow: hidden;
   width: 320px;
 }
- 
+
 .torrent.paused, .torrent.finished {
   height: 45px;
 }
