@@ -37,7 +37,7 @@ describe("TorrentView", function() {
         torrent_view.files[0] = {};
         torrent_view.files[0]['length'] = 2048;
         torrent_view.addFormattedSizes();
-        expect(torrent_view.files[0].lengthFormatted).to.equal('2.0 KB');
+        expect(torrent_view.files[0].lengthFormatted).to.equal('2.05 KB');
       });
 
       it("should add a percent done value", function() {
@@ -57,7 +57,7 @@ describe("TorrentView", function() {
       it("should add a formatted upload value", function() {
         torrent_view.peers[0] = {'rateToPeer': 20};
         torrent_view.addFormattedSizes();
-        expect(torrent_view.peers[0].uploadFormatted).to.equal('20 bytes');
+        expect(torrent_view.peers[0].uploadFormatted).to.equal('20.0 B');
       });
 
       it("should add an empty string if upload value is 0", function() {
@@ -69,7 +69,7 @@ describe("TorrentView", function() {
       it("should add a formatted download value", function() {
         torrent_view.peers[0] = {'rateToClient': 20};
         torrent_view.addFormattedSizes();
-        expect(torrent_view.peers[0].downloadFormatted).to.equal('20 bytes');
+        expect(torrent_view.peers[0].downloadFormatted).to.equal('20.0 B');
       });
     });
   });

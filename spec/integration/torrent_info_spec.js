@@ -133,7 +133,7 @@ describe('torrent info', function() {
       setTimeout(function() {
         $('#menu-item-files').click();
         setTimeout(function() {
-          expect($('.files').html()).to.match(/12 bytes/);
+          expect($('.files').html()).to.match(/12.0 B/);
           expect($('.files').html()).to.match(/50\%/);
           expect($('#file_0').is(':checked')).to.be(false);
           expect($('#file_1').is(':checked')).to.be(true);
@@ -219,7 +219,7 @@ describe('torrent info', function() {
       setTimeout(function() {
         $('#menu-item-activity').click();
         setTimeout(function() {
-          expect($('#info .item.activity').html()).to.match(/2\.0 KB\s+\(1\.0 KB corrupt\)/);
+          expect($('#info .item.activity').html()).to.match(/2\.05 KB\s+\(1\.02 KB corrupt\)/);
 
           $('.inspector').click();
           setTimeout(function() {

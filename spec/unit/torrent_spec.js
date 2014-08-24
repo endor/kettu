@@ -80,14 +80,14 @@ describe("Torrent", function() {
   describe("downloadingProgress", function() {
     it("should create a human readable string from sizeWhenDone and leftUntilDone", function() {
       var torrent = kettu.Torrent({sizeWhenDone: 100000, leftUntilDone: 50666});
-      expect(torrent.downloadingProgress()).to.equal('48.2 KB of 97.7 KB (49.33%)');
+      expect(torrent.downloadingProgress()).to.equal('49.3 KB of 100 KB (49.33%)');
     });
   });
 
   describe("uploadingProgress", function() {
     it("should create a human readable string from sizeWhenDone, uploadRatio and uploadedEver", function() {
       var torrent = kettu.Torrent({sizeWhenDone: 100000, uploadedEver: 50666, uploadRatio: 0.52});
-      expect(torrent.uploadingProgress()).to.equal('97.7 KB, uploaded 49.5 KB (Ratio: 0.52)');
+      expect(torrent.uploadingProgress()).to.equal('Downloaded 100 KB, uploaded 50.7 KB (Ratio: 0.520)');
     });
   });
 
