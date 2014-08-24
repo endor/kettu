@@ -130,5 +130,5 @@ Math.formatPercent = function(total, left_until_done) {
   if(!left_until_done && left_until_done !== 0) { return 0; }
   if (left_until_done === 0) return 100;
 
-  return ((total - left_until_done) * 100 / total).toFixed(1);
+  return Number((Math.floor((total - left_until_done) * 10000 / total) / 100).toFixed(2));
 }
