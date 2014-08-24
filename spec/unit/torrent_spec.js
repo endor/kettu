@@ -120,7 +120,7 @@ describe("Torrent", function() {
 
     it("should add class uploading if it's a seeding torrent", function() {
       var torrent = kettu.Torrent({status: kettu.Torrent.stati['seeding'], metadataPercentComplete: 1});
-      expect(torrent.progressBar()).to.match(/uploading/);
+      expect(torrent.progressBar()).to.match(/seeding/);
     });
 
     it("should add class paused if it's a paused torrent", function() {
