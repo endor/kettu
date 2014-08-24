@@ -103,7 +103,7 @@ describe('torrent info', function() {
         $('#menu-item-trackers').click();
         setTimeout(function() {
           expect($('.trackers').html()).to.match(/my\.tracker\.com\:1234/);
-          expect($('.trackers').html()).to.match(/2\/22\/2010\ 10\:22/);
+          expect($('.trackers').html()).to.match(/2\/22\/2010\ (\d+)\:22/);
           expect($('.trackers').html()).to.match(/(29|30) min, (\d+) sec/);
 
           $('.inspector').click();
