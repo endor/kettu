@@ -43,7 +43,7 @@ Math.formatBytes = function(bytes) {
     unit = 'B';
   }
 
-  if (size != 0) { size = size.toPrecision(3); }
+  if (size != 0) { size = Number(size).toPrecision(3); }
 
   return size + ' ' + unit;
 };
