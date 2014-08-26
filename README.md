@@ -11,6 +11,7 @@ kettu osaa monta asiaa.
 * kjg for all the work on the transmission web client and help.
 * lenalena for introducing proper jspec testing to this project.
 * kastigar for adding predefined locations.
+* viveksjain and Shadow6363 for keyboard shortcuts and how numbers are displayed.
 * currency.io for their easy way of adding the app to the homescreen.
 
 ## Screenshot
@@ -28,15 +29,13 @@ Move the kettu files in the right location, and the next time you start Transmis
 #### Linux
 Without overwriting the default Web Interface, you can drop the kettu files into: `~/.local/share/transmission/web/`.
 
-#### On Mac OS X, using a (pre-v2.0) nightly
-In the current (pre-v2.0) nightlies on the mac, you can simply drop kettu in the Transmission Application Support folder and rename it web (`~/Library/Application Support/Transmission/web/`).
+#### On Mac OS X
+In the pre-v2.0 nightlies on the mac, you can simply drop kettu at `~/Library/Application Support/Transmission/web/`. In more current versions the web interface is located at `/Applications/Transmission.app/Contents/Resources/web/` and would need to be replaced there.
 
 ## Configuration
-
 kettu supports the easy selection of a predefined location to download your torrents to. Put locations into the  `config/location.js` configuration file. See `config/locations.js.example` for an example.
 
 ## Shortcuts
-
 You can drag to select multiple torrents. kettu also has a few hotkeys:
 
  - `Cmd/Ctrl+A` - select all

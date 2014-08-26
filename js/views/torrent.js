@@ -20,11 +20,11 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.addFormattedTimes = function() {
     if(view.trackerStats !== undefined) {
       _.each(view.trackerStats, function(stat, i) {
-        view.trackerStats[i]['lastAnnounceTimeFormatted'] = view.formatTime(stat.lastAnnounceTime);
-        view.trackerStats[i]['nextAnnounceTimeFormatted'] = context.formatNextAnnounceTime(stat.nextAnnounceTime);
-        view.trackerStats[i]['lastScrapeTimeFormatted'] = view.formatTime(stat.lastScrapeTime);
-        view.trackerStats[i]['lastScrapeDidNotSucceed'] = !view.lastScrapeSucceeded;
-        view.trackerStats[i]['lastAnnounceDidNotSucceed'] = !view.lastAnnounceSucceeded;
+        view.trackerStats[i].lastAnnounceTimeFormatted = view.formatTime(stat.lastAnnounceTime);
+        view.trackerStats[i].nextAnnounceTimeFormatted = context.formatNextAnnounceTime(stat.nextAnnounceTime);
+        view.trackerStats[i].lastScrapeTimeFormatted = view.formatTime(stat.lastScrapeTime);
+        view.trackerStats[i].lastScrapeDidNotSucceed = !view.lastScrapeSucceeded;
+        view.trackerStats[i].lastAnnounceDidNotSucceed = !view.lastAnnounceSucceeded;
       });
     }
   };
@@ -32,15 +32,15 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.addFormattedSizes = function() {
     if(view.files !== undefined) {
       _.each(view.files, function(file) {
-        file.lengthFormatted = Math.formatBytes(file['length']);
-        file.percentDone = Math.formatPercent(file['length'], file['length'] - file.bytesCompleted);
+        file.lengthFormatted = Math.formatBytes(file.length);
+        file.percentDone = Math.formatPercent(file.length, file.length - file.bytesCompleted);
       });
     }
     if(view.peers !== undefined) {
       _.each(view.peers, function(peer) {
-        peer.uploadFormatted = peer['rateToPeer'] !== 0 ? Math.formatBytes(peer['rateToPeer']) : '';
-        peer.downloadFormatted = peer['rateToClient'] !== 0? Math.formatBytes(peer['rateToClient']) : '';
-        peer.percentDone = Math.formatPercent(100, 100 - (peer['progress'] * 100));
+        peer.uploadFormatted = peer.rateToPeer !== 0 ? Math.formatBytes(peer.rateToPeer) : '';
+        peer.downloadFormatted = peer.rateToClient !== 0? Math.formatBytes(peer.rateToClient) : '';
+        peer.percentDone = Math.formatPercent(100, 100 - (peer.progress * 100));
       });
     }
     view.rateDownloadFormatted = Math.formatBytes(view.rateDownload) + '/s';
@@ -88,16 +88,16 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
     if(view.files) {
       _.each(view.files, function(file) {
         var id = view.files.indexOf(file),
-            disabled = view.files[id]['length'] - view.files[id]['bytesCompleted'] === 0;
+            disabled = view.files[id].length - view.files[id].bytesCompleted === 0;
 
-        file['id'] = 'file_' + id;
-        file['wanted'] = (view.fileStats[id].wanted || disabled) ? ' checked="checked"' : '';
-        file['disabled'] = disabled ? ' disabled="disabled"' : '';
+        file.id = 'file_' + id;
+        file.wanted = (view.fileStats[id].wanted || disabled) ? ' checked="checked"' : '';
+        file.disabled = disabled ? ' disabled="disabled"' : '';
       });
 
       if(view.files.length == 1) {
-        view.files[0]['disabled'] = ' disabled="disabled"';
-        view.files[0]['wanted'] = ' checked="checked"';
+        view.files[0].disabled = ' disabled="disabled"';
+        view.files[0].wanted = ' checked="checked"';
       }
     }
   };
@@ -110,10 +110,13 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
     view.folderless_files = [];
     view.folders = [];
 
-    view.files.sort(function(f1, f2) { return f1['name'].localeCompare(f2['name']) });
+    view.files.sort(function(f1, f2) {
+      return f1.name.localeCompare(f2.name);
+    });
+
     if(view.files) {
       _.each(view.files, function(file) {
-        var name = file['name'].split('/');
+        var name = file.name.split('/');
         var i = view.folders.length - 1;
 
         if(name.length > 1) {
@@ -121,11 +124,11 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
         }
 
         if(name.length === 1) {
-          file['name'] = joinFileName(name);
+          file.name = joinFileName(name);
           view.folderless_files.push(file);
         } else {
           var folder = name.shift();
-          file['name'] = joinFileName(name);
+          file.name = joinFileName(name);
 
           if(i >= 0 && view.folders[i].name === folder) {
             view.folders[i].files.push(file);
@@ -177,10 +180,10 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
       var id = view.fileStats.indexOf(stat),
           arrows = {'0': 'normal', '1': 'up', '-1': 'down'};
 
-      view.files[id]['priorityArrow'] = arrows[stat.priority.toString()];
+      view.files[id].priorityArrow = arrows[stat.priority.toString()];
 
-      if(view.files[id]['length'] === view.files[id]['bytesCompleted']) {
-        view.files[id]['priorityArrow'] = 'done';
+      if(view.files[id].length === view.files[id].bytesCompleted) {
+        view.files[id].priorityArrow = 'done';
       }
     });
     view.show_select_all = view.files.length > 1 && !view.isDoneDownloading();
@@ -191,9 +194,9 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
     if(view.trackerStats !== undefined) {
       var i = 0;
       _.each(view.trackerStats, function(stat) {
-        view.trackerStats[i]['seederCount'] = context.sanitizeNumber(stat.seederCount);
-        view.trackerStats[i]['leecherCount'] = context.sanitizeNumber(stat.leecherCount);
-        view.trackerStats[i]['downloadCount'] = context.sanitizeNumber(stat.downloadCount);
+        view.trackerStats[i].seederCount = context.sanitizeNumber(stat.seederCount);
+        view.trackerStats[i].leecherCount = context.sanitizeNumber(stat.leecherCount);
+        view.trackerStats[i].downloadCount = context.sanitizeNumber(stat.downloadCount);
         i += 1;
       });
       view.trackerStats = view.trackerStats.slice(0, 2);
@@ -204,7 +207,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
       view.showLocations = false;
 
       if (_.isArray(kettu.config.locations) && kettu.config.locations.length > 0) {
-        view.locations = [{name:"Default", path: kettu.app.settings['download-dir']}];
+        view.locations = [{name: 'Default', path: (kettu.app.settings || {})['download-dir']}];
 
         _.each(kettu.config.locations, function(location) {
           if (location.path != view.locations[0].path) {

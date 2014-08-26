@@ -325,6 +325,7 @@ nav ul.icon_nav li a:hover {
 
 #sorts_container {
   float: right;
+  margin-right: 2em;
 }
 
 /* sorts dropdown menu */
@@ -396,7 +397,7 @@ ul#sorts li a {
 }
 
 #filterbar #filter_sort_links {
-  width: 730px;
+  width: 100%;
   float: left;
 }
 

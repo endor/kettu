@@ -1,3 +1,5 @@
+/*global kettu, Sammy*/
+
 kettu.app = $.sammy(function() {
   this.use(Sammy.TransmissionRPC);
   this.use(Sammy.Mustache);
@@ -18,6 +20,7 @@ kettu.app = $.sammy(function() {
   this.helpers(kettu.LinkHelpers);
   this.helpers(kettu.SearchHelpers);
   this.helpers(kettu.SettingHelpers);
+  this.helpers(kettu.ShortcutHelpers);
   this.helpers(kettu.SortTorrentsHelpers);
   this.helpers(kettu.TorrentHelpers);
   this.helpers(kettu.TorrentDetailsHelpers);
@@ -41,11 +44,11 @@ kettu.app = $.sammy(function() {
     var active_torrents = $('.torrent.active'),
       data = {
         ids: $.map(active_torrents, function(torrent) { return $(torrent).attr('id'); }).join(','),
-        names: $.map(active_torrents, function(torrent) { return $(torrent).find('.name').text() }),
+        names: $.map(active_torrents, function(torrent) { return $(torrent).find('.name').text(); })
       };
 
     this.render('templates/delete_facebox/show.mustache', data, function(rendered_view) {
-      jQuery.facebox(rendered_view);
+      $.facebox(rendered_view);
     });
   });
 
@@ -58,33 +61,8 @@ kettu.app = $.sammy(function() {
     this.closeInfo();
     this.configureFacebox();
     this.hideContextMenu();
-
-    // Allow Cmd/Ctrl+A to select all, Cmd/Ctrl+Backspace to delete, Cmd/Ctrl+Alt+Backspace to delete all finished
-    $(document).bind('keydown', function(e) {
-      if(e.metaKey && e.which == 65) {  // Note: e.metaKey will also be true if the Ctrl key is pressed
-        $('.torrent').addClass('active');
-        if(kettu.InfoHelpers.infoIsOpen()) { kettu.app.trigger('refresh-torrent-details'); };
-        return false;
-      } else if(e.metaKey && e.which == 8) {
-        if(e.altKey) {
-          $('.torrent').removeClass('active');
-          $('.torrent.finished').addClass('active');
-        }
-        if($('.torrent.active').length > 0) {
-          kettu.app.trigger('create-delete-facebox');
-          return false;
-        }
-      }
-      return true;
-    });
-
-    if(!kettu.app.mobile) {
-      $("#torrents").selectable({distance: 1}); // Setting distance to non-zero allows our custom single-click and double-click behavior
-      $("#torrents").bind("selectablestop", function(event, ui) {
-        $('#context_menu').hide();
-        kettu.app.trigger('refresh-torrent-details');
-      });
-    };
+    this.enableShortcuts();
+    this.enableDragging();
   });
 });
 

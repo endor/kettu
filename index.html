@@ -24,9 +24,7 @@
         <div id="globalUpAndDownload"></div>
 
         <div id="filterbar">
-
-          <ul id="filter_sort_links">
-            <li>
+          <div id="filter_sort_links">
               <ul id="filters">
                 <li><a href="#/torrents?filter=all" class="all">All</a></li>
                 <li><a href="#/torrents?filter=downloading" class="downloading">Downloading</a></li>
@@ -34,9 +32,12 @@
                 <li><a href="#/torrents?filter=paused" class="paused">Paused</a></li>
                 <li><a href="#/torrents?filter=activity" class="activity">Active</a></li>
               </ul>
-            </li>
-            <div id="sorts_container">
-              <li class="sorts_dropdown">
+
+              <div id="search_filter">
+                <input type="search" placeholder="Filter" id="search" />
+              </div>
+
+              <div id="sorts_container">
                 <a href="#" title="Sort by …" id="sort_link">Sort by …</a>
                 <ul id="sorts">
                   <li><a href="#/torrents?sort=activity" class="activity">Sort by Activity</a></li>
@@ -46,15 +47,8 @@
                   <li><a href="#/torrents?sort=queue" class="queue">Sort by Queue</a></li>
                   <li><a href="#/torrents?sort=state" class="state">Sort by State</a></li>
                 </ul>
-              </li>
-              <li>
                 <a href="#/torrents?sort=reverse" id="reverse_link" title="Reverse Order">Reverse Order</a>
-              </li>
-            </div>
-          </ul>
-
-          <div id="search_filter">
-            <input type="search" placeholder="Filter" id="search" />
+              </div>
           </div>
         </div>
       </header>
@@ -205,6 +199,7 @@
           .script('js/helpers/math_helpers.js')
           .script('js/helpers/search_helpers.js')
           .script('js/helpers/setting_helpers.js')
+          .script('js/helpers/shortcut_helpers.js')
           .script('js/helpers/sort_torrents_helpers.js')
           .script('js/helpers/torrent_helpers.js')
           .script('js/helpers/torrent_details_helpers.js')

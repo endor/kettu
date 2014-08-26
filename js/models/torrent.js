@@ -66,8 +66,10 @@
       } else {
         progressDetails = torrent.uploadingProgress();
         if(torrent.isActive()) {
-          if(torrent.seedRatioMode == 1 ||
-            (torrent.seedRatioMode == 0 && kettu.app.settings.seedRatioLimited)) { progressDetails += ' - ' + torrent.etaString(); }
+          if(torrent.seedRatioMode === 1 ||
+            (torrent.seedRatioMode === 0 && kettu.app.settings.seedRatioLimited)) {
+              progressDetails += ' - ' + torrent.etaString();
+            }
         }
       }
 
@@ -85,9 +87,10 @@
           uploadingProgress = "Downloaded " + formattedSizeWhenDone + ", uploaded " + formattedUploadedEver,
           formattedUploadRatio;
 
-      if (torrent.uploadRatio >= 0) {
+      if (torrent.uploadRatio > 0 && torrent.uploadRatio < 0.1) {
+        formattedUploadRatio = torrent.uploadRatio.toFixed(3);
+      } else if (torrent.uploadRatio >= 0) {
         formattedUploadRatio = torrent.uploadRatio.toPrecision(3);
-        if (formattedUploadRatio < 0.1) { formattedUploadRatio = (+formattedUploadRatio).toFixed(3); }
       } else {
         formattedUploadRatio = kettu.ViewHelpers.sanitizeNumber(torrent.uploadRatio);
       }
@@ -98,11 +101,12 @@
       return "Magnetized transfer - retrieving metadata (" + percentRetrieved + "%)";
     };
     torrent.progressBar = function() {
-      var status, value = torrent.percentDone();
+      var status = torrent.statusWord(),
+        value = torrent.percentDone();
 
-      status = torrent.statusWord();
-      if(status == 'meta') { value = torrent.metadataPercentComplete * 100; }
-      else if(status == 'seeding' || status == 'finished') {
+      if(status == 'meta') {
+        value = torrent.metadataPercentComplete * 100;
+      } else if(status == 'seeding' || status == 'finished') {
         if(torrent.seedRatioMode === 0) {
           if(kettu.app.settings.seedRatioLimited) {
             value = torrent.uploadRatio/kettu.app.settings.seedRatioLimit * 100;
@@ -114,10 +118,12 @@
         value = torrent.recheckProgress * 100;
       }
 
-      if(value > 100) { value = 100; } // value can be greater than 100 e.g. if the torrent has an upload ratio greater than the limit
+      // value can be greater than 100 e.g. if the torrent has an
+      // upload ratio greater than the limit
+      if(value > 100) { value = 100; }
 
-      // NOTE: creating the progressbar via $('<div></div>').progressbar({}); seems to lead to a memory leak in safari
-
+      // NOTE: creating the progressbar via $('<div></div>').progressbar({});
+      // seems to lead to a memory leak in safari
       var progressBar = '<div class="ui-progressbar-value ui-widget-header-' + status + ' ui-corner-all" style="width: ' + value + '%; "></div>';
 
       return progressBar;
@@ -132,15 +138,15 @@
     torrent.statusStringLocalized = function(status) {
       var localized_stati = {};
 
-      localized_stati[stati['paused']] = 'Paused';
-      localized_stati[stati['waiting_to_check']] = 'Waiting to verify';
-      localized_stati[stati['checking']] = 'Verifying local data';
-      localized_stati[stati['downloading']] = 'Downloading';
-      localized_stati[stati['waiting_to_download']] = 'Waiting to download';
-      localized_stati[stati['waiting_to_seed']] = 'Waiting to seed';
-      localized_stati[stati['seeding']] = 'Seeding';
+      localized_stati[stati.paused] = 'Paused';
+      localized_stati[stati.waiting_to_check] = 'Waiting to verify';
+      localized_stati[stati.checking] = 'Verifying local data';
+      localized_stati[stati.downloading] = 'Downloading';
+      localized_stati[stati.waiting_to_download] = 'Waiting to download';
+      localized_stati[stati.waiting_to_seed] = 'Waiting to seed';
+      localized_stati[stati.seeding] = 'Seeding';
 
-      return localized_stati[this['status']] ? localized_stati[this['status']] : 'Unknown status';
+      return localized_stati[status] ? localized_stati[status] : 'Unknown status';
     };
     torrent.statusString = function() {
       var currentStatus = torrent.statusStringLocalized(torrent.status);
@@ -171,12 +177,19 @@
       return currentStatus;
     };
     torrent.statusWord = function() {
-      if(torrent.isActive() && torrent.needsMetaData()) { return 'meta'; }
-      else if(torrent.isVerifying()) { return 'verifying'; }
-      else if(torrent.isDownloading()) { return 'downloading'; }
-      else if(torrent.isSeeding()) { return 'seeding'; }
-      else if(torrent.isFinished()) { return 'finished'; }
-      return 'paused';
+      if(torrent.isActive() && torrent.needsMetaData()) {
+        return 'meta';
+      } else if(torrent.isVerifying()) {
+        return 'verifying';
+      } else if(torrent.isDownloading()) {
+        return 'downloading';
+      } else if(torrent.isSeeding()) {
+        return 'seeding';
+      } else if(torrent.isFinished()) {
+        return 'finished';
+      } else {
+        return 'paused';
+      }
     };
     torrent.uploadRateString = function(uploadRate) {
       return 'UL: ' + Math.formatBytes(uploadRate) + '/s';

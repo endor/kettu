@@ -1,4 +1,4 @@
-/*global describe, it, kettu*/
+/*global describe, it, kettu, expect*/
 
 describe("TorrentView", function() {
   var ctx,
@@ -123,6 +123,26 @@ describe("TorrentView", function() {
       expect(torrent_view.peers[2].clientName).to.equal('Vuze');
       expect(torrent_view.peers[3].clientName).to.equal('rtorrent');
       expect(torrent_view.peers[4].clientName).to.equal('BitComet');
+    });
+  });
+
+  describe("folderizeFiles", function() {
+    it("should sort the files", function() {
+      console.log('+++');
+      torrent_view.files = [
+        {name: 'b'},
+        {name: 'c/b'},
+        {name: 'c/a'},
+        {name: 'a'}
+      ];
+
+      torrent_view.folderizeFiles();
+      console.log('HELLO');
+      console.log(torrent_view.files);
+      expect(torrent_view.files[0].name).to.equal('a');
+      expect(torrent_view.files[1].name).to.equal('b');
+      expect(torrent_view.files[2].name).to.equal('a');
+      expect(torrent_view.files[3].name).to.equal('b');
     });
   });
 
