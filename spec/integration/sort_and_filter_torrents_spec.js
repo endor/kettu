@@ -1,14 +1,13 @@
 describe('sort and filter torrents', function() {
   it('filters torrents', function(done) {
     kettu.helpers.createTorrents([
-      ["Mutant Ninja Turtles", {id: 1, status: "4"}],
-      ["Donald Duck", {id: 2, status: "6"}],
-      ["Saber Riders", {id: 3, status: "0"}]
+      ["Mutant Ninja Turtles", {id: 1, status: 4}],
+      ["Donald Duck", {id: 2, status: 6}],
+      ["Saber Riders", {id: 3, status: 0}]
     ]);
 
     kettu.helpers.waitForReload(function() {
       window.location.href = $('#filters .downloading').attr('href');
-
       setTimeout(function() {
         expect($('#torrents').html()).to.contain("Mutant Ninja Turtles");
         expect($('#torrents').html()).not.to.contain("Donald Duck");
@@ -58,9 +57,9 @@ describe('sort and filter torrents', function() {
 
   it('sorts torrents by state', function(done) {
     kettu.helpers.createTorrents([
-      ["Mutant Ninja Turtles", {id: 1, status: "4"}],
-      ["Donald Duck", {id: 2, status: "6"}],
-      ["Saber Riders", {id: 3, status: "0"}]
+      ["Mutant Ninja Turtles", {id: 1, status: 4}],
+      ["Donald Duck", {id: 2, status: 6}],
+      ["Saber Riders", {id: 3, status: 0}]
     ]);
 
     kettu.helpers.waitForReload(function() {
@@ -75,9 +74,9 @@ describe('sort and filter torrents', function() {
 
   it('sorts torrents by activity', function(done) {
     kettu.helpers.createTorrents([
-      ["Mutant Ninja Turtles", {id: 1, rateDownload: "16000"}],
-      ["Donald Duck", {id: 2, rateDownload: "8000"}],
-      ["Saber Riders", {id: 3, rateDownload: "4000"}]
+      ["Mutant Ninja Turtles", {id: 1, rateDownload: 16000}],
+      ["Donald Duck", {id: 2, rateDownload: 8000}],
+      ["Saber Riders", {id: 3, rateDownload: 4000}]
     ]);
 
     kettu.helpers.waitForReload(function() {
@@ -92,9 +91,9 @@ describe('sort and filter torrents', function() {
 
   it('sorts torrents by age', function(done) {
     kettu.helpers.createTorrents([
-      ["Mutant Ninja Turtles", {id: 1, addedDate: "87742"}],
-      ["Donald Duck", {id: 2, addedDate: "84253"}],
-      ["Saber Riders", {id: 3, addedDate: "81181"}]
+      ["Mutant Ninja Turtles", {id: 1, addedDate: 87742}],
+      ["Donald Duck", {id: 2, addedDate: 84253}],
+      ["Saber Riders", {id: 3, addedDate: 81181}]
     ]);
 
     kettu.helpers.waitForReload(function() {
@@ -109,9 +108,9 @@ describe('sort and filter torrents', function() {
 
   it('sorts torrents by progress', function(done) {
     kettu.helpers.createTorrents([
-      ["Mutant Ninja Turtles", {id: 1, leftUntilDone: "6"}],
-      ["Donald Duck", {id: 2, leftUntilDone: "4"}],
-      ["Saber Riders", {id: 3, leftUntilDone: "0"}]
+      ["Mutant Ninja Turtles", {id: 1, leftUntilDone: 6}],
+      ["Donald Duck", {id: 2, leftUntilDone: 4}],
+      ["Saber Riders", {id: 3, leftUntilDone: 0}]
     ]);
 
     kettu.helpers.waitForReload(function() {
@@ -126,9 +125,9 @@ describe('sort and filter torrents', function() {
 
   it('sorts torrents by queue', function(done) {
     kettu.helpers.createTorrents([
-      ["Mutant Ninja Turtles", {id: 3, status: "4"}],
-      ["Donald Duck", {id: 2, status: "6"}],
-      ["Saber Riders", {id: 1, status: "0"}]
+      ["Mutant Ninja Turtles", {id: 3, status: 4}],
+      ["Donald Duck", {id: 2, status: 6}],
+      ["Saber Riders", {id: 1, status: 0}]
     ]);
 
     kettu.helpers.waitForReload(function() {
@@ -143,9 +142,9 @@ describe('sort and filter torrents', function() {
 
   it('filter and sort at the same time', function(done) {
     kettu.helpers.createTorrents([
-      ["Mutant Ninja Turtles", {id: 1, status: "4"}],
-      ["Donald Duck", {id: 2, status: "4"}],
-      ["Saber Riders", {id: 3, status: "0"}]
+      ["Mutant Ninja Turtles", {id: 1, status: 4}],
+      ["Donald Duck", {id: 2, status: 4}],
+      ["Saber Riders", {id: 3, status: 0}]
     ]);
 
     kettu.helpers.waitForReload(function() {

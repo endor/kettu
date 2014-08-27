@@ -1,5 +1,3 @@
-/*global kettu*/
-
 kettu.Settings = function(transmission) {
   transmission.get('#/settings', function(context) {
     kettu.app.originalSettings = kettu.app.settings || {};
@@ -23,7 +21,7 @@ kettu.Settings = function(transmission) {
     context.manageReloadInterval(context.params);
 
     if(context.isSpeedLimitModeUpdate(request['arguments']) || context.settingArgumentsValid(context, request['arguments'])) {
-      context.remoteQuery(request, function(response) {
+      context.remoteQuery(request, function() {
         kettu.app.trigger('flash', context.params.settingsFlash);
         if(context.params['peer-port']) { context.updatePeerPortDiv(); }
       });

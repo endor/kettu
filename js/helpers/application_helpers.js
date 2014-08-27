@@ -1,5 +1,3 @@
-/*global kettu*/
-
 kettu.ApplicationHelpers = {
   cachePartial: function(template, partial, context) {
     if(!context.cache(partial)) {
@@ -26,7 +24,7 @@ kettu.ApplicationHelpers = {
     var diff = {}, different = false;
 
     for(var key in hash1) {
-      if(hash1[key] != hash2[key]) {
+      if(hash1[key] !== hash2[key]) {
         diff[key] = hash2[key];
         different = true;
       }

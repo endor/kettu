@@ -1,5 +1,3 @@
-/*global describe, it, kettu, expect*/
-
 describe("ApplicationHelpers", function() {
   var application_helpers = kettu.ApplicationHelpers;
 

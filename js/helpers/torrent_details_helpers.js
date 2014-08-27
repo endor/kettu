@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 kettu.TorrentDetailsHelpers = {
   emptyAccumulationHash: function() {
     return {number_of_torrents: 0, size: 0, status_words: [], downloaded: 0, uploaded: 0, ratio: 0, secure: [],
@@ -12,7 +10,7 @@ kettu.TorrentDetailsHelpers = {
     this.activateInfoInputs(torrent);
     this.activateFileInputs();
     this.activatePrioritySelects();
-    if(this.params['sort_peers']) { $('#menu-item-peers').click(); }
+    if(this.params.sort_peers) { $('#menu-item-peers').click(); }
   },
 
   updateTorrentDetailsInView: function(rendered_view) {
@@ -41,7 +39,7 @@ kettu.TorrentDetailsHelpers = {
 
     this.startCountDownOnNextAnnounce();
 
-    if(this.params['sort_peers']) { $('#menu-item-peers').click(); }
+    if(this.params.sort_peers) { $('#menu-item-peers').click(); }
   },
 
   accumulateTorrentsAndRenderResult: function(torrents, accumulation) {
@@ -65,7 +63,7 @@ kettu.TorrentDetailsHelpers = {
       var fields = kettu.Torrent.fields.concat(kettu.Torrent.infoFields),
         request = context.buildRequest('torrent-get', {ids: torrents.shift(), fields: fields});
       context.remoteQuery(request, function(response) {
-        var torrent = response['torrents'].map( function(row) {return kettu.Torrent(row);} )[0];
+        var torrent = response.torrents.map( function(row) {return kettu.Torrent(row);} )[0];
         accumulation.number_of_torrents += 1;
         accumulation.size += torrent.sizeWhenDone;
         accumulation.status_words.push(torrent.statusWord());

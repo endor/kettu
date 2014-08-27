@@ -43,7 +43,7 @@ Math.formatBytes = function(bytes) {
     unit = 'B';
   }
 
-  if (size != 0) { size = Number(size).toPrecision(3); }
+  if (size !== 0) { size = Number(size).toPrecision(3); }
 
   return size + ' ' + unit;
 };
@@ -56,7 +56,7 @@ Math.formatBytes = function(bytes) {
  */
 Math.formatSeconds = function(seconds)
 {
-  var result, days, hours, minutes, seconds;
+  var result, days, hours, minutes;
 
   days = Math.floor(seconds / 86400);
   hours = Math.floor((seconds % 86400) / 3600);
@@ -112,7 +112,7 @@ Math.ratio = function(numerator, denominator) {
 	var result = Math.floor(100 * numerator / denominator) / 100;
 
 	if(isNaN(result)) { result = 0; }
-	if(result=="Infinity") { result = "&infin;"; }
+	if(result==="Infinity") { result = "&infin;"; }
 	if((result % 1) === 0) { result += '.00'; }
 
 	return result;
@@ -131,4 +131,4 @@ Math.formatPercent = function(total, left_until_done) {
   if (left_until_done === 0) { return 100; }
 
   return Number((Math.floor((total - left_until_done) * 10000 / total) / 100).toFixed(2));
-}
+};

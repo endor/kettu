@@ -1,5 +1,3 @@
-/*global kettu*/
-
 kettu.TorrentsView = function(torrent, context) {
   var view = torrent;
 
@@ -18,7 +16,7 @@ kettu.TorrentsView = function(torrent, context) {
 
   view.firstTracker = function() {
     if(view.trackerStats && view.trackerStats[0]) {
-      return view.trackerStats[0]['host'];
+      return view.trackerStats[0].host;
     } else {
       return '';
     }
@@ -45,7 +43,7 @@ kettu.TorrentsView = function(torrent, context) {
   };
 
   view.priorityArrow = function() {
-    return torrent.bandwidthPriority == 1 ? 'up' : 'down';
+    return torrent.bandwidthPriority === 1 ? 'up' : 'down';
   };
 
   view.cachePartial = context.cachePartial;

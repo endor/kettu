@@ -1,5 +1,3 @@
-/*global kettu*/
-
 kettu.SettingsValidator = function() {
   this.schema = {
     'presence_of': [

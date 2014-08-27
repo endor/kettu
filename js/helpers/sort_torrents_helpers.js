@@ -1,5 +1,3 @@
-/*global kettu*/
-
 //
 // these sort helpers are based heavily on the previous sort helpers by Dave Perrett and Malcolm Jarvis
 //
@@ -28,7 +26,7 @@ kettu.SortTorrentsHelpers = {
         break;
       case 'progress':
         torrentSortFunction = function(a, b) {
-          if(a.percentDone() != b.percentDone()) {
+          if(a.percentDone() !== b.percentDone()) {
             return a.percentDone() - b.percentDone();
           } else {
            var a_ratio = Math.ratio(a.uploadedEver, a.downloadedEver);

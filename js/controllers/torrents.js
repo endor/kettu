@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 kettu.Torrents = function(transmission) {
   transmission.get('#/torrents', function(context) {
     context.setAndSaveModes(context);
@@ -24,27 +22,27 @@ kettu.Torrents = function(transmission) {
   });
 
   transmission.get('#/torrents/add', function(context) {
-    var request = context.buildRequest('torrent-add', { filename: this.params['url'], paused: false });
+    var request = context.buildRequest('torrent-add', { filename: this.params.url, paused: false });
     context.remoteQuery(request, function(response) {
       context.renderConfigForNewTorrents(response['torrent-added']);
     });
   });
 
   transmission.del('#/torrents', function(context) {
-    var ids = $.map(context.params['ids'].split(','), function(id) {return parseInt(id, 10);});
+    var ids = $.map(context.params.ids.split(','), function(id) {return parseInt(id, 10);});
     var request = context.buildRequest('torrent-remove', { ids: ids });
 
-    if(this.params['delete_data']) { request['arguments']['delete-local-data'] = true; }
+    if(this.params.delete_data) { request['arguments']['delete-local-data'] = true; }
 
-    context.remoteQuery(request, function(response) {
+    context.remoteQuery(request, function() {
       kettu.app.trigger('flash', 'Torrents removed successfully.');
       _.each(ids, function(id) { $('#' + id).remove(); });
     });
   });
 
   transmission.post('#/torrents', function(context) {
-    if(this.params['url'].length > 0) {
-      var request = context.buildRequest('torrent-add', { filename: this.params['url'], paused: !kettu.app.mobile });
+    if(this.params.url.length > 0) {
+      var request = context.buildRequest('torrent-add', { filename: this.params.url, paused: !kettu.app.mobile });
       context.addTorrent(context, request);
     } else {
       context.submitAddTorrentForm(context, true);
@@ -52,11 +50,11 @@ kettu.Torrents = function(transmission) {
   });
 
   transmission.put('#/torrents/:id', function(context) {
-    var id = parseInt(context.params['id'], 10),
+    var id = parseInt(context.params.id, 10),
         request = context.parseRequestFromPutParams(context.params, id);
 
-    context.remoteQuery(request, function(response) {
-      if(request['method'].match(/torrent-set/)) {
+    context.remoteQuery(request, function() {
+      if(request.method.match(/torrent-set/)) {
         kettu.app.trigger('flash', 'Torrent updated successfully.');
       } else {
         setTimeout(function(id, context) {
@@ -65,24 +63,27 @@ kettu.Torrents = function(transmission) {
       }
     });
 
-    if(context.params['start_download']) {
+    if(context.params.start_download) {
       context.remoteQuery({ method: 'torrent-start', arguments: { ids: id } }, function() {});
       context.getTorrent(id);
     }
-    if(context.params['location']) {
+    if(context.params.location) {
       context.remoteQuery({
           method: 'torrent-set-location',
-          arguments: { ids: id, location: context.params['location'], move: true }
+          arguments: { ids: id, location: context.params.location, move: true }
         }, function() {});
     }
   });
 
   transmission.put('#/torrents', function(context) {
-    var ids = $.map(context.params['ids'].split(','), function(id) {return parseInt(id, 10);});
-    if(!ids[ids.length - 1] > 0) { delete ids[ids.length - 1]; }
+    var ids = $.map(context.params.ids.split(','), function(id) {return parseInt(id, 10);});
 
-    var request = context.buildRequest(context.params['method'], { ids: ids });
-    context.remoteQuery(request, function(response) {
+    if(ids[ids.length - 1] <= 0) {
+      delete ids[ids.length - 1];
+    }
+
+    var request = context.buildRequest(context.params.method, { ids: ids });
+    context.remoteQuery(request, function() {
       _.each(ids, function(id) {
         context.getTorrent(id);
       });
@@ -92,7 +93,7 @@ kettu.Torrents = function(transmission) {
   transmission.bind('get-torrents', function(e, params) {
     var request = { method: 'torrent-get', arguments: { fields: kettu.Torrent.fields } };
     this.remoteQuery(request, _.bind(function(response) {
-      var newTorrents = response['torrents'].map(function(row) { return kettu.Torrent(row); });
+      var newTorrents = response.torrents.map(function(row) { return kettu.Torrent(row); });
       this.trigger('refreshed-torrents', {
         torrents: newTorrents,
         oldTorrents: this.oldTorrents,
@@ -103,9 +104,9 @@ kettu.Torrents = function(transmission) {
   });
 
   transmission.bind('refreshed-torrents', function(e, params) {
-    var sorted_torrents = this.sortTorrents(kettu.app.sort_mode, params['torrents'], kettu.app.reverse_sort);
+    var sorted_torrents = this.sortTorrents(kettu.app.sort_mode, params.torrents, kettu.app.reverse_sort);
     var filtered_torrents = this.filterTorrents(kettu.app.filter_mode, sorted_torrents);
-    this.updateViewElements(filtered_torrents, params['rerender'], kettu.app.settings || {});
+    this.updateViewElements(filtered_torrents, params.rerender, kettu.app.settings || {});
   });
 
   transmission.bind('refreshed-torrent', function(e, torrent) {

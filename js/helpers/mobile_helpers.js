@@ -1,5 +1,3 @@
-/*global kettu*/
-
 (function() {
   var stopEvent = function(event) {
     event.stopPropagation();

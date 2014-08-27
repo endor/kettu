@@ -1,5 +1,3 @@
-/*global kettu, Sammy*/
-
 kettu.app = $.sammy(function() {
   this.use(Sammy.TransmissionRPC);
   this.use(Sammy.Mustache);

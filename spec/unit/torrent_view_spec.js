@@ -1,5 +1,3 @@
-/*global describe, it, kettu, expect*/
-
 describe("TorrentView", function() {
   var ctx,
       torrent_view,
@@ -18,14 +16,14 @@ describe("TorrentView", function() {
   describe("addFormattedTimes", function() {
     it("should add a formatted time for lastAnnounceTime", function() {
       torrent_view.trackerStats[0] = {};
-      torrent_view.trackerStats[0]['lastAnnounceTime'] = timestamp;
+      torrent_view.trackerStats[0].lastAnnounceTime = timestamp;
       torrent_view.addFormattedTimes();
       expect(torrent_view.trackerStats[0].lastAnnounceTimeFormatted).to.match(new RegExp("2/" + day + "/2010 \\d+:53"));
     });
 
     it("should add a formatted time for lastScrapeTime", function() {
       torrent_view.trackerStats[0] = {};
-      torrent_view.trackerStats[0]['lastScrapeTime'] = timestamp;
+      torrent_view.trackerStats[0].lastScrapeTime = timestamp;
       torrent_view.addFormattedTimes();
       expect(torrent_view.trackerStats[0].lastScrapeTimeFormatted).to.match(new RegExp("2/" + day + "/2010 \\d+:53"));
     });
@@ -35,7 +33,7 @@ describe("TorrentView", function() {
     describe("files", function() {
       it("should add a formatted size for length", function() {
         torrent_view.files[0] = {};
-        torrent_view.files[0]['length'] = 2048;
+        torrent_view.files[0].length = 2048;
         torrent_view.addFormattedSizes();
         expect(torrent_view.files[0].lengthFormatted).to.equal('2.05 KB');
       });
@@ -128,7 +126,6 @@ describe("TorrentView", function() {
 
   describe("folderizeFiles", function() {
     it("should sort the files", function() {
-      console.log('+++');
       torrent_view.files = [
         {name: 'b'},
         {name: 'c/b'},
@@ -137,8 +134,6 @@ describe("TorrentView", function() {
       ];
 
       torrent_view.folderizeFiles();
-      console.log('HELLO');
-      console.log(torrent_view.files);
       expect(torrent_view.files[0].name).to.equal('a');
       expect(torrent_view.files[1].name).to.equal('b');
       expect(torrent_view.files[2].name).to.equal('a');
@@ -200,27 +195,27 @@ describe("TorrentView", function() {
 
   describe("make strings shorter so they work in the mobile version", function() {
     it("should make the strings shorter if it's the mobile version and the string is too long", function() {
-      kettu.app.mobile = true
+      kettu.app.mobile = true;
       torrent_view = kettu.TorrentView({comment: '1234567890123456789012345678901234567890',
                                         trackerStats: [], files: [], name: 'abc',
-                                        peers: [], fileStats: []}, ctx)
-      expect(torrent_view.comment).to.equal('123456789012345678901234567890123…')
+                                        peers: [], fileStats: []}, ctx);
+      expect(torrent_view.comment).to.equal('123456789012345678901234567890123…');
     });
 
     it("should not make the strings shorter if it's not the mobile version", function() {
-      kettu.app.mobile = false
+      kettu.app.mobile = false;
       torrent_view = kettu.TorrentView({comment: '1234567890123456789012345678901234567890',
                                         trackerStats: [], files: [], name: 'abc',
-                                        peers: [], fileStats: []}, ctx)
-      expect(torrent_view.comment).to.equal('1234567890123456789012345678901234567890')
+                                        peers: [], fileStats: []}, ctx);
+      expect(torrent_view.comment).to.equal('1234567890123456789012345678901234567890');
     });
 
     it("should not make the strings shorter if they aren't too long", function() {
-      kettu.app.mobile = true
+      kettu.app.mobile = true;
       torrent_view = kettu.TorrentView({comment: '1234567890',
                                         trackerStats: [], files: [], name: 'abc',
-                                        peers: [], fileStats: []}, ctx)
-      expect(torrent_view.comment).to.equal('1234567890')
+                                        peers: [], fileStats: []}, ctx);
+      expect(torrent_view.comment).to.equal('1234567890');
     });
   });
 });

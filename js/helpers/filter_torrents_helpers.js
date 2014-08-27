@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 kettu.FilterTorrentsHelpers = {
   filterTorrents: function(filter_mode, torrents) {
     var stati = kettu.Torrent.stati;
@@ -12,7 +10,7 @@ kettu.FilterTorrentsHelpers = {
       });
     } else {
       return _.select(torrents, function(torrent) {
-        return torrent.status == stati[filter_mode];
+        return torrent.status === stati[filter_mode];
       });
     }
   }

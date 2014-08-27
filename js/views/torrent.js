@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 kettu.TorrentView = function(torrent, context, sort_peers) {
   var view = torrent;
   view.sort_peers = sort_peers || 'client';
@@ -95,7 +93,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
         file.disabled = disabled ? ' disabled="disabled"' : '';
       });
 
-      if(view.files.length == 1) {
+      if(view.files.length === 1) {
         view.files[0].disabled = ' disabled="disabled"';
         view.files[0].wanted = ' checked="checked"';
       }
@@ -154,8 +152,8 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
       _.each(folder.files, function(file) {
         if(!_.isEmpty(file.wanted)) { wantedFiles += 1; }
         if(!_.isEmpty(file.disabled)) { completeFiles += 1; }
-        if(file.priorityArrow == "up") { highPriorityFiles += 1; }
-        if(file.priorityArrow == "down") { lowPriorityFiles += 1; }
+        if(file.priorityArrow === "up") { highPriorityFiles += 1; }
+        if(file.priorityArrow === "down") { lowPriorityFiles += 1; }
       });
 
       folder.percentDone = Math.formatPercent(folder.lengthFormatted, folder.lengthFormatted - folder.bytesCompleted);
@@ -210,7 +208,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
         view.locations = [{name: 'Default', path: (kettu.app.settings || {})['download-dir']}];
 
         _.each(kettu.config.locations, function(location) {
-          if (location.path != view.locations[0].path) {
+          if (location.path !== view.locations[0].path) {
             view.locations.push(location);
           }
         });

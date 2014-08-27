@@ -1,5 +1,3 @@
-/*global describe, it, kettu*/
-
 describe("ViewHelpers", function() {
   var view_helpers = kettu.ViewHelpers;
 

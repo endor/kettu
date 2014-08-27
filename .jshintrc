@@ -1,0 +1,16 @@
+{
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "multistr": true,
+    "noarg": true,
+    "browser": true,
+    "devel": true,
+    "noempty": true,
+    "strict": false,
+    "trailing": true,
+    "undef": true,
+    "unused": true,
+    "node": true,
+    "predef": ["Sammy", "kettu", "describe", "it", "before", "beforeEach", "after", "afterEach", "expect", "$", "_", "jQuery"]
+}

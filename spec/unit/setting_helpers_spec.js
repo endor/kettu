@@ -1,9 +1,8 @@
-/*global describe, it, kettu*/
-
 describe("SettingHelpers", function() {
   var setting_helpers = kettu.SettingHelpers,
       updatable_settings,
-      params;
+      params,
+      hash;
 
   describe("speedLimitModeHash", function() {
     it("should return a hash with alt-speed-enabled set to true if given parameter is string true", function() {

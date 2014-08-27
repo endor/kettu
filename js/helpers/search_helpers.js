@@ -1,5 +1,3 @@
-/*global kettu*/
-
 $.expr[":"].containsIgnoreCase = function(el, i, m) {
     var search = m[3];
     return search ? eval("/" + search + "/i").test($(el).text()) : false;
@@ -17,7 +15,7 @@ kettu.SearchHelpers = {
   },
 
   activateSearch: function(context) {
-    $('#search').keyup(function(e) {
+    $('#search').keyup(function() {
       context.performSearch($(this).val());
     });
   }

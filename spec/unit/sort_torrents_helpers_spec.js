@@ -1,5 +1,3 @@
-/*global describe, it, kettu*/
-
 describe("SortTorrentsHelpers", function() {
   var sort_helpers = kettu.SortTorrentsHelpers;
 

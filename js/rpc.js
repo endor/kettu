@@ -1,5 +1,3 @@
-/*global Sammy*/
-
 (function($) {
 
   Sammy.TransmissionRPC = function(app) {
@@ -33,7 +31,7 @@
             }
             if(callback) { callback(response['arguments']); }
           },
-          error: function(xhr, ajaxOptions, thrownError) {
+          error: function(xhr) {
             rpc.session_id = xhr.getResponseHeader('X-Transmission-Session-Id');
             if(xhr.status === 409 && rpc.session_id.length > 0) {
               context.remoteQuery(params, callback);

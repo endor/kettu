@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 kettu.ViewHelpers = {
   highlightTorrents: function(torrents, more_torrents) {
     $('#torrents .torrent').removeClass('active');
@@ -43,14 +41,14 @@ kettu.ViewHelpers = {
   sanitizeNumber: function(number) {
     if(number >= 0) {
       return number;
-    } else if(number == -1) {
+    } else if(number === -1) {
       return 'N/A';
-    } else if(number == -2) {
+    } else if(number === -2) {
       return 'Infinity';
     }
   },
 
-  activateSortSelect: function(context) {
+  activateSortSelect: function() {
     $('#sort_link').click(function() {
       $('#sorts').slideToggle();
     });

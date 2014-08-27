@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 kettu.SettingHelpers = {
   validator: new kettu.SettingsValidator(),
 
@@ -64,7 +62,7 @@ kettu.SettingHelpers = {
       $.each($select.find('option'), function() {
         var $option = $(this);
 
-        if($option.val() == value) {
+        if($option.val() === value) {
           $option.attr('selected', 'selected');
         }
       });
@@ -77,15 +75,15 @@ kettu.SettingHelpers = {
       "alt-speed-time-end-minutes": (settings['alt-speed-time-end'] % 60)
     };
 
-    for(var key in scheduled_times) {
+    _.each(scheduled_times, function(value, key) {
       $.each($('#info select[name="' + key + '"]').find('option'), function() {
         var $option = $(this);
 
-        if($option.val() == scheduled_times[key]) {
+        if($option.val() === scheduled_times[key]) {
           $option.attr('selected', 'selected');
         }
       });
-    }
+    });
   },
 
   settingArgumentsValid: function(context, setting_arguments) {
@@ -103,7 +101,7 @@ kettu.SettingHelpers = {
 
   prepareArguments: function(context, params) {
     if(params['alt-speed-enabled']) {
-      var speedLimitModeEnabled = params['alt-speed-enabled'] == "true";
+      var speedLimitModeEnabled = params['alt-speed-enabled'] === "true";
       params.settingsFlash = 'Speed Limit Mode ' + (speedLimitModeEnabled ? 'enabled.' : 'disabled.');
       this.store.set('speed_limit_mode', (speedLimitModeEnabled ? 'enabled' : 'disabled'));
       return context.speedLimitModeHash(params['alt-speed-enabled']);
@@ -114,7 +112,7 @@ kettu.SettingHelpers = {
   },
 
   speedLimitModeHash: function(speed_limit_mode) {
-    return { 'alt-speed-enabled': (speed_limit_mode == "true") ? true : false };
+    return { 'alt-speed-enabled': speed_limit_mode === "true" };
   },
 
   argumentsHash: function(params, updatable_settings) {
@@ -133,7 +131,7 @@ kettu.SettingHelpers = {
       hash[setting] = params[setting] ? true : false;
       if(params[setting] && params[setting].match(/^\d+$/)) {
         hash[setting] = parseInt(params[setting], 10);
-      } else if(params[setting] && params[setting] != "on") {
+      } else if(params[setting] && params[setting] !== "on") {
         hash[setting] = params[setting];
       }
     });
@@ -155,20 +153,20 @@ kettu.SettingHelpers = {
   manageHandlers: function(params) {
     var baseUrl = window.location.href.match(/^([^#]+)#.+$/)[1];
 
-    if(params['protocolHandlerEnabled'] && !this.store.exists('protocolHandlerEnabled')) {
+    if(params.protocolHandlerEnabled && !this.store.exists('protocolHandlerEnabled')) {
       this.store.set('protocolHandlerEnabled', true);
       window.navigator.registerProtocolHandler('magnet', baseUrl + '#/torrents/add?url=%s', "Transmission Web");
     }
 
-    if(params['contentHandlerEnabled'] && !this.store.exists('contentHandlerEnabled')) {
+    if(params.contentHandlerEnabled && !this.store.exists('contentHandlerEnabled')) {
       this.store.set('contentHandlerEnabled', true);
       window.navigator.registerContentHandler("application/x-bittorrent", baseUrl + '#/torrents/add?url=%s', "Transmission Web");
     }
   },
 
   manageReloadInterval: function(params) {
-    if(params['torrentReloadInterval']) {
-      kettu.app.reloadInterval = parseInt(params['torrentReloadInterval'], 10) * 1000;
+    if(params.torrentReloadInterval) {
+      kettu.app.reloadInterval = parseInt(params.torrentReloadInterval, 10) * 1000;
       this.store.set('torrentReloadInterval', kettu.app.reloadInterval);
 
       clearInterval(kettu.app.torrents_interval_id);

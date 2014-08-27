@@ -1,5 +1,3 @@
-/*global kettu*/
-
 kettu.Statistics = function(transmission) {
   transmission.get('#/statistics', function(context) {
     var request = {

@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 (function() {
   var updateSortDropdown = function() {
     var sort_mode = kettu.app.sort_mode.charAt(0).toUpperCase() + kettu.app.sort_mode.slice(1);
@@ -34,7 +32,7 @@
             });
           } else {
             context.getTorrent(newest[0].id, function(torrent) {
-              context.render('templates/torrents/new_with_data.mustache', kettu.TorrentView(torrent, context, context.params['sort_peers']), function(rendered_view) {
+              context.render('templates/torrents/new_with_data.mustache', kettu.TorrentView(torrent, context, context.params.sort_peers), function(rendered_view) {
                 $.facebox(rendered_view);
                 context.initLocations(torrent);
               });
@@ -55,12 +53,12 @@
       callback = callback || this.renderTorrent;
 
       this.remoteQuery(request, function(response) {
-        callback.call(context, response['torrents'].map( function(row) { return kettu.Torrent(row); } )[0]);
+        callback.call(context, response.torrents.map( function(row) { return kettu.Torrent(row); } )[0]);
       });
     },
 
     renderTorrent: function(torrent) {
-      var template = (kettu.app.view_mode == 'compact') ? 'show_compact' : 'show';
+      var template = (kettu.app.view_mode === 'compact') ? 'show_compact' : 'show';
       this.render('templates/torrents/' + template + '.mustache', kettu.TorrentsView(torrent, this), function(rendered_view) {
         $(kettu.app.element_selector).find('#' + torrent.id).replaceWith(rendered_view);
         kettu.app.trigger('refreshed-torrent', torrent);
@@ -70,10 +68,10 @@
     setAndSaveModes: function(context) {
       var params = context.params;
 
-      if(params['sort'] == 'reverse') {
+      if(params.sort === 'reverse') {
         kettu.app.reverse_sort = !kettu.app.reverse_sort;
         $('#reverse_link').attr('href', '#/torrents?sort=reverse&random=' + new Date().getTime());
-        delete params['sort'];
+        delete params.sort;
       }
 
       _.each([{key: 'view', def: 'normal'}, {key: 'filter', def: 'all'}, {key: 'sort', def: 'name'}], function(item) {
@@ -99,7 +97,7 @@
       });
     },
 
-    submitAddTorrentForm: function(context, paused) {
+    submitAddTorrentForm: function(context) {
       _.each($('[name="torrent_files[]"]').get(0).files, function(file) {
         var reader = new FileReader();
         reader.onload = function(e) {
@@ -122,7 +120,7 @@
     },
 
     getNewestTorrents: function(context, response) {
-      var torrents = _.map(response['torrents'], function(row) { return kettu.Torrent(row); }),
+      var torrents = _.map(response.torrents, function(row) { return kettu.Torrent(row); }),
           now = parseInt(new Date().getTime().toString().substr(0, 10), 10);
 
       return _.select(torrents, function(torrent) {
@@ -140,8 +138,8 @@
       return kettu.Torrent({}).downAndUploadRateString(downloadRate, uploadRate);
     },
 
-    makeNewTorrent: function(torrent, view) {
-      var template = (kettu.app.view_mode == 'compact') ? 'show_compact' : 'show';
+    makeNewTorrent: function(torrent) {
+      var template = (kettu.app.view_mode === 'compact') ? 'show_compact' : 'show';
       var rendered_view = this.mustache(this.cache(template), kettu.TorrentsView(torrent, this));
       $('#torrents').append(rendered_view);
       this.updateInfo(torrent);
@@ -208,7 +206,7 @@
     },
 
     updateSpeedLimitMode: function(speed_limit_mode_enabled, context) {
-      if(context.speed_limit_mode_enabled == speed_limit_mode_enabled) { return; }
+      if(context.speed_limit_mode_enabled === speed_limit_mode_enabled) { return; }
 
       var form = $('#speed_limit_mode_form');
       if(speed_limit_mode_enabled) {
@@ -251,12 +249,12 @@
     parseRequestFromPutParams: function(params, id) {
       var request;
 
-      if(params['method']) {
+      if(params.method) {
         request = {
-          'method': params['method'],
+          'method': params.method,
           'arguments': {'ids': id}
         };
-      } else if(params['location']) {
+      } else if(params.location) {
         var updatable_settings = [
           "bandwidthPriority", "downloadLimit", "downloadLimited",
           "location", "peer-limit", "seedRatioLimit", "seedRatioMode",
@@ -273,7 +271,7 @@
             request['arguments'][setting] = params[setting] ? true : false;
             if(params[setting] && params[setting].match(/^-?\d+$/)) {
               request['arguments'][setting] = parseInt(params[setting], 10);
-            } else if(params[setting] && params[setting] != "on") {
+            } else if(params[setting] && params[setting] !== "on") {
               request['arguments'][setting] = params[setting];
             }
           }
@@ -297,9 +295,9 @@
           var $priority = $(priority),
               id = parseInt($priority.attr('data-id').split('_')[1], 10);
 
-          if($priority.val() == "up") {
+          if($priority.val() === "up") {
             files.high.push(id);
-          } else if($priority.val() == "down") {
+          } else if($priority.val() === "down") {
             files.low.push(id);
           } else {
             files.normal.push(id);

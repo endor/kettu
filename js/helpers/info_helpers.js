@@ -1,5 +1,3 @@
-/*global kettu*/
-
 kettu.InfoHelpers = {
   closeInfo: function() {
     if(kettu.app.info_interval_id) { clearInterval(kettu.app.info_interval_id); }
@@ -120,7 +118,7 @@ kettu.InfoHelpers = {
 
       $(this).parents('form:first').trigger('submit');
       if($(this).hasClass('seedRatioMode')) {
-        if($(this).val() == 1) {
+        if($(this).val() === 1) {
           $('#info .seedRatioLimit').show();
         } else {
           $('#info .seedRatioLimit').hide();
@@ -133,7 +131,7 @@ kettu.InfoHelpers = {
     $('#info .bandwidthPriority').val(torrent.bandwidthPriority);
     $('#info .seedRatioMode').val(torrent.seedRatioMode);
 
-    if(torrent.seedRatioMode == 1) {
+    if(torrent.seedRatioMode === 1) {
       $('#info .seedRatioLimit').show();
     } else {
       $('#info .seedRatioLimit').hide();
@@ -189,7 +187,7 @@ kettu.InfoHelpers = {
           hiddenPriority = $(this).siblings('input.priority_hidden:first'),
           newPriority;
 
-      if(hiddenPriority.val() == 'done') { return false; }
+      if(hiddenPriority.val() === 'done') { return false; }
 
       var callback = function() {
           menu.hide();

@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 kettu.TorrentDetailsView = function(accumulation) {
   var view = accumulation;
 

@@ -8,7 +8,7 @@ describe('context menu', function() {
 
         setTimeout(function() {
           var data = JSON.parse(window.lastRequest.data);
-          expect(data["method"]).to.eql('torrent-reannounce');
+          expect(data.method).to.eql('torrent-reannounce');
           done();
         }, 50);
       }, 50);

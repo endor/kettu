@@ -1,5 +1,3 @@
-/*global kettu, _*/
-
 (function() {
   var capitalize = function(string) {
     return _.map(string.split('_'), function(substr) {
@@ -25,37 +23,46 @@
 
     _.each(stati, function(status, name) {
       torrent['is' + capitalize(name)] = function() {
-        return torrent.status == status;
+        return torrent.status === status;
       };
     });
 
     torrent.secure = function() {
       return torrent.isPrivate ? 'Private Torrent' : 'Public Torrent';
     };
+
     torrent.isActive = function() {
       return torrent.isDownloading() || torrent.isSeeding();
     };
+
     torrent.isDoneDownloading = function() {
       return torrent.isSeeding() || torrent.leftUntilDone === 0;
     };
+
     torrent.isVerifying = function() {
       return torrent.isChecking() || torrent.isWaitingToCheck();
     };
+
     torrent.isFinished = function() {
       return !torrent.needsMetaData() && torrent.isDoneDownloading() && torrent.isPaused();
     };
+
     torrent.hasError = function() {
       return torrent.error > 0;
     };
+
     torrent.hasTrackerError = function() {
       return torrent.error > 0 && torrent.error < 3;
     };
+
     torrent.needsMetaData = function() {
       return torrent.metadataPercentComplete < 1;
     };
+
     torrent.percentDone = function() {
       return Math.formatPercent(torrent.sizeWhenDone, torrent.leftUntilDone);
     };
+
     torrent.progressDetails = function() {
       var progressDetails;
       if(torrent.needsMetaData()) {
@@ -75,12 +82,14 @@
 
       return progressDetails;
     };
+
     torrent.downloadingProgress = function() {
       var formattedSizeDownloaded = Math.formatBytes(torrent.sizeWhenDone - torrent.leftUntilDone),
           formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone);
 
       return (formattedSizeDownloaded + " of " + formattedSizeWhenDone + " (" + torrent.percentDone() + "%)");
     };
+
     torrent.uploadingProgress = function() {
       var formattedSizeWhenDone = Math.formatBytes(torrent.sizeWhenDone),
           formattedUploadedEver = Math.formatBytes(torrent.uploadedEver),
@@ -96,25 +105,27 @@
       }
       return uploadingProgress + " (Ratio: " + formattedUploadRatio + ")";
     };
+
     torrent.metaDataProgress = function() {
       var percentRetrieved = (torrent.metadataPercentComplete * 100).toFixed(1);
       return "Magnetized transfer - retrieving metadata (" + percentRetrieved + "%)";
     };
+
     torrent.progressBar = function() {
       var status = torrent.statusWord(),
         value = torrent.percentDone();
 
-      if(status == 'meta') {
+      if(status === 'meta') {
         value = torrent.metadataPercentComplete * 100;
-      } else if(status == 'seeding' || status == 'finished') {
+      } else if(status === 'seeding' || status === 'finished') {
         if(torrent.seedRatioMode === 0) {
           if(kettu.app.settings.seedRatioLimited) {
             value = torrent.uploadRatio/kettu.app.settings.seedRatioLimit * 100;
           }
-        } else if(torrent.seedRatioMode == 1) {
+        } else if(torrent.seedRatioMode === 1) {
           value = torrent.uploadRatio/torrent.seedRatioLimit * 100;
         }
-      } else if(status == 'verifying') {
+      } else if(status === 'verifying') {
         value = torrent.recheckProgress * 100;
       }
 
@@ -128,6 +139,7 @@
 
       return progressBar;
     };
+
     torrent.etaString = function() {
       if(torrent.eta < 0) {
         return "remaining time unknown";
@@ -135,6 +147,7 @@
         return Math.formatSeconds(torrent.eta) + ' remaining';
       }
     };
+
     torrent.statusStringLocalized = function(status) {
       var localized_stati = {};
 
@@ -148,6 +161,7 @@
 
       return localized_stati[status] ? localized_stati[status] : 'Unknown status';
     };
+
     torrent.statusString = function() {
       var currentStatus = torrent.statusStringLocalized(torrent.status);
       if(torrent.isActive() && !torrent.needsMetaData()) {
@@ -176,6 +190,7 @@
       }
       return currentStatus;
     };
+
     torrent.statusWord = function() {
       if(torrent.isActive() && torrent.needsMetaData()) {
         return 'meta';
@@ -191,15 +206,19 @@
         return 'paused';
       }
     };
+
     torrent.uploadRateString = function(uploadRate) {
       return 'UL: ' + Math.formatBytes(uploadRate) + '/s';
     };
+
     torrent.downAndUploadRateString = function(downloadRate, uploadRate) {
       return 'DL: ' + Math.formatBytes(downloadRate) + '/s, ' + torrent.uploadRateString(uploadRate);
     };
+
     torrent.activity = function() {
       return torrent.rateDownload + torrent.rateUpload;
     };
+
     torrent.haveString = function() {
       return Math.formatBytes(torrent.haveValid + torrent.haveUnchecked) +
         ' (' + Math.formatBytes(torrent.haveValid) + ' verified)';

@@ -1,5 +1,3 @@
-/*global kettu*/
-
 kettu.LocationHelpers = {
     initLocations: function(torrent) {
       var $locationSelect = $('#facebox .locationSelect');
