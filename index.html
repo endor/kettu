@@ -7,10 +7,10 @@
     <title>kettu</title>
     <link rel="stylesheet" type="text/css" href="./css/jquery/ui.all.css"  />
     <link rel="stylesheet" type="text/css" href="./css/jquery/facebox.css" />
-    <link rel="stylesheet" type="text/css" href="./css/jquery/mobile.css" media="(max-width: 480px)" />
+    <link rel="stylesheet" type="text/css" href="./css/jquery/mobile.css" media="(max-width: 620px)" />
     <link rel="stylesheet" type="text/css" href="./css/screen.css" />
-    <link rel="stylesheet" type="text/css" href="./css/transmission.css" media="(min-width: 481px)" />
-    <link rel="stylesheet" type="text/css" href="css/mobile.css" media="(max-width: 480px)" />
+    <link rel="stylesheet" type="text/css" href="./css/transmission.css" media="(min-width: 621px)" />
+    <link rel="stylesheet" type="text/css" href="css/mobile.css" media="(max-width: 620px)" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="icon" type="image/ico" href="favicon.ico" />
     <link rel="apple-touch-icon" href="./css/images/webclip-icon.png" />
@@ -21,7 +21,10 @@
       <header>
         <div id="flash"></div>
 
-        <div id="globalUpAndDownload"></div>
+        <div class="row">
+          <div id="logo"></div>
+          <div id="globalUpAndDownload"></div>
+        </div>
 
         <div id="filterbar">
           <div id="filter_sort_links">
@@ -157,7 +160,7 @@
       var app = document.getElementById('app');
       var install = document.getElementById('install');
 
-      if(window.innerWidth > 480 || (navigator.standalone === undefined || !!navigator.standalone)) {
+      if(window.innerWidth > 620 || (navigator.standalone === undefined || !!navigator.standalone)) {
 
         app.style.display = "block";
         install.style.display = "none";

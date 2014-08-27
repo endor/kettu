@@ -68,7 +68,7 @@ $(function() {
   kettu.app.reloadInterval = kettu.store.get('torrentReloadInterval') || kettu.config.reloadInterval || 2000;
   kettu.store.set('torrentReloadInterval', kettu.app.reloadInterval);
 
-  if($(window).width() > 480) {
+  if($(window).width() > 620) {
     kettu.app.mobile = false;
     kettu.app.run('#/torrents');
   } else {
