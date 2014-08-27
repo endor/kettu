@@ -7,7 +7,7 @@ body {
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   overflow-x: hidden;
   overflow-y: visible;
-  width: 320px;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -42,6 +42,7 @@ footer {
 .container {
   overflow-x: hidden;
   overflow-y: visible;
+  width: 100%;
 }
 
 #add_a_torrent {
@@ -83,11 +84,6 @@ footer {
   font-size: 16px;
   position: relative;
   overflow: hidden;
-  width: 320px;
-}
-
-.torrent.paused, .torrent.finished {
-  height: 45px;
 }
 
 .torrent h3 {
@@ -128,23 +124,18 @@ footer {
 }
 
 .buttons {
-  float: right;
-  margin-right: 15px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }
 
 .buttons form {
   display: inline;
 }
 
-
 .torrent .statusString {
-  clear: both;
   color: #999;
-  border: 0px;
-  padding: 0px;
-  margin: 0px;
-  margin-bottom: 3px;
-  margin-top: -8px;
+  font-size: 14px;
 }
 
 .torrent .statusString.error {
@@ -162,27 +153,40 @@ footer {
   color: #555;
 }
 
-.compact .progressbar {
-  width: 300px;
-  position: absolute;
-  bottom: 3px;
+.torrent h3 {
+  font-size: 18px;
+  width: 100%;
 }
 
-.compact .name {
-  float: left;
-  width: 220px;
-  height: 21px;
+.torrent .progress {
+  clear: both;
+  width: 87%;
+}
+
+.torrent .name {
   overflow: hidden;
-  margin-bottom: 0;
+  margin-bottom: 4px;
 }
 
 #mobile-header {
   height: 45px;
+  width: auto;
 }
 
 #mobile-header h1 {
   font-size: 20px;
-  margin-left: 60px;
+  margin: 0.5em 0 0 20%;
+}
+
+#mobile-header h1:before {
+  content: " ";
+  display: block;
+  background: url(images/logo.png) 0 0 no-repeat;
+  background-size: 100%;
+  float: left;
+  height: 2.8rem;
+  margin: -0.5em 0.5em 0;
+  width: 3rem;
 }
 
 #mobile-header .back {
@@ -195,12 +199,13 @@ footer {
 #mobile-header .gear {
   position: absolute;
   top: 0.7em;
-  right: 3em;
+  right: 0.7em;
 }
 
 .pauseAndActivateButton .ui-btn-up-c {
   font-size: 12px;
   padding: 5px;
+  margin-top: 18px;
 }
 
 .buttons .torrent_delete_form input {
@@ -263,7 +268,7 @@ footer {
 
 #torrents li {
   display: block;
-  padding: 6px 30px;
+  padding: 10px 30px 6px;
   border-bottom: solid 1px #DDD;
 }
 #torrents li.compact {

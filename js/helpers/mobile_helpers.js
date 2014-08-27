@@ -58,12 +58,12 @@
           $('#gear_menu').hide();
         });
 
-        $('.pauseAndActivateButton').live('click', function(event) {
+        $(document).on('click', '.pauseAndActivateButton', function(event) {
           stopEvent(event);
           $(this).parents('form:first').submit();
         });
 
-        $('.torrent').live('click', function(event) {
+        $(document).on('click', '.torrent', function(event) {
           stopEvent(event);
           deactivateLinks();
           y = $(this).position().top;
@@ -72,7 +72,7 @@
           scrollTop(0);
         });
 
-        $('.torrent').live('swipeleft', function(event) {
+        $(document).on('swipeleft', '.torrent', function(event) {
           stopEvent(event);
 
           var torrent = $(this);

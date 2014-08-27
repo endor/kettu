@@ -73,7 +73,7 @@ $(function() {
     kettu.app.run('#/torrents');
   } else {
     kettu.app.mobile = true;
-    kettu.app.run('#/torrents?view=compact');
+    kettu.app.run('#/torrents');
   }
 
   kettu.app.trigger('init');

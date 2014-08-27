@@ -49,7 +49,7 @@ kettu.TorrentsView = function(torrent, context) {
   view.cachePartial = context.cachePartial;
 
   if(kettu.app.mobile) {
-    view.name = context.shorten(view.name, 20);
+    view.name = context.shorten(view.name, 27);
   }
 
   return view;

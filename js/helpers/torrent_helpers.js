@@ -153,11 +153,9 @@
         if(torrent.statusWord() === 'paused' || torrent.statusWord() === 'finished') {
           old_torrent.find('input.pauseAndActivateButton').val('Resume');
           old_torrent.find('input[name="method"]').val('torrent-start');
-          old_torrent.find('.statusString').hide();
         } else {
           old_torrent.find('input.pauseAndActivateButton').val('Pause');
           old_torrent.find('input[name="method"]').val('torrent-stop');
-          old_torrent.find('.statusString').show();
         }
       }
     },
