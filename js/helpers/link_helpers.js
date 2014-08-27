@@ -12,7 +12,7 @@ kettu.LinkHelpers = {
   activateInspectorLink: function() {
     var context = this;
 
-    $('.inspector').live('click', function() {
+    $(document).on('click', '.inspector', function() {
       if(context.infoIsOpen() && (window.location.hash.match(/\/torrents\/\d+/) ||
           window.location.hash.match(/\/torrent_details/))) {
         context.closeInfo();
