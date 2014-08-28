@@ -58,8 +58,13 @@ footer {
   display: none;
 }
 
-#globalUpAndDownload {
-  display: none;
+.globalUpAndDownload {
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+  text-align: center;
+  font-size: 12px;
+  font-weight: normal;
 }
 
 .torrent:nth-child(odd) {
@@ -70,7 +75,7 @@ footer {
   background-color: #FAFAFA;
 }
 
-.torrent {
+#torrents li.torrent {
   height: 67px;
   -webkit-transition-property: background;
   -webkit-transition-duration: 0.4s, 0.1s;
@@ -84,10 +89,11 @@ footer {
   font-size: 16px;
   position: relative;
   overflow: hidden;
+  padding: 10px 15px 0;
 }
 
 .torrent h3 {
-  font-size: 30px;
+  font-size: 16px;
 }
 
 .torrent.active {
@@ -153,11 +159,6 @@ footer {
   color: #555;
 }
 
-.torrent h3 {
-  font-size: 18px;
-  width: 100%;
-}
-
 .torrent .progress {
   clear: both;
   width: 87%;
@@ -168,14 +169,26 @@ footer {
   margin-bottom: 4px;
 }
 
+#mobile-footer {
+  height: 45px;
+  width: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
 #mobile-header {
   height: 45px;
   width: auto;
 }
 
 #mobile-header h1 {
-  font-size: 20px;
-  margin: 0.5em 0 0 20%;
+  font-size: 16px;
+  margin: 0.9em 0 0 19%;
 }
 
 #mobile-header h1:before {
@@ -185,7 +198,7 @@ footer {
   background-size: 100%;
   float: left;
   height: 2.8rem;
-  margin: -0.5em 0.5em 0;
+  margin: -0.9em 0.5em 0;
   width: 3rem;
 }
 
@@ -202,10 +215,24 @@ footer {
   right: 0.7em;
 }
 
-.pauseAndActivateButton .ui-btn-up-c {
-  font-size: 12px;
-  padding: 5px;
-  margin-top: 18px;
+.buttons .pauseAndActivateButton {
+  display: block;
+  color: transparent;
+  background-color: transparent;
+  border: 0;
+  width: 24px;
+  height: 24px;
+  margin: 22px 5px 0 0;
+}
+
+.pauseAndActivateButton.paused, .pauseAndActivateButton.finished {
+  background: transparent url(images/control_play_mobile.png) no-repeat 0 0;
+  background-size: 100%;
+}
+
+.pauseAndActivateButton.downloading, .pauseAndActivateButton.seeding {
+  background: transparent url(images/control_pause_mobile.png) no-repeat 0 0;
+  background-size: 100%;
 }
 
 .buttons .torrent_delete_form input {
@@ -229,13 +256,6 @@ footer {
   padding: 10px;
 }
 
-
-
-
-
-
-
-
 #filterbar {
   display: none;
 }
@@ -244,6 +264,7 @@ footer {
   width: 100% !important;
   padding: 0px;
   margin-top: 60px;
+  margin-bottom: 58px;
 }
 
 .main {

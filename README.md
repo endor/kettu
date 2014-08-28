@@ -12,7 +12,6 @@ kettu osaa monta asiaa.
 * lenalena for introducing proper jspec testing to this project.
 * kastigar for adding predefined locations.
 * viveksjain and Shadow6363 for keyboard shortcuts and how numbers are displayed.
-* currency.io for their easy way of adding the app to the homescreen.
 
 ## Screenshot
 ![Screenshot](screenshot-1.png)

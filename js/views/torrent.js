@@ -230,7 +230,7 @@ kettu.TorrentView = function(torrent, context, sort_peers) {
   view.isMobile = kettu.app.mobile;
 
   if(kettu.app.mobile) {
-    view.name = context.shorten(view.name, 27);
+    view.name = context.shorten(view.name, 17);
     view.comment = context.shorten(view.comment, 33);
   }
 

@@ -23,7 +23,7 @@
 
         <div class="row">
           <div id="logo"></div>
-          <div id="globalUpAndDownload"></div>
+          <div class="globalUpAndDownload"></div>
         </div>
 
         <div id="filterbar">
@@ -98,6 +98,10 @@
           </ul>
         </div>
 
+        <div id="mobile-footer" class="ui-footer ui-footer-fixed ui-bar ui-bar-c">
+          <div class="globalUpAndDownload"></div>
+        </div>
+
         <div id="gear_menu" style="display: none">
           <div data-role="content" data-theme="c" class="ui-overlay-shadow ui-corner-bottom ui-content ui-body-c">
             <a href="#/torrents/new" class="add_a_torrent ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow" data-role="button" data-theme="c">
@@ -142,82 +146,55 @@
       </footer>
     </div>
 
-    <div id="install">
-      <header>&nbsp;</header>
-
-      <h1>kettu</h1>
-      <h2>A web interface to the transmission bittorrent client.</h2>
-
-      <div id="install-wrapper">
-        <p>Tap the <em id="add-button"></em> (or <em>+</em>) button<br>
-          and choose <em>Add to Home Screen</em>.</p>
-      </div>
-    </div>
-
     <script type="text/javascript" src="vendor/lab/lab.js"></script>
     <script type="text/javascript">
 
-      var app = document.getElementById('app');
-      var install = document.getElementById('install');
+      window.kettu = {};
 
-      if(window.innerWidth > 620 || (navigator.standalone === undefined || !!navigator.standalone)) {
-
-        app.style.display = "block";
-        install.style.display = "none";
-
-        window.kettu = {};
-
-        $LAB
-          .script('vendor/underscore/underscore.js')
-          .script('vendor/jquery/jquery.js').wait()
-          .script('vendor/jquery/jquery.ui.js')
-          .script('vendor/jquery/jquery.form.js')
-          .script('vendor/jquery/jquery.contextmenu.js')
-          .script('vendor/jquery/facebox.js')
-          .script('vendor/mustache/mustache.js')
-          .script('vendor/sammy/sammy.js').wait()
-          .script('vendor/sammy/sammy.json.js')
-          .script('vendor/sammy/sammy.storage.js')
-          .script('vendor/sammy/sammy.mustache.js')
-          .script('js/rpc.js').wait()
-          .script('js/controllers/settings.js')
-          .script('js/controllers/statistics.js')
-          .script('js/controllers/torrents.js')
-          .script('js/controllers/torrent_details.js')
-          .script('js/controllers/blocklist.js')
-          .script('js/models/torrent.js')
-          .script('js/models/validator.js')
-          .script('js/models/settings_validator.js')
-          .script('js/views/statistics.js')
-          .script('js/views/torrent.js')
-          .script('js/views/torrents.js')
-          .script('js/views/torrent_details.js')
-          .script('js/helpers/application_helpers.js')
-          .script('js/helpers/mobile_helpers.js')
-          .script('js/helpers/location_helpers.js')
-          .script('js/helpers/context_menu_helpers.js')
-          .script('js/helpers/filter_torrents_helpers.js')
-          .script('js/helpers/info_helpers.js')
-          .script('js/helpers/link_helpers.js')
-          .script('js/helpers/math_helpers.js')
-          .script('js/helpers/search_helpers.js')
-          .script('js/helpers/setting_helpers.js')
-          .script('js/helpers/shortcut_helpers.js')
-          .script('js/helpers/sort_torrents_helpers.js')
-          .script('js/helpers/torrent_helpers.js')
-          .script('js/helpers/torrent_details_helpers.js')
-          .script('js/helpers/view_helpers.js')
-          .script('config/config.js').wait()
-          .script('config/locations.js').wait()
-          .script('config/store.js').wait()
-          .script('js/app.js');
-
-      } else {
-
-        app.style.display = "none";
-        install.style.display = "block";
-
-      }
+      $LAB
+        .script('vendor/underscore/underscore.js')
+        .script('vendor/jquery/jquery.js').wait()
+        .script('vendor/jquery/jquery.ui.js')
+        .script('vendor/jquery/jquery.form.js')
+        .script('vendor/jquery/jquery.contextmenu.js')
+        .script('vendor/jquery/facebox.js')
+        .script('vendor/mustache/mustache.js')
+        .script('vendor/sammy/sammy.js').wait()
+        .script('vendor/sammy/sammy.json.js')
+        .script('vendor/sammy/sammy.storage.js')
+        .script('vendor/sammy/sammy.mustache.js')
+        .script('js/rpc.js').wait()
+        .script('js/controllers/settings.js')
+        .script('js/controllers/statistics.js')
+        .script('js/controllers/torrents.js')
+        .script('js/controllers/torrent_details.js')
+        .script('js/controllers/blocklist.js')
+        .script('js/models/torrent.js')
+        .script('js/models/validator.js')
+        .script('js/models/settings_validator.js')
+        .script('js/views/statistics.js')
+        .script('js/views/torrent.js')
+        .script('js/views/torrents.js')
+        .script('js/views/torrent_details.js')
+        .script('js/helpers/application_helpers.js')
+        .script('js/helpers/mobile_helpers.js')
+        .script('js/helpers/location_helpers.js')
+        .script('js/helpers/context_menu_helpers.js')
+        .script('js/helpers/filter_torrents_helpers.js')
+        .script('js/helpers/info_helpers.js')
+        .script('js/helpers/link_helpers.js')
+        .script('js/helpers/math_helpers.js')
+        .script('js/helpers/search_helpers.js')
+        .script('js/helpers/setting_helpers.js')
+        .script('js/helpers/shortcut_helpers.js')
+        .script('js/helpers/sort_torrents_helpers.js')
+        .script('js/helpers/torrent_helpers.js')
+        .script('js/helpers/torrent_details_helpers.js')
+        .script('js/helpers/view_helpers.js')
+        .script('config/config.js').wait()
+        .script('config/locations.js').wait()
+        .script('config/store.js').wait()
+        .script('js/app.js');
 
     </script>
 

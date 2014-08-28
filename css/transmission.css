@@ -53,7 +53,7 @@ header #logo {
   background-position-x: -20px;
 }
 
-header #globalUpAndDownload {
+header .globalUpAndDownload {
   display: inline-block;
   width: 48%;
   vertical-align: top;
@@ -843,7 +843,6 @@ nav ul.icon_nav li a:hover {
 #mobile-header, #mobile-footer, .ui-loader {
   display: none;
 }
-
 
 #update_torrent .files {
   list-style-type: none;

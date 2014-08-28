@@ -221,7 +221,7 @@
     updateViewElements: function(torrents, rerender, settings) {
       this.updateTorrents(torrents, rerender);
       this.updateSpeedLimitMode(settings['alt-speed-enabled'], this);
-      $('#globalUpAndDownload').html(this.globalUpAndDownload(torrents));
+      $('.globalUpAndDownload').html(this.globalUpAndDownload(torrents));
     },
 
     cachePartials: function() {
