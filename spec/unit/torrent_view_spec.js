@@ -218,4 +218,57 @@ describe("TorrentView", function() {
       expect(torrent_view.comment).to.equal('1234567890');
     });
   });
+
+  describe("configured locations", function() {
+    var originalLocations;
+
+    describe("locations are configured", function() {
+      beforeEach(function() {
+        originalLocations = kettu.config.locations;
+        kettu.config.locations = [
+          {name: "ABC", path: "/Users/endor/ABC"},
+          {name: "DEF", path: "/Users/endor/DEF"}
+        ];
+      });
+
+      afterEach(function() {
+        kettu.config.locations = originalLocations;
+      });
+
+      it("shows locations", function() {
+        torrent_view = kettu.TorrentView({
+          trackerStats: [], files: [], name: 'abc',
+          peers: [], fileStats: [], comment: ''
+        }, ctx);
+        expect(torrent_view.showLocations).to.be(true);
+      });
+
+      it("collects the locations from the configuration and adds a default location", function() {
+        kettu.app.settings['download-dir'] = "/Users/endor/XYZ";
+
+        torrent_view = kettu.TorrentView({
+          trackerStats: [], files: [], name: 'abc',
+          peers: [], fileStats: [], comment: ''
+        }, ctx);
+        expect(torrent_view.locations).to.eql([
+          {name: "Default", path: "/Users/endor/XYZ"},
+          {name: "ABC", path: "/Users/endor/ABC"},
+          {name: "DEF", path: "/Users/endor/DEF"}
+        ]);
+      });
+    });
+
+    describe("locations are not configured", function() {
+      it("does not show locations", function() {
+        originalLocations = kettu.config.locations;
+        delete kettu.config.locations;
+        torrent_view = kettu.TorrentView({
+          trackerStats: [], files: [], name: 'abc',
+          peers: [], fileStats: [], comment: ''
+        }, ctx);
+        expect(torrent_view.showLocations).to.be(false);
+        kettu.config.locations = originalLocations;
+      });
+    });
+  });
 });
