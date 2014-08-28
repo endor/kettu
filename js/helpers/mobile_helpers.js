@@ -34,28 +34,10 @@
         var context = this;
         var y = 0;
 
-        $('#mobile-header .gear').click(function(event) {
+        $('#mobile-footer .links .settings, #mobile-footer .links .add_a_torrent').click(function(event) {
           stopEvent(event);
-          $('#gear_menu').slideDown('slow');
-        });
-
-        $('#gear_menu .cancel').click(function(event) {
-          stopEvent(event);
-          deactivateLinks();
-          $('#gear_menu').slideUp('slow');
-        });
-
-        $('#gear_menu .settings, #gear_menu .add_a_torrent').click(function(event) {
-          stopEvent(event);
-          deactivateLinks();
-          $('#gear_menu').hide();
           context.redirect($(this).attr('href'));
           showBackButton(context, y);
-        });
-
-        $('#gear_menu .start_all, #gear_menu .stop_all').click(function() {
-          deactivateLinks();
-          $('#gear_menu').hide();
         });
 
         $(document).on('click', '.pauseAndActivateButton', function(event) {

@@ -129,13 +129,22 @@
     },
 
     globalUpAndDownload: function(torrents) {
-      var uploadRate = 0.0, downloadRate = 0.0;
+      var uploadRate = 0.0,
+        downloadRate = 0.0,
+        globalUpAndDownload;
+
       _.each(torrents, function(torrent) {
         uploadRate += torrent.rateUpload;
         downloadRate += torrent.rateDownload;
       });
 
-      return kettu.Torrent({}).downAndUploadRateString(downloadRate, uploadRate);
+      globalUpAndDownload = kettu.Torrent({}).downAndUploadRateString(downloadRate, uploadRate);
+
+      if (kettu.app.mobile) {
+        globalUpAndDownload = globalUpAndDownload.replace(', ', '<br />');
+      }
+
+      return globalUpAndDownload;
     },
 
     makeNewTorrent: function(torrent) {
