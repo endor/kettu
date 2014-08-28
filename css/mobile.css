@@ -90,6 +90,7 @@ footer {
   position: relative;
   overflow: hidden;
   padding: 10px 15px 0;
+  cursor: pointer;
 }
 
 .torrent h3 {
@@ -202,17 +203,23 @@ footer {
   width: 3rem;
 }
 
+#mobile-header a {
+  position: absolute;
+  top: 1.1em;
+  text-decoration: none;
+  color: #666666;
+  font-weight: normal;
+}
+
 #mobile-header .back {
   display: none;
   position: absolute;
-  top: 0.7em;
-  left: 0.7em;
+  left: 1em;
 }
 
 #mobile-header .gear {
   position: absolute;
-  top: 0.7em;
-  right: 0.7em;
+  right: 1em;
 }
 
 .buttons .pauseAndActivateButton {
@@ -490,7 +497,7 @@ footer {
 }
 
 #info .menu li a {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 2em;
   padding: 1.2em;
   text-shadow: 1px 1px 1px #FFF;
@@ -524,6 +531,10 @@ footer {
 
 #info .files {
   margin-left: 5px;
+}
+
+#info h3 {
+  width: 80%;
 }
 
 .files_in_folders {
