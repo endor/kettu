@@ -173,11 +173,13 @@ footer {
   border-right-width: 0;
   font-size: 12px;
   font-weight: normal;
+  padding-left: 10px;
+  padding-right: 2px;
 }
 
 #mobile-footer .globalUpAndDownload {
   display: inline-block;
-  width: 50%;
+  width: 28%;
   text-align: right;
   vertical-align: middle;
   padding: 4px 0 0 0;
@@ -185,7 +187,7 @@ footer {
 
 #mobile-footer .links {
   display: inline-block;
-  width: 48%;
+  width: 67%;
   vertical-align: middle;
   margin: 0;
   padding: 4px 0 0 0;
@@ -220,6 +222,16 @@ footer {
 
 #mobile-footer .links li .add_a_torrent {
   background: transparent url(images/add_torrent_mobile.png) no-repeat 0 0;
+  background-size: 100%;
+}
+
+#mobile-footer .links li .statistics {
+  background: transparent url(images/statistics_mobile.png) no-repeat 0 0;
+  background-size: 100%;
+}
+
+#mobile-footer .links li .speed_limit_mode {
+  background: transparent url(images/speed_mobile.png) no-repeat 0 0;
   background-size: 100%;
 }
 

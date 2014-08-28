@@ -34,7 +34,8 @@
         var context = this;
         var y = 0;
 
-        $('#mobile-footer .links .settings, #mobile-footer .links .add_a_torrent').click(function(event) {
+        $('#mobile-footer .links .settings, #mobile-footer .links .add_a_torrent, ' +
+          '#mobile-footer .links .statistics').click(function(event) {
           stopEvent(event);
           context.redirect($(this).attr('href'));
           showBackButton(context, y);

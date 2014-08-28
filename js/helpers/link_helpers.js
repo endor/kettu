@@ -36,7 +36,7 @@ kettu.LinkHelpers = {
   },
 
   activateSpeedLimitModeLink: function() {
-    $('#speed_limit_mode').click(function() {
+    $('.speed_limit_mode').click(function() {
       var form = $('#speed_limit_mode_form'),
         link = $(this), title;
       form.trigger('submit');

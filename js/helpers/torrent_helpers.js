@@ -217,10 +217,10 @@
 
       var form = $('#speed_limit_mode_form');
       if(speed_limit_mode_enabled) {
-        $('#speed_limit_mode').addClass('active').text('Disable Speed Limit Mode');
+        $('.speed_limit_mode').addClass('active').text('Disable Speed Limit Mode');
         form.find('input:first').attr('value', 'false');
       } else {
-        $('#speed_limit_mode').removeClass('active').text('Enable Speed Limit Mode');
+        $('.speed_limit_mode').removeClass('active').text('Enable Speed Limit Mode');
         form.find('input:first').attr('value', 'true');
       }
 
