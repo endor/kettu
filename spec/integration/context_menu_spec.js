@@ -10,8 +10,8 @@ describe('context menu', function() {
           var data = JSON.parse(window.lastRequest.data);
           expect(data.method).to.eql('torrent-reannounce');
           done();
-        }, 50);
-      }, 50);
+        }, 100);
+      }, 100);
     });
   });
 });

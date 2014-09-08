@@ -57,11 +57,11 @@ kettu.LinkHelpers = {
     var context = this, redirect_path = '';
 
     if(this.store.get('view_mode') === 'compact') {
-      $('#compact_view').addClass('active');
-      $('#compact_view').text('Disable Compact View');
+      $('.compact_view').addClass('active');
+      $('.compact_view').text('Disable Compact View');
     }
 
-    $('#compact_view').click(function() {
+    $('.compact_view').click(function() {
       if($(this).hasClass('active')) {
         $(this).removeClass('active');
         $(this).text('Enable Compact View');

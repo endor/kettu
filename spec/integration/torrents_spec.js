@@ -31,10 +31,10 @@ describe('torrents', function() {
 
     kettu.helpers.waitForReload(function() {
       expect($torrents.find('.progressDetails')).to.have.length(1);
-      $('#compact_view').click();
+      $('.compact_view').click();
       setTimeout(function() {
         expect($torrents.find('.progressDetails')).to.have.length(0);
-        $('#compact_view').click();
+        $('.compact_view').click();
         setTimeout(function() {
           expect($torrents.find('.progressDetails')).to.have.length(1);
           done();

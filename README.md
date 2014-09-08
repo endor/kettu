@@ -13,8 +13,11 @@ kettu osaa monta asiaa.
 * kastigar for adding predefined locations.
 * viveksjain and Shadow6363 for keyboard shortcuts and how numbers are displayed.
 
-## Screenshot
-![Screenshot](screenshot-1.png)
+## Screenshots
+### Desktop
+![Screenshot Desktop](screenshot-1.png)
+### Mobile
+![Screenshot Mobile](screenshot-2.png)
 
 ## Installation
 You can use kettu instead of the original web client to remotely administrate your transmission application.

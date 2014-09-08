@@ -166,14 +166,10 @@
       var currentStatus = torrent.statusStringLocalized(torrent.status);
       if(torrent.isActive() && !torrent.needsMetaData()) {
         currentStatus += ' - ';
-        if(kettu.app.mobile) {
-          currentStatus += torrent.etaString();
+        if(torrent.isDoneDownloading()) {
+          currentStatus += torrent.uploadRateString(torrent.rateUpload);
         } else {
-          if(torrent.isDoneDownloading()) {
-            currentStatus += torrent.uploadRateString(torrent.rateUpload);
-          } else {
-            currentStatus += torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
-          }
+          currentStatus += torrent.downAndUploadRateString(torrent.rateDownload, torrent.rateUpload);
         }
       } else if (torrent.isFinished()) {
         currentStatus = 'Finished';
