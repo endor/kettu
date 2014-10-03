@@ -125,6 +125,10 @@ footer {
   background: #555;
 }
 
+.compact .buttons {
+  top: 11px;
+}
+
 .buttons {
   position: absolute;
   right: 5px;
@@ -318,8 +322,32 @@ footer {
   background-size: 100%;
 }
 
-.buttons .torrent_delete_form input {
-  color: #8a1f11;
+.torrent_delete_container {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(228, 0, 0, 1);
+  width: 54px;
+}
+
+.compact .torrent_delete_container input {
+  margin-top: 12px;
+}
+
+.torrent_delete_container input {
+  background: transparent url(images/control_delete_mobile.png) no-repeat 0 0;
+  background-size: 100%;
+  margin-top: 28px;
+  margin-left: 16px;
+  display: block;
+  color: transparent;
+  background-color: transparent;
+  border: 0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
 #filterbar {
@@ -617,7 +645,11 @@ footer {
 .ui-progressbar {
   margin: 6px 4px 4px 0;
   height: 4px;
-  width: 90%;
+  width: 95%;
+}
+
+.compact .ui-progressbar {
+  width: 80%;
 }
 
 #data {

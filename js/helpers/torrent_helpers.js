@@ -153,6 +153,10 @@
       $('#torrents').append(rendered_view);
       this.updateInfo(torrent);
       rendered_view = null;
+
+      if(kettu.app.mobile) {
+          this.activateSwipe($('#torrents .torrent').last());
+      }
     },
 
     updateStatus: function(old_torrent, torrent) {

@@ -1,0 +1,8 @@
+{{#isMobile}}
+  <div class="torrent_delete_container">
+    <form method="DELETE" action="#/torrents" class="torrent_delete_form">
+      <input type="hidden" name="ids" class="ids" value="{{id}}" />
+      <input type="submit" value="Delete" />
+    </form>
+  </div>
+{{/isMobile}}

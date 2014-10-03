@@ -2,10 +2,3 @@
   <input type="hidden" name="method" value="{{method}}"/>
   <input type="submit" value="{{button}}" class="pauseAndActivateButton {{css_class}}" />
 </form>
-
-{{#isMobile}}
-  <form method="DELETE" action="#/torrents" class="torrent_delete_form" style="display: none;">
-    <input type="hidden" name="ids" class="ids" value="{{id}}" />
-    <input type="submit" value="Delete" class="{{css_class}} ui-btn-left ui-btn-icon-left ui-btn-corner-all ui-btn-down-c ui-btn-up-c" />
-  </form>
-{{/isMobile}}

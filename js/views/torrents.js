@@ -14,6 +14,15 @@ kettu.TorrentsView = function(torrent, context) {
     });
   };
 
+  view.deleteForm = function() {
+    var torrent = kettu.Torrent(view);
+    this.cachePartial('templates/torrents/delete_form.mustache', 'delete_form', context);
+    return context.mustache(context.cache('delete_form'), {
+      'id': torrent.id,
+      'isMobile': !!kettu.app.mobile
+    });
+  };
+
   view.firstTracker = function() {
     if(view.trackerStats && view.trackerStats[0]) {
       return view.trackerStats[0].host;

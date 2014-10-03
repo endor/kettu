@@ -29,6 +29,41 @@
   };
 
   kettu.MobileHelpers = {
+    activateSwipe: function($torrent) {
+      $torrent = $torrent || $('.torrent');
+
+      $torrent.swipe({
+        swipeLeft: function(event) {
+          stopEvent(event);
+
+          var torrent = $(this);
+
+          torrent.find('.pauseAndActivateButtonForm').hide();
+          torrent.find('.torrent_delete_container').
+            show().
+            find('[type="submit"]').click(function(event) {
+              stopEvent(event);
+              $(this).parents('form:first').submit();
+            });
+
+          $(document).one('click', function(event) {
+            stopEvent(event);
+            torrent.find('.pauseAndActivateButtonForm').show();
+            torrent.find('.torrent_delete_container').hide();
+          });
+        },
+
+        swipeRight: function(event) {
+          stopEvent(event);
+
+          var torrent = $(this);
+
+          torrent.find('.pauseAndActivateButtonForm').show();
+          torrent.find('.torrent_delete_container').hide();
+        }
+      });
+    },
+
     activateMobileButtons: function() {
       if(kettu.app.mobile) {
         var context = this;
@@ -55,25 +90,7 @@
           scrollTop(0);
         });
 
-        $(document).on('swipeleft', '.torrent', function(event) {
-          stopEvent(event);
-
-          var torrent = $(this);
-
-          torrent.find('.pauseAndActivateButtonForm').hide();
-          torrent.find('.torrent_delete_form').
-            show().
-            find('[type="submit"]').tap(function(event) {
-              stopEvent(event);
-              $(this).parents('form:first').submit();
-            });
-
-          $(document).one('tap', function(event) {
-            stopEvent(event);
-            torrent.find('.pauseAndActivateButtonForm').show();
-            torrent.find('.torrent_delete_form').hide();
-          });
-        });
+        this.activateSwipe();
       }
     }
   };
