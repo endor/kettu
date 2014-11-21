@@ -254,8 +254,15 @@ footer {
 }
 
 #mobile-footer .links li .speed_limit_mode {
-  background: transparent url(images/speed_mobile.png) no-repeat 0 0;
-  background-size: 100%;
+  background: transparent url('images/speed_mobile.png') no-repeat -34px -42px;
+  width: 32px;
+  height: 32px;
+}
+
+#mobile-footer .links li .speed_limit_mode.active {
+  background: transparent url('images/speed_mobile.png') no-repeat -34px -3px !important;
+  width: 32px !important;
+  height: 32px !important;
 }
 
 #mobile-footer .links li .compact_view {
