@@ -3,7 +3,7 @@
   Sammy.TransmissionRPC = function(app) {
 
     var rpc = {
-      url: '/transmission/rpc',
+      url: '../rpc',
       session_id: ''
     };
 
