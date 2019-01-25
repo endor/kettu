@@ -32,10 +32,17 @@ kettu.Settings = function(transmission) {
   });
 
   transmission.bind('get-settings', function() {
-    var request = { method: 'session-get', arguments: {} };
-    this.remoteQuery(request, function(new_settings) {
+    var context = this;
+
+    var getSession = { method: 'session-get', arguments: {} };
+    context.remoteQuery(getSession, function(new_settings) {
       kettu.app.settings = new_settings;
-      kettu.app.trigger('refreshed-settings');
+
+      var getPortOpen = { method: 'port-test', arguments: {} };
+      context.remoteQuery(getPortOpen, function(port_open) {
+        kettu.app.settings.portIsOpen = port_open;
+        kettu.app.trigger('refreshed-settings');
+      });
     });
   });
 

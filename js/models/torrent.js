@@ -243,7 +243,7 @@
   kettu.Torrent.infoFields = [
     'downloadDir', 'creator', 'hashString', 'comment', 'isPrivate', 'downloadedEver',
     'errorString', 'peersGettingFromUs', 'peersSendingToUs', 'files', 'pieceCount',
-    'pieceSize', 'peers', 'fileStats', 'peer-limit', 'downloadLimited',
+    'pieceSize', 'peers', 'fileStats', 'peer-limit', 'downloadLimited', 'peersFrom',
     'uploadLimit', 'uploadLimited', 'downloadLimit', 'corruptEver'
   ];
 })();

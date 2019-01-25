@@ -722,6 +722,10 @@ nav ul.icon_nav li a:hover {
   text-transform: capitalize;
 }
 
+#info .peers-from th {
+  padding: 4px;
+}
+
 .files_in_folders {
   display: none;
   margin-left: 10px;

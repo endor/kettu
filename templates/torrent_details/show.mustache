@@ -135,6 +135,31 @@
 
 <div class="item peers">
   <hr />
+  <h4>Peers from</h4>
+  <table class="peers-from">
+      <tr>
+        <th>Cache</th>
+        <th>DHT</th>
+        <th>Incoming</th>
+        <th>LPD</th>
+        <th>LTEP</th>
+        <th>PEX</th>
+        <th>Tracker</th>
+      </tr>
+      {{#peersFrom}}
+      <tr>
+        <td>{{fromCache}}</td>
+        <td>{{fromDht}}</td>
+        <td>{{fromIncoming}}</td>
+        <td>{{fromLpd}}</td>
+        <td>{{fromLtep}}</td>
+        <td>{{fromPex}}</td>
+        <td>{{fromTracker}}</td>
+      </tr>
+      {{/peersFrom}}
+  </table>
+
+  <h4>Peers</h4>
   <table class="peers">
     <tr>
       <th>IP Address</th>

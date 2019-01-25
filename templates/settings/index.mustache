@@ -260,5 +260,20 @@
 </div>
 
 <div id="version">
-  Transmission Version: {{version}}
+  Transmission version: {{version}}.
+</div>
+
+<div id="port-is-open">
+  Post is:
+  {{#portIsOpen}}
+    open.
+  {{/portIsOpen}}
+  {{^portIsOpen}}
+    closed.
+    <div class="hint">
+      If you aren't sure why it's closed, check out:
+      <a href="https://github.com/transmission/transmission/wiki/Why-is-my-port-closed%3F">the Transmission wiki</a>
+      .
+    </div>
+  {{/portIsOpen}}
 </div>
